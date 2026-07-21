@@ -1,0 +1,129 @@
+========================================================================
+CUSTOMER CHURN PREDICTION — FINAL SUMMARY REPORT
+Türkiye Yapay Zeka Akademisi · Makine Öğrenmesi Final Ödevi
+========================================================================
+
+1. PROBLEM TYPE
+------------------------------------------------------------------------
+Binary classification (ikili sınıflandırma). Target: Churn Value (0 = No Churn, 1 = Churn).
+
+2. DATASET DIMENSIONS
+------------------------------------------------------------------------
+Raw dataset      : 7043 rows x 33 columns
+Cleaned dataset  : 7043 rows x 25 columns
+Train / Val / Test sizes: 4225 / 1409 / 1409 (approx. 60% / 20% / 20%, stratified, random_state=42)
+
+3. TARGET DISTRIBUTION
+------------------------------------------------------------------------
+  0 (No Churn): 5174 (73.46%)
+  1 (Churn): 1869 (26.54%)
+
+4. PREPROCESSING SUMMARY
+------------------------------------------------------------------------
+- Leakage columns removed: Churn Label, Churn Score, Churn Reason
+- Identifiers and location fields removed (CustomerID, City, Zip Code, Lat/Long, ...)
+- Missing values handled inside sklearn Pipeline (fit on training data only):
+    * Numeric     : median imputation + StandardScaler
+    * Categorical : most-frequent imputation + OneHotEncoder(handle_unknown='ignore')
+- Outliers (IQR analysis on Tenure Months, Monthly Charges, Total Charges, Average Monthly Spend) are RETAINED because they may represent valid customer behaviour. No automatic row deletion is applied.
+  Outlier summary:
+    * Tenure Months: 0 outliers (0.00%)
+    * Monthly Charges: 0 outliers (0.00%)
+    * Total Charges: 0 outliers (0.00%)
+    * Average Monthly Spend: 0 outliers (0.00%)
+
+5. ENGINEERED FEATURES
+------------------------------------------------------------------------
+  - Average Monthly Spend = Total Charges / Tenure Months
+    (fallback: Monthly Charges when tenure is 0)
+  - Is Long Term Customer = 1 if Tenure Months >= 24
+  - Has Support Services = 1 if Tech Support or Online Security is Yes
+  - High Monthly Charge = 1 if Monthly Charges > 70.0 (fixed domain threshold; no dataset-wide statistic leakage)
+  No engineered feature uses the target variable.
+
+6. FEATURE SELECTION
+------------------------------------------------------------------------
+Method: SelectFromModel with L1-regularized LogisticRegression (penalty='l1', solver='liblinear', threshold='median').
+Placed inside the sklearn pipeline after preprocessing so that selection is fit only on training folds (no leakage).
+Selected features after encoding: 26 / 51
+Report: selected_features.csv
+
+7. CANDIDATE MODELS
+------------------------------------------------------------------------
+  - Logistic Regression
+  - Decision Tree
+  - Random Forest
+  - Gradient Boosting
+
+8. CROSS-VALIDATION RESULTS (train set only)
+------------------------------------------------------------------------
+              Model  CV ROC AUC Mean  CV ROC AUC Std  CV F1 Mean  CV F1 Std
+  Gradient Boosting           0.8611          0.0163      0.6121     0.0317
+      Random Forest           0.8587          0.0128      0.6435     0.0221
+Logistic Regression           0.8558          0.0213      0.6421     0.0238
+      Decision Tree           0.8181          0.0188      0.6066     0.0216
+
+9. SELECTED MODEL
+------------------------------------------------------------------------
+Selected model: Logistic Regression (based on validation ROC AUC and CV ROC AUC; test set untouched).
+
+10. BEST HYPERPARAMETERS
+------------------------------------------------------------------------
+{
+  "model_name": "Logistic Regression",
+  "best_score_roc_auc": 0.8560861506266836,
+  "best_params": {
+    "model__C": 2.0,
+    "model__class_weight": null,
+    "model__solver": "lbfgs"
+  },
+  "cv_folds": 5,
+  "scoring": "roc_auc",
+  "search_method": "GridSearchCV"
+}
+
+11. VALIDATION PERFORMANCE
+------------------------------------------------------------------------
+              Model  Accuracy  Precision  Recall  F1 Score  ROC AUC  Training Time  CV ROC AUC Mean  CV ROC AUC Std  CV F1 Mean  CV F1 Std
+Logistic Regression    0.7466     0.5144  0.8128    0.6301   0.8659         0.1631           0.8558          0.0213      0.6421     0.0238
+  Gradient Boosting    0.8084     0.6699  0.5481    0.6029   0.8644         0.9434           0.8611          0.0163      0.6121     0.0317
+      Random Forest    0.7935     0.5892  0.7326    0.6532   0.8639         0.4265           0.8587          0.0128      0.6435     0.0221
+      Decision Tree    0.7289     0.4936  0.8235    0.6172   0.8298         0.2485           0.8181          0.0188      0.6066     0.0216
+
+12. TEST PERFORMANCE (single final evaluation)
+------------------------------------------------------------------------
+  Accuracy    : 0.7942
+  Precision   : 0.6228
+  Recall      : 0.5695
+  F1 Score    : 0.5950
+  ROC AUC     : 0.8440
+
+13. IMPORTANT FEATURES
+------------------------------------------------------------------------
+Note: These are statistical associations, NOT causal effects.
+  Features that increase churn risk (positive coef):
+    + categorical__Contract_Month-to-month: 0.7491
+    + numeric__Total Charges: 0.5786
+    + categorical__Payment Method_Electronic check: 0.3337
+    + categorical__Internet Service_Fiber optic: 0.3246
+    + numeric__Average Monthly Spend: 0.3047
+  Features that decrease churn risk (negative coef):
+    - categorical__Dependents_Yes: -1.5207
+    - numeric__Tenure Months: -1.2998
+    - categorical__Contract_Two year: -0.7375
+    - categorical__Phone Service_Yes: -0.7061
+    - categorical__Paperless Billing_No: -0.4310
+
+14. PROJECT LIMITATIONS
+------------------------------------------------------------------------
+- The dataset may represent a single telecom context and geography; generalisation to other markets is not guaranteed.
+- Class imbalance exists; metrics such as Precision/Recall/F1 and class_weight handling should be interpreted carefully.
+- Concept drift: customer behaviour and pricing can change over time; the model should be monitored and periodically retrained.
+- Predictions are correlational associations, not causal conclusions. A high churn score does not prove why a customer leaves.
+- The default decision threshold (0.5) may not be optimal for business costs; threshold tuning against FP/FN costs is recommended.
+- False positives (unnecessary retention offers) and false negatives (missed churners) have different business costs.
+- This project is for educational / portfolio use and should not be the sole basis for automated customer decisions.
+
+========================================================================
+END OF FINAL SUMMARY
+========================================================================

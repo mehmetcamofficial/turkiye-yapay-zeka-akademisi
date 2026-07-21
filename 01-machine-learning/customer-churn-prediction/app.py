@@ -8,7 +8,7 @@ streamlit run 01-machine-learning/customer-churn-prediction/app.py
 
 from __future__ import annotations
 
-from io import BytesIO
+import json
 from pathlib import Path
 
 import joblib
@@ -26,6 +26,19 @@ BASE_DIR = Path(__file__).resolve().parent
 MODEL_PATH = BASE_DIR / "models" / "churn_model.pkl"
 TEST_METRICS_PATH = BASE_DIR / "outputs" / "test_metrics.csv"
 VALIDATION_RESULTS_PATH = BASE_DIR / "outputs" / "validation_results.csv"
+CROSS_VALIDATION_RESULTS_PATH = (
+    BASE_DIR / "outputs" / "cross_validation_results.csv"
+)
+BEST_HYPERPARAMETERS_PATH = (
+    BASE_DIR / "outputs" / "best_hyperparameters.json"
+)
+SELECTED_FEATURES_PATH = (
+    BASE_DIR / "outputs" / "selected_features.csv"
+)
+FEATURE_IMPORTANCE_PATH = (
+    BASE_DIR / "outputs" / "feature_importance.csv"
+)
+FINAL_SUMMARY_PATH = BASE_DIR / "outputs" / "final_summary.txt"
 CLASSIFICATION_REPORT_PATH = (
     BASE_DIR / "outputs" / "classification_report.txt"
 )
@@ -469,6 +482,82 @@ def load_classification_report() -> str:
     return CLASSIFICATION_REPORT_PATH.read_text(
         encoding="utf-8"
     )
+
+
+@st.cache_data
+def load_cross_validation_results() -> pd.DataFrame:
+    """Çapraz doğrulama sonuçlarını yükler."""
+
+    if not CROSS_VALIDATION_RESULTS_PATH.exists():
+        return pd.DataFrame()
+
+    return pd.read_csv(CROSS_VALIDATION_RESULTS_PATH)
+
+
+@st.cache_data
+def load_best_hyperparameters() -> dict:
+    """En iyi hiperparametreleri yükler."""
+
+    if not BEST_HYPERPARAMETERS_PATH.exists():
+        return {}
+
+    try:
+        return json.loads(
+            BEST_HYPERPARAMETERS_PATH.read_text(
+                encoding="utf-8"
+            )
+        )
+    except (
+        json.JSONDecodeError,
+        OSError,
+    ):
+        return {}
+
+
+@st.cache_data
+def load_selected_features() -> pd.DataFrame:
+    """Seçilen özellik listesini yükler."""
+
+    if not SELECTED_FEATURES_PATH.exists():
+        return pd.DataFrame()
+
+    return pd.read_csv(SELECTED_FEATURES_PATH)
+
+
+@st.cache_data
+def load_feature_importance() -> pd.DataFrame:
+    """Özellik önem / katsayı sonuçlarını yükler."""
+
+    if not FEATURE_IMPORTANCE_PATH.exists():
+        return pd.DataFrame()
+
+    return pd.read_csv(FEATURE_IMPORTANCE_PATH)
+
+
+@st.cache_data
+def load_final_summary() -> str:
+    """Final özet raporunu yükler."""
+
+    if not FINAL_SUMMARY_PATH.exists():
+        return ""
+
+    return FINAL_SUMMARY_PATH.read_text(
+        encoding="utf-8"
+    )
+
+
+def get_final_model_name() -> str:
+    """Test metriklerinden final model adını okur."""
+
+    metrics_df = load_test_metrics()
+
+    if (
+        not metrics_df.empty
+        and "Model" in metrics_df.columns
+    ):
+        return str(metrics_df.iloc[0]["Model"])
+
+    return FINAL_MODEL_NAME
 
 
 # =============================================================================
@@ -1191,7 +1280,7 @@ def overview_page() -> None:
                     font-weight:850;
                     margin-top:0.9rem;
                 ">
-                    {FINAL_MODEL_NAME}
+                    {get_final_model_name()}
                 </div>
                 <div style="
                     color:#64748b;
@@ -1199,9 +1288,11 @@ def overview_page() -> None:
                     line-height:1.65;
                     margin-top:0.6rem;
                 ">
-                    Model, doğrulama ROC AUC değerine göre seçildi.
-                    Eğitim ve doğrulama kümeleri birleştirilerek yeniden
-                    eğitildi ve bağımsız test kümesinde değerlendirildi.
+                    Model, eğitim çapraz doğrulaması ve doğrulama
+                    ROC AUC değerine göre seçildi. Hiperparametre
+                    ayarı sonrası eğitim ve doğrulama kümeleri
+                    birleştirilerek yeniden eğitildi ve bağımsız
+                    test kümesinde değerlendirildi.
                 </div>
             </div>
             """,
@@ -1559,7 +1650,7 @@ def single_prediction_page() -> None:
 
         result_columns[3].metric(
             "Kullanılan Model",
-            "Logistic Regression",
+            get_final_model_name(),
         )
 
         st.progress(
@@ -2052,19 +2143,62 @@ def batch_prediction_page() -> None:
 # MODEL PERFORMANSI
 # =============================================================================
 
+def _round_numeric_dataframe(
+    dataframe: pd.DataFrame,
+    extra_columns: list[str] | None = None,
+) -> pd.DataFrame:
+    """Sayısal sütunları güvenli şekilde yuvarlar."""
+
+    display_df = dataframe.copy()
+    preferred_columns = [
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1 Score",
+        "ROC AUC",
+        "Training Time",
+        "CV ROC AUC Mean",
+        "CV ROC AUC Std",
+        "CV F1 Mean",
+        "CV F1 Std",
+        "importance",
+        "abs_importance",
+        "mean_test_score",
+        "std_test_score",
+    ]
+
+    if extra_columns:
+        preferred_columns.extend(extra_columns)
+
+    available_numeric_columns = [
+        column
+        for column in preferred_columns
+        if column in display_df.columns
+    ]
+
+    if available_numeric_columns:
+        display_df[available_numeric_columns] = (
+            display_df[available_numeric_columns].round(4)
+        )
+
+    return display_df
+
+
 def model_performance_page() -> None:
     """Model performans sayfasını oluşturur."""
 
     render_page_header(
         title="Model Performansı",
         subtitle=(
-            "Doğrulama kümesindeki model karşılaştırmasını ve "
-            "seçilen final modelin bağımsız test kümesi sonuçlarını inceleyin."
+            "Çapraz doğrulama, doğrulama karşılaştırması, hiperparametre "
+            "sonuçları, seçilen özellikler, açıklanabilirlik ve bağımsız "
+            "test kümesi metriklerini inceleyin."
         ),
         badge="MODEL EVALUATION",
     )
 
     metrics_df = load_test_metrics()
+    final_model_name = get_final_model_name()
 
     accuracy = metric_value_from_dataframe(
         metrics_df,
@@ -2123,8 +2257,35 @@ def model_performance_page() -> None:
         f"{roc_auc:.4f}",
     )
 
+    st.caption(
+        f"Final model: {final_model_name}"
+    )
+
     st.write("")
 
+    # --- Cross-validation ---
+    st.markdown(
+        '<div class="section-title">Çapraz doğrulama sonuçları</div>',
+        unsafe_allow_html=True,
+    )
+
+    cv_df = load_cross_validation_results()
+
+    if cv_df.empty:
+        st.info(
+            "Çapraz doğrulama sonuçları bulunamadı. "
+            "train_model.py çalıştırıldığında üretilecektir."
+        )
+    else:
+        st.dataframe(
+            _round_numeric_dataframe(cv_df),
+            use_container_width=True,
+            hide_index=True,
+        )
+
+    st.write("")
+
+    # --- Validation comparison ---
     st.markdown(
         '<div class="section-title">Doğrulama modeli karşılaştırması</div>',
         unsafe_allow_html=True,
@@ -2137,28 +2298,7 @@ def model_performance_page() -> None:
             "Model karşılaştırma sonuçları bulunamadı."
         )
     else:
-        display_df = validation_df.copy()
-
-        numeric_columns = [
-            "Accuracy",
-            "Precision",
-            "Recall",
-            "F1 Score",
-            "ROC AUC",
-            "Training Time",
-        ]
-
-        available_numeric_columns = [
-            column
-            for column in numeric_columns
-            if column in display_df.columns
-        ]
-
-        display_df[
-            available_numeric_columns
-        ] = display_df[
-            available_numeric_columns
-        ].round(4)
+        display_df = _round_numeric_dataframe(validation_df)
 
         st.dataframe(
             display_df,
@@ -2194,6 +2334,86 @@ def model_performance_page() -> None:
 
     st.write("")
 
+    # --- Best hyperparameters ---
+    st.markdown(
+        '<div class="section-title">En iyi hiperparametreler</div>',
+        unsafe_allow_html=True,
+    )
+
+    best_params = load_best_hyperparameters()
+
+    if not best_params:
+        st.info(
+            "Hiperparametre sonuçları bulunamadı."
+        )
+    else:
+        st.json(best_params)
+
+    st.write("")
+
+    # --- Selected features & feature importance ---
+    feature_col_1, feature_col_2 = st.columns(2)
+
+    with feature_col_1:
+        st.markdown(
+            '<div class="section-title">Seçilen özellikler</div>',
+            unsafe_allow_html=True,
+        )
+
+        selected_df = load_selected_features()
+
+        if selected_df.empty:
+            st.info(
+                "Seçilen özellik dosyası bulunamadı."
+            )
+        else:
+            if "selected" in selected_df.columns:
+                shown_df = selected_df[
+                    selected_df["selected"] == True  # noqa: E712
+                ]
+            else:
+                shown_df = selected_df
+
+            st.dataframe(
+                shown_df,
+                use_container_width=True,
+                hide_index=True,
+            )
+
+            st.caption(
+                f"Toplam seçilen özellik: {len(shown_df)}"
+            )
+
+    with feature_col_2:
+        st.markdown(
+            '<div class="section-title">Özellik önemleri</div>',
+            unsafe_allow_html=True,
+        )
+
+        importance_df = load_feature_importance()
+
+        if importance_df.empty:
+            st.info(
+                "Özellik önem dosyası bulunamadı."
+            )
+        else:
+            st.dataframe(
+                _round_numeric_dataframe(
+                    importance_df.head(20)
+                ),
+                use_container_width=True,
+                hide_index=True,
+            )
+
+            st.caption(
+                "Pozitif katsayılar churn riskini artıran, "
+                "negatif katsayılar azaltan ilişkilere işaret eder. "
+                "Bu ilişkiler nedensellik değildir."
+            )
+
+    st.write("")
+
+    # --- Test visuals ---
     st.markdown(
         '<div class="section-title">Test görselleri</div>',
         unsafe_allow_html=True,
@@ -2246,11 +2466,36 @@ def model_performance_page() -> None:
                 language="text",
             )
 
+    final_summary = load_final_summary()
+
+    if final_summary:
+        with st.expander(
+            "Final özet ve proje sınırlamaları"
+        ):
+            st.code(
+                final_summary,
+                language="text",
+            )
+    else:
+        st.info(
+            "Final özet raporu bulunamadı."
+        )
+
     st.info(
         (
-            "Model seçimi doğrulama ROC AUC değerine göre yapılmıştır. "
-            "Final test kümesi yalnızca son değerlendirme aşamasında "
-            "kullanılmıştır."
+            "Model seçimi eğitim çapraz doğrulaması ve doğrulama "
+            "ROC AUC değerine göre yapılmıştır. Final test kümesi "
+            "yalnızca son değerlendirme aşamasında kullanılmıştır."
+        )
+    )
+
+    st.warning(
+        (
+            "Sınırlamalar: Veri seti tek bir telekom bağlamını "
+            "temsil edebilir; sınıf dengesizliği vardır; model "
+            "kavram kaymasına (concept drift) açıktır; tahminler "
+            "nedensel sonuç değildir; iş eşiği ve FP/FN maliyetleri "
+            "optimize edilmelidir."
         )
     )
 
@@ -2590,7 +2835,19 @@ def render_sidebar() -> str:
         )
 
         st.success(
-            FINAL_MODEL_NAME
+            get_final_model_name()
+        )
+
+        sidebar_metrics = load_test_metrics()
+        sidebar_roc = metric_value_from_dataframe(
+            sidebar_metrics,
+            "ROC AUC",
+            FINAL_TEST_ROC_AUC,
+        )
+        sidebar_recall = metric_value_from_dataframe(
+            sidebar_metrics,
+            "Recall",
+            FINAL_TEST_RECALL,
         )
 
         model_metric_col_1, model_metric_col_2 = (
@@ -2599,16 +2856,16 @@ def render_sidebar() -> str:
 
         model_metric_col_1.metric(
             "ROC AUC",
-            f"{FINAL_TEST_ROC_AUC:.3f}",
+            f"{sidebar_roc:.3f}",
         )
 
         model_metric_col_2.metric(
             "Recall",
-            f"{FINAL_TEST_RECALL:.3f}",
+            f"{sidebar_recall:.3f}",
         )
 
         st.caption(
-            "Branch: feature/churn-dashboard-v2"
+            "Branch: feature/ml-final-assignment-compliance"
         )
 
     return selected_page
