@@ -11,7 +11,7 @@ import streamlit as st
 from portfolio.config import DATA_SCIENCE_MIDTERM_DIR, TRENDYOL_PROFILE_DIR
 from portfolio.loaders import load_model_safe
 from portfolio.project_registry import get_project_registry
-from portfolio.ui_components import hero_panel, information_panel, metric_table
+from portfolio.ui_components import evidence_strip,page_header,information_panel,metric_table,section_heading
 
 
 @st.cache_data(show_spinner=False)
@@ -35,8 +35,10 @@ def _record(group: str, root, relative: str) -> dict:
     path = root / relative.rstrip("/")
     exists = path.exists()
     readable, digest, verified = (True, "Dizin", "—") if path.is_dir() else (_file_health(str(path), path.stat().st_mtime, path.stat().st_size) if path.is_file() else (False, "—", "—"))
-    loadable = load_model_safe(path).ok if path.suffix == ".pkl" and path.is_file() else (readable if path.is_file() else exists)
+    model_result=load_model_safe(path) if path.suffix == ".pkl" and path.is_file() else None
+    loadable = model_result.ok if model_result else (readable if path.is_file() else exists)
     return {"Dependent module": group, "Artifact": relative, "Status": "Healthy" if exists and readable else "Missing",
+            "Algorithm / object": type(model_result.model).__name__ if model_result and model_result.ok else ("Not persisted" if path.suffix==".pkl" and not exists else "—"),
             "Readable": readable,
             "Loadable": loadable,
             "Type": "Directory" if path.is_dir() else "File",
@@ -47,7 +49,7 @@ def _record(group: str, root, relative: str) -> dict:
 
 
 def render() -> None:
-    hero_panel("Artifact Health", "Modeller, değerlendirme çıktıları, veri envanteri ve profil raporları için yerel sağlık kontrolü.", "MODEL OPERATIONS")
+    page_header("Artifact Health", "Availability, checksum, metadata, reload contract and dependency health for local portfolio artifacts.", "MODEL RELIABILITY")
     rows = []
     for project in get_project_registry():
         for relative in project["expected_output_files"]:
@@ -61,9 +63,8 @@ def render() -> None:
     ])
     frame = pd.DataFrame(rows)
     healthy = int((frame["Status"] == "Healthy").sum())
-    cols = st.columns(3)
-    cols[0].metric("Required artifacts", len(frame))
-    cols[1].metric("Healthy", healthy)
-    cols[2].metric("Missing", len(frame) - healthy)
+    model_rows=frame[frame["Artifact"].astype(str).str.endswith(".pkl")]; reload_ok=int(model_rows["Loadable"].sum()) if not model_rows.empty else 0
+    evidence_strip([("Required artifacts",str(len(frame)),"Registry contract"),("Healthy",str(healthy),"Readable"),("Missing",str(len(frame)-healthy),"Needs review"),("Model reload",f"{reload_ok}/{len(model_rows)}","Fresh compatible runtime"),("Checksum","Cached","Not recomputed per render")])
     information_panel("Health definition", "Mevcudiyet ve okunabilirlik kontrol edilir; 50 MB altındaki dosyalar için SHA-256 kısa özeti cache'lenir. Model çalışma zamanı uygunluğu Model Registry sayfasında ayrıca doğrulanır.")
+    section_heading("Technical artifact details","Experimental artifacts remain visually and operationally separate in the Registry.")
     metric_table(frame)

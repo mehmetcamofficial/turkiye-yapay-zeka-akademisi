@@ -4,11 +4,17 @@ import streamlit as st
 
 from portfolio.config import ML_ROOT
 from portfolio.loaders import load_text_safe
-from portfolio.ui_components import hero_panel, information_panel
+from portfolio.ui_components import architecture_flow,page_header,information_panel,section_heading
 
 
 def render() -> None:
-    hero_panel("Documentation", "Platform mimarisi, proje kanıtları, veri yönetişimi ve tekrar üretilebilir çalışma notları.", "PORTFOLIO")
+    page_header("Repository Guide", "Repository’yi, canlı uygulamayı, artifact’ları ve validation yaklaşımını beş dakikadan kısa sürede anlamak için başlangıç noktası.", "TECHNICAL DOCUMENTATION")
+    section_heading("System Architecture")
+    architecture_flow([("Data Sources","current"),("Validation","current"),("Features","current"),("Training","current"),("Evaluation","current"),("Registry","current"),("Inference","current"),("Monitoring","planned")])
+    section_heading("Trendyol Architecture")
+    architecture_flow([("Query","current"),("Candidate sample","current"),("Lexical scoring","current"),("V1 probability","current"),("V2 ranker","experimental"),("Results","experimental")])
+    section_heading("Governance")
+    architecture_flow([("Baseline","current"),("Experiment","experimental"),("Holdout","current"),("Confidence interval","current"),("Decision","current"),("Retain / promote","current")])
     information_panel("Start here", "Platform README genel çalıştırma yolunu; PORTFOLIO belgesi ise proje kapsamı, artifact ve doğrulama kanıtlarını açıklar.")
     readme, portfolio = st.tabs(["Platform README", "Portfolio evidence"])
     with readme:

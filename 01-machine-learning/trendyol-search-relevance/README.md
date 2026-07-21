@@ -20,6 +20,12 @@ The first persisted artifact uses the deterministic 100,000-row sample. Combined
 
 V2 keeps V1 frozen and evaluates classification and learning-to-rank separately on 7,724 rows from 119 complete query groups. The 70/15/15 `term_id` split has zero overlap. Random Forest is the classification challenger (holdout F1 0.6384); XGBoost `rank:ndcg` top-k is the ranking challenger (holdout NDCG@10 0.8044). It did not beat the leakage-safe first-stage NDCG@10 of 0.8477, so neither challenger is promoted. The Streamlit page exposes bounded benchmark and playground views, while live inference remains V1.
 
+## V2.1 robust evaluation
+
+`ranking_medium` evaluates 1,000 complete query groups (52,422 deduplicated rows) on five fixed seeds. Every seed uses 700/150/150 train/validation/final-holdout groups with zero overlap. HistGradientBoosting was the Best Research Candidate: mean F1 `0.753935`, standard deviation `0.006349`, 95% CI `[0.746053, 0.761817]`. It remains an Experimental Challenger and was Not Promoted because V1's published metric belongs to a Different historical split and Direct superiority is not established. Selection occurred after aggregation and the selected trained object was not retained, so no HGB artifact was fabricated or retrained. The leakage-safe Bounded Candidate Sample baseline averaged NDCG@10 `0.871041`; `rank_ndcg_topk` delta was `-0.007469`, CI `[-0.023354, 0.008416]`, and `rank_pairwise` delta was `-0.002659`, CI `[-0.010400, 0.005082]`. Hard-negative F1 values were original `0.617633`, weighted `0.476246`, enriched `0.420103`, and weighted+enriched `0.200427`.
+
+`ranking_large` (5,000 groups) and `ranking_full` remain explicit modes and never run automatically. They were not executed: the mandatory five-seed medium evaluation already showed no reproducible ranker gain, while larger repeated feature/model fitting would add disproportionate runtime and memory without changing the governance threshold.
+
 ## Reproduce
 
 ```bash

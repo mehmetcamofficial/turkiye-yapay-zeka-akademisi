@@ -1,0 +1,146 @@
+{
+  "sample": {
+    "mode": "ranking_medium",
+    "requested_groups": 1000,
+    "selected_groups": 1000,
+    "available_groups": 17968,
+    "raw_rows": 55841,
+    "rows_after_deduplication": 52422,
+    "duplicate_pairs_removed": 3419,
+    "excluded_groups": 16968,
+    "runtime_seconds": 1.8820082919999095,
+    "peak_memory_mb": 704.078125,
+    "candidate_distribution": {
+      "count": 1000.0,
+      "mean": 52.422,
+      "std": 131.35725577464171,
+      "min": 3.0,
+      "10%": 5.0,
+      "50%": 26.0,
+      "90%": 109.30000000000007,
+      "max": 2422.0
+    },
+    "positive_distribution": {
+      "count": 1000.0,
+      "mean": 12.575,
+      "std": 30.64394599960042,
+      "min": 0.0,
+      "10%": 1.0,
+      "50%": 6.0,
+      "90%": 26.0,
+      "max": 568.0
+    }
+  },
+  "seeds": [
+    42,
+    52,
+    62,
+    72,
+    82
+  ],
+  "splits": [
+    {
+      "seed": 42,
+      "train_groups": 700,
+      "validation_groups": 150,
+      "holdout_groups": 150,
+      "train_rows": 39994,
+      "validation_rows": 5768,
+      "holdout_rows": 6660,
+      "train_validation_overlap": 0,
+      "train_holdout_overlap": 0,
+      "validation_holdout_overlap": 0,
+      "duplicate_pair_leakage": 0,
+      "positive_rates": [
+        0.23981097164574686,
+        0.23838418862690708,
+        0.2415915915915916
+      ]
+    },
+    {
+      "seed": 52,
+      "train_groups": 700,
+      "validation_groups": 150,
+      "holdout_groups": 150,
+      "train_rows": 34772,
+      "validation_rows": 7104,
+      "holdout_rows": 10546,
+      "train_validation_overlap": 0,
+      "train_holdout_overlap": 0,
+      "validation_holdout_overlap": 0,
+      "duplicate_pair_leakage": 0,
+      "positive_rates": [
+        0.24019325894397792,
+        0.24211711711711711,
+        0.2373411720083444
+      ]
+    },
+    {
+      "seed": 62,
+      "train_groups": 700,
+      "validation_groups": 150,
+      "holdout_groups": 150,
+      "train_rows": 35258,
+      "validation_rows": 8608,
+      "holdout_rows": 8556,
+      "train_validation_overlap": 0,
+      "train_holdout_overlap": 0,
+      "validation_holdout_overlap": 0,
+      "duplicate_pair_leakage": 0,
+      "positive_rates": [
+        0.2401440807759941,
+        0.237453531598513,
+        0.24123422159887797
+      ]
+    },
+    {
+      "seed": 72,
+      "train_groups": 700,
+      "validation_groups": 150,
+      "holdout_groups": 150,
+      "train_rows": 40106,
+      "validation_rows": 6069,
+      "holdout_rows": 6247,
+      "train_validation_overlap": 0,
+      "train_holdout_overlap": 0,
+      "validation_holdout_overlap": 0,
+      "duplicate_pair_leakage": 0,
+      "positive_rates": [
+        0.23956515234628234,
+        0.2385895534684462,
+        0.24315671522330717
+      ]
+    },
+    {
+      "seed": 82,
+      "train_groups": 700,
+      "validation_groups": 150,
+      "holdout_groups": 150,
+      "train_rows": 37496,
+      "validation_rows": 8783,
+      "holdout_rows": 6143,
+      "train_validation_overlap": 0,
+      "train_holdout_overlap": 0,
+      "validation_holdout_overlap": 0,
+      "duplicate_pair_leakage": 0,
+      "positive_rates": [
+        0.23927885641135055,
+        0.24160309689172266,
+        0.24108741657170762
+      ]
+    }
+  ],
+  "decision": {
+    "classification": "retain V1; V2.1 classifiers are experimental because the evaluation target differs from V1's published split and no paired production benefit is established",
+    "ranking": "retain leakage-safe first-stage baseline; promote only if repeated-seed delta CI is positive and degradation is not material",
+    "v1_artifact_unchanged": true,
+    "catboost": "skipped: dependency unavailable; no extra runtime installed",
+    "semantic_models": "planned V3; unavailable and outside resource-safe classical evaluation"
+  },
+  "artifacts": {
+    "hist_gradient_boosting": "Best research classifier; not persisted because selection occurred after repeated-seed aggregation and no selected trained object remained without retraining",
+    "v21_ranker_candidate.pkl": "XGBRanker rank:ndcg topk fitted on seed 82 research split; precomputed dense V2.1 feature contract"
+  },
+  "production_status": "experimental_not_promoted",
+  "python": "3.12.4"
+}

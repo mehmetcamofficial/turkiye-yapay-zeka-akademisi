@@ -7,6 +7,10 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
+def render_safe_table(frame,**_kwargs):
+    """Render escaped semantic HTML without Streamlit's Arrow layer."""
+    st.markdown(frame.to_html(index=False,escape=True),unsafe_allow_html=True)
+
 BASE_DIR = Path(__file__).resolve().parent
 MODEL_PATH = BASE_DIR / "models" / "regression_model.pkl"
 OUTPUTS = BASE_DIR / "outputs"
@@ -66,7 +70,7 @@ elif page == "Toplu CSV":
             st.error("Eksik sütunlar: " + ", ".join(missing))
         else:
             result = frame.copy(); result["PredictedValue100kUSD"] = model.predict(prepare(frame[RAW_COLUMNS]))
-            st.dataframe(result, use_container_width=True, hide_index=True)
+            render_safe_table(result)
             st.download_button("Sonuçları indir", result.to_csv(index=False).encode(), "regression_predictions.csv", "text/csv")
 
 else:
@@ -75,11 +79,11 @@ else:
     validation = safe_csv("validation_results.csv")
     importance = safe_csv("feature_importance.csv")
     if metrics.empty: st.info("Test metrikleri bulunamadı.")
-    else: st.dataframe(metrics.round(4), use_container_width=True, hide_index=True)
+    else: render_safe_table(metrics.round(4))
     if validation.empty: st.info("Validation sonuçları bulunamadı.")
-    else: st.dataframe(validation.round(4), use_container_width=True, hide_index=True)
+    else: render_safe_table(validation.round(4))
     if importance.empty: st.info("Özellik önemleri bulunamadı.")
-    else: st.dataframe(importance.round(4), use_container_width=True, hide_index=True)
+    else: render_safe_table(importance.round(4))
     col1, col2 = st.columns(2)
     for column, filename, title in [(col1, "residual_plot.png", "Residual"), (col2, "prediction_vs_actual.png", "Tahmin vs Gerçek")]:
         path = OUTPUTS / filename

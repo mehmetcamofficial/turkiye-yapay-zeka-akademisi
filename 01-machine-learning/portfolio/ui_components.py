@@ -111,7 +111,11 @@ def render_safe_table(data: Any, *, title: str | None = None, max_rows: int = 10
 
 
 def hero_panel(title: str, subtitle: str, kicker: str = "PLATFORM MODULE") -> None:
-    st.markdown(f'<section class="portfolio-hero"><div class="portfolio-kicker">{kicker}</div><h1>{title}</h1><p>{subtitle}</p></section>', unsafe_allow_html=True)
+    st.markdown(f'<section class="portfolio-hero"><div class="portfolio-kicker">{escape(kicker)}</div><h1>{escape(title)}</h1><p>{escape(subtitle)}</p></section>', unsafe_allow_html=True)
+
+def page_header(title:str,subtitle:str,kicker:str="PLATFORM MODULE",actions:list[tuple[str,str]]|None=None)->None:
+    links="".join(f'<a href="{escape(url,quote=True)}" target="_blank" rel="noopener noreferrer">{escape(label)}</a>' for label,url in (actions or []))
+    st.markdown(f'<section class="portfolio-hero"><div class="portfolio-kicker">{escape(kicker)}</div><h1>{escape(title)}</h1><p>{escape(subtitle)}</p><div class="hero-actions">{links}</div></section>',unsafe_allow_html=True)
 
 
 def section_heading(title: str, subtitle: str = "") -> None:
@@ -119,9 +123,31 @@ def section_heading(title: str, subtitle: str = "") -> None:
 
 
 def status_badge(status: str) -> str:
-    css = {"Tamamlandı":"complete", "Hazır":"complete", "Geliştiriliyor":"progress",
-           "Doğrulandı":"complete", "Açık":"complete", "Planlandı":"planned", "Veri Bekleniyor":"planned", "Şema Uyumsuz":"progress"}.get(status, "empty")
-    return f'<span class="status status-{css}">{status}</span>'
+    css = {"Tamamlandı":"complete", "Hazır":"complete", "Sağlıklı":"complete", "Geliştiriliyor":"progress",
+           "Doğrulandı":"complete", "Açık":"complete", "Deneysel":"progress", "Terfi edilmedi":"progress", "Planlandı":"planned", "Veri Bekleniyor":"planned", "Şema Uyumsuz":"progress"}.get(status, "empty")
+    return f'<span class="status status-{css}">{escape(status)}</span>'
+
+def evidence_strip(items:list[tuple[str,str,str]])->None:
+    cards="".join(f'<div class="evidence-item"><small>{escape(a)}</small><strong>{escape(str(b))}</strong><span>{escape(c)}</span></div>' for a,b,c in items)
+    st.markdown(f'<div class="evidence-strip">{cards}</div>',unsafe_allow_html=True)
+
+def decision_banner(title:str,text:str,status:str="Terfi edilmedi")->None:
+    st.markdown(f'<div class="decision-banner">{status_badge(status)}<strong>{escape(title)}</strong><p>{escape(text)}</p></div>',unsafe_allow_html=True)
+
+def comparison_cards(items:list[dict[str,str]])->None:
+    cards="".join(f'<article class="comparison-card {escape(x.get("kind","experimental"))}">{status_badge(x["status"])}<h3>{escape(x["title"])}</h3><small>{escape(x["algorithm"])}</small><strong>{escape(x["metric"])}</strong><p>{escape(x["note"])}</p></article>' for x in items)
+    st.markdown(f'<div class="comparison-grid">{cards}</div>',unsafe_allow_html=True)
+
+def architecture_flow(nodes:list[tuple[str,str]])->None:
+    html="".join(f'<div class="architecture-node {escape(state)}">{escape(label)}<small>{escape(state.title())}</small></div>' for label,state in nodes)
+    st.markdown(f'<div class="architecture-flow">{html}</div>',unsafe_allow_html=True)
+
+def model_stage_timeline(stages:list[tuple[str,str,str,str]])->None:
+    html="".join(f'<article class="timeline-stage">{status_badge(status)}<h3>{escape(stage)}</h3><small>{escape(label)}</small><p>{escape(text)}</p></article>' for stage,label,text,status in stages)
+    st.markdown(f'<div class="timeline">{html}</div>',unsafe_allow_html=True)
+
+def external_action(label:str,url:str)->None:
+    st.markdown(f'<a class="external-action" href="{escape(url,quote=True)}" target="_blank" rel="noopener noreferrer">{escape(label)}</a>',unsafe_allow_html=True)
 
 
 def metric_card(label: str, value: str, help_text: str | None = None) -> None:
