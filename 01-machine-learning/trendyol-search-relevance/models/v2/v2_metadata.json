@@ -1,0 +1,76 @@
+{
+  "mode": "ranking-sample",
+  "sample": {
+    "mode": "ranking-sample",
+    "rows": 7724,
+    "groups": 119,
+    "complete_group_sampling": true,
+    "seed": 42
+  },
+  "split": {
+    "train_rows": 5598,
+    "validation_rows": 1004,
+    "test_rows": 1122,
+    "train_groups": 83,
+    "validation_groups": 18,
+    "test_groups": 18,
+    "train_validation_overlap": 0,
+    "train_test_overlap": 0,
+    "validation_test_overlap": 0,
+    "positive_rates": [
+      0.24294390853876385,
+      0.250996015936255,
+      0.23975044563279857
+    ]
+  },
+  "classification_validation_champion": "random_forest",
+  "classification_holdout": {
+    "precision": 0.6991150442477876,
+    "recall": 0.587360594795539,
+    "f1": 0.6383838383838384,
+    "pr_auc": 0.6908962462516967,
+    "roc_auc": 0.9058799687958963,
+    "log_loss": 0.32873848356535296,
+    "brier": 0.10723235236207794,
+    "ece": 0.06683452026038757
+  },
+  "ranking_champion": "rank_ndcg_topk",
+  "ranking_holdout": {
+    "ndcg@1": 0.7666666666666667,
+    "ndcg@3": 0.7913401592471554,
+    "ndcg@5": 0.7914503416547237,
+    "ndcg@10": 0.8044083207829895,
+    "mrr": 0.8518518518518517,
+    "precision@5": 0.6407407407407407,
+    "recall@5": 0.5191205590183577,
+    "map@5": 0.8454475308641975,
+    "precision@10": 0.5407407407407407,
+    "recall@10": 0.6771458075703358,
+    "map@10": 0.8190115758237452
+  },
+  "first_stage_holdout": {
+    "ndcg@1": 0.7777777777777778,
+    "ndcg@3": 0.8384535456628739,
+    "ndcg@5": 0.828492466717397,
+    "ndcg@10": 0.8477065790483183,
+    "mrr": 0.8796296296296295,
+    "precision@5": 0.674074074074074,
+    "recall@5": 0.5270211383812012,
+    "map@5": 0.8756944444444446,
+    "precision@10": 0.5851851851851851,
+    "recall@10": 0.6985695039940323,
+    "map@10": 0.8696734763864393
+  },
+  "statistical": {
+    "ndcg10_delta": -0.04329825826532862,
+    "bootstrap_ci95": [
+      -0.09693639510846291,
+      0.01390351635691148
+    ],
+    "improved_groups": 3,
+    "unchanged_groups": 5,
+    "worsened_groups": 10
+  },
+  "v1_unchanged": true,
+  "python": "3.12.4"
+}
