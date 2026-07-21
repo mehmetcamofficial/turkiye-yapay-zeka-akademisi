@@ -1,0 +1,24 @@
+{
+  "fields": [
+    "query",
+    "title",
+    "category",
+    "brand",
+    "gender",
+    "age_group",
+    "attributes"
+  ],
+  "feature_set": "combined",
+  "explicit_features": [
+    "exact match",
+    "containment",
+    "lengths",
+    "token intersection/union",
+    "Jaccard",
+    "coverage",
+    "brand mention",
+    "category overlap",
+    "character length ratio",
+    "attributes overlap"
+  ]
+}

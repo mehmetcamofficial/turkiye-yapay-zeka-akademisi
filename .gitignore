@@ -15,8 +15,8 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 
-# Streamlit
-.streamlit/secrets.toml
+# Streamlit local runtime and secrets
+.streamlit/
 
 # Environment variables
 .env
@@ -36,6 +36,11 @@ __pycache__/
 # Temporary files
 *.tmp
 *.temp
+
+# Data Science competition datasets (local only; redistribution not verified)
+02-data-science/**/data/*
+!02-data-science/**/data/.gitkeep
+02-data-science/.kaggle/
 
 # Build and packaging
 build/

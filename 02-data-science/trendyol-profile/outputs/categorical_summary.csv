@@ -1,0 +1,331 @@
+table,column,value,count_sample,metric_scope
+items.csv,item_id,ITEM_3a515fb7125d,1,sampled_first_20000_rows
+items.csv,item_id,ITEM_2f1571499a44,1,sampled_first_20000_rows
+items.csv,item_id,ITEM_be45cb4b933c,1,sampled_first_20000_rows
+items.csv,item_id,ITEM_9d65eedef8d8,1,sampled_first_20000_rows
+items.csv,item_id,ITEM_f917fd5fc743,1,sampled_first_20000_rows
+items.csv,item_id,ITEM_fbed599d76a7,1,sampled_first_20000_rows
+items.csv,item_id,ITEM_5ec7c1db06fa,1,sampled_first_20000_rows
+items.csv,item_id,ITEM_66b6b5ee9095,1,sampled_first_20000_rows
+items.csv,item_id,ITEM_b37b66821473,1,sampled_first_20000_rows
+items.csv,item_id,ITEM_44289f336e17,1,sampled_first_20000_rows
+items.csv,title,retro spor ayakkabı,3,sampled_first_20000_rows
+items.csv,title,"amsterdam serisi jüt, desenli kapı önü, paspas, banyo paspası, balkon paspası / hediyelik, ev eşyası",3,sampled_first_20000_rows
+items.csv,title,bg store erkek bebek yeşil kazak,2,sampled_first_20000_rows
+items.csv,title,hellobaby kız tayt kız bebek,2,sampled_first_20000_rows
+items.csv,title,kız çocuk parlak sim detaylı uzun abiye elbise,2,sampled_first_20000_rows
+items.csv,title,mutfak tasarımlı  çerçeve görünümlü mdf tablo,2,sampled_first_20000_rows
+items.csv,title,0-24 ay kız bebek ince mantolu bayramlık gelinlik abiye saç bandı ceket elbise 3'lü takım 1070,2,sampled_first_20000_rows
+items.csv,title,"tek kişilik nevresim seti, özel renkli pamuklu yastık kılıfı yorgan kılıfı 160x240 (çarşafsiz set)",2,sampled_first_20000_rows
+items.csv,title,erkek çocuk 23 nisan 29 ekim gösteri uzun kol dakron kumaş okul gömlek,2,sampled_first_20000_rows
+items.csv,title,t-rax 13'lü efsane exclusive oto bakım araba yıkama temizlik kovası seti,2,sampled_first_20000_rows
+items.csv,category,ayakkabı/spor ayakkabı/sneaker,508,sampled_first_20000_rows
+items.csv,category,elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/kapak & kılıf,380,sampled_first_20000_rows
+items.csv,category,ev & mobilya/ev/ev dekorasyon/tablo,373,sampled_first_20000_rows
+items.csv,category,aksesuar/saat,326,sampled_first_20000_rows
+items.csv,category,giyim/üst giyim/sweatshirt,270,sampled_first_20000_rows
+items.csv,category,giyim/alt giyim/pantolon,246,sampled_first_20000_rows
+items.csv,category,giyim/üst giyim/t-shirt,243,sampled_first_20000_rows
+items.csv,category,ev & mobilya/mobilya/halı / kilim/halı,241,sampled_first_20000_rows
+items.csv,category,aksesuar/çanta/omuz çantası,205,sampled_first_20000_rows
+items.csv,category,giyim/dış giyim/ceket & yelek/ceket,195,sampled_first_20000_rows
+items.csv,brand,koton,165,sampled_first_20000_rows
+items.csv,brand,adidas,165,sampled_first_20000_rows
+items.csv,brand,defacto,160,sampled_first_20000_rows
+items.csv,brand,nike,157,sampled_first_20000_rows
+items.csv,brand,puma,105,sampled_first_20000_rows
+items.csv,brand,u.s. polo assn.,103,sampled_first_20000_rows
+items.csv,brand,lc waikiki,85,sampled_first_20000_rows
+items.csv,brand,karaca,79,sampled_first_20000_rows
+items.csv,brand,teona ahşap,76,sampled_first_20000_rows
+items.csv,brand,pierre cardin,73,sampled_first_20000_rows
+items.csv,gender,unknown,12284,sampled_first_20000_rows
+items.csv,gender,kadın,3991,sampled_first_20000_rows
+items.csv,gender,erkek,2059,sampled_first_20000_rows
+items.csv,gender,unisex,1666,sampled_first_20000_rows
+items.csv,age_group,unknown,11878,sampled_first_20000_rows
+items.csv,age_group,yetişkin,5833,sampled_first_20000_rows
+items.csv,age_group,çocuk,1089,sampled_first_20000_rows
+items.csv,age_group,genç,637,sampled_first_20000_rows
+items.csv,age_group,bebek,398,sampled_first_20000_rows
+items.csv,age_group,bebek & çocuk,165,sampled_first_20000_rows
+items.csv,attributes,unknown,401,sampled_first_20000_rows
+items.csv,attributes,menşei: tr,300,sampled_first_20000_rows
+items.csv,attributes,bakım talimatları (genel): ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz.,133,sampled_first_20000_rows
+items.csv,attributes,"menşei: tr, bakım talimatları (genel): ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz.",72,sampled_first_20000_rows
+items.csv,attributes,menşei: cn,49,sampled_first_20000_rows
+items.csv,attributes,"menşei: cn, bakım talimatları (genel): ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz.",24,sampled_first_20000_rows
+items.csv,attributes,"materyal: silikon, cep telefonu modeli: belirtilmemiş, renk: şeffaf, uyumlu marka: belirtilmemiş, menşei: cn, color detail: renkli",22,sampled_first_20000_rows
+items.csv,attributes,"menşei: tr, bakım talimatları (genel): nemli bir bezle silin.",22,sampled_first_20000_rows
+items.csv,attributes,"renk: çok renkli, menşei: tr, color detail: çok renkli",18,sampled_first_20000_rows
+items.csv,attributes,"renk: siyah, menşei: tr, color detail: siyah",17,sampled_first_20000_rows
+parsed_items_for_sky.parquet,item_id,ITEM_3a515fb7125d,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,item_id,ITEM_2f1571499a44,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,item_id,ITEM_be45cb4b933c,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,item_id,ITEM_9d65eedef8d8,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,item_id,ITEM_f917fd5fc743,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,item_id,ITEM_fbed599d76a7,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,item_id,ITEM_5ec7c1db06fa,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,item_id,ITEM_66b6b5ee9095,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,item_id,ITEM_b37b66821473,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,item_id,ITEM_44289f336e17,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,title,retro spor ayakkabı,3,sampled_first_20000_rows
+parsed_items_for_sky.parquet,title,"amsterdam serisi jüt, desenli kapı önü, paspas, banyo paspası, balkon paspası / hediyelik, ev eşyası",3,sampled_first_20000_rows
+parsed_items_for_sky.parquet,title,bg store erkek bebek yeşil kazak,2,sampled_first_20000_rows
+parsed_items_for_sky.parquet,title,hellobaby kız tayt kız bebek,2,sampled_first_20000_rows
+parsed_items_for_sky.parquet,title,kız çocuk parlak sim detaylı uzun abiye elbise,2,sampled_first_20000_rows
+parsed_items_for_sky.parquet,title,mutfak tasarımlı  çerçeve görünümlü mdf tablo,2,sampled_first_20000_rows
+parsed_items_for_sky.parquet,title,0-24 ay kız bebek ince mantolu bayramlık gelinlik abiye saç bandı ceket elbise 3'lü takım 1070,2,sampled_first_20000_rows
+parsed_items_for_sky.parquet,title,"tek kişilik nevresim seti, özel renkli pamuklu yastık kılıfı yorgan kılıfı 160x240 (çarşafsiz set)",2,sampled_first_20000_rows
+parsed_items_for_sky.parquet,title,erkek çocuk 23 nisan 29 ekim gösteri uzun kol dakron kumaş okul gömlek,2,sampled_first_20000_rows
+parsed_items_for_sky.parquet,title,t-rax 13'lü efsane exclusive oto bakım araba yıkama temizlik kovası seti,2,sampled_first_20000_rows
+parsed_items_for_sky.parquet,category,ayakkabı/spor ayakkabı/sneaker,508,sampled_first_20000_rows
+parsed_items_for_sky.parquet,category,elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/kapak & kılıf,380,sampled_first_20000_rows
+parsed_items_for_sky.parquet,category,ev & mobilya/ev/ev dekorasyon/tablo,373,sampled_first_20000_rows
+parsed_items_for_sky.parquet,category,aksesuar/saat,326,sampled_first_20000_rows
+parsed_items_for_sky.parquet,category,giyim/üst giyim/sweatshirt,270,sampled_first_20000_rows
+parsed_items_for_sky.parquet,category,giyim/alt giyim/pantolon,246,sampled_first_20000_rows
+parsed_items_for_sky.parquet,category,giyim/üst giyim/t-shirt,243,sampled_first_20000_rows
+parsed_items_for_sky.parquet,category,ev & mobilya/mobilya/halı / kilim/halı,241,sampled_first_20000_rows
+parsed_items_for_sky.parquet,category,aksesuar/çanta/omuz çantası,205,sampled_first_20000_rows
+parsed_items_for_sky.parquet,category,giyim/dış giyim/ceket & yelek/ceket,195,sampled_first_20000_rows
+parsed_items_for_sky.parquet,brand,koton,165,sampled_first_20000_rows
+parsed_items_for_sky.parquet,brand,adidas,165,sampled_first_20000_rows
+parsed_items_for_sky.parquet,brand,defacto,160,sampled_first_20000_rows
+parsed_items_for_sky.parquet,brand,nike,157,sampled_first_20000_rows
+parsed_items_for_sky.parquet,brand,puma,105,sampled_first_20000_rows
+parsed_items_for_sky.parquet,brand,u.s. polo assn.,103,sampled_first_20000_rows
+parsed_items_for_sky.parquet,brand,lc waikiki,85,sampled_first_20000_rows
+parsed_items_for_sky.parquet,brand,karaca,79,sampled_first_20000_rows
+parsed_items_for_sky.parquet,brand,teona ahşap,76,sampled_first_20000_rows
+parsed_items_for_sky.parquet,brand,pierre cardin,73,sampled_first_20000_rows
+parsed_items_for_sky.parquet,gender,unknown,12284,sampled_first_20000_rows
+parsed_items_for_sky.parquet,gender,kadın,3991,sampled_first_20000_rows
+parsed_items_for_sky.parquet,gender,erkek,2059,sampled_first_20000_rows
+parsed_items_for_sky.parquet,gender,unisex,1666,sampled_first_20000_rows
+parsed_items_for_sky.parquet,age_group,unknown,11878,sampled_first_20000_rows
+parsed_items_for_sky.parquet,age_group,yetişkin,5833,sampled_first_20000_rows
+parsed_items_for_sky.parquet,age_group,çocuk,1089,sampled_first_20000_rows
+parsed_items_for_sky.parquet,age_group,genç,637,sampled_first_20000_rows
+parsed_items_for_sky.parquet,age_group,bebek,398,sampled_first_20000_rows
+parsed_items_for_sky.parquet,age_group,bebek & çocuk,165,sampled_first_20000_rows
+parsed_items_for_sky.parquet,attributes,unknown,401,sampled_first_20000_rows
+parsed_items_for_sky.parquet,attributes,menşei: tr,300,sampled_first_20000_rows
+parsed_items_for_sky.parquet,attributes,bakım talimatları (genel): ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz.,133,sampled_first_20000_rows
+parsed_items_for_sky.parquet,attributes,"menşei: tr, bakım talimatları (genel): ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz.",72,sampled_first_20000_rows
+parsed_items_for_sky.parquet,attributes,menşei: cn,49,sampled_first_20000_rows
+parsed_items_for_sky.parquet,attributes,"menşei: cn, bakım talimatları (genel): ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz.",24,sampled_first_20000_rows
+parsed_items_for_sky.parquet,attributes,"materyal: silikon, cep telefonu modeli: belirtilmemiş, renk: şeffaf, uyumlu marka: belirtilmemiş, menşei: cn, color detail: renkli",22,sampled_first_20000_rows
+parsed_items_for_sky.parquet,attributes,"menşei: tr, bakım talimatları (genel): nemli bir bezle silin.",22,sampled_first_20000_rows
+parsed_items_for_sky.parquet,attributes,"renk: çok renkli, menşei: tr, color detail: çok renkli",18,sampled_first_20000_rows
+parsed_items_for_sky.parquet,attributes,"renk: siyah, menşei: tr, color detail: siyah",17,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_color,,13542,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_color, beyaz,726,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_color, siyah,679,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_color, çok renkli,589,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_color, kahverengi,380,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_color, bej,318,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_color, gri,312,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_color, siyah siyah,232,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_color, beyaz beyaz,166,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_color, pembe,153,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_material,,12351,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_material, pamuklu,430,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_material, silikon,392,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_material, ahşap,370,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_material, plastik,364,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_material, polyester,337,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_material, metal,312,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_material, suntalam,210,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_material, cam,191,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_material, mdf,175,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_fit_size,,20000,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_quantity,,20000,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_author,,19993,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_author, hülya balcı,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_author, heidi e. murkoff,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_author, komisyon,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_author, varol yaşaroğlu,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_author, kolektif,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_author, anonim,1,sampled_first_20000_rows
+parsed_items_for_sky.parquet,parsed_author, mustafa yeşilbaş,1,sampled_first_20000_rows
+sample_submission.csv,id,TST_8ede5e2b0176ec,1,sampled_first_20000_rows
+sample_submission.csv,id,TST_cfecbdc94d1e31,1,sampled_first_20000_rows
+sample_submission.csv,id,TST_e4938cf5ac21d5,1,sampled_first_20000_rows
+sample_submission.csv,id,TST_58efa4e5b6f4fb,1,sampled_first_20000_rows
+sample_submission.csv,id,TST_c8db63d4ce5922,1,sampled_first_20000_rows
+sample_submission.csv,id,TST_e0cb77756b015d,1,sampled_first_20000_rows
+sample_submission.csv,id,TST_3d7d313078be7d,1,sampled_first_20000_rows
+sample_submission.csv,id,TST_b79b515a51a076,1,sampled_first_20000_rows
+sample_submission.csv,id,TST_579dec2a173cc5,1,sampled_first_20000_rows
+sample_submission.csv,id,TST_bd1ad155e403ff,1,sampled_first_20000_rows
+submission_pairs.csv,id,TST_8ede5e2b0176ec,1,sampled_first_20000_rows
+submission_pairs.csv,id,TST_cfecbdc94d1e31,1,sampled_first_20000_rows
+submission_pairs.csv,id,TST_e4938cf5ac21d5,1,sampled_first_20000_rows
+submission_pairs.csv,id,TST_58efa4e5b6f4fb,1,sampled_first_20000_rows
+submission_pairs.csv,id,TST_c8db63d4ce5922,1,sampled_first_20000_rows
+submission_pairs.csv,id,TST_e0cb77756b015d,1,sampled_first_20000_rows
+submission_pairs.csv,id,TST_3d7d313078be7d,1,sampled_first_20000_rows
+submission_pairs.csv,id,TST_b79b515a51a076,1,sampled_first_20000_rows
+submission_pairs.csv,id,TST_579dec2a173cc5,1,sampled_first_20000_rows
+submission_pairs.csv,id,TST_bd1ad155e403ff,1,sampled_first_20000_rows
+submission_pairs.csv,term_id,TERM_d0969686,22,sampled_first_20000_rows
+submission_pairs.csv,term_id,TERM_5c9701fd,16,sampled_first_20000_rows
+submission_pairs.csv,term_id,TERM_176312af,11,sampled_first_20000_rows
+submission_pairs.csv,term_id,TERM_517123db,11,sampled_first_20000_rows
+submission_pairs.csv,term_id,TERM_f17bff0e,11,sampled_first_20000_rows
+submission_pairs.csv,term_id,TERM_30042704,9,sampled_first_20000_rows
+submission_pairs.csv,term_id,TERM_eda9f2a3,9,sampled_first_20000_rows
+submission_pairs.csv,term_id,TERM_09b7c329,8,sampled_first_20000_rows
+submission_pairs.csv,term_id,TERM_b08dd9eb,8,sampled_first_20000_rows
+submission_pairs.csv,term_id,TERM_9ebd84d6,8,sampled_first_20000_rows
+submission_pairs.csv,item_id,ITEM_763047e60fe4,7,sampled_first_20000_rows
+submission_pairs.csv,item_id,ITEM_66c32039cdda,6,sampled_first_20000_rows
+submission_pairs.csv,item_id,ITEM_bbd45b184f56,6,sampled_first_20000_rows
+submission_pairs.csv,item_id,ITEM_bd166cb4c48a,5,sampled_first_20000_rows
+submission_pairs.csv,item_id,ITEM_3dec39778489,5,sampled_first_20000_rows
+submission_pairs.csv,item_id,ITEM_80db34653e03,5,sampled_first_20000_rows
+submission_pairs.csv,item_id,ITEM_796e2f425ad1,4,sampled_first_20000_rows
+submission_pairs.csv,item_id,ITEM_c965199a2cd1,4,sampled_first_20000_rows
+submission_pairs.csv,item_id,ITEM_3cf866dadde5,4,sampled_first_20000_rows
+submission_pairs.csv,item_id,ITEM_aeaa03a7e65d,4,sampled_first_20000_rows
+terms.csv,term_id,TERM_f2b61db2,1,sampled_first_20000_rows
+terms.csv,term_id,TERM_0a61dd88,1,sampled_first_20000_rows
+terms.csv,term_id,TERM_401b6cee,1,sampled_first_20000_rows
+terms.csv,term_id,TERM_eabc275a,1,sampled_first_20000_rows
+terms.csv,term_id,TERM_11ad5a1c,1,sampled_first_20000_rows
+terms.csv,term_id,TERM_11f62875,1,sampled_first_20000_rows
+terms.csv,term_id,TERM_4ca525d9,1,sampled_first_20000_rows
+terms.csv,term_id,TERM_e36ab410,1,sampled_first_20000_rows
+terms.csv,term_id,TERM_24128e98,1,sampled_first_20000_rows
+terms.csv,term_id,TERM_aeab7cc1,1,sampled_first_20000_rows
+terms.csv,query,defacto kız bebek elbise,1,sampled_first_20000_rows
+terms.csv,query,boks lapası,1,sampled_first_20000_rows
+terms.csv,query,defacto çocuk mont,1,sampled_first_20000_rows
+terms.csv,query,fotokopi makinesi,1,sampled_first_20000_rows
+terms.csv,query,newbalance,1,sampled_first_20000_rows
+terms.csv,query,inter çelik,1,sampled_first_20000_rows
+terms.csv,query,royal canın yavru kedi maması,1,sampled_first_20000_rows
+terms.csv,query,homend grilliant 1346h tost makinesi,1,sampled_first_20000_rows
+terms.csv,query,karaca rory,1,sampled_first_20000_rows
+terms.csv,query,kadın deri cekey,1,sampled_first_20000_rows
+train_with_negatives.parquet,id,TRN_a39ad13238,3,sampled_first_20000_rows
+train_with_negatives.parquet,id,TRN_1676e1c404,3,sampled_first_20000_rows
+train_with_negatives.parquet,id,TRN_c8a80fe578,3,sampled_first_20000_rows
+train_with_negatives.parquet,id,TRN_5f989bbbee,3,sampled_first_20000_rows
+train_with_negatives.parquet,id,TRN_21cea78383,3,sampled_first_20000_rows
+train_with_negatives.parquet,id,TRN_dd04e63ca4,3,sampled_first_20000_rows
+train_with_negatives.parquet,id,TRN_7e45327d7e,3,sampled_first_20000_rows
+train_with_negatives.parquet,id,TRN_2ab7da1dce,2,sampled_first_20000_rows
+train_with_negatives.parquet,id,TRN_471f276ae9,2,sampled_first_20000_rows
+train_with_negatives.parquet,id,TRN_9344df0c12,2,sampled_first_20000_rows
+train_with_negatives.parquet,term_id,TERM_ed00a6c9,129,sampled_first_20000_rows
+train_with_negatives.parquet,term_id,TERM_179587de,106,sampled_first_20000_rows
+train_with_negatives.parquet,term_id,TERM_f9bf4be7,105,sampled_first_20000_rows
+train_with_negatives.parquet,term_id,TERM_24da8801,79,sampled_first_20000_rows
+train_with_negatives.parquet,term_id,TERM_ace44d09,71,sampled_first_20000_rows
+train_with_negatives.parquet,term_id,TERM_be9c6f5f,67,sampled_first_20000_rows
+train_with_negatives.parquet,term_id,TERM_23b20a55,63,sampled_first_20000_rows
+train_with_negatives.parquet,term_id,TERM_492e08cf,56,sampled_first_20000_rows
+train_with_negatives.parquet,term_id,TERM_4116f03c,49,sampled_first_20000_rows
+train_with_negatives.parquet,term_id,TERM_0c4992dd,47,sampled_first_20000_rows
+train_with_negatives.parquet,item_id,ITEM_72bd8afae600,3,sampled_first_20000_rows
+train_with_negatives.parquet,item_id,ITEM_1a3ebab284f0,3,sampled_first_20000_rows
+train_with_negatives.parquet,item_id,ITEM_e6e6dc2fa8d3,3,sampled_first_20000_rows
+train_with_negatives.parquet,item_id,ITEM_22af3ddf2583,3,sampled_first_20000_rows
+train_with_negatives.parquet,item_id,ITEM_d716e5e8ab0f,3,sampled_first_20000_rows
+train_with_negatives.parquet,item_id,ITEM_b135c35ef97f,3,sampled_first_20000_rows
+train_with_negatives.parquet,item_id,ITEM_e408c2c61a43,3,sampled_first_20000_rows
+train_with_negatives.parquet,item_id,ITEM_700b88193ac6,3,sampled_first_20000_rows
+train_with_negatives.parquet,item_id,ITEM_49004badab1c,3,sampled_first_20000_rows
+train_with_negatives.parquet,item_id,ITEM_e69e549b6619,3,sampled_first_20000_rows
+train_with_negatives.parquet,query,erkek spor ayakkabı,129,sampled_first_20000_rows
+train_with_negatives.parquet,query,avize,106,sampled_first_20000_rows
+train_with_negatives.parquet,query,güneş gözlüğü,105,sampled_first_20000_rows
+train_with_negatives.parquet,query,erkek saat,79,sampled_first_20000_rows
+train_with_negatives.parquet,query,erkek mont,71,sampled_first_20000_rows
+train_with_negatives.parquet,query,kırlent ve kırlent kılıfı,67,sampled_first_20000_rows
+train_with_negatives.parquet,query,nevresim takımı,63,sampled_first_20000_rows
+train_with_negatives.parquet,query,erkek ceket,56,sampled_first_20000_rows
+train_with_negatives.parquet,query,saklama kabi,49,sampled_first_20000_rows
+train_with_negatives.parquet,query,gümüş yüzük,47,sampled_first_20000_rows
+train_with_negatives.parquet,title,master steel indüksiyon tabanlı 10 parça çelik tencere seti,4,sampled_first_20000_rows
+train_with_negatives.parquet,title,üstten delikli kolye ucu takı yapım malzemesi,3,sampled_first_20000_rows
+train_with_negatives.parquet,title,rb 2140 901 50 wayfarer unisex güneş gözlüğü,3,sampled_first_20000_rows
+train_with_negatives.parquet,title,çiçek detaylı kısa sivri topuklu sandalet,3,sampled_first_20000_rows
+train_with_negatives.parquet,title,reverse tasarım sweatshirt -  pembe baskılı oversize şardonlu kapüşonlu,3,sampled_first_20000_rows
+train_with_negatives.parquet,title,blok renkli ve yüksek boğazlı spor ayakkabı,3,sampled_first_20000_rows
+train_with_negatives.parquet,title,atlantis tv ünitesi country,3,sampled_first_20000_rows
+train_with_negatives.parquet,title,"louca bench, kırık beyaz gold",3,sampled_first_20000_rows
+train_with_negatives.parquet,title,makinede yıkanabilir kaymaz taban leke tutmaz mutfak halısı salon halısı ve yolluk,3,sampled_first_20000_rows
+train_with_negatives.parquet,title,vernik topuklu ayakkabı,3,sampled_first_20000_rows
+train_with_negatives.parquet,category,ayakkabı/spor ayakkabı/sneaker,747,sampled_first_20000_rows
+train_with_negatives.parquet,category,aksesuar/saat,348,sampled_first_20000_rows
+train_with_negatives.parquet,category,aksesuar/gözlük/güneş gözlüğü,313,sampled_first_20000_rows
+train_with_negatives.parquet,category,giyim/dış giyim/kaban & mont/mont,278,sampled_first_20000_rows
+train_with_negatives.parquet,category,aksesuar/çanta/omuz çantası,264,sampled_first_20000_rows
+train_with_negatives.parquet,category,giyim/alt giyim/pantolon,263,sampled_first_20000_rows
+train_with_negatives.parquet,category,ayakkabı/bot & çizme/bot & bootie,218,sampled_first_20000_rows
+train_with_negatives.parquet,category,giyim/üst giyim/sweatshirt,216,sampled_first_20000_rows
+train_with_negatives.parquet,category,giyim/dış giyim/ceket & yelek/ceket,207,sampled_first_20000_rows
+train_with_negatives.parquet,category,ev & mobilya/mobilya/elektrik & aydınlatma/avize,205,sampled_first_20000_rows
+train_with_negatives.parquet,brand,adidas,267,sampled_first_20000_rows
+train_with_negatives.parquet,brand,defacto,231,sampled_first_20000_rows
+train_with_negatives.parquet,brand,nike,159,sampled_first_20000_rows
+train_with_negatives.parquet,brand,puma,156,sampled_first_20000_rows
+train_with_negatives.parquet,brand,koton,150,sampled_first_20000_rows
+train_with_negatives.parquet,brand,u.s. polo assn.,124,sampled_first_20000_rows
+train_with_negatives.parquet,brand,karaca,121,sampled_first_20000_rows
+train_with_negatives.parquet,brand,pierre cardin,117,sampled_first_20000_rows
+train_with_negatives.parquet,brand,paşabahçe,85,sampled_first_20000_rows
+train_with_negatives.parquet,brand,lumberjack,82,sampled_first_20000_rows
+train_with_negatives.parquet,gender,unknown,11505,sampled_first_20000_rows
+train_with_negatives.parquet,gender,kadın,4235,sampled_first_20000_rows
+train_with_negatives.parquet,gender,erkek,2456,sampled_first_20000_rows
+train_with_negatives.parquet,gender,unisex,1804,sampled_first_20000_rows
+train_with_negatives.parquet,age_group,unknown,11156,sampled_first_20000_rows
+train_with_negatives.parquet,age_group,yetişkin,6770,sampled_first_20000_rows
+train_with_negatives.parquet,age_group,çocuk,1046,sampled_first_20000_rows
+train_with_negatives.parquet,age_group,genç,533,sampled_first_20000_rows
+train_with_negatives.parquet,age_group,bebek,351,sampled_first_20000_rows
+train_with_negatives.parquet,age_group,bebek & çocuk,144,sampled_first_20000_rows
+train_with_negatives.parquet,attributes,unknown,305,sampled_first_20000_rows
+train_with_negatives.parquet,attributes,menşei: tr,261,sampled_first_20000_rows
+train_with_negatives.parquet,attributes,bakım talimatları (genel): ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz.,85,sampled_first_20000_rows
+train_with_negatives.parquet,attributes,"menşei: tr, bakım talimatları (genel): ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz.",76,sampled_first_20000_rows
+train_with_negatives.parquet,attributes,menşei: cn,35,sampled_first_20000_rows
+train_with_negatives.parquet,attributes,"menşei: cn, bakım talimatları (genel): ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz.",28,sampled_first_20000_rows
+train_with_negatives.parquet,attributes,"menşei: tr, bakım talimatları (genel): nemli bir bezle silin.",18,sampled_first_20000_rows
+train_with_negatives.parquet,attributes,"renk: beyaz, color detail: beyaz",16,sampled_first_20000_rows
+train_with_negatives.parquet,attributes,"renk: çok renkli, menşei: tr, color detail: çok renkli",14,sampled_first_20000_rows
+train_with_negatives.parquet,attributes,"menşei: tr, ürün güvenliği bilgisi: tehlikeli değil",13,sampled_first_20000_rows
+training_pairs.csv,id,TRN_c639ed31a5,1,sampled_first_20000_rows
+training_pairs.csv,id,TRN_5830b1d72b,1,sampled_first_20000_rows
+training_pairs.csv,id,TRN_9c06a5e841,1,sampled_first_20000_rows
+training_pairs.csv,id,TRN_4096db3fe3,1,sampled_first_20000_rows
+training_pairs.csv,id,TRN_bb006f121e,1,sampled_first_20000_rows
+training_pairs.csv,id,TRN_9328c3430e,1,sampled_first_20000_rows
+training_pairs.csv,id,TRN_81721e5759,1,sampled_first_20000_rows
+training_pairs.csv,id,TRN_2e587cd3f2,1,sampled_first_20000_rows
+training_pairs.csv,id,TRN_ecfc1b6b3a,1,sampled_first_20000_rows
+training_pairs.csv,id,TRN_00cd97a375,1,sampled_first_20000_rows
+training_pairs.csv,term_id,TERM_179587de,118,sampled_first_20000_rows
+training_pairs.csv,term_id,TERM_ed00a6c9,118,sampled_first_20000_rows
+training_pairs.csv,term_id,TERM_24da8801,101,sampled_first_20000_rows
+training_pairs.csv,term_id,TERM_f9bf4be7,100,sampled_first_20000_rows
+training_pairs.csv,term_id,TERM_ace44d09,81,sampled_first_20000_rows
+training_pairs.csv,term_id,TERM_492e08cf,69,sampled_first_20000_rows
+training_pairs.csv,term_id,TERM_be9c6f5f,64,sampled_first_20000_rows
+training_pairs.csv,term_id,TERM_23b20a55,59,sampled_first_20000_rows
+training_pairs.csv,term_id,TERM_0e1f4b03,49,sampled_first_20000_rows
+training_pairs.csv,term_id,TERM_853b4c61,46,sampled_first_20000_rows
+training_pairs.csv,item_id,ITEM_a9af992a40d4,3,sampled_first_20000_rows
+training_pairs.csv,item_id,ITEM_4b118363ad80,3,sampled_first_20000_rows
+training_pairs.csv,item_id,ITEM_fb0a53cd3407,2,sampled_first_20000_rows
+training_pairs.csv,item_id,ITEM_5e66cf5d53cd,2,sampled_first_20000_rows
+training_pairs.csv,item_id,ITEM_d353dae15cc3,2,sampled_first_20000_rows
+training_pairs.csv,item_id,ITEM_41f153879790,2,sampled_first_20000_rows
+training_pairs.csv,item_id,ITEM_d10fdb000089,2,sampled_first_20000_rows
+training_pairs.csv,item_id,ITEM_ca5e10435836,2,sampled_first_20000_rows
+training_pairs.csv,item_id,ITEM_84826ace446c,2,sampled_first_20000_rows
+training_pairs.csv,item_id,ITEM_d30680dd6269,2,sampled_first_20000_rows

@@ -1,0 +1,58 @@
+[
+  {
+    "table": "items.csv",
+    "metric_scope": "sampled_first_20000_rows",
+    "sample_rows": 20000,
+    "duplicate_count_sample": 0,
+    "duplicate_percentage_sample": 0.0,
+    "fully_empty_columns": []
+  },
+  {
+    "table": "parsed_items_for_sky.parquet",
+    "metric_scope": "sampled_first_20000_rows",
+    "sample_rows": 20000,
+    "duplicate_count_sample": 0,
+    "duplicate_percentage_sample": 0.0,
+    "fully_empty_columns": []
+  },
+  {
+    "table": "sample_submission.csv",
+    "metric_scope": "sampled_first_20000_rows",
+    "sample_rows": 20000,
+    "duplicate_count_sample": 0,
+    "duplicate_percentage_sample": 0.0,
+    "fully_empty_columns": []
+  },
+  {
+    "table": "submission_pairs.csv",
+    "metric_scope": "sampled_first_20000_rows",
+    "sample_rows": 20000,
+    "duplicate_count_sample": 0,
+    "duplicate_percentage_sample": 0.0,
+    "fully_empty_columns": []
+  },
+  {
+    "table": "terms.csv",
+    "metric_scope": "sampled_first_20000_rows",
+    "sample_rows": 20000,
+    "duplicate_count_sample": 0,
+    "duplicate_percentage_sample": 0.0,
+    "fully_empty_columns": []
+  },
+  {
+    "table": "train_with_negatives.parquet",
+    "metric_scope": "sampled_first_20000_rows",
+    "sample_rows": 20000,
+    "duplicate_count_sample": 0,
+    "duplicate_percentage_sample": 0.0,
+    "fully_empty_columns": []
+  },
+  {
+    "table": "training_pairs.csv",
+    "metric_scope": "sampled_first_20000_rows",
+    "sample_rows": 20000,
+    "duplicate_count_sample": 0,
+    "duplicate_percentage_sample": 0.0,
+    "fully_empty_columns": []
+  }
+]

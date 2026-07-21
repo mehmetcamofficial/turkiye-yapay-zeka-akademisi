@@ -1,0 +1,1595 @@
+category,rows,positive_rate,precision,recall,f1
+ayakkabı/spor ayakkabı/sneaker,660.0,0.27424242424242423,0.9145299145299145,0.5911602209944752,0.7181208053691275
+aksesuar/saat,300.0,0.19666666666666666,0.76,0.6440677966101694,0.6972477064220184
+giyim/dış giyim/kaban & mont/mont,292.0,0.24315068493150685,0.8627450980392157,0.6197183098591549,0.7213114754098361
+giyim/alt giyim/pantolon,262.0,0.2633587786259542,0.8524590163934426,0.7536231884057971,0.8
+aksesuar/gözlük/güneş gözlüğü,262.0,0.1984732824427481,0.6666666666666666,0.6153846153846154,0.64
+aksesuar/çanta/omuz çantası,222.0,0.26126126126126126,0.8260869565217391,0.6551724137931034,0.7307692307692307
+ayakkabı/bot & çizme/bot & bootie,218.0,0.22935779816513763,0.7714285714285715,0.54,0.6352941176470588
+giyim/üst giyim/t-shirt,206.0,0.24271844660194175,0.7209302325581395,0.62,0.6666666666666666
+giyim/üst giyim/sweatshirt,202.0,0.19306930693069307,0.8888888888888888,0.6153846153846154,0.7272727272727273
+giyim/dış giyim/ceket & yelek/ceket,201.0,0.208955223880597,0.75,0.5714285714285714,0.6486486486486487
+ev & mobilya/mobilya/elektrik & aydınlatma/avize,194.0,0.19072164948453607,0.625,0.13513513513513514,0.2222222222222222
+ev & mobilya/ev/sofra & mutfak/mutfak saklama ve düzenleme/saklama kabı,193.0,0.45595854922279794,0.9629629629629629,0.29545454545454547,0.45217391304347826
+ev & mobilya/mobilya/halı / kilim/halı,174.0,0.22413793103448276,0.6285714285714286,0.5641025641025641,0.5945945945945946
+giyim/üst giyim/gömlek,164.0,0.2621951219512195,0.9642857142857143,0.627906976744186,0.7605633802816901
+ayakkabı/spor ayakkabı/koşu & antrenman ayakkabısı,147.0,0.2585034013605442,0.8571428571428571,0.7894736842105263,0.821917808219178
+kozmetik & kişisel bakım/parfüm ve deodorant/parfüm,130.0,0.27692307692307694,0.8125,0.7222222222222222,0.7647058823529411
+aksesuar/takı & mücevher/bileklik/çelik bileklik,126.0,0.4126984126984127,0.6721311475409836,0.7884615384615384,0.7256637168141593
+ayakkabı/sandalet ve terlik/terlik,120.0,0.26666666666666666,0.9166666666666666,0.6875,0.7857142857142857
+giyim/alt giyim/eşofman/eşofman altı,119.0,0.2184873949579832,0.9523809523809523,0.7692307692307693,0.851063829787234
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/nevresim takımı/çift kişilik nevresim,118.0,0.09322033898305085,0.6666666666666666,0.36363636363636365,0.47058823529411764
+ev & mobilya/ev/sofra & mutfak/sofra/kahve fincanı,116.0,0.19827586206896552,0.7222222222222222,0.5652173913043478,0.6341463414634146
+ev & mobilya/ev/sofra & mutfak/pişirme/tencere,113.0,0.20353982300884957,1.0,0.6521739130434783,0.7894736842105263
+giyim/elbise,109.0,0.1926605504587156,0.7692307692307693,0.47619047619047616,0.5882352941176471
+ayakkabı/topuklu ayakkabı/klasik topuklu ayakkabı,102.0,0.22549019607843138,0.8181818181818182,0.391304347826087,0.5294117647058824
+ev & mobilya/ev/ev dekorasyon/yapay & kuru çiçek,102.0,0.29411764705882354,0.8695652173913043,0.6666666666666666,0.7547169811320755
+ev & mobilya/ev/sofra & mutfak/sofra/tabak,102.0,0.2549019607843137,0.8181818181818182,0.34615384615384615,0.4864864864864865
+ayakkabı/spor ayakkabı/yürüyüş ayakkabısı,101.0,0.09900990099009901,0.6363636363636364,0.7,0.6666666666666666
+giyim/alt giyim/jeans,99.0,0.24242424242424243,0.8823529411764706,0.625,0.7317073170731707
+ev & mobilya/mobilya/halı / kilim/yolluk,97.0,0.422680412371134,0.6904761904761905,0.7073170731707317,0.6987951807228916
+süpermarket/sağlık/gıda takviyesi ve vitamin/vitamin,96.0,0.46875,0.9333333333333333,0.3111111111111111,0.4666666666666667
+giyim/üst giyim/kazak & hırka/kazak,94.0,0.2553191489361702,0.8571428571428571,0.5,0.631578947368421
+ayakkabı/günlük ayakkabı/loafer ayakkabı,90.0,0.2222222222222222,0.7619047619047619,0.8,0.7804878048780488
+ayakkabı/günlük ayakkabı/casual ayakkabı,88.0,0.3181818181818182,0.9285714285714286,0.4642857142857143,0.6190476190476191
+kozmetik & kişisel bakım/saç bakım/şampuan,87.0,0.13793103448275862,0.5,0.5,0.5
+giyim/abiye & mezuniyet elbisesi,85.0,0.2823529411764706,0.7333333333333333,0.4583333333333333,0.5641025641025641
+otomobil & motosiklet/motosiklet/motosiklet koruma ekipmanları/motosiklet kaskı,77.0,0.37662337662337664,0.8181818181818182,0.6206896551724138,0.7058823529411765
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/nevresim takımı/tek kişilik nevresim,76.0,0.13157894736842105,0.5,0.4,0.4444444444444444
+ev & mobilya/mobilya/elektrik & aydınlatma/aplik,75.0,0.26666666666666666,0.5555555555555556,0.75,0.6382978723404256
+ev & mobilya/ev/ev dekorasyon/kırlent & kırlent kılıfı,74.0,0.08108108108108109,0.6666666666666666,0.6666666666666666,0.6666666666666666
+kozmetik & kişisel bakım/saç bakım/saç boyası,73.0,0.273972602739726,0.7333333333333333,0.55,0.6285714285714286
+ayakkabı/sandalet ve terlik/sandalet,72.0,0.3055555555555556,0.9,0.4090909090909091,0.5625
+giyim/tesettür giyim/eşarp,72.0,0.2916666666666667,0.7222222222222222,0.6190476190476191,0.6666666666666666
+giyim/dış giyim/pardesü & trençkot/trençkot,70.0,0.2571428571428571,1.0,0.5,0.6666666666666666
+kozmetik & kişisel bakım/makyaj/tırnak/takma tırnak & aksesuarı,70.0,0.38571428571428573,0.7,0.5185185185185185,0.5957446808510638
+ev & mobilya/mobilya/yatak odası/dolap ve gardırop,69.0,0.2608695652173913,0.8571428571428571,0.3333333333333333,0.48
+ev & mobilya/ev/sofra & mutfak/sofra/yemek takımı,68.0,0.35294117647058826,0.8666666666666667,0.5416666666666666,0.6666666666666666
+giyim/tesettür giyim/tesettür takımlar/tesettür alt - üst takım,68.0,0.23529411764705882,0.8333333333333334,0.625,0.7142857142857143
+kitap/eğitim/sınav hazırlık,65.0,0.15384615384615385,0.5555555555555556,0.5,0.5263157894736842
+ev & mobilya/ev/sofra & mutfak/sofra/kase,65.0,0.2153846153846154,0.7,0.5,0.5833333333333334
+ev & mobilya/ev/sofra & mutfak/sofra/bardak,64.0,0.171875,1.0,0.6363636363636364,0.7777777777777778
+ev & mobilya/mobilya/bahçe mobilyaları/bahçe takımı,64.0,0.296875,0.8333333333333334,0.5263157894736842,0.6451612903225806
+ev & mobilya/ev/ev tekstili/salon tekstili/koltuk örtüsü,63.0,0.20634920634920634,1.0,0.15384615384615385,0.26666666666666666
+kitap/eğitim/ders ve yardımcı kitaplar,63.0,0.30158730158730157,1.0,0.47368421052631576,0.6428571428571429
+giyim/takımlar/alt - üst takım,62.0,0.3709677419354839,0.9230769230769231,0.5217391304347826,0.6666666666666666
+giyim/tesettür giyim/tesettür şal,62.0,0.0967741935483871,0.42857142857142855,0.5,0.46153846153846156
+ev & mobilya/ev/sofra & mutfak/sofra/çatal & bıçak & kaşık,60.0,0.15,1.0,0.7777777777777778,0.875
+ev & mobilya/mobilya/salon & oturma odası/tv sehpa & ünitesi,60.0,0.25,0.0,0.0,0.0
+ev & mobilya/ev/ev dekorasyon/tablo,60.0,0.23333333333333334,0.6666666666666666,0.7142857142857143,0.6896551724137931
+ev & mobilya/mobilya/perde/tül perde,59.0,0.3389830508474576,0.7777777777777778,0.35,0.4827586206896552
+ayakkabı/spor ayakkabı/outdoor ayakkabı,58.0,0.20689655172413793,0.8,0.6666666666666666,0.7272727272727273
+elektronik/kişisel bakım aletleri/tıraş makinesi,58.0,0.3103448275862069,0.5555555555555556,0.2777777777777778,0.37037037037037035
+giyim/dış giyim/ceket & yelek/yelek,58.0,0.29310344827586204,1.0,0.35294117647058826,0.5217391304347826
+ev & mobilya/mobilya/salon & oturma odası/sehpa/yan sehpa,58.0,0.4482758620689655,0.71875,0.8846153846153846,0.7931034482758621
+ayakkabı/spor ayakkabı/krampon,57.0,0.15789473684210525,0.8,0.4444444444444444,0.5714285714285714
+aksesuar/takı & mücevher/küpe/bijuteri küpe,55.0,0.14545454545454545,0.6666666666666666,0.5,0.5714285714285714
+ev & mobilya/ev/banyo/banyo tekstili/havlu,54.0,0.16666666666666666,0.7142857142857143,0.5555555555555556,0.625
+banyo yapı & hırdavat/hırdavat/mobilya kulpu,52.0,0.36538461538461536,0.47368421052631576,0.47368421052631576,0.47368421052631576
+giyim/dış giyim/kaban & mont/kaban,52.0,0.23076923076923078,0.8333333333333334,0.8333333333333334,0.8333333333333334
+ayakkabı/günlük ayakkabı/babet,51.0,0.29411764705882354,0.8333333333333334,0.6666666666666666,0.7407407407407407
+ev & mobilya/mobilya/mutfak & banyo mobilyası/mutfak mobilyası/mutfak dolapları/çok amaçlı dolap,51.0,0.23529411764705882,0.6153846153846154,0.6666666666666666,0.64
+ev & mobilya/ev/sofra & mutfak/mutfak saklama ve düzenleme/kavanoz,50.0,0.24,0.7777777777777778,0.5833333333333334,0.6666666666666666
+ev & mobilya/ev/sofra & mutfak/sofra/kahvaltı takımı,50.0,0.28,0.8,0.2857142857142857,0.42105263157894735
+aksesuar/takı & mücevher/küpe/gümüş küpe,50.0,0.32,0.5294117647058824,0.5625,0.5454545454545454
+ev & mobilya/mobilya/perde/fon perde,49.0,0.24489795918367346,0.8571428571428571,0.5,0.631578947368421
+kozmetik & kişisel bakım/cilt bakım/yüz bakım/yüz kremi,49.0,0.16326530612244897,0.3333333333333333,0.25,0.2857142857142857
+ev & mobilya/mobilya/salon & oturma odası/sehpa/zigon,49.0,0.12244897959183673,1.0,0.3333333333333333,0.5
+aksesuar/çanta/cüzdan,48.0,0.2916666666666667,0.7777777777777778,0.5,0.6086956521739131
+ev & mobilya/ev/ev dekorasyon/duvar dekorasyonu/duvar dekorasyon ürünü,48.0,0.25,0.75,0.5,0.6
+ayakkabı/bot & çizme/çizme,48.0,0.22916666666666666,0.75,0.5454545454545454,0.631578947368421
+ev & mobilya/ev/ev dekorasyon/dekoratif obje ve biblo,47.0,0.2765957446808511,0.8571428571428571,0.46153846153846156,0.6
+aksesuar/diğer aksesuar/broş,47.0,0.425531914893617,0.68,0.85,0.7555555555555555
+aksesuar/çanta/sırt çantası,46.0,0.21739130434782608,0.8888888888888888,0.8,0.8421052631578947
+ayakkabı/topuklu ayakkabı/abiye ayakkabı,46.0,0.2391304347826087,0.8,0.7272727272727273,0.7619047619047619
+giyim/üst giyim/kazak & hırka/hırka,45.0,0.28888888888888886,0.9230769230769231,0.9230769230769231,0.9230769230769231
+ev & mobilya/ev/sofra & mutfak/pişirme/tava,45.0,0.2,0.8,0.8888888888888888,0.8421052631578947
+giyim/ev giyim/pijama/pijama takımı,45.0,0.2222222222222222,1.0,0.2,0.3333333333333333
+ev & mobilya/mobilya/antre & hol/askılık,44.0,0.25,0.5454545454545454,0.5454545454545454,0.5454545454545454
+aksesuar/takı & mücevher/yüzük/gümüş yüzük,44.0,0.09090909090909091,1.0,0.75,0.8571428571428571
+otomobil & motosiklet/oto ses görüntü sistemleri/oto hoparlör,44.0,0.45454545454545453,0.75,0.3,0.42857142857142855
+giyim/spor giyim/spor eşofman altı,44.0,0.20454545454545456,0.8888888888888888,0.8888888888888888,0.8888888888888888
+süpermarket/pet shop/kedi ürünleri/kedi kuru maması,43.0,0.2558139534883721,1.0,0.5454545454545454,0.7058823529411765
+ev & mobilya/ev/ev gereçleri/depolama&düzenleme ürünleri/dolap içi düzenleyici,42.0,0.2857142857142857,0.875,0.5833333333333334,0.7
+giyim/iç giyim/çorap,42.0,0.30952380952380953,0.6111111111111112,0.8461538461538461,0.7096774193548387
+giyim/bebek giyim/bebek takımı,42.0,0.21428571428571427,0.75,0.6666666666666666,0.7058823529411765
+kozmetik & kişisel bakım/parfüm ve deodorant/deodorant ve roll on,42.0,0.16666666666666666,0.8571428571428571,0.8571428571428571,0.8571428571428571
+ev & mobilya/ev/ev dekorasyon/dekoratif tabak & kase,41.0,0.4878048780487805,0.72,0.9,0.8
+giyim/bebek giyim/bebek tulumu/uyku tulumu,41.0,0.34146341463414637,0.375,0.42857142857142855,0.4
+ev & mobilya/ev/banyo/banyo tekstili/bornoz,41.0,0.3170731707317073,0.5,0.23076923076923078,0.3157894736842105
+aksesuar/takı & mücevher/kolye/gümüş kolye,41.0,0.1951219512195122,0.8,1.0,0.8888888888888888
+ev & mobilya/ev/banyo/banyo aksesuarları/banyo düzenleyici,41.0,0.24390243902439024,0.6,0.3,0.4
+aksesuar/takı & mücevher/küpe/çelik küpe,40.0,0.35,0.75,0.21428571428571427,0.3333333333333333
+aksesuar/çanta/el çantası,40.0,0.175,0.375,0.42857142857142855,0.4
+ev & mobilya/mobilya/salon & oturma odası/kanepe & koltuklar/köşe takımı,39.0,0.358974358974359,0.5,0.35714285714285715,0.4166666666666667
+ev & mobilya/ev/sofra & mutfak/mutfak saklama ve düzenleme/kaşıklık,39.0,0.38461538461538464,0.6875,0.7333333333333333,0.7096774193548387
+elektronik/bilgisayar grubu/bilgisayarlar/masaüstü bilgisayarlar/oyuncu masaüstü bilgisayarı,39.0,0.4358974358974359,0.6666666666666666,0.11764705882352941,0.2
+ev & mobilya/ev/sofra & mutfak/mutfak saklama ve düzenleme/baharatlık,38.0,0.23684210526315788,0.8571428571428571,0.6666666666666666,0.75
+banyo yapı & hırdavat/boya/iç cephe boyası,38.0,0.4473684210526316,0.6666666666666666,0.23529411764705882,0.34782608695652173
+ev & mobilya/ev/ev dekorasyon/ayna,38.0,0.21052631578947367,0.5714285714285714,0.5,0.5333333333333333
+kozmetik & kişisel bakım/cilt bakım/güneş ürünü/yüz güneş kremi,38.0,0.07894736842105263,1.0,0.3333333333333333,0.5
+ev & mobilya/ev/sofra & mutfak/sofra/tepsi,38.0,0.07894736842105263,0.0,0.0,0.0
+ev & mobilya/mobilya/elektrik & aydınlatma/abajur,37.0,0.10810810810810811,1.0,1.0,1.0
+giyim/spor giyim/spor mont,36.0,0.19444444444444445,1.0,0.7142857142857143,0.8333333333333334
+kozmetik & kişisel bakım/makyaj/dudak makyajı/ruj,36.0,0.2222222222222222,1.0,0.5,0.6666666666666666
+kozmetik & kişisel bakım/cilt bakım/yüz bakım/cilt serumu,36.0,0.2777777777777778,1.0,0.5,0.6666666666666666
+hobi & eğlence/hobi malzemeleri/örgü ipi,36.0,0.16666666666666666,0.5,0.16666666666666666,0.25
+ev & mobilya/ev/ev dekorasyon/duvar dekorasyonu/duvar saati,36.0,0.3055555555555556,1.0,0.36363636363636365,0.5333333333333333
+ev & mobilya/ev/banyo/banyo aksesuarları/sabunluk,35.0,0.08571428571428572,1.0,0.3333333333333333,0.5
+aksesuar/takı & mücevher/kolye/bijuteri kolye,35.0,0.22857142857142856,0.5,0.125,0.2
+ayakkabı/günlük ayakkabı/klasik ayakkabı,35.0,0.2,0.6666666666666666,0.5714285714285714,0.6153846153846154
+ev & mobilya/ev/sofra & mutfak/sofra/runner & amerikan servisi,35.0,0.3142857142857143,0.4,0.18181818181818182,0.25
+ev & mobilya/ev/banyo/banyo tekstili/banyo paspası,34.0,0.14705882352941177,0.5,0.4,0.4444444444444444
+aksesuar/saç aksesuarı/toka,34.0,0.2647058823529412,0.6,0.6666666666666666,0.631578947368421
+spor & outdoor/ekipman & aksesuar/kamp/kamp mutfak ürünleri/termos,34.0,0.14705882352941177,1.0,0.2,0.3333333333333333
+anne & bebek & çocuk/oyuncak/oyuncak araçlar/oyuncak araba,34.0,0.29411764705882354,0.5,0.4,0.4444444444444444
+otomobil & motosiklet/otomobil/araç içi aksesuarı/torpido aksesuar,33.0,0.24242424242424243,0.4444444444444444,0.5,0.47058823529411764
+ev & mobilya/mobilya/salon & oturma odası/duvar rafı,33.0,0.30303030303030304,0.7142857142857143,0.5,0.5882352941176471
+giyim/tesettür giyim/tesettür abiye,33.0,0.12121212121212122,1.0,0.25,0.4
+giyim/spor giyim/spor t-shirt,33.0,0.30303030303030304,0.8,0.4,0.5333333333333333
+giyim/alt giyim/tayt,33.0,0.5151515151515151,0.875,0.8235294117647058,0.8484848484848485
+aksesuar/çanta/portföy & clutch çanta,33.0,0.48484848484848486,1.0,0.3125,0.47619047619047616
+ev & mobilya/mobilya/perde/stor perde,33.0,0.24242424242424243,0.5,0.25,0.3333333333333333
+giyim/üst giyim/bluz & tunik/bluz,33.0,0.3939393939393939,0.9,0.6923076923076923,0.782608695652174
+ev & mobilya/mobilya/salon & oturma odası/sehpa/orta sehpa,33.0,0.30303030303030304,0.8333333333333334,0.5,0.625
+giyim/alt giyim/etek,33.0,0.09090909090909091,1.0,1.0,1.0
+aksesuar/takı & mücevher/kolye/altın kolye,32.0,0.1875,1.0,0.16666666666666666,0.2857142857142857
+aksesuar/şapka,32.0,0.125,1.0,0.25,0.4
+kırtasiye & ofis malzemeleri/kalem/keçeli kalem,31.0,0.3548387096774194,0.5,0.5454545454545454,0.5217391304347826
+elektronik/giyilebilir teknoloji/kulaklıklar/kulak içi tws bluetooth kulaklık,31.0,0.2903225806451613,0.5,0.3333333333333333,0.4
+bahçe & elektrikli el aletleri/bahçe/çiçek & bitki yetiştirme/tohumlar,31.0,0.3548387096774194,0.75,0.5454545454545454,0.631578947368421
+elektronik/elektrikli ev aletleri/süpürge & ütü/süpürge/dik süpürge,31.0,0.22580645161290322,1.0,0.2857142857142857,0.4444444444444444
+aksesuar/takı & mücevher/kolye/çelik kolye,31.0,0.16129032258064516,0.6666666666666666,0.4,0.5
+kozmetik & kişisel bakım/cilt bakım/yüz bakım/yüz temizleyici,31.0,0.1935483870967742,0.6666666666666666,0.3333333333333333,0.4444444444444444
+giyim/tesettür giyim/kap & ferace,30.0,0.26666666666666666,0.75,0.375,0.5
+ev & mobilya/mobilya/antre & hol/dresuar,30.0,0.13333333333333333,0.0,0.0,0.0
+ev & mobilya/mobilya/bahçe mobilyaları/saksılık,30.0,0.5333333333333333,0.7777777777777778,0.4375,0.56
+otomobil & motosiklet/otomobil/oto bakım & temizlik/oto kokusu,29.0,0.3793103448275862,0.5,0.09090909090909091,0.15384615384615385
+spor & outdoor/ekipman & aksesuar/koruyucu & aksesuar/kaleci eldiveni,29.0,0.5172413793103449,0.6666666666666666,0.6666666666666666,0.6666666666666666
+giyim/spor giyim/spor ceket,29.0,0.2413793103448276,1.0,0.7142857142857143,0.8333333333333334
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/mikser & mikser seti,29.0,0.20689655172413793,0.7142857142857143,0.8333333333333334,0.7692307692307693
+aksesuar/çanta/valiz & bavul,28.0,0.14285714285714285,0.0,0.0,0.0
+aksesuar/takı & mücevher/bileklik/gümüş bileklik,28.0,0.14285714285714285,1.0,1.0,1.0
+kozmetik & kişisel bakım/cilt bakım/dudak kremi ve peelingi,28.0,0.2857142857142857,0.5,0.625,0.5555555555555556
+kitap/çocuk ve ebeveyn kitapları/çocuk masal ve öykü kitabı,28.0,0.2857142857142857,0.75,0.375,0.5
+banyo yapı & hırdavat/hırdavat/mobilya ayakları,28.0,0.6071428571428571,0.7777777777777778,0.4117647058823529,0.5384615384615384
+aksesuar/takı & mücevher/bileklik/bijuteri bileklik,28.0,0.14285714285714285,0.75,0.75,0.75
+ev & mobilya/mobilya/mutfak & banyo mobilyası/banyo mobilyası/banyo rafları,28.0,0.21428571428571427,0.75,1.0,0.8571428571428571
+giyim/üst giyim/polo yaka t-shirt,28.0,0.17857142857142858,0.75,0.6,0.6666666666666666
+anne & bebek & çocuk/oyuncak/kutu oyunu,28.0,0.39285714285714285,0.8,0.36363636363636365,0.5
+elektronik/giyilebilir teknoloji/kulaklıklar/kulak üstü bluetooth kulaklık,28.0,0.2857142857142857,0.75,0.375,0.5
+kırtasiye & ofis malzemeleri/kırtasiye kağıt ürünleri/defter,28.0,0.32142857142857145,0.875,0.7777777777777778,0.8235294117647058
+elektronik/hoparlör & projeksiyon sistemleri/hoparlörler/bluetooth hoparlör,28.0,0.35714285714285715,1.0,0.4,0.5714285714285714
+anne & bebek & çocuk/oyuncak/peluş oyuncak,27.0,0.3333333333333333,1.0,0.5555555555555556,0.7142857142857143
+kitap/din ve mitoloji/din kitabı,27.0,0.2222222222222222,0.6,0.5,0.5454545454545454
+hobi & eğlence/hediyelik ürünler/konsept hediyelik,27.0,0.2962962962962963,0.8333333333333334,0.625,0.7142857142857143
+kozmetik & kişisel bakım/saç bakım/saç fırçası ve tarak,27.0,0.14814814814814814,1.0,0.5,0.6666666666666666
+süpermarket/ev bakım ve temizlik/ev temizlik/oda ve araba kokusu/koku giderici ve hava temizleyici,27.0,0.2222222222222222,1.0,0.5,0.6666666666666666
+kozmetik & kişisel bakım/makyaj/göz makyajı/göz farı,27.0,0.14814814814814814,0.75,0.75,0.75
+ev & mobilya/mobilya/antre & hol/ayakkabılık,27.0,0.18518518518518517,0.75,0.6,0.6666666666666666
+aksesuar/çanta/abiye çanta,26.0,0.19230769230769232,0.625,1.0,0.7692307692307693
+ev & mobilya/ev/ev tekstili/bebek&çocuk ev tekstil/bebek & çocuk nevresim takımı,26.0,0.2692307692307692,1.0,0.42857142857142855,0.6
+giyim/tesettür giyim/tesettür bluz & tunik/tesettür tunik,26.0,0.19230769230769232,1.0,0.8,0.8888888888888888
+elektronik/bilgisayar grubu/bilgisayarlar/dizüstü bilgisayarlar/dizüstü bilgisayar,26.0,0.15384615384615385,0.5,0.5,0.5
+ev & mobilya/ev/ev tekstili/bebek&çocuk ev tekstil/bebek & çocuk battaniyesi,26.0,0.2692307692307692,0.6,0.42857142857142855,0.5
+ev & mobilya/mobilya/yatak odası/komodin,26.0,0.38461538461538464,0.8,0.4,0.5333333333333333
+ev & mobilya/mobilya/salon & oturma odası/kanepe & koltuklar/puf & bench,26.0,0.11538461538461539,1.0,0.3333333333333333,0.5
+spor & outdoor/ekipman & aksesuar/bisiklet & aksesuar/bisiklet aksesuarı,26.0,0.38461538461538464,0.8333333333333334,0.5,0.625
+aksesuar/diğer aksesuar/tesbih,26.0,0.07692307692307693,0.0,0.0,0.0
+ev & mobilya/mobilya/elektrik & aydınlatma/lambader,26.0,0.5,1.0,0.3076923076923077,0.47058823529411764
+hobi & eğlence/parti malzemeleri/balon,26.0,0.07692307692307693,0.5,0.5,0.5
+elektronik/telefon/yenilenmiş cep telefonu,26.0,0.2692307692307692,1.0,0.14285714285714285,0.25
+ev & mobilya/ev/ev dekorasyon/duvar dekorasyonu/duvar sticker,26.0,0.34615384615384615,0.6363636363636364,0.7777777777777778,0.7
+elektronik/telefon/akıllı cep telefonu/android cep telefonu,26.0,0.3076923076923077,1.0,0.375,0.5454545454545454
+anne & bebek & çocuk/oyuncak/eğitici oyuncak,25.0,0.2,0.6,0.6,0.6
+anne & bebek & çocuk/oyuncak/lego & yapı oyuncakları,25.0,0.2,0.36363636363636365,0.8,0.5
+süpermarket/gıda & içecek/atıştırmalık/çikolata,25.0,0.4,1.0,0.4,0.5714285714285714
+ev & mobilya/ev/ev dekorasyon/vazo,25.0,0.48,0.7272727272727273,0.6666666666666666,0.6956521739130435
+giyim/bebek giyim/hastane çıkışı,25.0,0.24,0.6,0.5,0.5454545454545454
+ev & mobilya/ev/ev tekstili/salon tekstili/masa örtüsü,25.0,0.12,0.5,0.3333333333333333,0.4
+kırtasiye & ofis malzemeleri/kalem/uçlu kalem,24.0,0.16666666666666666,0.6666666666666666,1.0,0.8
+ev & mobilya/mobilya/yatak odası/yatak,24.0,0.4166666666666667,1.0,0.1,0.18181818181818182
+kırtasiye & ofis malzemeleri/kırtasiye/suluk & matara,24.0,0.16666666666666666,0.5,0.5,0.5
+giyim/takım elbise,24.0,0.25,1.0,1.0,1.0
+kozmetik & kişisel bakım/cilt bakım/vücut bakımı/vücut kremi,24.0,0.16666666666666666,1.0,1.0,1.0
+anne & bebek & çocuk/çocuk gereçleri/oto koltuğu ve aksesuarları/oto koltuğu aksesuarı,24.0,0.4166666666666667,0.6666666666666666,0.4,0.5
+süpermarket/ev bakım ve temizlik/çamaşır yıkama/çamaşır deterjanı,24.0,0.375,0.5714285714285714,0.4444444444444444,0.5
+giyim/alt giyim/eşofman/eşofman takımı,24.0,0.16666666666666666,0.6666666666666666,0.5,0.5714285714285714
+banyo yapı & hırdavat/elektrik tesisat malzemesi/grup priz uzatma kablosu,23.0,0.43478260869565216,0.6923076923076923,0.9,0.782608695652174
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/içecek hazırlama/espresso & cappuccino makinesi,23.0,0.4782608695652174,0.7272727272727273,0.7272727272727273,0.7272727272727273
+giyim/salopet & tulum/tulum,23.0,0.5217391304347826,1.0,0.5833333333333334,0.7368421052631579
+kırtasiye & ofis malzemeleri/kalem/kalem kutusu,23.0,0.30434782608695654,0.6666666666666666,0.2857142857142857,0.4
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/içecek hazırlama/türk kahvesi makinesi,23.0,0.30434782608695654,0.6666666666666666,0.5714285714285714,0.6153846153846154
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/pike&pike takımı/tek kişilik pike & pike takımı,23.0,0.13043478260869565,1.0,1.0,1.0
+hobi & eğlence/parti malzemeleri/led işık,23.0,0.21739130434782608,0.8,0.8,0.8
+ev & mobilya/ev/ev dekorasyon/kapı süsü,23.0,0.391304347826087,1.0,0.3333333333333333,0.5
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/yatak örtüsü/çift kişilik yatak örtüsü,23.0,0.21739130434782608,0.75,0.6,0.6666666666666666
+otomobil & motosiklet/otomobil/araç içi aksesuarı/oto koltuk kılıf & minder/oto koltuk kılıfı,23.0,0.17391304347826086,0.6666666666666666,0.5,0.5714285714285714
+kozmetik & kişisel bakım/saç bakım/saç kremi,22.0,0.13636363636363635,0.6666666666666666,0.6666666666666666,0.6666666666666666
+kozmetik & kişisel bakım/ağız bakım/diş macunu,22.0,0.13636363636363635,1.0,0.3333333333333333,0.5
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/kesme tahtası,22.0,0.13636363636363635,1.0,0.3333333333333333,0.5
+banyo yapı & hırdavat/banyo yapı malzemeleri/banyo askısı,22.0,0.4090909090909091,0.8,0.4444444444444444,0.5714285714285714
+otomobil & motosiklet/lastik & jant/lastik,22.0,0.2727272727272727,0.75,0.5,0.6
+ev & mobilya/mobilya/bebek & çocuk odası mobilyası/ranza,22.0,0.3181818181818182,0.5,1.0,0.6666666666666666
+ev & mobilya/ev/ev gereçleri/depolama&düzenleme ürünleri/hurç,21.0,0.23809523809523808,0.8,0.8,0.8
+giyim/spor giyim/spor sweatshirt,21.0,0.42857142857142855,1.0,0.7777777777777778,0.875
+kırtasiye & ofis malzemeleri/kırtasiye/yazı tahtası & pano/yazı tahtası,21.0,0.42857142857142855,0.5,0.5555555555555556,0.5263157894736842
+otomobil & motosiklet/otomobil/oto bakım & temizlik/oto bakım seti,21.0,0.23809523809523808,0.5,0.4,0.4444444444444444
+ev & mobilya/ev/sofra & mutfak/pişirme/fırın ve kek kalıbı,21.0,0.14285714285714285,1.0,0.6666666666666666,0.8
+giyim/tesettür giyim/tesettür gömlek,21.0,0.23809523809523808,0.3333333333333333,0.4,0.36363636363636365
+giyim/dış giyim/ceket & yelek/blazer ceket,20.0,0.25,1.0,0.6,0.75
+giyim/dış giyim/yağmurluk & rüzgarlık,20.0,0.15,1.0,0.3333333333333333,0.5
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/temizlik gereçleri/paspas ve mop,20.0,0.2,1.0,0.25,0.4
+ev & mobilya/ev/sofra & mutfak/mutfak saklama ve düzenleme/ekmek kutusu ve sepeti,20.0,0.2,1.0,0.25,0.4
+elektronik/elektronik aksesuarlar/tablet aksesuarları/tablet kılıfı,20.0,0.2,1.0,1.0,1.0
+hobi & eğlence/parti malzemeleri/doğum günü süsü,20.0,0.3,0.75,1.0,0.8571428571428571
+ev & mobilya/ev/sofra & mutfak/sofra/peçetelik,20.0,0.2,0.0,0.0,0.0
+ev & mobilya/mobilya/yatak odası/makyaj masası & tuvalet masası,20.0,0.7,0.9230769230769231,0.8571428571428571,0.8888888888888888
+kitap/roman ve edebiyat/roman,20.0,0.35,0.6666666666666666,0.2857142857142857,0.4
+anne & bebek & çocuk/oyuncak/figür oyuncaklar/karakter figür oyuncak,20.0,0.25,0.8,0.8,0.8
+kozmetik & kişisel bakım/makyaj/tırnak/oje,20.0,0.15,1.0,0.6666666666666666,0.8
+banyo yapı & hırdavat/hırdavat/mobilya hırdavatı,20.0,0.4,1.0,0.5,0.6666666666666666
+ev & mobilya/mobilya/çalışma odası/çalışma masası,20.0,0.0,0.0,0.0,0.0
+giyim/tesettür giyim/tesettür elbise,20.0,0.2,0.75,0.75,0.75
+ayakkabı/spor ayakkabı/basketbol ayakkabısı,20.0,0.1,1.0,0.5,0.6666666666666666
+kozmetik & kişisel bakım/makyaj/makyaj aksesuarları/makyaj çantası,20.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/kuş ürünleri/kuş kafesi,20.0,0.25,0.14285714285714285,0.2,0.16666666666666666
+spor & outdoor/ekipman & aksesuar/boks/boks torbası,19.0,0.5789473684210527,0.6923076923076923,0.8181818181818182,0.75
+giyim/spor giyim/spor şort,19.0,0.10526315789473684,0.5,1.0,0.6666666666666666
+kozmetik & kişisel bakım/cilt bakım/banyo ve duş ürünleri/katı sabun,19.0,0.15789473684210525,0.5,0.3333333333333333,0.4
+otomobil & motosiklet/otomobil/modifiye ürünleri/arma sticker & fosfor şerit,19.0,0.3157894736842105,1.0,0.3333333333333333,0.5
+aksesuar/çanta/okul çantası,19.0,0.21052631578947367,0.75,0.75,0.75
+hobi & eğlence/parti malzemeleri/düğün&kına &nikah malzemeleri/söz hediyelik,19.0,0.3684210526315789,0.75,0.42857142857142855,0.5454545454545454
+kozmetik & kişisel bakım/cilt bakım/cilt bakım seti,18.0,0.2777777777777778,1.0,0.6,0.75
+giyim/spor giyim/spor yağmurluk & rüzgarlık,18.0,0.2222222222222222,1.0,0.5,0.6666666666666666
+elektronik/giyilebilir teknoloji/akıllı saat,18.0,0.4444444444444444,1.0,0.5,0.6666666666666666
+elektronik/bilgisayar grubu/bilgisayarlar/dizüstü bilgisayarlar/oyuncu dizüstü bilgisayarı,18.0,0.16666666666666666,1.0,1.0,1.0
+hobi & eğlence/hobi malzemeleri/boncuk,18.0,0.1111111111111111,0.3333333333333333,0.5,0.4
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/içecek hazırlama/çay makinesi,18.0,0.2222222222222222,1.0,0.75,0.8571428571428571
+ev & mobilya/ev/ev gereçleri/depolama&düzenleme ürünleri/makyaj & takı organizeri,18.0,0.1111111111111111,0.0,0.0,0.0
+kozmetik & kişisel bakım/saç bakım/saç serum ve yağı,18.0,0.1111111111111111,0.5,0.5,0.5
+spor & outdoor/ekipman & aksesuar/bisiklet & aksesuar/bisiklet,18.0,0.1111111111111111,1.0,0.5,0.6666666666666666
+ev & mobilya/mobilya/çalışma odası/kitaplık,18.0,0.3888888888888889,1.0,0.14285714285714285,0.25
+aksesuar/saç aksesuarı/taç,18.0,0.1111111111111111,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/oyuncu donanımları/oyuncu klavyesi,18.0,0.6666666666666666,0.875,0.5833333333333334,0.7
+ayakkabı/ev terliği & botu/panduf,18.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev dekorasyon/mum & kandil,17.0,0.29411764705882354,0.6,0.6,0.6
+ev & mobilya/ev/sofra & mutfak/sofra/servis seti,17.0,0.23529411764705882,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/yatak örtüsü/tek kişilik yatak örtüsü,17.0,0.17647058823529413,1.0,1.0,1.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/oyuncu donanımları/oyuncu kulaklık,17.0,0.23529411764705882,0.75,0.75,0.75
+giyim/tesettür giyim/tesettür pardesü & trençkot/tesettür pardesü,17.0,0.47058823529411764,1.0,0.375,0.5454545454545454
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/yağdanlık,17.0,0.35294117647058826,1.0,0.8333333333333334,0.9090909090909091
+ev & mobilya/ev/banyo/banyo aksesuarları/tuvalet kağıtlığı,17.0,0.35294117647058826,0.5714285714285714,0.6666666666666666,0.6153846153846154
+elektronik/kişisel bakım aletleri/saç düzleştirici,17.0,0.4117647058823529,1.0,0.42857142857142855,0.6
+giyim/tesettür giyim/tesettür pardesü & trençkot/tesettür trençkot,17.0,0.11764705882352941,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/iklimlendirme/klima,17.0,0.11764705882352941,0.6666666666666666,1.0,0.8
+aksesuar/çanta/postacı çantası,17.0,0.29411764705882354,0.8,0.8,0.8
+ev & mobilya/mobilya/çalışma odası/çalışma sandalyesi,17.0,0.058823529411764705,0.0,0.0,0.0
+anne & bebek & çocuk/çocuk gereçleri/bebek bakım çantası,17.0,0.11764705882352941,1.0,1.0,1.0
+ev & mobilya/mobilya/mutfak & banyo mobilyası/mutfak mobilyası/mutfak sandalyesi,17.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/çarşaf&çarşaf takımı/çift kişilik çarşaf takımı,16.0,0.25,0.0,0.0,0.0
+aksesuar/takı & mücevher/yüzük/pırlanta yüzük,16.0,0.375,0.5714285714285714,0.6666666666666666,0.6153846153846154
+hobi & eğlence/hediyelik ürünler/hediye poşeti,16.0,0.375,0.5,0.5,0.5
+ev & mobilya/ev/sofra & mutfak/sofra/kupa,16.0,0.3125,0.6,0.6,0.6
+anne & bebek & çocuk/çocuk gereçleri/bebek arabası & puset/bebek arabası aksesuarları,16.0,0.1875,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya/ocak,16.0,0.25,1.0,0.25,0.4
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/kapak & kılıf,16.0,0.125,0.0,0.0,0.0
+aksesuar/diğer aksesuar/anahtarlık,16.0,0.4375,1.0,0.5714285714285714,0.7272727272727273
+ev & mobilya/ev/sofra & mutfak/mutfak saklama ve düzenleme/bulaşıklık,15.0,0.4,1.0,0.16666666666666666,0.2857142857142857
+kırtasiye & ofis malzemeleri/masaüstü gereçleri/yaka kartı & aksesuarları,15.0,0.4,1.0,0.16666666666666666,0.2857142857142857
+kırtasiye & ofis malzemeleri/kalem/fosforlu kalem,15.0,0.06666666666666667,1.0,1.0,1.0
+ev & mobilya/ev/ev dekorasyon/tütsü ve buhurdanlık,15.0,0.13333333333333333,0.3333333333333333,1.0,0.5
+bahçe & elektrikli el aletleri/elektrikli el aletleri/elektrikli el aleti aksesuar/matkap ucu,15.0,0.4,0.8571428571428571,1.0,0.9230769230769231
+giyim/spor giyim/forma,15.0,0.2,1.0,1.0,1.0
+aksesuar/takı & mücevher/yüzük/bijuteri yüzük,15.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/çiçek & bitki yetiştirme/saksı,15.0,0.26666666666666666,1.0,0.5,0.6666666666666666
+ev & mobilya/ev/ev gereçleri/ütü masası ve aksesuarı,15.0,0.4666666666666667,0.7,1.0,0.8235294117647058
+ev & mobilya/mobilya/elektrik & aydınlatma/masa ve gece lambası,15.0,0.06666666666666667,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe dekorasyonu/bahçe aydınlatması,15.0,0.2,0.6666666666666666,0.6666666666666666,0.6666666666666666
+aksesuar/atkı & bere & eldiven/eldiven,15.0,0.26666666666666666,0.6666666666666666,0.5,0.5714285714285714
+giyim/büyük beden/büyük beden ceket,15.0,0.4666666666666667,0.5454545454545454,0.8571428571428571,0.6666666666666666
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya/ankastre,15.0,0.4666666666666667,0.7777777777777778,1.0,0.875
+ev & mobilya/ev/ev tekstili/bebek&çocuk ev tekstil/bebek & çocuk yastık ve kılıfı,15.0,0.4,0.5,1.0,0.6666666666666666
+aksesuar/kravat & kol düğmesi/kol düğmesi,15.0,0.4,0.5454545454545454,1.0,0.7058823529411765
+aksesuar/gözlük/mavi işık korumalı gözlük,15.0,0.4,0.6666666666666666,0.6666666666666666,0.6666666666666666
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/yorgan/tek kişilik yorgan,15.0,0.4,0.5714285714285714,0.6666666666666666,0.6153846153846154
+kozmetik & kişisel bakım/ağız bakım/diş fırçası/şarj edilebilir diş fırçası,15.0,0.3333333333333333,0.4,0.4,0.4
+ev & mobilya/mobilya/mutfak & banyo mobilyası/banyo mobilyası/banyo dolabı seti,15.0,0.3333333333333333,0.4,0.4,0.4
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/battaniye/tek kişilik battaniye,15.0,0.3333333333333333,1.0,1.0,1.0
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya/buzdolabı,15.0,0.13333333333333333,1.0,1.0,1.0
+elektronik/tablet grubu/tablet,14.0,0.21428571428571427,0.5,0.3333333333333333,0.4
+bahçe & elektrikli el aletleri/elektrikli el aletleri/matkap,14.0,0.14285714285714285,1.0,0.5,0.6666666666666666
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/blender seti,14.0,0.2857142857142857,1.0,0.75,0.8571428571428571
+banyo yapı & hırdavat/hırdavat/iş kıyafeti,14.0,0.2857142857142857,0.6666666666666666,0.5,0.5714285714285714
+ev & mobilya/ev/ev dekorasyon/oda kokusu,14.0,0.07142857142857142,0.0,0.0,0.0
+giyim/bebek giyim/bebek body & zıbın,14.0,0.2857142857142857,0.0,0.0,0.0
+ev & mobilya/ev/ev dekorasyon/yapışkanlı folyo,14.0,0.14285714285714285,0.3333333333333333,0.5,0.4
+giyim/alt giyim/şort & bermuda,14.0,0.2857142857142857,1.0,0.5,0.6666666666666666
+otomobil & motosiklet/otomobil/motor bakım ürünleri/yağ & motor katkısı,14.0,0.14285714285714285,1.0,0.5,0.6666666666666666
+kozmetik & kişisel bakım/saç bakım/saç şekillendirici ürünler/saç şekillendirici krem ve wax,14.0,0.35714285714285715,0.0,0.0,0.0
+ev & mobilya/mobilya/mutfak & banyo mobilyası/banyo mobilyası/çamaşır makinesi dolabı,14.0,0.2857142857142857,0.6666666666666666,0.5,0.5714285714285714
+süpermarket/gıda & içecek/kahve/filtre ve çekirdek kahve,14.0,0.21428571428571427,1.0,0.3333333333333333,0.5
+elektronik/elektrikli ev aletleri/elektrikli ev aletleri aksesuar/süpürge aksesuarı,14.0,0.21428571428571427,1.0,1.0,1.0
+otomobil & motosiklet/motosiklet/motosiklet giyim/motosiklet eldiveni,14.0,0.14285714285714285,0.5,1.0,0.6666666666666666
+giyim/üst giyim/softshell & polar,14.0,0.5,0.8333333333333334,0.7142857142857143,0.7692307692307693
+kozmetik & kişisel bakım/makyaj/ten makyajı/fondöten,14.0,0.21428571428571427,1.0,0.6666666666666666,0.8
+elektronik/elektronik aksesuarlar/tv & görüntü & ses sistemleri/tv aksesuarları/uzaktan kumanda,14.0,0.2857142857142857,1.0,0.5,0.6666666666666666
+ev & mobilya/ev/sofra & mutfak/mutfak saklama ve düzenleme/sebzelik,14.0,0.35714285714285715,1.0,0.6,0.75
+ev & mobilya/mobilya/halı / kilim/kapı önü paspası,14.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/salon & oturma odası/kanepe & koltuklar/tv koltuğu,14.0,0.35714285714285715,0.5,0.4,0.4444444444444444
+kitap/çocuk ve ebeveyn kitapları/aktivite & eğitici kitaplar,13.0,0.23076923076923078,1.0,0.6666666666666666,0.8
+süpermarket/gıda & içecek/yağ ve sos/sos/diğer soslar,13.0,0.23076923076923078,0.0,0.0,0.0
+süpermarket/gıda & içecek/kahve/türk kahvesi,13.0,0.3076923076923077,0.75,0.75,0.75
+spor & outdoor/ekipman & aksesuar/kamp/çadır ve çadır aksesuarları/çadır,13.0,0.46153846153846156,1.0,0.3333333333333333,0.5
+süpermarket/anne ve bebek bakım/bebek bakım ve kozmetik/bebek şampuanı,13.0,0.15384615384615385,0.6666666666666666,1.0,0.8
+elektronik/kişisel bakım aletleri/saç kurutma makinesi,13.0,0.07692307692307693,0.0,0.0,0.0
+ev & mobilya/mobilya/halı / kilim/mutfak halısı,13.0,0.23076923076923078,0.5,0.3333333333333333,0.4
+ayakkabı/spor ayakkabı/halı saha ayakkabısı,13.0,0.23076923076923078,1.0,1.0,1.0
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/şarj kabloları/kablo aksesuarı,13.0,0.15384615384615385,1.0,0.5,0.6666666666666666
+anne & bebek & çocuk/bebek hediyelik,13.0,0.07692307692307693,0.0,0.0,0.0
+banyo yapı & hırdavat/elektrik tesisat malzemesi/güvenlik ürünleri/kilit,13.0,0.15384615384615385,0.0,0.0,0.0
+ev & mobilya/ev/ev gereçleri/depolama&düzenleme ürünleri/sepet,13.0,0.23076923076923078,1.0,1.0,1.0
+otomobil & motosiklet/motosiklet/motosiklet yedek parçalar,13.0,0.15384615384615385,0.5,0.5,0.5
+banyo yapı & hırdavat/hırdavat/kapı hırdavatı,13.0,0.15384615384615385,1.0,0.5,0.6666666666666666
+kırtasiye & ofis malzemeleri/kırtasiye/eğitim ürünleri/etiket,13.0,0.46153846153846156,1.0,0.16666666666666666,0.2857142857142857
+aksesuar/takı & mücevher/şahmeran/bijuteri şahmeran,13.0,0.38461538461538464,0.0,0.0,0.0
+aksesuar/takı & mücevher/piercing,13.0,0.46153846153846156,1.0,0.3333333333333333,0.5
+ev & mobilya/ev/ev gereçleri/çöp kovası,13.0,0.15384615384615385,0.6666666666666666,1.0,0.8
+banyo yapı & hırdavat/hırdavat/iş güvenlik ürünleri/iş eldiveni,13.0,0.3076923076923077,0.4,0.5,0.4444444444444444
+süpermarket/pet shop/köpek ürünleri/köpek tasması,13.0,0.3076923076923077,0.0,0.0,0.0
+ev & mobilya/ev/ev gereçleri/depolama&düzenleme ürünleri/saklama kutusu,13.0,0.3076923076923077,0.0,0.0,0.0
+elektronik/akıllı ev aletleri/robot süpürge,12.0,0.3333333333333333,0.75,0.75,0.75
+ev & mobilya/mobilya/halı / kilim/halı örtüsü,12.0,0.08333333333333333,0.0,0.0,0.0
+ev & mobilya/mobilya/mutfak & banyo mobilyası/mutfak mobilyası/mutfak masası takımı,12.0,0.08333333333333333,1.0,1.0,1.0
+spor & outdoor/ekipman & aksesuar/av & balıkçılık/suni yem,12.0,0.4166666666666667,1.0,0.2,0.3333333333333333
+ev & mobilya/mobilya/yatak odası/karyola,12.0,0.25,1.0,1.0,1.0
+banyo yapı & hırdavat/boya/tavan boyası,12.0,0.5,0.3333333333333333,0.16666666666666666,0.2222222222222222
+elektronik/akıllı ev aletleri/televizyon,12.0,0.16666666666666666,1.0,1.0,1.0
+ayakkabı/ev terliği & botu/ev terliği,12.0,0.16666666666666666,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/pişirme/düdüklü tencere,12.0,0.25,0.75,1.0,0.8571428571428571
+kozmetik & kişisel bakım/cilt bakım/banyo ve duş ürünleri/sıvı sabun,12.0,0.16666666666666666,1.0,1.0,1.0
+giyim/spor giyim/spor yelek,12.0,0.08333333333333333,1.0,1.0,1.0
+kozmetik & kişisel bakım/makyaj/göz makyajı/göz kalemi,12.0,0.08333333333333333,1.0,1.0,1.0
+kozmetik & kişisel bakım/cilt bakım/göz bakım/kaş ve kirpik serumu,12.0,0.5833333333333334,0.6666666666666666,0.2857142857142857,0.4
+elektronik/elektrikli ev aletleri/süpürge & ütü/süpürge/halı yıkama makinesi,12.0,0.3333333333333333,1.0,0.25,0.4
+aksesuar/altın/yatırımlık altın bilezik,12.0,0.3333333333333333,0.6666666666666666,1.0,0.8
+elektronik/beyaz eşya & iklimlendirme/iklimlendirme/şofben,12.0,0.5,0.5,0.3333333333333333,0.4
+ev & mobilya/mobilya/bebek & çocuk odası mobilyası/beşik,12.0,0.4166666666666667,0.8333333333333334,1.0,0.9090909090909091
+banyo yapı & hırdavat/hırdavat/iş güvenlik ürünleri/iş güvenliği elbisesi,12.0,0.25,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/mutfak tekstili/mutfak önlüğü & eldiven,12.0,0.25,0.5,0.6666666666666666,0.5714285714285714
+giyim/spor giyim/spor softshell & polar,12.0,0.3333333333333333,0.8,1.0,0.8888888888888888
+ev & mobilya/ev/banyo/bebek&çocuk banyo/bebek & çocuk bornoz,12.0,0.08333333333333333,0.0,0.0,0.0
+aksesuar/takı & mücevher/bileklik/altın bileklik,12.0,0.5833333333333334,1.0,0.14285714285714285,0.25
+hobi & eğlence/parti malzemeleri/diğer parti malzemeleri,12.0,0.25,1.0,0.6666666666666666,0.8
+bahçe & elektrikli el aletleri/bahçe/çiçek & bitki yetiştirme/aşılı meyve fidanları,12.0,0.08333333333333333,0.0,0.0,0.0
+hobi & eğlence/oyun grupları/puzzle,12.0,0.3333333333333333,1.0,0.25,0.4
+aksesuar/çanta/spor çantası,12.0,0.16666666666666666,0.3333333333333333,0.5,0.4
+banyo yapı & hırdavat/elektrik tesisat malzemesi/spot lamba,12.0,0.4166666666666667,0.8,0.8,0.8
+ev & mobilya/mobilya/yatak odası/bez dolap,12.0,0.5,0.8,0.6666666666666666,0.7272727272727273
+kozmetik & kişisel bakım/cilt bakım/yüz bakım/yüz maskesi,11.0,0.36363636363636365,1.0,0.25,0.4
+banyo yapı & hırdavat/banyo yapı malzemeleri/lavabo,11.0,0.18181818181818182,1.0,1.0,1.0
+ayakkabı/spor ayakkabı/voleybol ayakkabısı,11.0,0.7272727272727273,0.75,0.75,0.75
+ayakkabı/topuklu ayakkabı/dolgu topuklu ayakkabı,11.0,0.18181818181818182,0.6666666666666666,1.0,0.8
+kozmetik & kişisel bakım/makyaj/göz makyajı/maskara,11.0,0.18181818181818182,1.0,1.0,1.0
+ev & mobilya/mobilya/halı / kilim/kilim,11.0,0.45454545454545453,0.75,0.6,0.6666666666666666
+otomobil & motosiklet/otomobil/araç dış aksesuar/rüzgarlık,11.0,0.45454545454545453,1.0,0.2,0.3333333333333333
+spor & outdoor/ekipman & aksesuar/voleybol/voleybol topu,11.0,0.36363636363636365,0.8,1.0,0.8888888888888888
+elektronik/elektronik aksesuarlar/giyilebilir teknoloji aksesuarları/akıllı saat aksesuarları/akıllı saat kordon,11.0,0.2727272727272727,1.0,1.0,1.0
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/yüksek basınçlı yıkama,11.0,0.45454545454545453,1.0,0.6,0.75
+kozmetik & kişisel bakım/makyaj/dudak makyajı/dudak kalemi,11.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/oto ses görüntü sistemleri/araç içi kamera,11.0,0.36363636363636365,0.6,0.75,0.6666666666666666
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/yastık&yastık kılıfı/yastık alezi,11.0,0.5454545454545454,0.5,0.16666666666666666,0.25
+ev & mobilya/ev/ev dekorasyon/duvar dekorasyonu/duvar kağıdı,11.0,0.18181818181818182,0.5,0.5,0.5
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya/bulaşık makinesi,11.0,0.36363636363636365,0.6666666666666666,1.0,0.8
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/uyku seti/tek kişilik uyku seti,11.0,0.2727272727272727,0.5,1.0,0.6666666666666666
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/şarj cihazları/şarj aleti,11.0,0.09090909090909091,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/sanatsal malzemeler/tuval,11.0,0.09090909090909091,0.0,0.0,0.0
+hobi & eğlence/tütün & tütün aksesuarları/çakmaklar/benzinli çakmak,11.0,0.2727272727272727,0.6,1.0,0.75
+ev & mobilya/ev/ev gereçleri/çamaşırlık ev gereçleri/çamaşır sepeti,11.0,0.2727272727272727,1.0,0.6666666666666666,0.8
+banyo yapı & hırdavat/hırdavat/nem alıcı,11.0,0.2727272727272727,0.42857142857142855,1.0,0.6
+ev & mobilya/ev/ev dekorasyon/dekoratif kutu,11.0,0.18181818181818182,1.0,0.5,0.6666666666666666
+ev & mobilya/mobilya/mutfak & banyo mobilyası/mutfak mobilyası/mutfak masası,11.0,0.09090909090909091,1.0,1.0,1.0
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya/davlumbaz,11.0,0.18181818181818182,0.5,1.0,0.6666666666666666
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/battaniye/çift kişilik battaniye,11.0,0.5454545454545454,1.0,0.8333333333333334,0.9090909090909091
+giyim/tesettür giyim/tesettür ceket & yelek/tesettür ceket,10.0,0.3,1.0,0.3333333333333333,0.5
+ev & mobilya/ev/ev tekstili/salon tekstili/sandalye kılıfı,10.0,0.1,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/alez,10.0,0.5,0.8,0.8,0.8
+ev & mobilya/ev/sofra & mutfak/mutfak saklama ve düzenleme/kahvaltılık,10.0,0.5,1.0,0.2,0.3333333333333333
+ev & mobilya/mobilya/salon & oturma odası/kanepe & koltuklar/kanepe,10.0,0.2,0.5,0.5,0.5
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/hamur şekillendirici,10.0,0.0,0.0,0.0,0.0
+süpermarket/anne ve bebek bakım/bebek bakım ve kozmetik/bebek bezi ve islak mendil/bebek bezi,10.0,0.2,0.0,0.0,0.0
+kitap/roman ve edebiyat/edebiyat/dünya edebiyatı,10.0,0.1,0.5,1.0,0.6666666666666666
+aksesuar/takı & mücevher/yüzük/çelik yüzük,10.0,0.1,0.5,1.0,0.6666666666666666
+aksesuar/kemer & pantolon askısı/kemer,10.0,0.1,1.0,1.0,1.0
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/fritöz,10.0,0.0,0.0,0.0,0.0
+ayakkabı/ev terliği & botu/patik,10.0,0.3,1.0,1.0,1.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/yastık&yastık kılıfı/yastık kılıfı,10.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/sofra/sürahi ve karaf,10.0,0.3,1.0,0.6666666666666666,0.8
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/notebook aksesuarları/notebook çantası,10.0,0.2,0.5,0.5,0.5
+kozmetik & kişisel bakım/kadın hijyen/hijyenik ped,10.0,0.3,0.75,1.0,0.8571428571428571
+kırtasiye & ofis malzemeleri/ofis teknolojileri/pil & şarj cihazı,10.0,0.6,1.0,0.6666666666666666,0.8
+kozmetik & kişisel bakım/makyaj/tırnak/kalıcı oje,10.0,0.2,1.0,1.0,1.0
+kozmetik & kişisel bakım/parfüm ve deodorant/parfüm seti,10.0,0.2,1.0,1.0,1.0
+kozmetik & kişisel bakım/saç bakım/saç bakım seti,10.0,0.1,0.0,0.0,0.0
+ev & mobilya/mobilya/yatak odası/şifonyer,10.0,0.3,0.6666666666666666,0.6666666666666666,0.6666666666666666
+kozmetik & kişisel bakım/makyaj/ten makyajı/allık,10.0,0.1,1.0,1.0,1.0
+kozmetik & kişisel bakım/makyaj/makyaj aksesuarları/makyaj fırçası,10.0,0.4,1.0,0.5,0.6666666666666666
+"kozmetik & kişisel bakım/tıraş, ağda ve epilasyon/ağda & tüy dökücü/tüy dökücü krem",10.0,0.1,1.0,1.0,1.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/lazer ölçüm cihazı,10.0,0.7,1.0,0.14285714285714285,0.25
+ev & mobilya/ev/sofra & mutfak/çay ve kahve demleme/french press,10.0,0.3,0.5,0.6666666666666666,0.5714285714285714
+giyim/büyük beden/büyük beden eşofman altı,10.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/benzinli motosiklet,10.0,0.3,0.3333333333333333,0.3333333333333333,0.3333333333333333
+otomobil & motosiklet/motosiklet/elektrikli motosiklet,10.0,0.3,1.0,0.3333333333333333,0.5
+süpermarket/pet shop/köpek ürünleri/köpek kuru maması,9.0,0.4444444444444444,1.0,0.25,0.4
+elektronik/oyun & oyun konsolları/konsol aksesuarları/konsol gamepad ve joystick,9.0,0.1111111111111111,0.0,0.0,0.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/bataryalar & musluklar/eviye bataryası,9.0,0.0,0.0,0.0,0.0
+hobi & eğlence/uzaktan kumandalı araçlar/model araç,9.0,0.4444444444444444,0.5,0.25,0.3333333333333333
+banyo yapı & hırdavat/hırdavat/süpürgelik,9.0,0.4444444444444444,0.6666666666666666,1.0,0.8
+banyo yapı & hırdavat/banyo yapı malzemeleri/duş sistemi,9.0,0.2222222222222222,0.0,0.0,0.0
+hobi & eğlence/parti malzemeleri/davetiye,9.0,0.3333333333333333,0.5,0.6666666666666666,0.5714285714285714
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/temizlik gereçleri/temizlik bezi,9.0,0.2222222222222222,0.4,1.0,0.5714285714285714
+hobi & eğlence/hobi malzemeleri/kumaş,9.0,0.1111111111111111,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/oto bakım & temizlik/oto bez ve sünger,9.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/hasta bezi ve temizlik/hasta bezi,9.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/figür oyuncaklar/sürpriz oyuncak figürü,9.0,0.3333333333333333,1.0,1.0,1.0
+anne & bebek & çocuk/oyuncak/figür oyuncaklar/diğer figür oyuncaklar,9.0,0.1111111111111111,0.25,1.0,0.4
+süpermarket/gıda & içecek/kuru gıda/tuz,9.0,0.3333333333333333,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet aksesuarları/motosiklet lüzumlu ürün,9.0,0.3333333333333333,0.5,0.3333333333333333,0.4
+ev & mobilya/mobilya/bebek & çocuk odası mobilyası/çocuk & montessori kitaplık,9.0,0.2222222222222222,0.4,1.0,0.5714285714285714
+ev & mobilya/ev/sofra & mutfak/çay ve kahve demleme/demlik,9.0,0.1111111111111111,0.0,0.0,0.0
+giyim/tesettür giyim/tesettür plaj giyim/tesettür bone,9.0,0.1111111111111111,1.0,1.0,1.0
+ev & mobilya/mobilya/mutfak & banyo mobilyası/mutfak mobilyası/mutfak dolapları/mutfak rafı,9.0,0.3333333333333333,1.0,0.6666666666666666,0.8
+kırtasiye & ofis malzemeleri/boyalar/akrilik boya,9.0,0.2222222222222222,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/akülü vidalama,9.0,0.4444444444444444,1.0,0.75,0.8571428571428571
+banyo yapı & hırdavat/hırdavat/kutu ve ambalaj malzemesi,9.0,0.3333333333333333,1.0,0.3333333333333333,0.5
+kırtasiye & ofis malzemeleri/kalem/tükenmez kalem,9.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev gereçleri/depolama&düzenleme ürünleri/askı,9.0,0.2222222222222222,1.0,1.0,1.0
+kırtasiye & ofis malzemeleri/kırtasiye kağıt ürünleri/fotoğraf albümü,9.0,0.3333333333333333,1.0,0.6666666666666666,0.8
+bahçe & elektrikli el aletleri/elektrikli el aletleri/kaldırma ekipmanları,9.0,0.3333333333333333,1.0,0.3333333333333333,0.5
+ev & mobilya/ev/ev tekstili/bebek&çocuk ev tekstil/bebek & çocuk uyku seti,9.0,0.3333333333333333,0.2,0.3333333333333333,0.25
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/çevre birimleri/klavye,9.0,0.4444444444444444,0.8,1.0,0.8888888888888888
+ev & mobilya/ev/sofra & mutfak/mutfak saklama ve düzenleme/yemek kabı,9.0,0.4444444444444444,1.0,0.25,0.4
+kozmetik & kişisel bakım/makyaj/ten makyajı/bb ve cc krem,9.0,0.2222222222222222,1.0,0.5,0.6666666666666666
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/bıçak ve bıçak seti,9.0,0.1111111111111111,0.0,0.0,0.0
+ev & mobilya/mobilya/halı / kilim/seccade,9.0,0.1111111111111111,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/tenis/masa tenisi raketi,9.0,0.3333333333333333,0.75,1.0,0.8571428571428571
+kozmetik & kişisel bakım/cilt bakım/cilt bakım yağları/bakım yağı,9.0,0.1111111111111111,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/futbol/futbol topu,9.0,0.3333333333333333,0.6666666666666666,0.6666666666666666,0.6666666666666666
+kozmetik & kişisel bakım/cilt bakım/yüz bakım/tonik,9.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/scooterlar/çocuk scooterı,8.0,0.25,1.0,1.0,1.0
+kırtasiye & ofis malzemeleri/kırtasiye kağıt ürünleri/not kağıtları ve bloknot,8.0,0.25,1.0,1.0,1.0
+ev & mobilya/ev/ev gereçleri/çamaşırlık ev gereçleri/çamaşır kurutmalık,8.0,0.25,1.0,0.5,0.6666666666666666
+süpermarket/pet shop/evcil hayvan ürünleri/kedi ve köpek mama su kabı,8.0,0.375,0.6666666666666666,0.6666666666666666,0.6666666666666666
+ev & mobilya/mobilya/perde/perde aksesuarı,8.0,0.125,0.5,1.0,0.6666666666666666
+süpermarket/pet shop/kedi ürünleri/kedi konserve maması,8.0,0.25,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/çamaşır yıkama/çamaşır leke çıkarıcı,8.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/haşere öldürücü/sinek ilacı ve kovucu,8.0,0.0,0.0,0.0,0.0
+elektronik/foto & kamera/foto & kamera aksesuarı,8.0,0.375,0.5,0.3333333333333333,0.4
+elektronik/foto & kamera/dijital kameralar/dijital fotoğraf makinesi,8.0,0.125,0.5,1.0,0.6666666666666666
+ev & mobilya/mobilya/bebek & çocuk odası mobilyası/çocuk dolap & gardırop,8.0,0.0,0.0,0.0,0.0
+elektronik/giyilebilir teknoloji/akıllı çocuk saati,8.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/atıştırmalık/kuru meyve/meyve kurusu,8.0,0.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/yüzük/altın yüzük,8.0,0.375,1.0,0.3333333333333333,0.5
+süpermarket/gıda & içecek/atıştırmalık/hurma,8.0,0.25,0.3333333333333333,0.5,0.4
+anne & bebek & çocuk/çocuk gereçleri/bebek arabası & puset/seyahat sistem bebek arabası,8.0,0.25,1.0,1.0,1.0
+ev & mobilya/ev/ev gereçleri/depolama&düzenleme ürünleri/buzdolabı düzenleyici,8.0,0.25,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/çiçek & bitki yetiştirme/kaktüs,8.0,0.5,0.6,0.75,0.6666666666666666
+otomobil & motosiklet/otomobil/modifiye ürünleri/oto krom aksesuar,8.0,0.125,1.0,1.0,1.0
+aksesuar/çanta/kartlık,8.0,0.125,1.0,1.0,1.0
+bahçe & elektrikli el aletleri/bahçe/çiçek & bitki yetiştirme/torf ve topraklar,8.0,0.75,1.0,0.5,0.6666666666666666
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/anahtar,8.0,0.0,0.0,0.0,0.0
+aksesuar/şal & fular & eşarp/fular,8.0,0.375,0.6666666666666666,0.6666666666666666,0.6666666666666666
+anne & bebek & çocuk/oyuncak/akülü & pedallı araçlar/pedallı araç,8.0,0.25,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/akülü & pedallı araçlar/akülü araç,8.0,0.25,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/ahşap oyuncak,8.0,0.25,1.0,0.5,0.6666666666666666
+kozmetik & kişisel bakım/cilt bakım/göz kremi,8.0,0.25,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/pilates & yoga/pilates malzemeleri/pilates minder & mat,8.0,0.25,0.6666666666666666,1.0,0.8
+süpermarket/ev bakım ve temizlik/ev temizlik/yüzey temizlik/yüzey temizleyici,8.0,0.125,1.0,1.0,1.0
+aksesuar/diğer aksesuar/şemsiye,8.0,0.25,0.6666666666666666,1.0,0.8
+kırtasiye & ofis malzemeleri/sanatsal malzemeler/sanatsal kağıt & kalem,8.0,0.125,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/elektrikli ev aletleri aksesuar/blender yedek parça,8.0,0.25,1.0,1.0,1.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/oyuncu donanımları/oyuncu mouse,8.0,0.125,0.0,0.0,0.0
+ev & mobilya/mobilya/yatak odası/yatak / baza başlığı,8.0,0.25,0.0,0.0,0.0
+elektronik/bilgisayar grubu/monitörler/oyuncu monitör,8.0,0.0,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya yedek parça,8.0,0.25,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/araç içi telefon tutucu,8.0,0.25,1.0,1.0,1.0
+süpermarket/sağlık/gıda takviyesi ve vitamin/bitkisel ürünler,8.0,0.0,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/süpürge & ütü/süpürge/buharlı temizleyici,8.0,0.125,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/yastık&yastık kılıfı/yastık,8.0,0.5,1.0,0.25,0.4
+banyo yapı & hırdavat/hırdavat/yapıştırıcı ve bant,8.0,0.375,0.6666666666666666,0.6666666666666666,0.6666666666666666
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/kulaklık kılıfı,8.0,0.0,0.0,0.0,0.0
+"kozmetik & kişisel bakım/tıraş, ağda ve epilasyon/cımbız",8.0,0.125,1.0,1.0,1.0
+elektronik/elektrikli ev aletleri/süpürge & ütü/süpürge/torbasız süpürge,8.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/vida & çivi & dübel,8.0,0.375,1.0,0.6666666666666666,0.8
+kozmetik & kişisel bakım/makyaj/dudak makyajı/dudak parlatıcısı,8.0,0.25,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/bulaşık yıkama/elde bulaşık deterjanı,8.0,0.5,0.8,1.0,0.8888888888888888
+spor & outdoor/ekipman & aksesuar/av & balıkçılık/olta misinası,8.0,0.25,1.0,1.0,1.0
+süpermarket/pet shop/evcil hayvan ürünleri/kedi ve köpek taşıma çantası,7.0,0.42857142857142855,1.0,0.3333333333333333,0.5
+aksesuar/çanta/laptop & evrak çantası,7.0,0.2857142857142857,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/endüstriyel mutfak ekipmanı,7.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/kamp masası,7.0,0.2857142857142857,1.0,0.5,0.6666666666666666
+bahçe & elektrikli el aletleri/elektrikli el aletleri/taşlama,7.0,0.14285714285714285,1.0,1.0,1.0
+kırtasiye & ofis malzemeleri/dosyalama & arşivleme/dosya,7.0,0.14285714285714285,1.0,1.0,1.0
+elektronik/bilgisayar grubu/monitörler/monitor,7.0,0.14285714285714285,0.5,1.0,0.6666666666666666
+aksesuar/atkı & bere & eldiven/atkı,7.0,0.2857142857142857,1.0,1.0,1.0
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/diğer elektrikli pişiriciler,7.0,0.14285714285714285,0.0,0.0,0.0
+giyim/spor giyim/spor tayt,7.0,0.42857142857142855,0.6,1.0,0.75
+otomobil & motosiklet/otomobil yedek parça/elektrik aksam/oto ampul,7.0,0.2857142857142857,0.0,0.0,0.0
+süpermarket/sağlık/gıda takviyesi ve vitamin/kolajen,7.0,0.14285714285714285,0.5,1.0,0.6666666666666666
+kırtasiye & ofis malzemeleri/masaüstü gereçleri/kalemlik & ataşlık,7.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/elektrik tesisat malzemesi/armatür,7.0,0.14285714285714285,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/enerji sistemleri/güneş paneli,7.0,0.42857142857142855,0.0,0.0,0.0
+ev & mobilya/ev/ev dekorasyon/magnet,7.0,0.42857142857142855,1.0,1.0,1.0
+aksesuar/çanta/beslenme çantası,7.0,0.14285714285714285,1.0,1.0,1.0
+aksesuar/diğer aksesuar/rozet,7.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/yüz bakım/makyaj temizleyici,7.0,0.2857142857142857,1.0,1.0,1.0
+süpermarket/sağlık/gıda takviyesi ve vitamin/mineral,7.0,0.42857142857142855,1.0,1.0,1.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/pike&pike takımı/çift kişilik pike & pike takımı,7.0,0.2857142857142857,1.0,0.5,0.6666666666666666
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/nevresim takımı/battal boy nevresim,7.0,0.2857142857142857,1.0,0.5,0.6666666666666666
+otomobil & motosiklet/lastik & jant/motosiklet lastikleri,7.0,0.5714285714285714,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç içi aksesuarı/oto paspas,7.0,0.14285714285714285,0.0,0.0,0.0
+süpermarket/gıda & içecek/çay/bitki çayı/diğer bitki çayları,7.0,0.5714285714285714,1.0,0.25,0.4
+süpermarket/gıda & içecek/süt ve kahvaltılık/helva,7.0,0.14285714285714285,0.25,1.0,0.4
+ev & mobilya/ev/ev dekorasyon/poster,7.0,0.0,0.0,0.0,0.0
+giyim/spor giyim/futbol forması,7.0,0.42857142857142855,1.0,1.0,1.0
+kırtasiye & ofis malzemeleri/kırtasiye kağıt ürünleri/ajanda,7.0,0.2857142857142857,1.0,1.0,1.0
+aksesuar/takı & mücevher/şahmeran/gümüş şahmeran,7.0,0.2857142857142857,0.0,0.0,0.0
+aksesuar/çanta/bel çantası,7.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/gıda takviyesi ve vitamin/probiyotik ve prebiyotik,7.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/lastik & jant/jant kapağı,7.0,0.2857142857142857,1.0,0.5,0.6666666666666666
+bahçe & elektrikli el aletleri/elektrikli el aletleri/metal dedektörü,7.0,0.2857142857142857,0.0,0.0,0.0
+süpermarket/anne ve bebek bakım/bebek bakım ve kozmetik/bebek bezi ve islak mendil/bebek islak mendil,7.0,0.5714285714285714,1.0,1.0,1.0
+hobi & eğlence/hediyelik ürünler/hediye kutusu,7.0,0.2857142857142857,0.0,0.0,0.0
+hobi & eğlence/hobi malzemeleri/örgü kiti,7.0,0.14285714285714285,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/yalıtım malzemesi,7.0,0.2857142857142857,0.0,0.0,0.0
+süpermarket/ev tüketim malzemesi,7.0,0.5714285714285714,1.0,0.75,0.8571428571428571
+hobi & eğlence/parti malzemeleri/plastik bardak,7.0,0.42857142857142855,0.5,1.0,0.6666666666666666
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/kablo & adaptör,7.0,0.2857142857142857,0.0,0.0,0.0
+kozmetik & kişisel bakım/parfüm ve deodorant/kolonya,7.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/ekran koruyucu film,7.0,0.42857142857142855,1.0,0.6666666666666666,0.8
+giyim/spor giyim/spor pantolon,7.0,0.42857142857142855,1.0,0.6666666666666666,0.8
+ayakkabı/sandalet ve terlik/spor terlik,7.0,0.14285714285714285,0.3333333333333333,1.0,0.5
+bahçe & elektrikli el aletleri/bahçe/mangal & barbekü/mangal,7.0,0.42857142857142855,0.5,0.3333333333333333,0.4
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/süzgeç,7.0,0.2857142857142857,1.0,1.0,1.0
+hobi & eğlence/parti malzemeleri/parti seti,7.0,0.5714285714285714,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/çevre birimleri/mousepad,7.0,0.2857142857142857,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/sisleme ilaçlama makinesi,7.0,0.42857142857142855,1.0,1.0,1.0
+süpermarket/gıda & içecek/hazır gıda/konserve/diğer konserve ürünleri,7.0,0.14285714285714285,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/oyuncak silah & su tabancası,7.0,0.42857142857142855,1.0,0.3333333333333333,0.5
+kozmetik & kişisel bakım/ağız bakım/diş fırçası/manuel diş fırçası,7.0,0.5714285714285714,0.0,0.0,0.0
+giyim/üst giyim/bluz & tunik/tunik,7.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/banyo/banyo aksesuarları/banyo seti,7.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/mutfak & banyo mobilyası/mutfak mobilyası/mutfak dolapları/hazır mutfak dolapları,7.0,0.0,0.0,0.0,0.0
+"kozmetik & kişisel bakım/tıraş, ağda ve epilasyon/ağda & tüy dökücü/ağda",7.0,0.14285714285714285,1.0,1.0,1.0
+kozmetik & kişisel bakım/saç bakım/saç maskesi,7.0,0.14285714285714285,0.5,1.0,0.6666666666666666
+kitap/yabancı dil kitaplar/yabancı dil eğitimi,7.0,0.5714285714285714,1.0,0.5,0.6666666666666666
+kozmetik & kişisel bakım/makyaj/ten makyajı/aydınlatıcı,7.0,0.2857142857142857,1.0,1.0,1.0
+ev & mobilya/ev/sofra & mutfak/sofra/tuzluk biberlik,7.0,0.2857142857142857,0.0,0.0,0.0
+giyim/plaj giyim/mayo,7.0,0.42857142857142855,1.0,0.6666666666666666,0.8
+hobi & eğlence/parti malzemeleri/düğün & kına & nikah,7.0,0.2857142857142857,1.0,0.5,0.6666666666666666
+kozmetik & kişisel bakım/saç bakım/boya açıcı,7.0,0.2857142857142857,1.0,0.5,0.6666666666666666
+hobi & eğlence/parti malzemeleri/yılbaşı ürünleri/yılbaşı süsü,6.0,0.0,0.0,0.0,0.0
+giyim/iç giyim/atlet,6.0,0.16666666666666666,0.0,0.0,0.0
+giyim/plaj giyim/deniz şortu,6.0,0.16666666666666666,0.0,0.0,0.0
+banyo yapı & hırdavat/boya/metal boyası,6.0,0.5,0.6666666666666666,0.6666666666666666,0.6666666666666666
+ev & mobilya/mobilya/mutfak & banyo mobilyası/mutfak mobilyası/tabure,6.0,0.16666666666666666,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/dal budama makinesi,6.0,0.16666666666666666,0.0,0.0,0.0
+banyo yapı & hırdavat/elektrik tesisat malzemesi/ampul,6.0,0.16666666666666666,1.0,1.0,1.0
+anne & bebek & çocuk/anne bebek ürünleri/bebek beslenme ürünleri/mama seti,6.0,0.16666666666666666,1.0,1.0,1.0
+anne & bebek & çocuk/çocuk gereçleri/mama sandalyesi & aksesuarları/mama sandalyesi,6.0,0.16666666666666666,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç içi aksesuarı/kolçak,6.0,0.3333333333333333,0.6666666666666666,1.0,0.8
+kozmetik & kişisel bakım/makyaj/ten makyajı/makyaj bazı,6.0,0.16666666666666666,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya/fırın,6.0,0.3333333333333333,1.0,0.5,0.6666666666666666
+ev & mobilya/mobilya/yemek odası/yemek masası,6.0,0.16666666666666666,0.0,0.0,0.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/bataryalar & musluklar/lavabo bataryası,6.0,0.16666666666666666,0.0,0.0,0.0
+ayakkabı/bot & çizme/kar botu,6.0,0.16666666666666666,0.5,1.0,0.6666666666666666
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/spatula,6.0,0.0,0.0,0.0,0.0
+kitap/kişisel gelişim & psikoloji/bireysel gelişim,6.0,0.3333333333333333,0.6666666666666666,1.0,0.8
+otomobil & motosiklet/motosiklet/motosiklet bakım/tankpad & sticker,6.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/çarşaf&çarşaf takımı/tek kişilik çarşaf takımı,6.0,0.0,0.0,0.0,0.0
+giyim/spor giyim/spor eşofman takımı,6.0,0.0,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya/aspiratör,6.0,0.3333333333333333,0.0,0.0,0.0
+ev & mobilya/mobilya/bahçe mobilyaları/bahçe sandalyesi,6.0,0.3333333333333333,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/sofra/şekerlik,6.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/koruyucu & aksesuar/koruyucu aksesuarı,6.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/bulaşık yıkama/bulaşık makinesi deterjanı,6.0,0.3333333333333333,1.0,0.5,0.6666666666666666
+bahçe & elektrikli el aletleri/bahçe/mangal & barbekü/şömine ve soba ekipmanları,6.0,0.3333333333333333,0.25,0.5,0.3333333333333333
+anne & bebek & çocuk/anne bebek ürünleri/bebek beslenme ürünleri/beslenme aksesuarı,6.0,0.16666666666666666,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/bebek&çocuk ev tekstil/bebek & çocuk yatak örtüsü,6.0,0.5,0.0,0.0,0.0
+ayakkabı/spor ayakkabı/tenis ayakkabısı,6.0,0.16666666666666666,1.0,1.0,1.0
+ev & mobilya/mobilya/halı / kilim/çocuk halısı,6.0,0.16666666666666666,1.0,1.0,1.0
+ev & mobilya/mobilya/bahçe mobilyaları/bahçe masası,6.0,0.16666666666666666,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/pişirme/cezve,6.0,0.16666666666666666,0.5,1.0,0.6666666666666666
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/kişisel blender,6.0,0.0,0.0,0.0,0.0
+giyim/tesettür giyim/tesettür pantolon,6.0,0.16666666666666666,1.0,1.0,1.0
+kozmetik & kişisel bakım/saç bakım/saç şekillendirici ürünler/saç jölesi,6.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/yağ ve sos/yağ/zeytinyağı,6.0,0.6666666666666666,1.0,1.0,1.0
+kozmetik & kişisel bakım/saç bakım/saç şekillendirici ürünler/saç spreyi,6.0,0.5,1.0,0.6666666666666666,0.8
+ev & mobilya/mobilya/salon & oturma odası/kanepe & koltuklar/berjer,6.0,0.5,1.0,0.3333333333333333,0.5
+aksesuar/çanta/çanta aksesuarı,6.0,0.0,0.0,0.0,0.0
+aksesuar/şal & fular & eşarp/şal,6.0,0.0,0.0,0.0,0.0
+ayakkabı/topuklu ayakkabı/stiletto,6.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/anne bebek ürünleri/bebek banyo & tuvalet/bebek banyo aksesuarı,6.0,0.3333333333333333,1.0,0.5,0.6666666666666666
+elektronik/telefon/akıllı cep telefonu/ios cep telefonları,6.0,0.3333333333333333,1.0,0.5,0.6666666666666666
+anne & bebek & çocuk/anne bebek ürünleri/bebek beslenme ürünleri/biberon,6.0,0.16666666666666666,1.0,1.0,1.0
+otomobil & motosiklet/otomobil/diğer/oto anahtarlık,6.0,0.3333333333333333,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kalem/kurşun kalem,6.0,0.3333333333333333,0.5,0.5,0.5
+bahçe & elektrikli el aletleri/bahçe/bahçe dekorasyonu/çitler,6.0,0.16666666666666666,0.5,1.0,0.6666666666666666
+aksesuar/takı & mücevher/set & takım/altın set,6.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/çocuk gereçleri/bebek arabası & puset/bebek arabası,6.0,0.16666666666666666,1.0,1.0,1.0
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/mutfak sarf malzemeleri/pişirme ve servis malzemesi,6.0,0.16666666666666666,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/oto bakım & temizlik/oto şampuan,6.0,0.0,0.0,0.0,0.0
+"kozmetik & kişisel bakım/tıraş, ağda ve epilasyon/islak tıraş/tıraş bıçağı",6.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/hobi makineleri ve aksesuarları,6.0,0.5,1.0,0.3333333333333333,0.5
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/temizlik gereçleri/bulaşık süngeri ve fırçası,6.0,0.16666666666666666,1.0,1.0,1.0
+ev & mobilya/ev/sofra & mutfak/pişirme/sahan,6.0,0.3333333333333333,1.0,0.5,0.6666666666666666
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/içecek hazırlama/filtre kahve makinesi,6.0,0.3333333333333333,0.6666666666666666,1.0,0.8
+giyim/tesettür giyim/tesettür etek,6.0,0.16666666666666666,1.0,1.0,1.0
+kırtasiye & ofis malzemeleri/kırtasiye kağıt ürünleri/fotokopi & baskı kağıtları,6.0,0.16666666666666666,1.0,1.0,1.0
+hobi & eğlence/hobi malzemeleri/filografi malzemesi,6.0,0.5,1.0,0.3333333333333333,0.5
+bahçe & elektrikli el aletleri/elektrikli el aletleri/hava kompresörü,6.0,0.16666666666666666,1.0,1.0,1.0
+anne & bebek & çocuk/oyuncak/oyun setleri/evcilik ve mutfak setleri,6.0,0.5,1.0,0.3333333333333333,0.5
+ev & mobilya/ev/sofra & mutfak/pişirme/çaydanlık,5.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/pişirme/tencere yedek parça ve aksesuar,5.0,0.2,1.0,1.0,1.0
+ev & mobilya/mobilya/antre & hol/portmanto,5.0,0.6,1.0,0.3333333333333333,0.5
+ev & mobilya/mobilya/ofis mobilyaları/oyuncu masası,5.0,0.0,0.0,0.0,0.0
+giyim/plaj giyim/plaj havlusu,5.0,0.2,0.0,0.0,0.0
+ev & mobilya/mobilya/salon & oturma odası/kanepe & koltuklar/çay seti koltuk takımı,5.0,0.4,1.0,0.5,0.6666666666666666
+giyim/ev giyim/pijama/pijama altı,5.0,0.6,1.0,1.0,1.0
+giyim/dış giyim/kaban & mont/parka,5.0,0.4,0.0,0.0,0.0
+giyim/büyük beden/büyük beden bluz,5.0,0.2,0.3333333333333333,1.0,0.5
+ayakkabı/diğer ayakkabı ürünleri/ayakkabı bağcığı,5.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/maket bıçak,5.0,0.6,1.0,0.6666666666666666,0.8
+kırtasiye & ofis malzemeleri/kırtasiye kağıt ürünleri/takvim,5.0,0.4,0.5,0.5,0.5
+banyo yapı & hırdavat/hırdavat/genel bakım spreyi,5.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/anne bebek ürünleri/bebek beslenme ürünleri/mama önlüğü,5.0,0.4,1.0,0.5,0.6666666666666666
+anne & bebek & çocuk/anne bebek ürünleri/bebek beslenme ürünleri/alıştırma bardağı,5.0,0.2,0.5,1.0,0.6666666666666666
+spor & outdoor/ekipman & aksesuar/düdük,5.0,0.4,0.5,0.5,0.5
+spor & outdoor/ekipman & aksesuar/el bilek ateli,5.0,0.4,0.4,1.0,0.5714285714285714
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/tornavida,5.0,0.4,1.0,0.5,0.6666666666666666
+banyo yapı & hırdavat/elektrik tesisat malzemesi/priz ve anahtarlar/priz,5.0,0.2,0.5,1.0,0.6666666666666666
+anne & bebek & çocuk/çocuk gereçleri/ana kucağı,5.0,0.4,0.5,0.5,0.5
+kozmetik & kişisel bakım/saç bakım/saç vitamini,5.0,0.4,0.6666666666666666,1.0,0.8
+kozmetik & kişisel bakım/makyaj/ten makyajı/pudra,5.0,0.6,1.0,1.0,1.0
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/ayakkabı bakım,5.0,0.2,1.0,1.0,1.0
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya/mini & midi fırın,5.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/özel gıda ürünü/gurme & organik ürünler,5.0,0.4,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye/el işi malzemesi,5.0,0.2,1.0,1.0,1.0
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/temizlik gereçleri/temizlik fırçası ve süpürge,5.0,0.2,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/elektronik - optik ürünler/el feneri,5.0,0.2,1.0,1.0,1.0
+otomobil & motosiklet/oto ses görüntü sistemleri/multimedya & görüntü sistemi,5.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/atıştırmalık/kuruyemiş/ceviz,5.0,0.4,0.4,1.0,0.5714285714285714
+otomobil & motosiklet/otomobil/araç içi aksesuarı/direksiyon ürünü,5.0,0.6,0.75,1.0,0.8571428571428571
+bahçe & elektrikli el aletleri/elektrikli el aletleri/somun sıkma makinesi,5.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç dış aksesuar/oto branda,5.0,0.6,0.5,0.3333333333333333,0.4
+otomobil & motosiklet/otomobil/oto akü ve aksesuarları/akü,5.0,0.4,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/oto bakım & temizlik/klima temizleyici,5.0,0.4,0.5,0.5,0.5
+spor & outdoor/ekipman & aksesuar/av & balıkçılık/olta kamışı,5.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/mangal & barbekü/kuzine ve soba,5.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/banyo aynası,5.0,0.2,0.5,1.0,0.6666666666666666
+banyo yapı & hırdavat/banyo yapı malzemeleri/bataryalar & musluklar/banyo bataryası,5.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/mangal & barbekü/şömine,5.0,0.2,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/tatlı yapım malzemesi/gıda boyası,5.0,0.2,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet aksesuarları/motosiklet çantası,5.0,0.4,1.0,0.5,0.6666666666666666
+süpermarket/gıda & içecek/süt ve kahvaltılık/fındık ezmesi,5.0,0.8,1.0,0.25,0.4
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya/çamaşır makinesi,5.0,0.4,1.0,0.5,0.6666666666666666
+kozmetik & kişisel bakım/makyaj/ten makyajı/kapatıcı,5.0,0.0,0.0,0.0,0.0
+aksesuar/diğer aksesuar/diğer aksesuarlar,5.0,0.2,0.0,0.0,0.0
+elektronik/kişisel bakım aletleri/saç maşası,5.0,0.0,0.0,0.0,0.0
+hobi & eğlence/oyun grupları/satranç,5.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/medikal ekipman/sağlık ölçüm cihazı/diğer sağlık ölçüm cihazı,5.0,0.4,0.0,0.0,0.0
+elektronik/giyilebilir teknoloji/kulaklıklar/kulak içi kablolu kulaklık,5.0,0.2,1.0,1.0,1.0
+ayakkabı/günlük ayakkabı/oxford ayakkabı,5.0,0.2,1.0,1.0,1.0
+hobi & eğlence/hobi malzemeleri/düğme,5.0,0.6,0.0,0.0,0.0
+hobi & eğlence/hediyelik ürünler/kumbara,5.0,0.2,1.0,1.0,1.0
+hobi & eğlence/hediyelik ürünler/figür,5.0,0.2,0.0,0.0,0.0
+elektronik/bilgisayar grubu/bileşenler/yan bileşenler/soğutucu ve overclock,5.0,0.0,0.0,0.0,0.0
+giyim/üst giyim/kazak & hırka/süveter,5.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev dekorasyon/kitap tutucu,5.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev dekorasyon/küllük,5.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev dekorasyon/çerçeve,5.0,0.2,0.0,0.0,0.0
+anne & bebek & çocuk/çocuk gereçleri/park yatak & oyun parkı,5.0,0.2,0.0,0.0,0.0
+ev & mobilya/ev/ev gereçleri/depolama&düzenleme ürünleri/ayakkabı düzenleyici,5.0,0.0,0.0,0.0,0.0
+hobi & eğlence/parti malzemeleri/doğum günü flaması,5.0,0.4,1.0,0.5,0.6666666666666666
+otomobil & motosiklet/otomobil/kış ürünleri/antifriz,5.0,0.0,0.0,0.0,0.0
+hobi & eğlence/tütün & tütün aksesuarları/nargile & nargile aksesuarları/nargile aksesuarı,5.0,0.2,0.0,0.0,0.0
+ayakkabı/spor ayakkabı/fitness ayakkabısı,5.0,0.6,1.0,0.3333333333333333,0.5
+süpermarket/ev bakım ve temizlik/ev temizlik/tuvalet temizlik/tuvalet koku giderici,5.0,0.2,0.5,1.0,0.6666666666666666
+elektronik/elektrikli ev aletleri/elektrikli ev aletleri aksesuar/dikiş makinesi aksesuarı,5.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/vücut bakımı/vücut peelingi,5.0,0.4,0.6666666666666666,1.0,0.8
+elektronik/elektrikli ev aletleri/süpürge & ütü/ütü/buharlı ütü,5.0,0.6,1.0,1.0,1.0
+süpermarket/pet shop/kedi ürünleri/kedi vitamini,5.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/el ve ayak bakımı/el kremi,5.0,0.4,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/banyo ve duş ürünleri/banyo lifi ve süngeri,5.0,0.2,1.0,1.0,1.0
+kozmetik & kişisel bakım/cilt bakım/banyo & duş ürünleri/duş jeli,5.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/kamp sandalyesi,5.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/ağız bakım/ağız çalkalama suyu,5.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/kablo & sarf malzemeler/çevirici dönüştürücü,5.0,0.0,0.0,0.0,0.0
+kitap/roman ve edebiyat/edebiyat/şiir,5.0,0.6,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/çevre birimleri/mouse,5.0,0.2,0.5,1.0,0.6666666666666666
+süpermarket/anne ve bebek bakım/bebek sağlık ürünleri/burun aspiratörü,4.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/kağıt ürünleri/islak mendil,4.0,0.5,1.0,1.0,1.0
+süpermarket/ev bakım ve temizlik/kağıt ürünleri/kağıt havlu,4.0,0.75,1.0,1.0,1.0
+süpermarket/gıda & içecek/atıştırmalık/gofret,4.0,0.0,0.0,0.0,0.0
+giyim/spor giyim/spor şapka,4.0,0.5,1.0,0.5,0.6666666666666666
+süpermarket/gıda & içecek/atıştırmalık/kuruyemiş/antep fıstığı,4.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/atıştırmalık/şekerleme,4.0,0.25,0.5,1.0,0.6666666666666666
+süpermarket/sağlık/sporcu besini & supplementler/protein bar,4.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/sporcu besini & supplementler/karbonhidrat (mass ve gainer),4.0,0.25,0.0,0.0,0.0
+süpermarket/sağlık/hasta bezi ve temizlik/perine temizleme havlusu,4.0,0.25,0.0,0.0,0.0
+süpermarket/sağlık/cinsel sağlık/gebelik testi,4.0,0.5,0.6666666666666666,1.0,0.8
+süpermarket/pet shop/kuş ürünleri/kuş yuvası,4.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/kedi ürünleri/kedi tırmalaması,4.0,0.25,0.0,0.0,0.0
+süpermarket/pet shop/kedi ürünleri/kedi fırça ve tarağı,4.0,0.25,1.0,1.0,1.0
+süpermarket/gıda & içecek/özel gıda ürünü/bitki ve tohum,4.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/özel gıda ürünü/aktar ürünleri,4.0,0.25,0.0,0.0,0.0
+süpermarket/gıda & içecek/çay/bitki çayı/kış çayı,4.0,0.0,0.0,0.0,0.0
+süpermarket/anne ve bebek bakım/bebek beslenme ve emzirme/bebek ek besin/bebek bisküvisi,4.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/yulaf ezmesi,4.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/fıstık ezmesi,4.0,0.5,1.0,1.0,1.0
+süpermarket/gıda & içecek/kuru gıda/tatlı yapım malzemesi/tatlı sosu,4.0,0.75,0.0,0.0,0.0
+süpermarket/gıda & içecek/kahve/kahve şurubu,4.0,0.25,0.0,0.0,0.0
+süpermarket/gıda & içecek/kahve/granül kahve,4.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/hazır gıda/asma yaprağı,4.0,0.25,0.5,1.0,0.6666666666666666
+süpermarket/gıda & içecek/yağ ve sos/yağ/sıvı yağ,4.0,0.25,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/otomobil ayna/dikiz aynası,4.0,0.5,0.0,0.0,0.0
+süpermarket/anne ve bebek bakım/bebek bakım ve kozmetik/bebek güneş kremi,4.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/yüz bakım/yüz bakım aleti/siyah nokta temizleme aleti,4.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kalem/kalem seti,4.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/boyalar/kumaş boyası,4.0,0.5,0.0,0.0,0.0
+"kozmetik & kişisel bakım/tıraş, ağda ve epilasyon/islak tıraş/tıraş köpük ve jeli",4.0,0.5,1.0,0.5,0.6666666666666666
+kozmetik & kişisel bakım/saç bakım/saç şekillendirici ürünler/saç köpüğü,4.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/makyaj/ten makyajı/makyaj sabitleyici,4.0,0.5,0.6666666666666666,1.0,0.8
+kozmetik & kişisel bakım/makyaj/ten makyajı/kontür,4.0,0.5,1.0,0.5,0.6666666666666666
+kozmetik & kişisel bakım/makyaj/makyaj seti,4.0,0.5,0.6666666666666666,1.0,0.8
+kozmetik & kişisel bakım/cilt bakım/göz bakım/göz makyaj temizleyici,4.0,0.5,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/paten & kaykay/paten,4.0,0.75,0.0,0.0,0.0
+kozmetik & kişisel bakım/ağız bakım/dil temizleyici,4.0,0.25,0.5,1.0,0.6666666666666666
+kitap/çocuk ve ebeveyn kitapları/çocuk bakımı & ebeveynlik,4.0,0.5,0.6666666666666666,1.0,0.8
+hobi & eğlence/tütün & tütün aksesuarları/çakmaklar/klasik çakmak,4.0,0.25,0.0,0.0,0.0
+hobi & eğlence/parti malzemeleri/düğün&kına &nikah malzemeleri/söz tepsisi,4.0,0.25,1.0,1.0,1.0
+hobi & eğlence/müzik alet ve ekipmanları/vurmalı çalgılar/darbuka,4.0,0.0,0.0,0.0,0.0
+hobi & eğlence/hobi malzemeleri/iğne,4.0,1.0,1.0,1.0,1.0
+giyim/tesettür giyim/tesettür kaban & mont/tesettür kaban,4.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kalem/versatil kalem,4.0,0.5,1.0,1.0,1.0
+kırtasiye & ofis malzemeleri/kırtasiye/eğitim ürünleri/deney malzemesi,4.0,0.5,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye/eğitim ürünleri/silgi,4.0,0.5,1.0,1.0,1.0
+kırtasiye & ofis malzemeleri/masaüstü gereçleri/masaüstü organizer,4.0,0.25,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/kamp mutfak ürünleri/kamp matarası,4.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/elektronik - optik ürünler/aksiyon kamera aksesuarı,4.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/fitness & vücut geliştirme/dambıl & ağırlık plakası,4.0,0.5,1.0,1.0,1.0
+spor & outdoor/ekipman & aksesuar/bisiklet & aksesuar/bisiklet gözlüğü,4.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/av & balıkçılık/olta makinesi,4.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/modifiye ürünleri/oto plakalık,4.0,0.25,0.3333333333333333,1.0,0.5
+otomobil & motosiklet/otomobil/modifiye ürünleri/oto anten,4.0,0.25,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç içi aksesuarı/oto koltuk kılıf & minder/oto koltuk minderi,4.0,0.25,1.0,1.0,1.0
+otomobil & motosiklet/otomobil/araç içi aksesuarı/oto bardaklık ve isıtıcı,4.0,0.25,0.0,0.0,0.0
+giyim/tesettür giyim/tesettür ceket & yelek/tesettür yelek,4.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/kaporta/oto panjur izgarası,4.0,0.25,1.0,1.0,1.0
+giyim/büyük beden/büyük beden trençkot,4.0,0.25,1.0,1.0,1.0
+otomobil & motosiklet/motosiklet/motosiklet yedek parça/motosiklet grenajları/motosiklet koruma demiri,4.0,0.25,1.0,1.0,1.0
+otomobil & motosiklet/motosiklet/motosiklet giyim/motorcu montu,4.0,0.25,1.0,1.0,1.0
+otomobil & motosiklet/motosiklet/motosiklet aksesuarları/motosiklet teçhizat tutucu,4.0,0.25,1.0,1.0,1.0
+ev & mobilya/mobilya/yemek odası/konsol,4.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/sporcu besini & supplementler/protein tozu/whey protein,4.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/anne bebek ürünleri/emzirme ürünleri/emzirme ve süt saklama aksesuarı,4.0,0.25,1.0,1.0,1.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/endüstriyel temizleme,4.0,0.25,0.5,1.0,0.6666666666666666
+anne & bebek & çocuk/anne bebek ürünleri/bebek banyo & tuvalet/klozet adaptörü & lazımlık,4.0,0.75,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/sofra/bardak altlığı,4.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/sofra/sütlük,4.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/sofra/çay fincanı,4.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/bıçak bileyici ve masat,4.0,0.75,1.0,0.6666666666666666,0.8
+banyo yapı & hırdavat/hırdavat/iş ayakkabısı & çizmesi,4.0,0.25,1.0,1.0,1.0
+banyo yapı & hırdavat/hırdavat/iş güvenlik ürünleri/uyarı ve yönlendirme levhası,4.0,0.75,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/çocuk puzzle & yapboz,4.0,0.25,1.0,1.0,1.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/banyo tesisatı,4.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/rende,4.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/çevre birimleri/bilgisayar hoparlörü,4.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/çocuk gereçleri/bebek & çocuk odası/diğer oda aksesuarları,4.0,0.75,0.0,0.0,0.0
+anne & bebek & çocuk/çocuk gereçleri/bebek arabası & puset/3 tekerlekli bebek bisikleti,4.0,0.25,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/elektrikli el aleti aküleri,4.0,1.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/sıcak hava tabancası,4.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/ağ - modem/menzil genişletici,4.0,0.25,0.3333333333333333,1.0,0.5
+elektronik/elektronik aksesuarlar/tablet aksesuarları/tablet kalemi,4.0,0.75,1.0,0.6666666666666666,0.8
+aksesuar/takı & mücevher/yüzük/gümüş alyans,4.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/yorgan/çift kişilik yorgan,4.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/mangal & barbekü/piknik seti,4.0,0.0,0.0,0.0,0.0
+elektronik/kişisel bakım aletleri/tartı,4.0,0.25,0.5,1.0,0.6666666666666666
+banyo yapı & hırdavat/boya/yalıtım boyası,4.0,0.5,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/oyuncak bebek ve aksesuarı,4.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/banyo/banyo tekstili/mutfak havlusu,4.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev dekorasyon/şamdan & mumluk,4.0,0.25,0.0,0.0,0.0
+ev & mobilya/ev/ev gereçleri/damacana pompası,4.0,0.5,1.0,1.0,1.0
+ev & mobilya/ev/ev gereçleri/pazar arabası & çantası,4.0,0.25,1.0,1.0,1.0
+banyo yapı & hırdavat/elektrik tesisat malzemesi/sigorta,4.0,0.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/set & takım/gümüş set,4.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/bebek&çocuk ev tekstil/bebek & çocuk pike,4.0,0.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/set & takım/çelik set,4.0,0.25,0.3333333333333333,1.0,0.5
+banyo yapı & hırdavat/elektrik tesisat malzemesi/solar aydınlatma,4.0,0.5,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/oyun seti,4.0,0.25,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/uyku seti/çift kişilik uyku seti,4.0,0.5,1.0,1.0,1.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/su arıtma/su arıtma cihazı aksesuarı,4.0,0.25,1.0,1.0,1.0
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/tost makinesi,4.0,0.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/charm,4.0,0.25,1.0,1.0,1.0
+elektronik/bilgisayar grubu/yazıcı & tarayıcı/yazıcılar/mürekkep püskürtmeli yazıcı,4.0,0.25,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/iklimlendirme/isıtıcılar/diğer isıtıcılar,4.0,0.5,0.0,0.0,0.0
+elektronik/akıllı ev aletleri/hava nemlendirici,4.0,0.25,0.5,1.0,0.6666666666666666
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/zincirli ağaç kesme makinesi,4.0,1.0,1.0,0.75,0.8571428571428571
+elektronik/bilgisayar grubu/bileşenler/temel bileşenler/ekran kartı,4.0,0.25,1.0,1.0,1.0
+banyo yapı & hırdavat/hırdavat/takım çantası & avadanlık,4.0,0.25,0.0,0.0,0.0
+ev & mobilya/mobilya/bebek & çocuk odası mobilyası/oyun & aktivite masası,4.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/bebek & okul öncesi oyuncaklar/bebek & aktivite oyuncakları,4.0,0.25,0.0,0.0,0.0
+anne & bebek & çocuk/çocuk gereçleri/güvenlik/koruyucu tekstil,4.0,0.25,1.0,1.0,1.0
+elektronik/elektrikli ev aletleri/süpürge & ütü/ütü/buhar kazanlı ütü,4.0,0.25,1.0,1.0,1.0
+aksesuar/atkı & bere & eldiven/bere,4.0,0.25,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/bahçe & dış mekan oyuncakları/spor oyuncakları,4.0,0.25,0.0,0.0,0.0
+ev & mobilya/mobilya/yatak odası/baza,4.0,0.0,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/süpürge & ütü/ütü/buharlı dikey ütü,4.0,0.0,0.0,0.0,0.0
+elektronik/akıllı ev aletleri/hava temizleyici,4.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/silikon,4.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/baharat/diğer baharat,3.0,0.3333333333333333,1.0,1.0,1.0
+süpermarket/gıda & içecek/kahve/kapsül kahve,3.0,0.3333333333333333,1.0,1.0,1.0
+süpermarket/pet shop/akvaryum ürünleri/akvaryum balık yemi,3.0,0.3333333333333333,0.0,0.0,0.0
+kozmetik & kişisel bakım/makyaj/göz makyajı/takma kirpik,3.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/elektrik tesisat malzemesi/priz ve anahtarlar/priz ve anahtar çerçevesi,3.0,0.0,0.0,0.0,0.0
+hobi & eğlence/hobi malzemeleri/dekoratif şerit,3.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/av & balıkçılık/olta seti,3.0,0.6666666666666666,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye kağıt ürünleri/planlayıcı,3.0,0.3333333333333333,0.0,0.0,0.0
+elektronik/hoparlör & projeksiyon sistemleri/projeksiyon cihazı,3.0,0.3333333333333333,0.0,0.0,0.0
+kozmetik & kişisel bakım/makyaj/göz makyajı/kaş kalemi & kaş farı,3.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye kağıt ürünleri/termal rulo,3.0,0.3333333333333333,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/bisiklet & aksesuar/bisiklet selesi,3.0,0.6666666666666666,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya/mikrodalga fırın,3.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye kağıt ürünleri/kitap ayracı,3.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç içi aksesuarı/koltuk başlıkları,3.0,0.0,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/iklimlendirme/isıtıcılar/elektrikli soba,3.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/çay/dökme çay,3.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/kedi ürünleri/kedi tasması,3.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/makyaj/makyaj aksesuarları/makyaj süngeri,3.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kaval koruyucu,3.0,0.6666666666666666,0.0,0.0,0.0
+süpermarket/pet shop/kedi ürünleri/kedi evi ve kafesi,3.0,0.3333333333333333,0.0,0.0,0.0
+elektronik/hoparlör & projeksiyon sistemleri/hoparlörler/kablolu hoparlör,3.0,0.6666666666666666,0.6666666666666666,1.0,0.8
+kırtasiye & ofis malzemeleri/kırtasiye/eğitim ürünleri/kırtasiye seti,3.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye/eğitim ürünleri/kalemtıraş,3.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/evcil hayvan ürünleri/kedi ve köpek yatağı,3.0,0.3333333333333333,1.0,1.0,1.0
+elektronik/giyilebilir teknoloji/kulaklıklar/kulak üstü kablolu kulaklık,3.0,0.3333333333333333,0.0,0.0,0.0
+hobi & eğlence/hobi malzemeleri/şiş,3.0,0.6666666666666666,1.0,1.0,1.0
+süpermarket/ev bakım ve temizlik/çamaşır yıkama/çamaşır yumuşatıcısı,3.0,0.0,0.0,0.0,0.0
+hobi & eğlence/müzik alet ve ekipmanları/gitar ve ekipmanları/gitar,3.0,0.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/kıkırdak küpe/bijuteri kıkırdak küpe,3.0,0.3333333333333333,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye/boya malzemesi,3.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/evcil hayvan ürünleri/akıllı kedi ve köpek mama su kabı,3.0,0.3333333333333333,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya/kurutma makinesi,3.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye/eğitim ürünleri/boyama seti,3.0,0.3333333333333333,0.0,0.0,0.0
+elektronik/giyilebilir teknoloji/kulaklıklar/boyun bantlı bluetooth kulaklık,3.0,0.3333333333333333,0.0,0.0,0.0
+süpermarket/gıda & içecek/atıştırmalık/bisküvi ve kraker,3.0,0.3333333333333333,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/oyuncak araçlar/oyuncak helikopter ve uçak,3.0,0.0,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/iklimlendirme/isıtıcılar/konvektör,3.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/kedi ürünleri/kedi oyuncağı,3.0,0.0,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/ekmek yapma makinesi,3.0,0.3333333333333333,0.0,0.0,0.0
+elektronik/bilgisayar grubu/yazıcı & tarayıcı/yazıcılar/lazer yazıcı,3.0,0.0,0.0,0.0,0.0
+elektronik/akıllı ev aletleri/akıllı aydınlatma,3.0,0.3333333333333333,0.0,0.0,0.0
+"kozmetik & kişisel bakım/tıraş, ağda ve epilasyon/islak tıraş/tıraş sonrası ürün",3.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/veri depolama/taşınabilir hard disk,3.0,0.3333333333333333,1.0,1.0,1.0
+kozmetik & kişisel bakım/cilt bakım/vücut bakımı/ayak bakımı/koku önleyici,3.0,0.0,0.0,0.0,0.0
+kitap/yabancı dil kitaplar/yabancı dil roman,3.0,1.0,1.0,0.3333333333333333,0.5
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/lehim & havya,3.0,1.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/veri depolama/hafıza kartı,3.0,0.0,0.0,0.0,0.0
+"kozmetik & kişisel bakım/tıraş, ağda ve epilasyon/ağda & tüy dökücü/ağda bandı",3.0,0.0,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/içecek hazırlama/su isıtıcı & kettle,3.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/güneş ürünü/vücut güneş kremi,3.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/spor kolluk,3.0,1.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/şeker/tatlandırıcı,3.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/un/tam buğday unu,3.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe dekorasyonu/bahçe yer döşemesi,3.0,0.6666666666666666,1.0,0.5,0.6666666666666666
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/waffle makinesi,3.0,0.3333333333333333,1.0,1.0,1.0
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/doğrayıcı & rondo,3.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/saç bakım/saç toniği,3.0,0.0,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/kıyma makinesi,3.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/bahçe & dış mekan oyuncakları/oyun çadırı,3.0,0.6666666666666666,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/spor matara,3.0,0.3333333333333333,1.0,1.0,1.0
+kitap/roman ve edebiyat/edebiyat/türk edebiyatı,3.0,0.6666666666666666,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/içecek hazırlama/meyve & sebze sıkacağı,3.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/gazlı içecek/enerji içeceği,3.0,0.3333333333333333,0.0,0.0,0.0
+hobi & eğlence/parti malzemeleri/plastik masa örtüsü,3.0,0.3333333333333333,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/su sporu/bone,3.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/duvar & cephe kaplama,3.0,0.3333333333333333,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/vestiyer askısı,3.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/tenis/tenis çantası,3.0,0.6666666666666666,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/su sporu/kano,3.0,0.0,0.0,0.0,0.0
+hobi & eğlence/parti malzemeleri/pasta kürdanı,3.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/şarj cihazları/şarj adaptörü,3.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/yüz bakım/yüz bakım aleti/dermaroller,3.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/parfüm ve deodorant/vücut spreyi,3.0,0.3333333333333333,1.0,1.0,1.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/sürülebilir çikolata,3.0,0.6666666666666666,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kalem/teknik çizim kalemi,3.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/oyun hamuru,3.0,0.3333333333333333,0.5,1.0,0.6666666666666666
+banyo yapı & hırdavat/hırdavat/iş güvenlik ürünleri/iş güvenliği boneleri/cerrahi bone,3.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kalem/kaligrafi kalemi,3.0,0.6666666666666666,1.0,1.0,1.0
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/balta,3.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/kedi ürünleri/kedi tuvaleti,3.0,0.0,0.0,0.0,0.0
+"kitap/hobi, sanat, akademik/hobi/yemek kitabı",3.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/atıştırmalık/unlu mamül/ekmek,3.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/oyuncak araçlar/oyuncak kamyon ve iş makinesi,3.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/çiçek & bitki yetiştirme/teraryum & sukulentler,3.0,0.3333333333333333,0.0,0.0,0.0
+süpermarket/sağlık/hasta bakım ve hareket destek/tekerlekli sandalye,3.0,0.3333333333333333,0.5,1.0,0.6666666666666666
+banyo yapı & hırdavat/boya/boya hazırlık malzemesi,3.0,0.3333333333333333,0.5,1.0,0.6666666666666666
+ev & mobilya/mobilya/bahçe mobilyaları/salıncak & hamak,3.0,0.3333333333333333,0.0,0.0,0.0
+süpermarket/pet shop/köpek ürünleri/köpek vitamini,3.0,0.0,0.0,0.0,0.0
+aksesuar/saç aksesuarı/diğer saç aksesuarları,3.0,0.3333333333333333,1.0,1.0,1.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/küvet,3.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/sofra/kadeh,3.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/bahçe mobilyaları/bahçe minderi,3.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç dış aksesuar/silecek & aksesuar,3.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/bebek & çocuk odası mobilyası/oyuncak dolabı,3.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/küçük el aletleri/budama makası,3.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/yatak örtüsü/battal boy yatak örtüsü,3.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/boya/ahşap boya & vernik,3.0,0.0,0.0,0.0,0.0
+giyim/spor giyim/yüzücü mayosu,3.0,0.3333333333333333,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/battaniye/elektrikli battaniye,3.0,0.6666666666666666,0.6666666666666666,1.0,0.8
+süpermarket/sağlık/hasta bakım ve hareket destek/varis çorabı,3.0,0.3333333333333333,1.0,1.0,1.0
+otomobil & motosiklet/motosiklet/motosiklet giyim/motosiklet ayakkabı & bot,3.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet aksesuarları/motosiklet sele kılıfı,3.0,0.6666666666666666,1.0,1.0,1.0
+süpermarket/sağlık/hasta bakım ve hareket destek/ilaç saklama kutusu,3.0,0.3333333333333333,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet koruma ekipmanları/motosiklet vücut koruma,3.0,0.3333333333333333,1.0,1.0,1.0
+bahçe & elektrikli el aletleri/enerji sistemleri/jenaratör,3.0,0.6666666666666666,0.0,0.0,0.0
+elektronik/kişisel bakım aletleri/ipl lazer epilasyon aleti,3.0,0.6666666666666666,1.0,1.0,1.0
+süpermarket/sağlık/genel sağlık/bant ve isıtıcı ürünler/burun bandı,3.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/hasta bakım ve hareket destek/baston,3.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/kamp mutfak ürünleri/mug,3.0,0.0,0.0,0.0,0.0
+giyim/salopet & tulum/salopet,3.0,0.3333333333333333,1.0,1.0,1.0
+giyim/büyük beden/büyük beden t-shirt,3.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/mutfak sarf malzemeleri/streç film,3.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/kamp mutfak ürünleri/kamp ocakları,3.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/mutfak sarf malzemeleri/çöp torbası,3.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/sarımsak ezici,3.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/klozet,3.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/oto ses görüntü sistemleri/oto teyp,3.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/kahve ve baharat öğütücü değirmen,3.0,0.0,0.0,0.0,0.0
+giyim/büyük beden/büyük beden gömlek,3.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/hasta bezi ve temizlik/emici külot,3.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/salon tekstili/sandalye minderi,3.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/tırpan,3.0,0.3333333333333333,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/fren & debriyaj/oto aksesuar seti,3.0,0.3333333333333333,0.0,0.0,0.0
+banyo yapı & hırdavat/boya/renklendirilmiş boyalar,3.0,0.6666666666666666,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/elektrikli scooter & aksesuar/elektrikli scooter aksesuarı,3.0,0.0,0.0,0.0,0.0
+giyim/tesettür giyim/tesettür sweatshirt,3.0,0.6666666666666666,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/ofis teknolojileri/para sayma makinesi,3.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/kedi ürünleri/köpek sağlık ürünü,3.0,0.0,0.0,0.0,0.0
+elektronik/oyun & oyun konsolları/playstation oyunları/ps5 oyunu,3.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç içi aksesuarı/araç içi organizer,3.0,0.3333333333333333,0.0,0.0,0.0
+ev & mobilya/mobilya/ofis mobilyaları/oyuncu koltuğu,3.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/salon & oturma odası/kanepe & koltuklar/koltuk takımı,3.0,0.0,0.0,0.0,0.0
+elektronik/oyun & oyun konsolları/playstation konsolları/playstation aksesuarı,3.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/çocuk gereçleri/oto koltuğu ve aksesuarları/oto koltuğu,3.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/kedi ürünleri/kedi ödülü,3.0,0.3333333333333333,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/ölçüm cihazı,3.0,0.3333333333333333,0.0,0.0,0.0
+elektronik/oyun & oyun konsolları/nintendo konsolları ve aksesuarları/nintendo konsolu,3.0,0.3333333333333333,0.3333333333333333,1.0,0.5
+kırtasiye & ofis malzemeleri/kırtasiye/yapıştırıcı,3.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/çocuk gereçleri/yürüteç,3.0,0.3333333333333333,0.5,1.0,0.6666666666666666
+aksesuar/gözlük/gözlük aksesuarı,3.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/çay ve kahve demleme/dripper,3.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/kamp mutfak ürünleri/termal çanta,3.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/gıda takviyesi ve vitamin/balık yağı,3.0,0.0,0.0,0.0,0.0
+aksesuar/diğer aksesuar/gelin aksesuarı,3.0,0.3333333333333333,0.5,1.0,0.6666666666666666
+anne & bebek & çocuk/oyuncak/oyuncak bebek/et bebek,3.0,0.3333333333333333,1.0,1.0,1.0
+giyim/tesettür giyim/tesettür kaban & mont/tesettür mont,3.0,0.3333333333333333,0.0,0.0,0.0
+giyim/tesettür giyim/tesettür kazak & hırka/tesettür hırka,3.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/temizlik gereçleri/temizlik kovası,3.0,0.3333333333333333,1.0,1.0,1.0
+süpermarket/pet shop/kuş ürünleri/kuş suluğu,3.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/fitness & kondisyon,3.0,0.0,0.0,0.0,0.0
+giyim/tesettür giyim/tesettür mezuniyet elbisesi,3.0,0.3333333333333333,0.0,0.0,0.0
+süpermarket/pet shop/kuş ürünleri/kuş oyuncağı,3.0,0.3333333333333333,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/kamp mutfak ürünleri/kamp mutfağı,3.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/bahçe mobilyaları/şezlong,3.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/daire testere,2.0,1.0,0.0,0.0,0.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/bataryalar & musluklar/ara musluk,2.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/modifiye ürünleri/oto cam filmi,2.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet yedek parça/motosiklet grenajları/motosiklet grenaj seti,2.0,0.5,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/merdiven,2.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/saç bakım/saç parfümü,2.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/voleybol dizlik,2.0,1.0,1.0,0.5,0.6666666666666666
+süpermarket/anne ve bebek bakım/bebek beslenme ve emzirme/bebek ek besin/diğer bebek ek besinler,2.0,0.5,1.0,1.0,1.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/bataryalar & musluklar/musluk başlığı,2.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/poşet,2.0,0.5,1.0,1.0,1.0
+banyo yapı & hırdavat/hırdavat/rötuş ve işaretleme kalemi,2.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/çocuk gereçleri/güvenlik/koruyucu ve kilit,2.0,0.5,0.0,0.0,0.0
+süpermarket/anne ve bebek bakım/bebek temizlik/bebek leke çıkarıcı,2.0,1.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/mekanik aksam/bagaj amortisör,2.0,0.5,1.0,1.0,1.0
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya/su sebili,2.0,0.5,1.0,1.0,1.0
+süpermarket/anne ve bebek bakım/bebek beslenme ve emzirme/bebek maması/kaşık maması,2.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/elektrik aksam/oto sinyali,2.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/bahçe oyuncakları,2.0,1.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/elektrik aksam/oto lambası,2.0,0.0,0.0,0.0,0.0
+elektronik/akıllı ev aletleri/diğer akıllı ev aletleri,2.0,0.5,1.0,1.0,1.0
+banyo yapı & hırdavat/hırdavat/taşıma arabası,2.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/seramik ve yer döşemesi,2.0,0.5,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev temizlik/mutfak & banyo temizlik/lavabo açıcı,2.0,0.5,1.0,1.0,1.0
+otomobil & motosiklet/motosiklet/motosiklet yedek parça/motosiklet grenajları/motosiklet elcik,2.0,0.5,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/elektrik aksam/oto cam kriko,2.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev temizlik/mutfak & banyo temizlik/yağ çözücü ve kireç sökücü,2.0,0.5,1.0,1.0,1.0
+anne & bebek & çocuk/çocuk gereçleri/bebek salıncağı & hoppala,2.0,0.0,0.0,0.0,0.0
+süpermarket/anne ve bebek bakım/bebek beslenme ve emzirme/bebek maması/bebek sütü,2.0,0.5,0.0,0.0,0.0
+otomobil & motosiklet/oto ses görüntü sistemleri/oto amfi,2.0,0.5,1.0,1.0,1.0
+kozmetik & kişisel bakım/saç bakım/saç açıcı sprey,2.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/menfez,2.0,0.5,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/boyalar/ahşap boyası,2.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/dekupaj testere,2.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet yedek parça/motosiklet fren & debriyaj/motosiklet aksesuar seti,2.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/iş güvenlik ürünleri/iş güvenlik seti,2.0,1.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/temizlik gereçleri/diğer ev temizlik gereçleri,2.0,0.5,1.0,1.0,1.0
+banyo yapı & hırdavat/hırdavat/isınma & soğutma sistemleri/oda termostatı,2.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/isınma & soğutma sistemleri/havlupan,2.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/su arıtma/su arıtma cihazı,2.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/yemek odası/vitrin & gümüşlük,2.0,0.5,0.0,0.0,0.0
+banyo yapı & hırdavat/boya/astar boya,2.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/lastik & jant/araç kompresörü,2.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/temizlik gereçleri/temizlik eldiveni,2.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/boya/dış cephe boyası,2.0,0.5,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç içi aksesuarı/emniyet kemeri & aksesuarı,2.0,0.5,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye/eğitim ürünleri/bayrak,2.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye/eğitim ürünleri/cetvel,2.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/elektrik tesisat malzemesi/priz dönüştürücü,2.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/sanatsal malzemeler/boyama önlüğü,2.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/oyuncak araçlar/kumandalı oyuncak,2.0,0.5,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/oyuncak bebek/bez bebek,2.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/ofis teknolojileri/ciltleme makinesi & malzemesi,2.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/boya/sprey boyalar,2.0,0.5,1.0,1.0,1.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/polisaj makinesi,2.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/elektrik tesisat malzemesi/güvenlik ürünleri/güvenlik cihazı,2.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/çamaşır yıkama/makine kireç önleyici ve temizleyici,2.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç içi aksesuarı/bluetooth araç kiti,2.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç dış aksesuar/oto korna,2.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kalem/prestij & dolma kalem,2.0,0.0,0.0,0.0,0.0
+süpermarket/anne ve bebek bakım/bebek bakım ve kozmetik/bebek kremi ve yağı,2.0,0.5,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet giyim/motorcu pantolonu,2.0,0.0,0.0,0.0,0.0
+süpermarket/anne ve bebek bakım/bebek bakım ve kozmetik/bebek bakım seti,2.0,0.5,1.0,1.0,1.0
+süpermarket/anne ve bebek bakım/bebek bakım ve kozmetik/bebek bakım örtüsü,2.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/pense,2.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/lokma takımı,2.0,0.0,0.0,0.0,0.0
+ayakkabı/sandalet ve terlik/spor sandalet,2.0,0.5,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç dış aksesuar/oto güneşlik perde,2.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/gazlı içecek/kola,2.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/haşere öldürücü/haşere ilacı,2.0,0.5,1.0,1.0,1.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/duş teknesi,2.0,0.0,0.0,0.0,0.0
+"kozmetik & kişisel bakım/tıraş, ağda ve epilasyon/kaş makası",2.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/kablo makarası,2.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/multimetre,2.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/duşakabin,2.0,0.5,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/elektrikli zımpara,2.0,0.5,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet giyim/maske & balaklava,2.0,0.5,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/mutfak sarf malzemeleri/buzdolabı poşeti,2.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/boyalar/pastel boya,2.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/boyalar/yağlıboya,2.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç içi aksesuarı/sistem kablo & aksesuar,2.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç içi aksesuarı/oto küllük,2.0,0.0,0.0,0.0,0.0
+süpermarket/anne ve bebek bakım/bebek bakım ve kozmetik/bebek diş macunu,2.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet aksesuarları/motosiklet smart bar,2.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/oto bakım & temizlik/pasta cila,2.0,0.5,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/kaporta/oto tampon,2.0,0.5,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/iklimlendirme/kombi,2.0,0.0,0.0,0.0,0.0
+elektronik/kişisel bakım aletleri/epilatör,2.0,0.5,0.0,0.0,0.0
+süpermarket/pet shop/kedi ürünleri/kedi çimi ve catnip,2.0,0.5,1.0,1.0,1.0
+elektronik/oyun & oyun konsolları/playstation oyunları/ps3 oyunu,2.0,0.0,0.0,0.0,0.0
+elektronik/oyun & oyun konsolları/playstation oyunları/ps4 oyunu,2.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/çadır ve çadır aksesuarları/çadır brandası,2.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/küçük el aletleri/budama testeresi,2.0,0.0,0.0,0.0,0.0
+elektronik/tablet grubu/çocuk çizim tableti,2.0,0.0,0.0,0.0,0.0
+elektronik/telefon/tuşlu cep telefonu,2.0,0.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/bileklik/pırlanta bileklik,2.0,1.0,1.0,0.5,0.6666666666666666
+giyim/tesettür giyim/tesettür salopet & tulum/tesettür tulum,2.0,0.5,1.0,1.0,1.0
+giyim/tesettür giyim/tesettür plaj giyim/tesettür mayo,2.0,0.0,0.0,0.0,0.0
+giyim/büyük beden/büyük beden eşofman takımı,2.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/banyo/banyo tekstili/peştemal,2.0,0.0,0.0,0.0,0.0
+giyim/büyük beden/büyük beden kaban,2.0,0.5,0.0,0.0,0.0
+süpermarket/pet shop/kuş ürünleri/kuş yemi,2.0,0.5,1.0,1.0,1.0
+spor & outdoor/ekipman & aksesuar/kamp/kamp çakmağı,2.0,0.0,0.0,0.0,0.0
+giyim/büyük beden/büyük beden elbise,2.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/çakı & bıçak aksesuarı,2.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/dalış ürünleri/dalış elbisesi,2.0,0.0,0.0,0.0,0.0
+giyim/büyük beden/büyük beden alt - üst takım,2.0,0.5,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/mangal & barbekü/isıtma yakıtları,2.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/akvaryum ürünleri/akvaryum,2.0,0.5,1.0,1.0,1.0
+hobi & eğlence/oyun grupları/diğer oyun takımları,2.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/akvaryum ürünleri/akvaryum dekor ve aksesuarı,2.0,0.0,0.0,0.0,0.0
+giyim/bebek giyim/müslin bez,2.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/akvaryum ürünleri/akvaryum isıtıcısı,2.0,0.5,1.0,1.0,1.0
+süpermarket/pet shop/akvaryum ürünleri/akvaryum motoru,2.0,1.0,1.0,0.5,0.6666666666666666
+otomobil & motosiklet/otomobil/oto bagaj ürünleri/bagaj düzenleyici,2.0,0.0,0.0,0.0,0.0
+hobi & eğlence/müzik alet ve ekipmanları/piyano,2.0,0.0,0.0,0.0,0.0
+hobi & eğlence/müzik alet ve ekipmanları/müzik aleti aksesuarı,2.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/küçük el aletleri/misina,2.0,0.0,0.0,0.0,0.0
+hobi & eğlence/hobi malzemeleri/ponpon,2.0,0.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/inci set,2.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/kedi ürünleri/kedi kumu,2.0,0.0,0.0,0.0,0.0
+hobi & eğlence/hobi malzemeleri/kasnak,2.0,1.0,1.0,1.0,1.0
+süpermarket/pet shop/köpek ürünleri/köpek kemiği,2.0,0.5,0.5,1.0,0.6666666666666666
+süpermarket/pet shop/köpek ürünleri/köpek kıyafeti,2.0,0.0,0.0,0.0,0.0
+giyim/büyük beden/büyük beden pantolon,2.0,0.5,0.0,0.0,0.0
+giyim/plaj giyim/bikini üstü,2.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/genel sağlık/bant ve isıtıcı ürünler/ağrı bandı,2.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/genel sağlık/bant ve isıtıcı ürünler/sıcak su torbası ve isıtıcı ped,2.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/genel sağlık/göz ve burun damlası,2.0,0.5,0.0,0.0,0.0
+süpermarket/sağlık/genel sağlık/hijyen ürünleri/hijyenik eldiven,2.0,0.0,0.0,0.0,0.0
+giyim/iç giyim/boxer,2.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/elektrikli bisiklet & aksesuar/elektrikli bisiklet aksesuarı,2.0,0.5,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/elektrikli scooter & aksesuar/elektrikli scooter,2.0,0.0,0.0,0.0,0.0
+aksesuar/saat seti,2.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/antre & hol/sandık & tabure/sandık,2.0,1.0,1.0,0.5,0.6666666666666666
+spor & outdoor/ekipman & aksesuar/fitness & vücut geliştirme/ağırlık yeleği,2.0,0.0,0.0,0.0,0.0
+giyim/dış giyim/panço,2.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/bahçe mobilyaları/armut koltuk,2.0,0.0,0.0,0.0,0.0
+giyim/dış giyim/kaban & mont/palto,2.0,0.5,0.0,0.0,0.0
+ev & mobilya/mobilya/bahçe mobilyaları/bahçe koruma örtüsü,2.0,0.0,0.0,0.0,0.0
+aksesuar/diğer aksesuar/saat kordonu,2.0,0.0,0.0,0.0,0.0
+giyim/plaj giyim/bikini altı,2.0,0.5,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/pratik mutfak gereçleri,2.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/bebek&çocuk ev tekstil/bebek & çocuk çarşafı,2.0,0.5,1.0,1.0,1.0
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/oklava,2.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/battaniye/battal boy battaniye,2.0,0.5,1.0,1.0,1.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/battaniye/giyilebilir battaniye,2.0,0.0,0.0,0.0,0.0
+giyim/spor giyim/spor çorap,2.0,1.0,1.0,1.0,1.0
+ev & mobilya/ev/ev tekstili/yatak odası tekstili/çarşaf&çarşaf takımı/battal boy çarşaf takımı,2.0,0.5,0.5,1.0,0.6666666666666666
+ev & mobilya/ev/sofra & mutfak/mutfak saklama ve düzenleme/buz kalıbı,2.0,0.5,1.0,1.0,1.0
+giyim/büyük beden/büyük beden kazak,2.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/mutfak saklama ve düzenleme/mutfak düzenleyici,2.0,0.5,1.0,1.0,1.0
+süpermarket/pet shop/köpek ürünleri/köpek tarağı,2.0,0.5,0.5,1.0,0.6666666666666666
+süpermarket/pet shop/köpek ürünleri/köpek ödülü,2.0,0.0,0.0,0.0,0.0
+giyim/spor giyim/spor atlet,2.0,0.0,0.0,0.0,0.0
+giyim/spor giyim/kayak montu,2.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/sürüngen ürünleri/kaplumbağa malzemesi,2.0,0.0,0.0,0.0,0.0
+aksesuar/saç aksesuarı/bandana,2.0,0.0,0.0,0.0,0.0
+giyim/büyük beden/büyük beden mont,2.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/mutfak makası,2.0,0.0,0.0,0.0,0.0
+elektronik/foto & kamera/dijital kameralar/dslr fotoğraf makinesi,2.0,0.5,0.0,0.0,0.0
+süpermarket/gıda & içecek/özel gıda ürünü/glutensiz ürün,2.0,0.5,1.0,1.0,1.0
+elektronik/elektronik aksesuarlar/tv & görüntü & ses sistemleri/uydu alıcı,2.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/güneş ürünü/güneş sonrası ürünü,2.0,0.5,1.0,1.0,1.0
+süpermarket/gıda & içecek/kuru gıda/tatlı yapım malzemesi/kuvertür ve pul çikolata,2.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/tatlı yapım malzemesi/pasta süsü,2.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/su sporu/deniz gözlüğü,2.0,1.0,1.0,0.5,0.6666666666666666
+kozmetik & kişisel bakım/cilt bakım/el ve ayak bakımı/tırnak bakım,2.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/el ve ayak bakımı/manikür ve pedikür seti,2.0,0.0,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/elektronik çeyiz seti,2.0,0.5,1.0,1.0,1.0
+kozmetik & kişisel bakım/cilt bakım/cilt bakım yağları/badem yağı,2.0,0.0,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/mutfak tartısı,2.0,0.5,1.0,1.0,1.0
+kozmetik & kişisel bakım/cilt bakım/banyo ve duş ürünleri/kulak çubuğu,2.0,0.5,1.0,1.0,1.0
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/yumurta pişirme makinesi,2.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/akıllı ev sistemleri/akıllı güvenlik ürünü,2.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/oto bakım & temizlik/oto motor temizleyici,2.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/ağız bakım/diş fırçası yedek başlığı,2.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/sporcu besini & supplementler/amino asit,2.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/kablo & sarf malzemeler/network kablosu,2.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/güneş ürünü/güneş kremi seti,2.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/çiçek & bitki yetiştirme/gübre,2.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/tv & görüntü & ses sistemleri/tv aksesuarları/tv askı aparatı,2.0,0.0,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/elektrikli ev aletleri aksesuar/çay & kahve makinesi aksesuar,2.0,0.0,0.0,0.0,0.0
+elektronik/bilgisayar grubu/bileşenler/bilgisayar yedek parça,2.0,0.0,0.0,0.0,0.0
+elektronik/bilgisayar grubu/bileşenler/temel bileşenler/anakart,2.0,0.5,1.0,1.0,1.0
+spor & outdoor/ekipman & aksesuar/futbol/tekmelik,2.0,0.0,0.0,0.0,0.0
+elektronik/bilgisayar grubu/bileşenler/temel bileşenler/power supply (psu),2.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/makyaj/göz makyajı/eyeliner,2.0,0.5,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/oto bakım & temizlik/araç içi süpürge,2.0,0.0,0.0,0.0,0.0
+elektronik/bilgisayar grubu/bilgisayarlar/masaüstü bilgisayarlar/masaüstü bilgisayar,2.0,0.5,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/elektronik - optik ürünler/kafa lambası,2.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/sporcu besini & supplementler/l-karnitin & cla,2.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/çiçek & bitki yetiştirme/iç mekan bitkileri,2.0,0.5,1.0,1.0,1.0
+süpermarket/gıda & içecek/kuru gıda/kuru sebze,2.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/yüz bakım/yüz peelingi,2.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/makarna,2.0,0.0,0.0,0.0,0.0
+elektronik/dijital kod & ürünler/dijital kart & kupon/hediye kartı,2.0,0.0,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/dikiş makinesi,2.0,0.5,0.0,0.0,0.0
+süpermarket/sağlık/medikal ekipman/sağlık ölçüm cihazı/tansiyon aleti,2.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/anne bebek ürünleri/emzirme ürünleri/emzirme örtüsü,2.0,0.5,1.0,1.0,1.0
+kitap/çocuk ve ebeveyn kitapları/boyama kitapları,2.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/bahçe traktörü,2.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/bebek & çocuk odası mobilyası/çocuk odası takımı,2.0,0.0,0.0,0.0,0.0
+hobi & eğlence/uzaktan kumandalı araçlar/rc araçlar/rc araç,2.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/güç ürünleri/powerbank,2.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/kamera lens koruyucu,2.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/kulaklık aksesuarı,2.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/anne bebek ürünleri/bebek beslenme ürünleri/emzik,2.0,0.5,0.0,0.0,0.0
+süpermarket/gıda & içecek/yağ ve sos/sos/makarna ve salata sosu,2.0,0.5,0.0,0.0,0.0
+hobi & eğlence/tütün & tütün aksesuarları/nargile & nargile aksesuarları/nargile,2.0,0.0,0.0,0.0,0.0
+aksesuar/diğer aksesuar/peruk,2.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/yağ ve sos/sos/sirke ve nar ekşisi,2.0,0.0,0.0,0.0,0.0
+hobi & eğlence/parti malzemeleri/parti peçetesi,2.0,0.0,0.0,0.0,0.0
+aksesuar/çanta/plaj çantası,2.0,0.0,0.0,0.0,0.0
+hobi & eğlence/parti malzemeleri/konfeti,2.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/mangal & barbekü/mangal aksesuarları,2.0,0.5,1.0,1.0,1.0
+hobi & eğlence/parti malzemeleri/doğum günü yazıları,2.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/çim biçme makinesi,2.0,0.5,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/cep telefonu yedek parçaları/telefon ekranı,2.0,1.0,1.0,1.0,1.0
+"kitap/eğitim/akademik/araştırma ,tarih & siyaset/güncel - genel konular",2.0,0.5,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe sulama/hortum bağlantısı,2.0,0.0,0.0,0.0,0.0
+"kitap/çizgi roman, dergi ve gazete/manga",2.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/kahvaltılık gevrek,2.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/müsli ve granola,2.0,0.5,0.0,0.0,0.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/pekmez,2.0,0.5,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/pilates & yoga/pilates malzemeleri/direnç lastiği,2.0,0.5,1.0,1.0,1.0
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/elektrikli testere,2.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/süt,2.0,1.0,1.0,1.0,1.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/tahin,2.0,0.0,0.0,0.0,0.0
+"kitap/hobi, sanat, akademik/hobi/bulmaca kitabı",2.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/akıllı takip cihazı,2.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/medikal ekipman/sağlık ölçüm cihazı/ateş ölçer,2.0,0.5,1.0,1.0,1.0
+spor & outdoor/ekipman & aksesuar/av & balıkçılık/hazır olta takımı,2.0,0.5,0.0,0.0,0.0
+"kitap/eğitim/akademik/araştırma ,tarih & siyaset/tarih",2.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/kamp mutfak ürünleri/kamp yemek seti,2.0,0.0,0.0,0.0,0.0
+süpermarket/anne ve bebek bakım/bebek beslenme ve emzirme/bebek maması/devam sütü,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kayak & snowboard/snowboard/snowboard ekipmanı,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/yaprak toplama üfleme makinesi,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/çocuk gereçleri/portbebe & kanguru,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/bahçe makine yağı,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/tenis/tenis malzemesi,1.0,1.0,0.0,0.0,0.0
+süpermarket/anne ve bebek bakım/bebek sağlık ürünleri/bebek temizleme pamuğu,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/spor bileklik,1.0,0.0,0.0,0.0,0.0
+ayakkabı/günlük ayakkabı/espadril,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/okçuluk sporu/okçu aksesuarları/hazır oklar,1.0,0.0,0.0,0.0,0.0
+süpermarket/anne ve bebek bakım/bebek bakım ve kozmetik/bebek diş fırçası,1.0,1.0,1.0,1.0,1.0
+spor & outdoor/ekipman & aksesuar/okçuluk,1.0,0.0,0.0,0.0,0.0
+ayakkabı/diğer ayakkabı ürünleri/ayakkabı kalıbı,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/hayvancılık makineleri,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/su motoru ve pompa,1.0,1.0,1.0,1.0,1.0
+spor & outdoor/ekipman & aksesuar/kamp/şişme mat & yastık,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/çadır ve çadır aksesuarları/çadır uyku tulumu,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/toprak burgu makinesi,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/kamp/outdoor aksesuarı,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/yatak odası/yatak pedi & şiltesi,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/kuru bakliyat/diğer kuru bakliyat,1.0,1.0,1.0,1.0,1.0
+süpermarket/anne ve bebek bakım/bebek temizlik/biberon emzik temizleyici,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/çay/bitki çayı/papatya çayı,1.0,1.0,0.0,0.0,0.0
+süpermarket/pet shop/kedi ürünleri/kedi sağlık ürünü,1.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/kedi ürünleri/kedi kıyafeti,1.0,1.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/charm taşıyıcı,1.0,0.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/küpe/inci küpe,1.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/evcil hayvan ürünleri/tüy toplama ürünü,1.0,0.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/kıkırdak küpe/gümüş kıkırdak küpe,1.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/akvaryum ürünleri/akvaryum filtresi,1.0,0.0,0.0,0.0,0.0
+süpermarket/kişisel bakım,1.0,0.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/set & takım/bijuteri set,1.0,0.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/yüzük/altın alyans,1.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/kedi ürünleri/kedi şampuanı,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/yağ ve sos/sos/salça,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/şarküteri/sucuk,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/zeytin/zeytin ezmesi,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/zeytin/siyah zeytin,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/reçel,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/peynir,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/anne bebek ürünleri/emzirme ürünleri/emzirme yastığı,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/bahçe & dış mekan oyuncakları/kaydırak,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/bal,1.0,0.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/bilezik,1.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/kemirgen ürünleri/hamster,1.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/bez poşet,1.0,0.0,0.0,0.0,0.0
+aksesuar/kravat & kol düğmesi/kravat,1.0,1.0,0.0,0.0,0.0
+aksesuar/altın/çeyrek altın,1.0,0.0,0.0,0.0,0.0
+aksesuar/atkı & bere & eldiven/boyunluk,1.0,1.0,0.0,0.0,0.0
+süpermarket/sağlık/medikal ekipman/ortopedi ürünleri/medikal korse,1.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/maske/siperlik,1.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/masaj aleti/masaj cihazı,1.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/hasta bakım ve hareket destek/hasta yatağı,1.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/hasta bakım ve hareket destek/hasta destek aparatı,1.0,1.0,0.0,0.0,0.0
+süpermarket/sağlık/hasta bakım ve hareket destek/hasta bakım kıyafeti,1.0,0.0,0.0,0.0,0.0
+aksesuar/diğer aksesuar/yaka iğnesi,1.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/gıda takviyesi ve vitamin/koenzim q10,1.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/kuş ürünleri/kuş kumu,1.0,1.0,1.0,1.0,1.0
+süpermarket/sağlık/genel sağlık/yakı ve isıtıcı ped,1.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/genel sağlık/lens ürünleri/lens solüsyonu,1.0,1.0,1.0,1.0,1.0
+süpermarket/sağlık/genel sağlık/lens ürünleri/lens kabı,1.0,0.0,0.0,0.0,0.0
+süpermarket/sağlık/genel sağlık/ağız ve diş sağlığı,1.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/köpek ürünleri/köpek oyuncağı,1.0,0.0,0.0,0.0,0.0
+aksesuar/saç aksesuarı/saç bandı,1.0,1.0,1.0,1.0,1.0
+süpermarket/pet shop/köpek ürünleri/köpek kulübesi,1.0,0.0,0.0,0.0,0.0
+aksesuar/takı & mücevher/bileklik/kristal bileklik,1.0,0.0,0.0,0.0,0.0
+süpermarket/pet shop/kuş ürünleri/kuş tüneği,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/süt ve kahvaltılık/aromalı süt,1.0,1.0,1.0,1.0,1.0
+süpermarket/gıda & içecek/kuru gıda/un/mısır unu,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/un/badem unu,1.0,1.0,1.0,1.0,1.0
+süpermarket/ev bakım ve temizlik/kağıt ürünleri/yüzey temizlik havlusu,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/atıştırmalık/lokum,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/atıştırmalık/kuruyemiş/leblebi,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/atıştırmalık/kuruyemiş/fındık,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/atıştırmalık/kuruyemiş/diğer kuruyemiş,1.0,1.0,1.0,1.0,1.0
+anne & bebek & çocuk/oyuncak/diğer oyuncaklar,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/figür oyuncaklar/hayvan figür oyuncak,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/oyun setleri/meslek seti,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/atıştırmalık/cips,1.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/çamaşır yıkama/çamaşır yan ürün/halı şampuanı,1.0,1.0,1.0,1.0,1.0
+süpermarket/ev bakım ve temizlik/kağıt ürünleri/tuvalet kağıdı,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/bahçe & dış mekan oyuncakları/oyun parkı,1.0,1.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev ve temizlik gereçleri/temizlik gereçleri/tüy toplayıcı,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/oyuncak bebek/model bebek,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/scooterlar/scooter,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/scooterlar/scooter aksesuarı,1.0,1.0,1.0,1.0,1.0
+anne & bebek & çocuk/çocuk gereçleri/bebek arabası & puset/baston bebek arabası,1.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev temizlik/yüzey temizlik/cam ve parlak yüzey temizleyici,1.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev temizlik/yüzey temizlik/ahşap temizleyici ve parlatıcı,1.0,0.0,0.0,0.0,0.0
+süpermarket/ev bakım ve temizlik/ev temizlik/tuvalet temizlik/tuvalet temizleyici,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/çocuk gereçleri/mama sandalyesi & aksesuarları/mama sandalyesi aksesuarı,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/atıştırmalık/sakız,1.0,1.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/atıştırmalık/sağlıklı atıştırmalık,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/deniz & plaj malzemeleri/deniz malzemesi,1.0,1.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/bebek & okul öncesi oyuncaklar/uyku arkadaşı,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/tatlı yapım malzemesi/şeker hamuru,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/tatlı yapım malzemesi/gıda aroması,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/maya,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/kuru bakliyat/pirinç,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/baharat/pul biber,1.0,1.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kuru gıda/baharat/nane,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/bahçe & dış mekan oyuncakları/çocuk salıncak,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kahve/tekli poşet kahve,1.0,1.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/kahve/kahve kreması ve süt tozu,1.0,1.0,1.0,1.0,1.0
+anne & bebek & çocuk/oyuncak/bebek & okul öncesi oyuncaklar/amigurumi,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/hazır gıda/ton balığı,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/bebek & okul öncesi oyuncaklar/kukla,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/hazır gıda/kemik ve ilik suyu,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/hazır gıda/hazır yemek,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/hazır gıda/hazır noodle,1.0,0.0,0.0,0.0,0.0
+anne & bebek & çocuk/oyuncak/bebek & okul öncesi oyuncaklar/puset & mama sandalyesi oyuncağı,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/gazsız içecek/sıcak çikolata,1.0,1.0,1.0,1.0,1.0
+süpermarket/gıda & içecek/gazsız içecek/soğuk kahve,1.0,0.0,0.0,0.0,0.0
+süpermarket/gıda & içecek/gazsız içecek/içecek tozu,1.0,1.0,1.0,1.0,1.0
+spor & outdoor/ekipman & aksesuar/kamp/kamp lambası,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/lastik & jant/lastik bakım ürünü,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe makineleri/çit kesme makinesi,1.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/şarj cihazları/araç şarj cihazı,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/parti malzemeleri/plastik tabak,1.0,1.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/şarj kabloları/şarj kablosu,1.0,1.0,1.0,1.0,1.0
+hobi & eğlence/parti malzemeleri/parti aksesuarı,1.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/tv & görüntü & ses sistemleri/görüntü ve ses kabloları/hdmi kablo,1.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/tv & görüntü & ses sistemleri/ses sistemleri/media player,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/parti malzemeleri/düğün&kına &nikah malzemeleri/gelin çiçeği,1.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/tv & görüntü & ses sistemleri/ses sistemleri/portatif sistem,1.0,1.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/tv & görüntü & ses sistemleri/uydu alıcı ve aksesuarları,1.0,1.0,1.0,1.0,1.0
+elektronik/foto & kamera/dijital kameralar/aynasız fotoğraf makinesi,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/parti malzemeleri/cupcake kapsülü,1.0,0.0,0.0,0.0,0.0
+elektronik/foto & kamera/dijital kameralar/video kamera,1.0,0.0,0.0,0.0,0.0
+elektronik/giyilebilir teknoloji/akıllı bileklik,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/oyun grupları/oyun kartları,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/oyun grupları/maket,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/müzik alet ve ekipmanları/yabancı albüm,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/müzik alet ve ekipmanları/vurmalı çalgılar/perküsyon,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/müzik alet ve ekipmanları/telli çalgılar/santur,1.0,1.0,1.0,1.0,1.0
+hobi & eğlence/müzik alet ve ekipmanları/sahne ve studyo/nota ve enstrüman standları,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/müzik alet ve ekipmanları/sahne ve studyo/mikrofon ve aksesuar,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/müzik alet ve ekipmanları/plak,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/müzik alet ve ekipmanları/nefesli çalgılar/yan flüt & pikolo,1.0,1.0,1.0,1.0,1.0
+elektronik/giyilebilir teknoloji/sanal gerçeklik gözlüğü,1.0,1.0,0.0,0.0,0.0
+hobi & eğlence/hobi malzemeleri/terzi mankeni,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/hobi malzemeleri/nakış kiti,1.0,1.0,0.0,0.0,0.0
+hobi & eğlence/hobi malzemeleri/nakış ipi,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/hobi malzemeleri/kurdele,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/hobi malzemeleri/keçe malzemesi,1.0,0.0,0.0,0.0,0.0
+elektronik/hoparlör & projeksiyon sistemleri/müzik sistemleri/mikrofon,1.0,0.0,0.0,0.0,0.0
+elektronik/hoparlör & projeksiyon sistemleri/müzik sistemleri/mp player & ses kayıt cihazı,1.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/şarj cihazları/kablosuz şarj cihazı,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/tütün & tütün aksesuarları/puro malzemeleri/puro kutusu,1.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/kadın hijyen/intim bakım ürünü,1.0,1.0,1.0,1.0,1.0
+hobi & eğlence/uzaktan kumandalı araçlar/rc araçlar/rc helikopter,1.0,0.0,0.0,0.0,0.0
+elektronik/dijital kod & ürünler/dijital kart & kupon/e-pin & cüzdan kodu,1.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/yüz bakım/yüz bakım aleti/yüz temizleme fırçası,1.0,0.0,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/kahve makinesi/elektronik kahve öğütücü,1.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/vücut bakımı/selülit fırçası,1.0,0.0,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/dondurma makinesi,1.0,1.0,1.0,1.0,1.0
+kozmetik & kişisel bakım/cilt bakım/göz bakım/göz serumu,1.0,1.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/göz bakım/göz maskesi,1.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/el ve ayak bakımı/tırnak makası,1.0,0.0,0.0,0.0,0.0
+elektronik/elektrikli ev aletleri/yiyecek & içecek hazırlama/yiyecek hazırlama/elektrikli izgara,1.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/cilt bakım/el ve ayak bakımı/ayak kremi,1.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/ağız bakım/protez diş bakım,1.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/akıllı ev sistemleri/akıllı kamera,1.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/ağ - modem/4g taşınabilir modem,1.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/ağız bakım/diş fırçası/pilli diş fırçası,1.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/kablo & sarf malzemeler/güç kablosu,1.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/kablo & sarf malzemeler/usb hub çoklayıcı,1.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/oyuncu donanımları/yayıncı aksesuarı,1.0,1.0,0.0,0.0,0.0
+"kitap/çizgi roman, dergi ve gazete/çizgi roman",1.0,1.0,1.0,1.0,1.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/yazıcı sarf malzemeleri/filament,1.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/yazıcı sarf malzemeleri/kartuş,1.0,1.0,0.0,0.0,0.0
+kitap/roman ve edebiyat/edebiyat/deneme & inceleme,1.0,0.0,0.0,0.0,0.0
+kitap/roman ve edebiyat/edebiyat/anı & günlük & seyahatname,1.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/bilgisayar aksesuarları/çevre birimleri/bilgisayar mikrofonu,1.0,0.0,0.0,0.0,0.0
+"kitap/hobi, sanat, akademik/sağlık, spor ve diyet/spor kitabı",1.0,0.0,0.0,0.0,0.0
+"kitap/hobi, sanat, akademik/sanat/resim & çizim kitabı",1.0,0.0,0.0,0.0,0.0
+"kitap/hobi, sanat, akademik/sanat/el sanatları",1.0,0.0,0.0,0.0,0.0
+"kitap/hobi, sanat, akademik/hobi/moda kitabı",1.0,0.0,0.0,0.0,0.0
+elektronik/elektronik aksesuarlar/cep telefonu aksesuarları/cep telefonu yedek parçaları/telefon bataryası,1.0,0.0,0.0,0.0,0.0
+kitap/eğitim/akademik/felsefe kitabı,1.0,0.0,0.0,0.0,0.0
+elektronik/hoparlör & projeksiyon sistemleri/müzik sistemleri/nostaljik radyo,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/hediyelik ürünler/paketleme malzemesi,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/hediyelik ürünler/müzik kutusu,1.0,0.0,0.0,0.0,0.0
+elektronik/hoparlör & projeksiyon sistemleri/soundbar,1.0,0.0,0.0,0.0,0.0
+giyim/hamile giyim/hamile eşofman/hamile eşofman altı,1.0,0.0,0.0,0.0,0.0
+giyim/hamile giyim/hamile alt - üst takım,1.0,0.0,0.0,0.0,0.0
+giyim/gelinlik,1.0,1.0,1.0,1.0,1.0
+giyim/ev giyim/sabahlık,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/shaker & kokteyl seti,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/soyacak,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/çay ve kahve demleme/çay süzgeci,1.0,1.0,0.0,0.0,0.0
+giyim/dış giyim/pardesü & trençkot/pardesü,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/bahçe mobilyaları/şemsiye & tente,1.0,0.0,0.0,0.0,0.0
+giyim/büyük beden/büyük beden yelek,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/bebek & çocuk odası mobilyası/arabalı yatak,1.0,0.0,0.0,0.0,0.0
+giyim/büyük beden/büyük beden sweatshirt,1.0,1.0,0.0,0.0,0.0
+ev & mobilya/mobilya/bebek & çocuk odası mobilyası/genç odası takımı,1.0,0.0,0.0,0.0,0.0
+aksesuar/altın/gram gümüş,1.0,0.0,0.0,0.0,0.0
+giyim/büyük beden/büyük beden abiye takım,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/bebek & çocuk odası mobilyası/çocuk & montessori karyola,1.0,0.0,0.0,0.0,0.0
+giyim/bebek giyim/bebek tulumu/astronot tulum,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/bebek & çocuk odası mobilyası/çocuk komodin & şifonyer,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/bebek & çocuk odası mobilyası/çocuk çalışma masası,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/ofis mobilyaları/ofis aksesuarı,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/ofis mobilyaları/ofis dolapları,1.0,0.0,0.0,0.0,0.0
+giyim/alt giyim/kumaş pantolon,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/ofis mobilyaları/ofis koltuk ve kanepesi,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/ofis mobilyaları/ofis masası,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/ofis mobilyaları/ofis sehpası,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/ofis mobilyaları/ofis takımı,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/salon & oturma odası/şaraplık & servis arabası,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/çalışma odası/dergilik & gazetelik,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/mobilya/yatak odası/takı ve aksesuar dolapları,1.0,0.0,0.0,0.0,0.0
+giyim/hamile giyim/hamile pantolonu,1.0,0.0,0.0,0.0,0.0
+giyim/iç giyim/fanila,1.0,0.0,0.0,0.0,0.0
+giyim/iç giyim/külot,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev gereçleri/plastik ev gereçleri/gırgır,1.0,0.0,0.0,0.0,0.0
+hobi & eğlence/hediyelik ürünler/kar küresi,1.0,1.0,0.0,0.0,0.0
+elektronik/oyun & oyun konsolları/bilgisayar oyunu,1.0,1.0,1.0,1.0,1.0
+elektronik/oyun & oyun konsolları/nintendo oyunu,1.0,0.0,0.0,0.0,0.0
+elektronik/oyun & oyun konsolları/playstation konsolları/playstation 5,1.0,0.0,0.0,0.0,0.0
+elektronik/tablet grubu/grafik tablet,1.0,0.0,0.0,0.0,0.0
+giyim/üst giyim/body,1.0,0.0,0.0,0.0,0.0
+elektronik/tablet grubu/yenilenmiş tablet,1.0,1.0,0.0,0.0,0.0
+ev & mobilya/ev/banyo/banyo aksesuarları/tuvalet fırçası,1.0,1.0,1.0,1.0,1.0
+ev & mobilya/ev/banyo/banyo tekstili/banyo perdesi,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev dekorasyon/paravan ve seperatör,1.0,0.0,0.0,0.0,0.0
+giyim/tesettür giyim/tesettür kimono & kaftan,1.0,0.0,0.0,0.0,0.0
+giyim/tesettür giyim/tesettür kazak & hırka/tesettür kazak,1.0,0.0,0.0,0.0,0.0
+giyim/tesettür giyim/tesettür eşofman/tesettür eşofman takımı,1.0,1.0,0.0,0.0,0.0
+ev & mobilya/ev/ev gereçleri/pratik ev gereci,1.0,1.0,1.0,1.0,1.0
+giyim/iç giyim/termal giyim & içlik,1.0,1.0,1.0,1.0,1.0
+ev & mobilya/ev/ev gereçleri/pratik temizlik gereci,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/ev gereçleri/çamaşırlık ev gereçleri/çamaşır yıkama topu & filesi,1.0,0.0,0.0,0.0,0.0
+giyim/tesettür giyim/tesettür bluz & tunik/tesettür bluz,1.0,0.0,0.0,0.0,0.0
+giyim/spor giyim/spor termal giyim & içlik,1.0,1.0,1.0,1.0,1.0
+giyim/spor giyim/spor kayak & snowboard mont,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/el rondosu,1.0,0.0,0.0,0.0,0.0
+giyim/spor giyim/spor büstiyer,1.0,1.0,0.0,0.0,0.0
+giyim/spor giyim/spor body,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/limon sıkacağı,1.0,0.0,0.0,0.0,0.0
+giyim/spor giyim/bisiklet taytı,1.0,1.0,1.0,1.0,1.0
+giyim/smokin,1.0,0.0,0.0,0.0,0.0
+giyim/kimono & kaftan,1.0,0.0,0.0,0.0,0.0
+ev & mobilya/ev/sofra & mutfak/yemek hazırlık/salata kurutucu,1.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/diğer kişisel bakım ürünleri/pamuk & disk,1.0,0.0,0.0,0.0,0.0
+elektronik/bilgisayar grubu/yazıcı & tarayıcı/tarayıcılar/barkod okuyucu,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/bahçe sulama/bitki sulama kabı,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/oto bagaj ürünleri/bagaj havuzu,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/motor bakım ürünleri/enjektör temizleyici,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/ahşap & metal kesme,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/elektrikli el aleti aksesuar/el aletleri aksesuar seti,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/kış ürünleri/lastik zinciri,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/kış ürünleri/buğu giderici,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/elektrikli araç şarj ekipmanları/elektrikli araç şarj istasyonu aksesuarları,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/elektrikli araç şarj ekipmanları/elektrikli araç şarj istasyonu,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/havalı aletler,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/kaynak makinesi,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/kırıcı delici & kırıcı,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/pafta makinası,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç güvenliği/trafik & ilk yardım seti,1.0,1.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/seramik kesme makinesi,1.0,1.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/araç dış aksesuar/bisiklet taşıyıcı,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/yürüyen aksam & direksiyon/oto kilometre saati,1.0,1.0,1.0,1.0,1.0
+otomobil & motosiklet/otomobil yedek parça/otomobil ayna/oto yan ayna,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/elektrikli el aletleri/termometre & nem ölçer,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/lpg ekipmanları/lpg enjektörü,1.0,1.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/kaporta/oto basamak koruma plastikleri,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/kaporta/kaporta sac,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/kaporta/boya ölçüm cihazı,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/elektrik aksam/oto şalter,1.0,1.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/elektrik aksam/oto çakmak,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/elektrik aksam/oto kompresör,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/elektrik aksam/oto far,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/enerji sistemleri/güç istasyonları,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil yedek parça/ateşleme sistemi/ateşleme beyni,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/oto ses görüntü sistemleri/usb - sd çevirici modül,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/enerji sistemleri/inverter,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/çiçek & bitki yetiştirme/çiçekli bodur bitkiler,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/çiçek & bitki yetiştirme/hobi bahçesi,1.0,0.0,0.0,0.0,0.0
+elektronik/bilgisayar grubu/bileşenler/yan bileşenler/server donanımı,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/oto bakım & temizlik/oto boya,1.0,1.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/fitness & vücut geliştirme/çalışma istasyonu,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/fitness & vücut geliştirme/step,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/fitness & vücut geliştirme/egzersiz bandı,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/fitness & vücut geliştirme/egzersiz aleti,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/fitness & vücut geliştirme/dambıl standı,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/havuz ürünleri/havuz kimyasalları,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/fitness & vücut geliştirme/ağırlık eldiveni,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/küçük el aletleri/aşı makası,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/dart/dart oku,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/crossfit/crossfit çekiç,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/crossfit/crossfit halatı,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/crossfit/crossfit ekipmanı,1.0,1.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/boks ekipmanı,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/bisiklet & aksesuar/çocuk bisikleti,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/bisiklet & aksesuar/bisiklet kaskı,1.0,1.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/küçük el aletleri/kazma kürek ve orak,1.0,1.0,1.0,1.0,1.0
+spor & outdoor/ekipman & aksesuar/bisiklet & aksesuar/bisiklet farı,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/küçük el aletleri/çim çit makası,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/avcılık/avcılık aksesuarı,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/çiçek & bitki yetiştirme/bitki besini ve vitamin,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/av & balıkçılık/olta iğnesi,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/av & balıkçılık/fırdöndü,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/av & balıkçılık/balıkçılık aksesuarı,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/ekipman & aksesuar/atlama ipi,1.0,0.0,0.0,0.0,0.0
+spor & outdoor/acil durum & güvenlik ekipman/ilk yardım seti,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/otomobil yedek parçalar,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/çiçek & bitki yetiştirme/dış mekan ağaçları,1.0,0.0,0.0,0.0,0.0
+bahçe & elektrikli el aletleri/bahçe/çiçek & bitki yetiştirme/dış mekan sarmaşık bitkileri,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/otomobil/oto bakım & temizlik/oto far temizleyici,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/oto ses görüntü sistemleri/araç takip sistemi,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet yedek parça/motosiklet cam & ayna/motosiklet ön cam siperlik,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet yedek parça/egzoz,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/bataryalar & musluklar/pisuvar musluğu,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kalem/kalem uçları,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/iş güvenlik ürünleri/iş güvenliği maske,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kalem/jel mürekkepli kalem,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/kapı stoperi,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/dosyalama & arşivleme/klasör,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/dosyalama & arşivleme/arşivleme kutusu,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/boyalar/kuru boya kalemi,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/el zımparası,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/boyalar/cam boyası,1.0,0.0,0.0,0.0,0.0
+"kozmetik & kişisel bakım/tıraş, ağda ve epilasyon/tüy azaltıcı",1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/kontrol kalemi,1.0,0.0,0.0,0.0,0.0
+"kozmetik & kişisel bakım/tıraş, ağda ve epilasyon/islak tıraş/tıraş aksesuarı",1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/silikon tabancası,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/su terazisi,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/testere,1.0,1.0,1.0,1.0,1.0
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/yassı keski,1.0,1.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/manuel el aletleri/şerit metre,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/mobilya aksesuarları/sehpa & masa ayağı,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/parke,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/profesyonel temizlik ürünü,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/takım tezgah ve panosu,1.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/parfüm ve deodorant/parfüm esansı,1.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/makyaj/tırnak/oje kurutucu,1.0,0.0,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/beyaz eşya/derin dondurucu,1.0,0.0,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/iklimlendirme/isı pompası,1.0,0.0,0.0,0.0,0.0
+elektronik/beyaz eşya & iklimlendirme/iklimlendirme/vantilatör,1.0,1.0,1.0,1.0,1.0
+kozmetik & kişisel bakım/makyaj/makyaj paleti,1.0,1.0,1.0,1.0,1.0
+elektronik/bilgisayar grubu/bileşenler/temel bileşenler/bilgisayar kasası,1.0,0.0,0.0,0.0,0.0
+kozmetik & kişisel bakım/makyaj/göz makyajı/kirpik perması,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/iş güvenlik ürünleri/iş güvenlik tabelası,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kalem/pilot kalem,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kalem/tebeşir & tahta kalemi,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/ofis teknolojileri/terazi,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet koruma ekipmanları/motosiklet dizlik,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet giyim/motosiklet bandana,1.0,1.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet ekipmanları/motosiklet kornası,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet ekipmanları/kilit & alarm,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/duşakabin aksesuarı,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/banyo yapı malzemeleri/eviye,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet aksesuarları/motosiklet sele pedi (airhawk),1.0,1.0,1.0,1.0,1.0
+otomobil & motosiklet/motosiklet/motosiklet aksesuarları/motosiklet jant şerit,1.0,1.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet aksesuarları/motosiklet branda,1.0,0.0,0.0,0.0,0.0
+otomobil & motosiklet/motosiklet/motosiklet aksesuarları/motosiklet anahtarlık,1.0,1.0,1.0,1.0,1.0
+kırtasiye & ofis malzemeleri/sanatsal malzemeler/şövale,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/boya/fırça ve rulo,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/sanatsal malzemeler/fırça,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/ofis teknolojileri/para çekmecesi,1.0,1.0,0.0,0.0,0.0
+banyo yapı & hırdavat/hırdavat/derz ürünü,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/ofis sarf tüketim malzemesi,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/elektrik tesisat malzemesi/fiş,1.0,1.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye/yazı tahtası & pano/pano,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/elektrik tesisat malzemesi/kablo düzenleyici,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye/mürekkep,1.0,1.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye/makas,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye/harita,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/elektrik tesisat malzemesi/kablo klipsi,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye/eğitim ürünleri/laboratuvar malzemesi,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/elektrik tesisat malzemesi/kapı zili,1.0,0.0,0.0,0.0,0.0
+banyo yapı & hırdavat/elektrik tesisat malzemesi/priz ve anahtarlar/priz ve anahtar seti,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye kağıt ürünleri/tebrik kartı,1.0,0.0,0.0,0.0,0.0
+kırtasiye & ofis malzemeleri/kırtasiye kağıt ürünleri/fotoğraf kağıdı,1.0,0.0,0.0,0.0,0.0
+aksesuar/altın/gram altın,1.0,0.0,0.0,0.0,0.0

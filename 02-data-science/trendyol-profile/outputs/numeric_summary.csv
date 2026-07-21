@@ -1,0 +1,5 @@
+table,column,count,mean,std,min,25%,50%,75%,max,metric_scope
+sample_submission.csv,prediction,20000.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,sampled_first_20000_rows
+train_with_negatives.parquet,label,20000.0,0.2509,0.4335419102340585,0.0,0.0,0.0,1.0,1.0,sampled_first_20000_rows
+train_with_negatives.parquet,sample_weight,20000.0,1.2508,0.433484435058252,1.0,1.0,1.0,2.0,2.0,sampled_first_20000_rows
+training_pairs.csv,label,20000.0,1.0,0.0,1.0,1.0,1.0,1.0,1.0,sampled_first_20000_rows

@@ -1,0 +1,105 @@
+{
+  "required_fields": [
+    {
+      "required_field": "indirim_orani",
+      "source_file": "—",
+      "actual_field": "—",
+      "match_type": "Missing",
+      "transformation": "Akademi transactional dataset gerekli",
+      "confidence": "Yüksek"
+    },
+    {
+      "required_field": "musteri_puani",
+      "source_file": "—",
+      "actual_field": "—",
+      "match_type": "Missing",
+      "transformation": "Akademi transactional dataset gerekli",
+      "confidence": "Yüksek"
+    },
+    {
+      "required_field": "odeme_turu",
+      "source_file": "—",
+      "actual_field": "—",
+      "match_type": "Missing",
+      "transformation": "Akademi transactional dataset gerekli",
+      "confidence": "Yüksek"
+    },
+    {
+      "required_field": "musteri_tipi",
+      "source_file": "—",
+      "actual_field": "—",
+      "match_type": "Missing",
+      "transformation": "Akademi transactional dataset gerekli",
+      "confidence": "Yüksek"
+    },
+    {
+      "required_field": "siparis_tarihi",
+      "source_file": "—",
+      "actual_field": "—",
+      "match_type": "Missing",
+      "transformation": "Akademi transactional dataset gerekli",
+      "confidence": "Yüksek"
+    },
+    {
+      "required_field": "sehir",
+      "source_file": "—",
+      "actual_field": "—",
+      "match_type": "Missing",
+      "transformation": "Akademi transactional dataset gerekli",
+      "confidence": "Yüksek"
+    },
+    {
+      "required_field": "kategori",
+      "source_file": "items.csv",
+      "actual_field": "category",
+      "match_type": "Safe Semantic Match",
+      "transformation": "Sütun adı Türkçeleştirilebilir; anlam ürün kategorisidir",
+      "confidence": "Yüksek"
+    },
+    {
+      "required_field": "birim_fiyat",
+      "source_file": "—",
+      "actual_field": "—",
+      "match_type": "Missing",
+      "transformation": "Akademi transactional dataset gerekli",
+      "confidence": "Yüksek"
+    },
+    {
+      "required_field": "toplam_tutar",
+      "source_file": "—",
+      "actual_field": "—",
+      "match_type": "Missing",
+      "transformation": "Akademi transactional dataset gerekli",
+      "confidence": "Yüksek"
+    },
+    {
+      "required_field": "teslimat_gunu",
+      "source_file": "—",
+      "actual_field": "—",
+      "match_type": "Missing",
+      "transformation": "Akademi transactional dataset gerekli",
+      "confidence": "Yüksek"
+    }
+  ],
+  "schema_compatible": false,
+  "supported_questions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    9,
+    11
+  ],
+  "blocked_questions": [
+    6,
+    7,
+    8,
+    10,
+    12,
+    13,
+    14,
+    15
+  ],
+  "conclusion": "Trendyol verisi ürün kataloğu ve arama uygunluğu verisidir; ara ödevin transactional müşteri/sipariş şemasına uyumlu değildir."
+}
