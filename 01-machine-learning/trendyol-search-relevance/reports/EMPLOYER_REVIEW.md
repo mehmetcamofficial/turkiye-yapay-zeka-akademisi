@@ -20,6 +20,10 @@ Strengths: the search problem, bounded live capability, governance boundary and 
 
 Product path: Overview → Trendyol Executive & Live → Business Problem → Governance & Roadmap.
 
+## V3 retrieval extension
+
+V3/V3.1 demonstrates that candidate retrieval, relevance classification and ranking are distinct search-system stages. Recruiters see a bounded live lexical, semantic and hybrid demo. Technical reviewers see pinned multilingual E5 embeddings, catalogue fingerprints, NumPy cosine indexing, validation-only fusion tuning, Recall@K, latency/index cost and group-safe statistical evaluation. Product and search reviewers see explicit catalogue scope and incomplete-judgment risks. Standalone semantic retrieval underperformed; RRF became the Best Research Candidate at Recall@50 `0.831392` but remains Not Promoted because uncertainty and bounded scope remain.
+
 ## Confusing areas found and changed
 
 - Replaced eighteen equal-priority Trendyol tabs with five guided groups.

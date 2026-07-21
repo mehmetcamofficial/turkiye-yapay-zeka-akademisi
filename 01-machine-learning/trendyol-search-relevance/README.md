@@ -26,12 +26,27 @@ V2 keeps V1 frozen and evaluates classification and learning-to-rank separately 
 
 `ranking_large` (5,000 groups) and `ranking_full` remain explicit modes and never run automatically. They were not executed: the mandatory five-seed medium evaluation already showed no reproducible ranker gain, while larger repeated feature/model fitting would add disproportionate runtime and memory without changing the governance threshold.
 
+## V3/V3.1 semantic retrieval and hybrid search
+
+V3 separates candidate discovery from V1 relevance scoring and experimental ranking. It implements Turkish-aware normalization, deterministic product/judgment contracts, sparse word/character TF-IDF, BM25, Recall@K/MRR/MAP/NDCG metrics, query bootstrap and bounded live search. `retrieval_medium` uses 1,000 complete query groups and a 63,841-product broad bounded catalogue made from every labelled relevant product plus independently sampled distractors. Across five group-safe seeds, selected combined enriched TF-IDF reaches Recall@50 `0.817239` (95% CI `[0.801112, 0.833366]`), Recall@100 `0.886018`, MRR `0.686716` and NDCG@10 `0.603232`. Selected BM25 reaches Recall@50 `0.802656`, Recall@100 `0.856537`, MRR `0.716717` and NDCG@10 `0.632878`. TF-IDF remains the Experimental Retrieval Baseline because Recall@50 is the primary selection metric.
+
+V3.1 pins MIT-licensed `intfloat/multilingual-e5-small` revision `614241f622f53c4eeff9890bdc4f31cfecc418b3`, builds normalized float32 NumPy indexes and evaluates real semantic, weighted fusion, RRF and candidate-union retrieval. Standalone semantic Recall@50 is `0.725147`; RRF is the Best Research Candidate at `0.831392` versus TF-IDF `0.817239`, with delta CI `[-0.006188, 0.034494]`. It remains Not Promoted. The UI activates Semantic and Hybrid only with compatible cache/index assets and never silently substitutes lexical scores.
+
+On macOS arm64, semantic inference stays in the Streamlit process while
+experimental XGBoost ranker checks use a bounded persistent worker. This keeps
+the incompatible PyTorch and XGBoost OpenMP runtimes out of the same
+interpreter. Registry and Artifact Health use persisted metadata instead of
+eager native artifact reloads.
+
 ## Reproduce
 
 ```bash
 ./.venv/bin/python 01-machine-learning/trendyol-search-relevance/train.py --mode smoke
 ./.venv/bin/python 01-machine-learning/trendyol-search-relevance/train.py --mode sample
 PYTHONPATH=01-machine-learning/trendyol-search-relevance ./.venv/bin/python 01-machine-learning/trendyol-search-relevance/inference.py
+./.venv/bin/python -m pip install -r 01-machine-learning/trendyol-search-relevance/requirements-semantic.txt
+PYTHONPATH=01-machine-learning/trendyol-search-relevance ./.venv/bin/python 01-machine-learning/trendyol-search-relevance/v31_build_semantic.py
+PYTHONPATH=01-machine-learning/trendyol-search-relevance ./.venv/bin/python 01-machine-learning/trendyol-search-relevance/v31_evaluate.py
 ```
 
 The selected complete pipeline, metadata, evaluation, error analysis and bounded catalogue sample are stored locally. Platform integration uses the same inference API and never scans the full catalogue per interaction.

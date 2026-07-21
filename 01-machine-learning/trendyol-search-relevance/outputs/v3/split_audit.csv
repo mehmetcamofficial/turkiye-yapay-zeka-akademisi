@@ -1,0 +1,6 @@
+seed,train_groups,validation_groups,holdout_groups,train_validation_overlap,train_holdout_overlap,validation_holdout_overlap
+42,700,150,150,0,0,0
+52,700,150,150,0,0,0
+62,700,150,150,0,0,0
+72,700,150,150,0,0,0
+82,700,150,150,0,0,0

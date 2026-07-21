@@ -1,0 +1,9 @@
+{
+  "rows": 5000,
+  "fingerprint": "6324bd7eb4525623485b476f6099a9d9e066b9a1e7f20396987ab0b611875216",
+  "methods": [
+    "tfidf",
+    "bm25"
+  ],
+  "scope": "bounded_demo"
+}

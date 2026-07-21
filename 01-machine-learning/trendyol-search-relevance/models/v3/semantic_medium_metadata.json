@@ -1,0 +1,32 @@
+{
+  "scope": "medium",
+  "model_id": "intfloat/multilingual-e5-small",
+  "model_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+  "license": "MIT",
+  "embedding_dimension": 384,
+  "product_count": 63841,
+  "index_type": "normalized NumPy matrix; chunked cosine top-k",
+  "dtype": "float32",
+  "normalized": true,
+  "finite_values": true,
+  "norm_min": 0.9999998211860657,
+  "norm_mean": 1.0,
+  "norm_max": 1.0000001192092896,
+  "catalogue_fingerprint": "0794209ed8204fc2573d960fe8af1de1adeb0acf628ca1ff6367a51375756f47",
+  "document_variant": "enriched_product_text",
+  "query_prefix": "query: ",
+  "document_prefix": "passage: ",
+  "code_version": "v3.1",
+  "build_timestamp_utc": "2026-07-21T23:09:38.847282+00:00",
+  "index_bytes": 98059904,
+  "index_sha256": "2980b6ee534b0c9b6fa8019fdc82729531741833334605a413a2d7c4036f7c48",
+  "model_load_seconds": 2.61988512500011,
+  "encoding_seconds": 848.0,
+  "products_per_second": 75.28419811320755,
+  "peak_rss_mb": 1155.953125,
+  "shape": [
+    63841,
+    384
+  ],
+  "recovered_after_item_id_write_failure": true
+}

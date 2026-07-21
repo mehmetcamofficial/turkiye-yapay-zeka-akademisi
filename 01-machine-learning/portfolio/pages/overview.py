@@ -1,6 +1,8 @@
 """Executive, employer-oriented platform landing page."""
 import streamlit as st
 from portfolio.project_registry import get_project_registry,portfolio_counts
+from portfolio.config import TRENDYOL_RELEVANCE_DIR
+from portfolio.loaders import load_csv_safe,load_json_safe
 from portfolio.ui_components import (architecture_flow,comparison_cards,evidence_strip,information_panel,
     page_header,project_card,render_safe_table,section_heading)
 
@@ -24,6 +26,11 @@ def render():
       {"title":"V2 Historical Challenger","status":"Deneysel","kind":"experimental","algorithm":"Random Forest","metric":"Holdout F1 0.6384 · PR AUC 0.6909","note":"Historical Experimental Challenger · Not Promoted."},
       {"title":"V2.1 Best Research Candidate","status":"Terfi edilmedi","kind":"experimental","algorithm":"HistGradientBoosting · artifact not persisted","metric":"Mean F1 0.7539 · 95% CI 0.7461–0.7618","note":"Offline Evaluation · Different historical split · Direct superiority not established."},
       {"title":"V2.1 Search Ranker","status":"Terfi edilmedi","kind":"experimental","algorithm":"XGBoost rank:ndcg topk","metric":"Delta −0.0075 · CI −0.0234–0.0084","note":"Bounded Candidate Sample; baseline mean NDCG@10 0.8710."}])
+    v3=load_json_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v3/v3_results.json")); v3_metrics=load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v3/retrieval_metrics_by_seed.csv")); best=v3.get("best_tfidf","Combined TF-IDF")
+    rows=v3_metrics[v3_metrics.method.eq(best)] if not v3_metrics.empty and "method" in v3_metrics else v3_metrics; recall=float(rows["recall@50"].mean()) if not rows.empty else 0
+    v31=load_json_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v3/v31_results.json")); v31_metrics=load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v3/v31_metrics_by_seed.csv")); candidate=v31.get("best_hybrid","semantic_e5_small"); candidate_rows=v31_metrics[v31_metrics.method.eq(candidate)] if not v31_metrics.empty and "method" in v31_metrics else v31_metrics; candidate_recall=float(candidate_rows["recall@50"].mean()) if not candidate_rows.empty else 0
+    comparison_cards([{"title":"V3.1 Semantic Retrieval","status":"Deneysel","kind":"experimental","algorithm":f"multilingual E5 Small + {candidate}","metric":f"Recall@50 {candidate_recall:.4f} · {v3.get('catalogue',{}).get('bounded_rows',0):,} indexed products","note":"Bounded Demo · Offline Evaluation · Catalogue-Wide Not Established · governance report controls selection."}])
+    architecture_flow([("Query","current"),("Candidate Retrieval","experimental"),("V1 Relevance Scoring","current"),("Ranking","experimental"),("Results","experimental")])
     cols=st.columns(2)
     with cols[0]: go("Canlı alaka tahmini","Trendyol Arama Alaka Zekâsı","featured_demo")
     with cols[1]: go("Model yönetişimini incele","Model Registry","featured_governance")
@@ -46,6 +53,6 @@ def render():
     architecture_flow([("Data Sources","current"),("Validation","current"),("Feature Engineering","current"),("Training","current"),("Evaluation","current"),("Artifact Registry","current"),("Live Inference","current"),("Monitoring","planned")])
     section_heading("Araştırma Yol Haritası","Kompleksite yalnız tekrarlanabilir kanıt ürettiğinde artırılır.")
     information_panel("V2.1 robust evaluation","1.000 tam sorgu grubu, beş seed, aynı holdout sistem karşılaştırmaları ve hard-negative yeniden doğrulama.")
-    information_panel("V3 semantic retrieval","Multilingual embedding retrieval ve cross-encoder reranking planlıdır; tamamlanmış özellik olarak sunulmaz.")
+    information_panel("V3.1 semantic retrieval","Pinned multilingual E5, normalized NumPy dense retrieval and measured hybrid fusion are experimental; cross-encoder reranking remains planned.")
     section_heading("Profesyonel Profil","AI engineering, machine learning, data science ve ürün odaklı teknik sistemler.")
     st.caption("Bağlantılar yeni sekmede güvenli biçimde açılır: Portfolio · LinkedIn · GitHub")

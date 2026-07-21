@@ -1,0 +1,55 @@
+{
+  "catalogue": {
+    "source_rows": 962873,
+    "bounded_rows": 63841,
+    "required_relevant_ids": 13892,
+    "distractor_stride": 19,
+    "build_seconds": 11.301022374999775
+  },
+  "catalogue_fingerprint": "0794209ed8204fc2573d960fe8af1de1adeb0acf628ca1ff6367a51375756f47",
+  "selections": [
+    {
+      "seed": 42,
+      "weighted_alpha": 0.8,
+      "rrf_k": 20,
+      "union_validation_recall@50": 0.8184627835112042
+    },
+    {
+      "seed": 52,
+      "weighted_alpha": 0.8,
+      "rrf_k": 20,
+      "union_validation_recall@50": 0.7545584256395754
+    },
+    {
+      "seed": 62,
+      "weighted_alpha": 0.8,
+      "rrf_k": 100,
+      "union_validation_recall@50": 0.8382785223852879
+    },
+    {
+      "seed": 72,
+      "weighted_alpha": 0.8,
+      "rrf_k": 20,
+      "union_validation_recall@50": 0.8201223211049211
+    },
+    {
+      "seed": 82,
+      "weighted_alpha": 0.65,
+      "rrf_k": 20,
+      "union_validation_recall@50": 0.8083529408338269
+    }
+  ],
+  "performance": {
+    "model_load_seconds": 2.4951765410005464,
+    "query_batch_encoding_seconds": 1.5012538329992822,
+    "query_encoding_throughput": 666.1098729734122,
+    "semantic_search_p50_ms": 3.6232079996807443,
+    "semantic_search_p95_ms": 5.990908349849633,
+    "lexical_search_p95_ms": 69.52160625019133,
+    "bm25_search_p95_ms": 1.0011017500346495,
+    "hybrid_candidate_union_fusion_p95_ms": 0.1228958002229774,
+    "hybrid_rrf_fusion_p95_ms": 0.1065225500951783,
+    "hybrid_weighted_fusion_p95_ms": 0.11812324992206412
+  },
+  "best_hybrid": "hybrid_rrf"
+}

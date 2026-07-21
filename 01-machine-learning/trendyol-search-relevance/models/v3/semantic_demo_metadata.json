@@ -1,0 +1,31 @@
+{
+  "scope": "demo",
+  "model_id": "intfloat/multilingual-e5-small",
+  "model_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+  "license": "MIT",
+  "embedding_dimension": 384,
+  "product_count": 5000,
+  "index_type": "normalized NumPy matrix; chunked cosine top-k",
+  "dtype": "float32",
+  "normalized": true,
+  "finite_values": true,
+  "norm_min": 0.9999998211860657,
+  "norm_mean": 1.0,
+  "norm_max": 1.0000001192092896,
+  "catalogue_fingerprint": "6324bd7eb4525623485b476f6099a9d9e066b9a1e7f20396987ab0b611875216",
+  "document_variant": "enriched_product_text",
+  "query_prefix": "query: ",
+  "document_prefix": "passage: ",
+  "code_version": "v3.1",
+  "build_timestamp_utc": "2026-07-21T22:47:55.361030+00:00",
+  "index_bytes": 7680128,
+  "index_sha256": "6b657839894427412409122a2d31b9c52e5d574c7c915f7f559778780aef527a",
+  "model_load_seconds": 3.563778958000512,
+  "encoding_seconds": 47.06689020799968,
+  "products_per_second": 106.2317900737402,
+  "peak_rss_mb": 1035.125,
+  "shape": [
+    5000,
+    384
+  ]
+}

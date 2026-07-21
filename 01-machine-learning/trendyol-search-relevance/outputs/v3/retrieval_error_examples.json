@@ -1,0 +1,270 @@
+[
+  {
+    "term_id": "TERM_1ec1b928",
+    "query": "loreal teleskopik rimel",
+    "relevant_item_ids": [
+      "ITEM_636ccb0c0054"
+    ],
+    "failure_category": "lexical formulation sensitivity / incomplete judgments",
+    "note": "Top titles use the 5k live demo index and are qualitative, not the 50k evaluation ranking.",
+    "tfidf_demo_top_titles": [
+      "loreal şampuan mucizevi yağ besleyici bakım şampuanı 670 mlx 6 adet",
+      "travel carp 390cm 3.5 lbs 160gr teleskopik sazan olta kamışı",
+      "flora uyumlu fl 484 su pınarım süpürge teleskopik boru ve çift kanallı emici başlık seti",
+      "loreal paris true match 1r rose ivory fondöten-",
+      "alessi kadın pino ökçe deri çizme bordo"
+    ],
+    "bm25_demo_top_titles": [
+      "loreal şampuan mucizevi yağ besleyici bakım şampuanı 670 mlx 6 adet",
+      "travel carp 390cm 3.5 lbs 160gr teleskopik sazan olta kamışı",
+      "flora uyumlu fl 484 su pınarım süpürge teleskopik boru ve çift kanallı emici başlık seti",
+      "loreal paris true match 1r rose ivory fondöten-",
+      "alessi kadın pino ökçe deri çizme bordo"
+    ],
+    "missed_relevant_item_ids": [
+      "ITEM_636ccb0c0054"
+    ]
+  },
+  {
+    "term_id": "TERM_daf150be",
+    "query": "bargelo",
+    "relevant_item_ids": [
+      "ITEM_17207a064ff3",
+      "ITEM_328be905dc87",
+      "ITEM_6c1b7ec2a061",
+      "ITEM_89f2d795e657",
+      "ITEM_cafa2af81366",
+      "ITEM_fd8e51ad2ea1"
+    ],
+    "failure_category": "lexical formulation sensitivity / incomplete judgments",
+    "note": "Top titles use the 5k live demo index and are qualitative, not the 50k evaluation ranking.",
+    "tfidf_demo_top_titles": [
+      "bulut arkasında güneş dekoratif çocuk odası duvar saati",
+      "alessi kadın pino ökçe deri çizme bordo",
+      "attack 6 boks eldiveni unısex kick boks muay thai müsabaka antrenman boks eldiveni",
+      "kafadengi ayt biyoloji soru bankası (tümü video çözümlü) - %100 başarı",
+      "saçaklı kırlent kılıfı çift taraflı 43*43 cm - kafes"
+    ],
+    "bm25_demo_top_titles": [
+      "bulut arkasında güneş dekoratif çocuk odası duvar saati",
+      "alessi kadın pino ökçe deri çizme bordo",
+      "attack 6 boks eldiveni unısex kick boks muay thai müsabaka antrenman boks eldiveni",
+      "kafadengi ayt biyoloji soru bankası (tümü video çözümlü) - %100 başarı",
+      "saçaklı kırlent kılıfı çift taraflı 43*43 cm - kafes"
+    ],
+    "missed_relevant_item_ids": [
+      "ITEM_17207a064ff3",
+      "ITEM_328be905dc87",
+      "ITEM_6c1b7ec2a061",
+      "ITEM_89f2d795e657",
+      "ITEM_cafa2af81366",
+      "ITEM_fd8e51ad2ea1"
+    ]
+  },
+  {
+    "term_id": "TERM_d96296c6",
+    "query": "bioderme",
+    "relevant_item_ids": [
+      "ITEM_0bcb7e2f9d57",
+      "ITEM_0e58092c4fd5",
+      "ITEM_0eb123a72732",
+      "ITEM_20b5b6eeaf8f",
+      "ITEM_3d06cf258a76",
+      "ITEM_846f23806e3b",
+      "ITEM_85ab068309b1",
+      "ITEM_a2941c09549d",
+      "ITEM_c2403518291f",
+      "ITEM_d93a16b93c59",
+      "ITEM_e4d4df631ec3",
+      "ITEM_ecb54a4df84f"
+    ],
+    "failure_category": "lexical formulation sensitivity / incomplete judgments",
+    "note": "Top titles use the 5k live demo index and are qualitative, not the 50k evaluation ranking.",
+    "tfidf_demo_top_titles": [
+      "bulut arkasında güneş dekoratif çocuk odası duvar saati",
+      "alessi kadın pino ökçe deri çizme bordo",
+      "attack 6 boks eldiveni unısex kick boks muay thai müsabaka antrenman boks eldiveni",
+      "kafadengi ayt biyoloji soru bankası (tümü video çözümlü) - %100 başarı",
+      "saçaklı kırlent kılıfı çift taraflı 43*43 cm - kafes"
+    ],
+    "bm25_demo_top_titles": [
+      "bulut arkasında güneş dekoratif çocuk odası duvar saati",
+      "alessi kadın pino ökçe deri çizme bordo",
+      "attack 6 boks eldiveni unısex kick boks muay thai müsabaka antrenman boks eldiveni",
+      "kafadengi ayt biyoloji soru bankası (tümü video çözümlü) - %100 başarı",
+      "saçaklı kırlent kılıfı çift taraflı 43*43 cm - kafes"
+    ],
+    "missed_relevant_item_ids": [
+      "ITEM_20b5b6eeaf8f",
+      "ITEM_3d06cf258a76",
+      "ITEM_846f23806e3b",
+      "ITEM_85ab068309b1",
+      "ITEM_a2941c09549d",
+      "ITEM_c2403518291f",
+      "ITEM_d93a16b93c59",
+      "ITEM_e4d4df631ec3",
+      "ITEM_ecb54a4df84f"
+    ]
+  },
+  {
+    "term_id": "TERM_285c3ad4",
+    "query": "schule",
+    "relevant_item_ids": [
+      "ITEM_17fe0f72d2f1",
+      "ITEM_1c4bc56d4abf",
+      "ITEM_2b7ce39acd17",
+      "ITEM_49a106508734",
+      "ITEM_8a8066b6422f",
+      "ITEM_c79a4e5f0493",
+      "ITEM_e2385699a574"
+    ],
+    "failure_category": "lexical formulation sensitivity / incomplete judgments",
+    "note": "Top titles use the 5k live demo index and are qualitative, not the 50k evaluation ranking.",
+    "tfidf_demo_top_titles": [
+      "bulut arkasında güneş dekoratif çocuk odası duvar saati",
+      "alessi kadın pino ökçe deri çizme bordo",
+      "attack 6 boks eldiveni unısex kick boks muay thai müsabaka antrenman boks eldiveni",
+      "kafadengi ayt biyoloji soru bankası (tümü video çözümlü) - %100 başarı",
+      "saçaklı kırlent kılıfı çift taraflı 43*43 cm - kafes"
+    ],
+    "bm25_demo_top_titles": [
+      "bulut arkasında güneş dekoratif çocuk odası duvar saati",
+      "alessi kadın pino ökçe deri çizme bordo",
+      "attack 6 boks eldiveni unısex kick boks muay thai müsabaka antrenman boks eldiveni",
+      "kafadengi ayt biyoloji soru bankası (tümü video çözümlü) - %100 başarı",
+      "saçaklı kırlent kılıfı çift taraflı 43*43 cm - kafes"
+    ],
+    "missed_relevant_item_ids": [
+      "ITEM_17fe0f72d2f1",
+      "ITEM_1c4bc56d4abf",
+      "ITEM_2b7ce39acd17",
+      "ITEM_49a106508734",
+      "ITEM_8a8066b6422f",
+      "ITEM_c79a4e5f0493",
+      "ITEM_e2385699a574"
+    ]
+  },
+  {
+    "term_id": "TERM_d96296c6",
+    "query": "bioderme",
+    "relevant_item_ids": [
+      "ITEM_0bcb7e2f9d57",
+      "ITEM_0e58092c4fd5",
+      "ITEM_0eb123a72732",
+      "ITEM_20b5b6eeaf8f",
+      "ITEM_3d06cf258a76",
+      "ITEM_846f23806e3b",
+      "ITEM_85ab068309b1",
+      "ITEM_a2941c09549d",
+      "ITEM_c2403518291f",
+      "ITEM_d93a16b93c59",
+      "ITEM_e4d4df631ec3",
+      "ITEM_ecb54a4df84f"
+    ],
+    "failure_category": "lexical formulation sensitivity / incomplete judgments",
+    "note": "Top titles use the 5k live demo index and are qualitative, not the 50k evaluation ranking.",
+    "tfidf_demo_top_titles": [
+      "bulut arkasında güneş dekoratif çocuk odası duvar saati",
+      "alessi kadın pino ökçe deri çizme bordo",
+      "attack 6 boks eldiveni unısex kick boks muay thai müsabaka antrenman boks eldiveni",
+      "kafadengi ayt biyoloji soru bankası (tümü video çözümlü) - %100 başarı",
+      "saçaklı kırlent kılıfı çift taraflı 43*43 cm - kafes"
+    ],
+    "bm25_demo_top_titles": [
+      "bulut arkasında güneş dekoratif çocuk odası duvar saati",
+      "alessi kadın pino ökçe deri çizme bordo",
+      "attack 6 boks eldiveni unısex kick boks muay thai müsabaka antrenman boks eldiveni",
+      "kafadengi ayt biyoloji soru bankası (tümü video çözümlü) - %100 başarı",
+      "saçaklı kırlent kılıfı çift taraflı 43*43 cm - kafes"
+    ],
+    "missed_relevant_item_ids": [
+      "ITEM_20b5b6eeaf8f",
+      "ITEM_3d06cf258a76",
+      "ITEM_846f23806e3b",
+      "ITEM_85ab068309b1",
+      "ITEM_a2941c09549d",
+      "ITEM_c2403518291f",
+      "ITEM_d93a16b93c59",
+      "ITEM_e4d4df631ec3",
+      "ITEM_ecb54a4df84f"
+    ]
+  },
+  {
+    "term_id": "TERM_9bcceaed",
+    "query": "fullamoda mont",
+    "relevant_item_ids": [
+      "ITEM_a2913510783f"
+    ],
+    "failure_category": "lexical formulation sensitivity / incomplete judgments",
+    "note": "Top titles use the 5k live demo index and are qualitative, not the 50k evaluation ranking.",
+    "tfidf_demo_top_titles": [
+      "erkek çocuk parka mont lacivert 4419",
+      "crew mont erkek mont lacivert erkek mont hha.34445",
+      "erkek bebek mont e8248a5/be729",
+      "kiremit erkek çocuk mont d5wb-mnt3006",
+      "serpil kadın turuncu mont 36383"
+    ],
+    "bm25_demo_top_titles": [
+      "crew mont erkek mont lacivert erkek mont hha.34445",
+      "erkek çocuk parka mont lacivert 4419",
+      "shadow motosiklet montu",
+      "revıt proteus full body armour siyah",
+      "waterproof fabric ithal kumaş kapüşonlu şişme mont su geçirmez kamşonlu mont rüzgar geçirmez"
+    ],
+    "missed_relevant_item_ids": [
+      "ITEM_a2913510783f"
+    ]
+  },
+  {
+    "term_id": "TERM_9bcceaed",
+    "query": "fullamoda mont",
+    "relevant_item_ids": [
+      "ITEM_a2913510783f"
+    ],
+    "failure_category": "lexical formulation sensitivity / incomplete judgments",
+    "note": "Top titles use the 5k live demo index and are qualitative, not the 50k evaluation ranking.",
+    "tfidf_demo_top_titles": [
+      "erkek çocuk parka mont lacivert 4419",
+      "crew mont erkek mont lacivert erkek mont hha.34445",
+      "erkek bebek mont e8248a5/be729",
+      "kiremit erkek çocuk mont d5wb-mnt3006",
+      "serpil kadın turuncu mont 36383"
+    ],
+    "bm25_demo_top_titles": [
+      "crew mont erkek mont lacivert erkek mont hha.34445",
+      "erkek çocuk parka mont lacivert 4419",
+      "shadow motosiklet montu",
+      "revıt proteus full body armour siyah",
+      "waterproof fabric ithal kumaş kapüşonlu şişme mont su geçirmez kamşonlu mont rüzgar geçirmez"
+    ],
+    "missed_relevant_item_ids": [
+      "ITEM_a2913510783f"
+    ]
+  },
+  {
+    "term_id": "TERM_6618d527",
+    "query": "puantiye etek",
+    "relevant_item_ids": [
+      "ITEM_2dacd083a3f3"
+    ],
+    "failure_category": "lexical formulation sensitivity / incomplete judgments",
+    "note": "Top titles use the 5k live demo index and are qualitative, not the 50k evaluation ranking.",
+    "tfidf_demo_top_titles": [
+      "emmie regular fit normal bel mini boy triko etek w5yd65z0130 etek w5yd65 z0130 jblk",
+      "yırtmaçlı etek",
+      "volanlı katlı simli mini abiye etek",
+      "çiçek desenli astarlı midi boy etek",
+      "desenli piliseli etek kahve"
+    ],
+    "bm25_demo_top_titles": [
+      "emmie regular fit normal bel mini boy triko etek w5yd65z0130 etek w5yd65 z0130 jblk",
+      "yırtmaçlı etek",
+      "desenli piliseli etek kahve",
+      "piliseli şifon etek (b20-etk01)",
+      "desenli uzun etek"
+    ],
+    "missed_relevant_item_ids": [
+      "ITEM_2dacd083a3f3"
+    ]
+  }
+]

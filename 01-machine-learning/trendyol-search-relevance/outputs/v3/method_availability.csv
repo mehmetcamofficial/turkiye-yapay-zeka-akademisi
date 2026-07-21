@@ -1,0 +1,5 @@
+method,status,reason
+TF-IDF,available,local sparse index
+BM25,available,local sparse index
+Semantic,available,pinned multilingual E5 Small cache and compatible 5000-product dense demo index
+Hybrid,available,validation-selected RRF over real TF-IDF and semantic rankings
