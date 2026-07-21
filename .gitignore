@@ -14,6 +14,12 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+01-machine-learning/trendyol-search-relevance/models/v3/model_cache/
+01-machine-learning/trendyol-search-relevance/models/v3/*.faiss
+01-machine-learning/trendyol-search-relevance/models/v3/*embedding*.npy
+01-machine-learning/trendyol-search-relevance/models/v3/semantic_index.npy
+01-machine-learning/trendyol-search-relevance/models/v3/semantic_medium.npy
+01-machine-learning/trendyol-search-relevance/models/v3/semantic_medium_item_ids.npy
 
 # Streamlit local runtime and secrets
 .streamlit/

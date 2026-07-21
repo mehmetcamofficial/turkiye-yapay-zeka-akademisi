@@ -29,6 +29,8 @@ V2 challengers were not promoted. Random Forest holdout F1 was `0.638384` with P
 
 V2.1 Offline Evaluation used 1,000 complete groups across five seeds. HistGradientBoosting was the Best Research Candidate: mean F1 `0.753935`, standard deviation `0.006349`, 95% CI `[0.746053, 0.761817]`. It was Not Promoted because V1 uses a Different historical split and Direct superiority is not established; the selected HGB object was not persisted because it was no longer available without retraining. The Bounded Candidate Sample baseline mean NDCG@10 was `0.871041`; `rank_ndcg_topk` delta `-0.007469`, CI `[-0.023354, 0.008416]`; `rank_pairwise` delta `-0.002659`, CI `[-0.010400, 0.005082]`. Robust hard-negative F1 values were original `0.617633`, weighted `0.476246`, enriched `0.420103`, weighted+enriched `0.200427`.
 
+V3/V3.1 adds candidate retrieval as a separate experimental layer. Five group-safe seeds evaluate 1,000 complete queries against a deterministic 63,841-product bounded broad catalogue with 100% judged-relevant-item availability. Combined enriched TF-IDF reaches Recall@50 `0.817239`; standalone multilingual E5 Small reaches `0.725147` and is not selected. Validation-selected RRF hybrid reaches Recall@50 `0.831392`, Recall@100 `0.900276`, NDCG@10 `0.618014` and MRR `0.713382`. Its Recall@50 delta CI versus TF-IDF is `[-0.006188, 0.034494]`, so it is a Best Research Candidate but Not Promoted. The live 5,000-product demo uses cached lexical and real local semantic indexes.
+
 ## Architecture
 
 ```text
@@ -39,6 +41,12 @@ Data Sources → Validation → Feature Engineering → Training
 ```text
 Query → Bounded Candidates → Lexical Scoring → V1 Probability
       → Experimental Ranker → Ranked Results
+```
+
+```text
+Query → Normalization ─→ Lexical Retrieval ─┐
+                    └→ Semantic (planned) ──┤→ Candidate Fusion
+                                            → V1 Scoring → Ranking → Results
 ```
 
 ```text
@@ -66,4 +74,4 @@ See [Repository Guide](01-machine-learning/REPOSITORY_GUIDE.md) for structure, r
 
 ## Status and limitations
 
-The Streamlit experience is a portfolio application, not evidence of commercial production traffic. Trendyol results use a public competition snapshot and bounded candidates; they do not establish online search impact, fairness, causal business value or catalogue-wide retrieval quality. V2.1 remains uncommitted experimental work until review.
+The Streamlit experience is a portfolio application, not evidence of commercial production traffic. Trendyol results use a public competition snapshot and bounded candidates; they do not establish online search impact, fairness, causal business value or catalogue-wide retrieval quality. V2.1 and V3 remain uncommitted experimental work until review.

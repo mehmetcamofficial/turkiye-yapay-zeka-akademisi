@@ -1,0 +1,30 @@
+{
+  "mode": "retrieval_medium",
+  "catalogue": {
+    "source_rows": 962873,
+    "bounded_rows": 63841,
+    "required_relevant_ids": 13892,
+    "distractor_stride": 19,
+    "build_seconds": 11.468294541999967
+  },
+  "contract": {
+    "rows": 52422,
+    "groups": 1000,
+    "positive_rows": 12575,
+    "relevant_item_coverage": 1.0,
+    "duplicate_pairs_removed": 2848,
+    "deterministic_order": true
+  },
+  "query_audit": {
+    "available_positive_queries": 17968,
+    "duplicate_positive_pairs": 0
+  },
+  "evaluation_queries": 1000,
+  "best_tfidf": "tfidf_combined_enriched",
+  "best_bm25": "bm25_enriched_k1.2_b0.75",
+  "semantic_status": "unavailable_no_model_download",
+  "catalogue_fingerprint": "0794209ed8204fc2573d960fe8af1de1adeb0acf628ca1ff6367a51375756f47",
+  "runtime_seconds": 174.14905283300004,
+  "peak_memory_mb": 900.328125,
+  "python": "3.12.4"
+}

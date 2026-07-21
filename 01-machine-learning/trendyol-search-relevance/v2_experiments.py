@@ -14,7 +14,6 @@ from sklearn.metrics import (average_precision_score,brier_score_loss,f1_score,l
 from sklearn.model_selection import GroupKFold
 from sklearn.svm import LinearSVC
 from sklearn.tree import DecisionTreeClassifier
-from xgboost import XGBRanker
 from config import DATA_PATH,FEATURE_COLUMNS,MODELS_DIR,OUTPUTS_DIR,RANDOM_SEED,REPORTS_DIR
 from feature_engineering import normalized_frame,similarity_features
 from utils import ensure_directories,write_json
@@ -115,6 +114,8 @@ def threshold_table(y,p):
     return table,points
 
 def run(mode="ranking-sample"):
+    # Training-only native dependency; never import it during UI/test discovery.
+    from xgboost import XGBRanker
     ensure_directories(V2_OUT,V2_MODELS,V2_REPORTS); data,sample=load_complete_groups(mode); train,val,test,split=split_groups(data); write_json(V2_REPORTS/"group_split.json",{**sample,**split})
     dense=DenseFeatures().fit(train); xa,names=dense.transform(train); xv,_=dense.transform(val); xt,_=dense.transform(test)
     sa,sv,st,score_names=oof_scores(train,val,test,xa,xv,xt); xtrain=np.c_[xa,sa]; xval=np.c_[xv,sv]; xtest=np.c_[xt,st]; feature_names=names+score_names

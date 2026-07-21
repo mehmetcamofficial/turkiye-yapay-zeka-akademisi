@@ -1,0 +1,19 @@
+{
+  "cold_model_and_demo_index_load_ms": 3954.7518330000457,
+  "requests": {
+    "Semantic": {
+      "runs": 50,
+      "p50_ms": 41.077166499690065,
+      "p95_ms": 47.07008399964252,
+      "max_ms": 56.03762500049925
+    },
+    "Hybrid": {
+      "runs": 50,
+      "p50_ms": 44.45535450031457,
+      "p95_ms": 50.88887499914563,
+      "max_ms": 55.005958000037936
+    }
+  },
+  "peak_rss_mb": 932.375,
+  "cache_policy": "model and dense index use st.cache_resource; query outputs are not globally cached"
+}

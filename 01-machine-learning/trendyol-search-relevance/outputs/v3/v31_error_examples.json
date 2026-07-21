@@ -1,0 +1,316 @@
+[
+  {
+    "seed": 42,
+    "term_id": "TERM_4a053deb",
+    "query": "küçük lego",
+    "relevant_item_ids": [
+      "ITEM_263b8a81bab8"
+    ],
+    "semantic_recall50_delta": -1.0,
+    "incomplete_judgment_caution": "Unlabelled retrieved products are not necessarily irrelevant.",
+    "tfidf_top_titles": [
+      "botanicals küçük sarı buket 10347 - 9+ için yaratıcı dekoratif çiçek buketi yapım seti 373 p anne bebek çocuk oyuncak lego yapı oyuncakları lego unknown çocuk seri lego originals renk çok renkli parça sayısı 101-500 yaş 9+ yaş diğer özellikler - menşei dk batarya türü diğer özellik diğer",
+      "creator expert 40517 vespa anne bebek çocuk oyuncak lego yapı oyuncakları lego unknown çocuk seri lego creator parça sayısı 118 yaş 9+ yaş menşei cn",
+      "friends 853775 andrea s dj pod anne bebek çocuk oyuncak lego yapı oyuncakları lego unisex çocuk seri lego friends yaş 3+ yaş renk beyaz",
+      "friends 5004395 sticker keychain set anne bebek çocuk oyuncak lego yapı oyuncakları lego unisex çocuk seri lego friends yaş 6+ yaş renk beyaz",
+      "60313 city lunapark uzay oyuncağı kamyonu anne bebek çocuk oyuncak lego yapı oyuncakları lego unknown çocuk seri lego classic renk genel parça sayısı 101-500 yaş 6+ yaş özellik katı"
+    ],
+    "bm25_top_titles": [
+      "botanicals küçük sarı buket 10347 - 9+ için yaratıcı dekoratif çiçek buketi yapım seti 373 p anne bebek çocuk oyuncak lego yapı oyuncakları lego unknown çocuk seri lego originals renk çok renkli parça sayısı 101-500 yaş 9+ yaş diğer özellikler - menşei dk batarya türü diğer özellik diğer",
+      "friends 5004395 sticker keychain set anne bebek çocuk oyuncak lego yapı oyuncakları lego unisex çocuk seri lego friends yaş 6+ yaş renk beyaz",
+      "friends 853775 andrea s dj pod anne bebek çocuk oyuncak lego yapı oyuncakları lego unisex çocuk seri lego friends yaş 3+ yaş renk beyaz",
+      "creator expert 40517 vespa anne bebek çocuk oyuncak lego yapı oyuncakları lego unknown çocuk seri lego creator parça sayısı 118 yaş 9+ yaş menşei cn",
+      "60313 city lunapark uzay oyuncağı kamyonu anne bebek çocuk oyuncak lego yapı oyuncakları lego unknown çocuk seri lego classic renk genel parça sayısı 101-500 yaş 6+ yaş özellik katı"
+    ],
+    "semantic_top_titles": [
+      "icons 10323 pac-man arcade anne bebek çocuk oyuncak lego yapı oyuncakları lego unknown çocuk seri ideas parça sayısı 2573 yaş 13+ yaş menşei cn özellik belirtilmemiş",
+      "buılder fıre anne bebek çocuk oyuncak lego yapı oyuncakları sluban unknown çocuk parça sayısı 31 parça yaş 4+ yaş",
+      "küçük boy hava balonu silikon kalıbı kırtasiye ofis malzemeleri sanatsal malzemeler kokulu taş kalıp kurdelya unknown unknown unknown",
+      "go strateji oyunu anne bebek çocuk oyuncak kutu oyunu redka unknown çocuk oyuncu sayısı 1-4 kişi yaş 6+ yaş dil türkçe menşei tr özellik standart",
+      "çocuk peluş kulaklık aksesuar atkı bere eldiven bere kitti unisex çocuk materyal suni kürk renk pembe desen yumuşak dokulu kumaş tipi dokuma yıkama talimatı type 1 yaş tüm yaş grupları kutu durumu kutu yok color detail pembe"
+    ],
+    "missed_by_semantic": [],
+    "failure_category": "semantic drift / exact-token loss"
+  },
+  {
+    "seed": 42,
+    "term_id": "TERM_8481af2b",
+    "query": "jrl",
+    "relevant_item_ids": [
+      "ITEM_37a5b34ca3cc",
+      "ITEM_39a3258bb462",
+      "ITEM_3e3a28542a58",
+      "ITEM_bc99296ebcac",
+      "ITEM_c4c7c9e91919",
+      "ITEM_cb90cd2aeddc",
+      "ITEM_ec7c3e0c902e"
+    ],
+    "semantic_recall50_delta": -1.0,
+    "incomplete_judgment_caution": "Unlabelled retrieved products are not necessarily irrelevant.",
+    "tfidf_top_titles": [
+      "berber geçiş tarağı j202 sarı kozmetik kişisel bakım saç bakım saç fırçası ve tarak jrl unknown yetişkin renk çok renkli tip tarak menşei cn color detail çok renkli",
+      "kesim tarağı j303 sarı kozmetik kişisel bakım saç bakım saç fırçası ve tarak jrl unknown yetişkin renk çok renkli tip tarak menşei cn bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz color detail çok renkli",
+      "ince kesim tarağı j304 yeşil kozmetik kişisel bakım saç bakım saç fırçası ve tarak jrl unknown yetişkin renk çok renkli tip tarak menşei cn bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz color detail çok renkli",
+      "ince uçlu şiş tarak j102 yeşil kozmetik kişisel bakım saç bakım saç fırçası ve tarak jrl unknown yetişkin renk çok renkli tip tarak menşei cn bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz color detail çok renkli",
+      "ince uçlu krepe tarağı j101 açık yeşil kozmetik kişisel bakım saç bakım saç fırçası ve tarak jrl unknown yetişkin renk çok renkli tip tarak menşei cn bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz color detail çok renkli"
+    ],
+    "bm25_top_titles": [
+      "berber geçiş tarağı j202 sarı kozmetik kişisel bakım saç bakım saç fırçası ve tarak jrl unknown yetişkin renk çok renkli tip tarak menşei cn color detail çok renkli",
+      "kesim tarağı j303 sarı kozmetik kişisel bakım saç bakım saç fırçası ve tarak jrl unknown yetişkin renk çok renkli tip tarak menşei cn bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz color detail çok renkli",
+      "ince kesim tarağı j304 yeşil kozmetik kişisel bakım saç bakım saç fırçası ve tarak jrl unknown yetişkin renk çok renkli tip tarak menşei cn bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz color detail çok renkli",
+      "ince uçlu şiş tarak j102 yeşil kozmetik kişisel bakım saç bakım saç fırçası ve tarak jrl unknown yetişkin renk çok renkli tip tarak menşei cn bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz color detail çok renkli",
+      "ince uçlu krepe tarağı j101 açık yeşil kozmetik kişisel bakım saç bakım saç fırçası ve tarak jrl unknown yetişkin renk çok renkli tip tarak menşei cn bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz color detail çok renkli"
+    ],
+    "semantic_top_titles": [
+      "lr6 mn1500 1 5 volt alkalin aa kalem pil 20li kartela paket fiyati 2li yirtmali kırtasiye ofis malzemeleri ofis teknolojileri pil şarj cihazı duracell unknown unknown tip aa kalem pil",
+      "lr44 ag13 a76 pil 10 lu kırtasiye ofis malzemeleri ofis teknolojileri pil şarj cihazı duracell unisex yetişkin tip düğme pil",
+      "leylak luxury penye şal - kadın tesettür jersey hijab lycra shawl giyim tesettür giyim tesettür şal beyzak kadın yetişkin yıkama talimatı type 3 desen düz menşei tr materyal viskon renk mor color detail leylak",
+      "nil karaibrahimgil - gençliğime sevgilerimle kartları kırtasiye ofis malzemeleri kırtasiye kağıt ürünleri kartpostal türk eğitim vakfı unknown unknown renk çok renkli menşei tr color detail çok renkli",
+      "suede matte lıp lıner - gırl bye kozmetik kişisel bakım makyaj dudak makyajı dudak kalemi nyx professional makeup unknown unknown renk mor menşei fr color detail girl bye"
+    ],
+    "missed_by_semantic": [
+      "ITEM_37a5b34ca3cc",
+      "ITEM_39a3258bb462",
+      "ITEM_3e3a28542a58",
+      "ITEM_bc99296ebcac",
+      "ITEM_c4c7c9e91919",
+      "ITEM_cb90cd2aeddc",
+      "ITEM_ec7c3e0c902e"
+    ],
+    "failure_category": "semantic drift / exact-token loss"
+  },
+  {
+    "seed": 42,
+    "term_id": "TERM_9bcceaed",
+    "query": "fullamoda mont",
+    "relevant_item_ids": [
+      "ITEM_a2913510783f"
+    ],
+    "semantic_recall50_delta": -1.0,
+    "incomplete_judgment_caution": "Unlabelled retrieved products are not necessarily irrelevant.",
+    "tfidf_top_titles": [
+      "kapitone desenli oversize düğmeli mont giyim dış giyim kaban mont mont fulla moda kadın yetişkin kalıp oversize yaka tipi düğmeli yaka kumaş tipi dokuma renk yeşil desen desenli ürün tipi düz cep çift cepli kol boyu uzun kol tipi uzun kol astar durumu astarlı boy standart ortam günlük sürdürülebilirlik detayı hayır kemer kuşak durumu k",
+      "çok renkli kız çocuk mont brb5wg-mnt6057 giyim dış giyim kaban mont mont barbie kadın çocuk kalıp belirtilmemiş kumaş tipi belirtilmemiş renk çok renkli desen renkli boy belirtilmemiş ortam casual günlük yıkama talimatı type 2 menşei tr kutu durumu kutu yok color detail çok renkli",
+      "mont erkek mont 8n1bq2 1nlrz 0920 giyim dış giyim kaban mont mont emporio armani erkek yetişkin kalıp belirtilmemiş yaka tipi dik yaka materyal polyester kumaş tipi belirtilmemiş renk lacivert kapama şekli fermuarlı desen düz ürün detayı fermuar ürün tipi düz kol boyu uzun kol tipi uzun kol boy belirtilmemiş ortam günlük siluet basic ",
+      "kadin mont kapüşonlu kadın peluş rabit mont giyim dış giyim kaban mont mont pique kadın yetişkin kalıp regular yaka tipi kapüşonlu materyal peluş kumaş tipi örme renk siyah kapama şekli full fermuar kapama desen düz ürün detayı fermuar ürün tipi düz cep çift cepli kol boyu uzun kol tipi standart kol kalınlık orta astar durumu astarlı b",
+      "erkek mont 2248858 giyim dış giyim kaban mont mont u s polo assn erkek yetişkin kalıp belirtilmemiş yaka tipi kapüşonlu kumaş tipi belirtilmemiş renk çok renkli kol boyu uzun kol tipi standart kol boy belirtilmemiş ortam casual günlük yıkama talimatı type 2 menşei tr kutu durumu kutu yok color detail siyah"
+    ],
+    "bm25_top_titles": [
+      "quatro mont kırmızı otomobil motosiklet motosiklet motosiklet giyim motorcu montu vexo erkek unknown mont tipi motosiklet kışlık kısa mont mevsim 4 mevsim menşei tr",
+      "zirconium evo mont siyah-kirmizi otomobil motosiklet motosiklet motosiklet giyim motorcu montu ls2 unisex unknown mont tipi motosiklet deri mont mevsim 4 mevsim menşei tr",
+      "4 mevsim mont jk-152w grey otomobil motosiklet motosiklet motosiklet giyim motorcu montu scoyco kadın unknown mont tipi motosiklet bayan mont mevsim 4 mevsim menşei ls",
+      "4 mevsim mont falcon leather otomobil motosiklet motosiklet motosiklet giyim motorcu montu prosev unisex unknown mont tipi motosiklet yazlık fileli mont mevsim 4 mevsim menşei pk",
+      "erkek mont içi kürklü kalın su geçirmez mont çıkma kapişonlu mont premium mont giyim dış giyim kaban mont mont boymen erkek yetişkin kalıp regular yaka tipi kapüşonlu materyal su geçirmez kumaş tipi dokuma renk gri kapama şekli çıt çıt + fermuar desen düz ürün detayı suni kürk ürün tipi şardonlu cep 2 kol boyu uzun kol tipi uzun kol kalınlık kalın astar durumu astarlı bo"
+    ],
+    "semantic_top_titles": [
+      "w bellissimo mont giyim dış giyim kaban mont mont helly hansen kadın yetişkin kalıp regular yaka tipi kapüşonlu materyal polyester kumaş tipi triko renk bej kapama şekli fermuarlı desen düz ürün detayı fermuar ürün tipi baskılı cep 2 kol boyu uzun kol tipi uzun kol astar durumu astarlı boy regular ortam günlük siluet",
+      "ess+ padded unisex mont 84934901 giyim dış giyim kaban mont mont puma erkek yetişkin kalıp a-form fit yaka tipi dantel yaka materyal dokuma kumaş tipi dokuma renk siyah desen düz ürün detayı astarlı ürün tipi düz cep cepsiz kol boyu uzun kol tipi standart kol astar durumu astarlı boy orta ortam günlük siluet a-line teknik y",
+      "w fullzip jacket kadın off white mont s2510116-102 giyim spor giyim spor mont skechers kadın yetişkin boy ölçü uzun kalıp regular yaka tipi dik yaka materyal polyester kumaş tipi belirtilmemiş renk beyaz desen düz boy standart ortam sportswear yıkama talimatı type 2 sürdürülebilirlik detayı hayır menşei tr cep çift cepli color detail beyaz",
+      "w full zip jacket kadın siyah mont s242060-3817 giyim spor giyim spor mont skechers kadın genç boy ölçü uzun model kapüşonlu kalıp relaxed yaka tipi kapüşonlu materyal kumaş kumaş tipi denim renk siyah kumaş teknolojisi nefes alan desen düz boy standart siluet basic ortam sportswear yıkama talimatı type 2 sürdürülebilirlik detayı hay",
+      "full ortapedik özel tabanlı soğuk havaya dayanıklı kauçuk taban anne botu ayakkabı bot çizme bot bootie yade moda kadın yetişkin desen düz kutu durumu kutu yok kullanım alanı günlük saya materyali suni deri bağlama şekli fermuarlı materyal suni deri topuk tipi düz topuklu topuk boyu kısa topuklu 1- 4cm renk yeşil dış materyal suni deri kumaş teknolojisi soğuk havaya "
+    ],
+    "missed_by_semantic": [
+      "ITEM_a2913510783f"
+    ],
+    "failure_category": "semantic drift / exact-token loss"
+  },
+  {
+    "seed": 42,
+    "term_id": "TERM_bbdc88cf",
+    "query": "nars",
+    "relevant_item_ids": [
+      "ITEM_0c6e407f4287",
+      "ITEM_15cff99cbe2d",
+      "ITEM_1acb3785ebf8",
+      "ITEM_3750f1710a28",
+      "ITEM_37c521af8e9d",
+      "ITEM_4f70c317f548",
+      "ITEM_617d3383bfbf",
+      "ITEM_638b1f63b99f",
+      "ITEM_6afce899e5d8",
+      "ITEM_70a151d77811",
+      "ITEM_756fed94726b",
+      "ITEM_7d871285ab42",
+      "ITEM_9eab4205133a",
+      "ITEM_b2dbe49fd675",
+      "ITEM_b603b3f4022a",
+      "ITEM_cfd64b98abbb"
+    ],
+    "semantic_recall50_delta": -1.0,
+    "incomplete_judgment_caution": "Unlabelled retrieved products are not necessarily irrelevant.",
+    "tfidf_top_titles": [
+      "mini laguna bronzer bronzlaştırıcı kozmetik kişisel bakım makyaj ten makyajı pudra nars unknown unknown kapatıcılık orta renk kahverengi görünüm işıltılı form toz color detail 1",
+      "iconic lipstick ruj pinkestcosmetics kozmetik kişisel bakım makyaj dudak makyajı ruj nars unknown unknown görünüm saten form stick renk pembe boy orijinal boy color detail boukhara",
+      "afterglow sensual shine lipstick ruj stariumcosmetics kozmetik kişisel bakım makyaj dudak makyajı ruj nars unknown unknown kutu durumu kutu yok görünüm mat form stick renk bordo color detail show off",
+      "power matte lip pigment- le freak kozmetik kişisel bakım makyaj dudak makyajı ruj nars unknown unknown kutu durumu kutulu görünüm mat form sıvı renk pembe boy orijinal boy menşei us color detail le freak",
+      "light reflecting eye brightener - göz altı aydınlatıcı kozmetik kişisel bakım makyaj ten makyajı aydınlatıcı nars unknown unknown form krem renk pembe menşei jp kutu durumu kutulu ürün güvenliği bilgisi tehlikeli değil color detail impossible dream"
+    ],
+    "bm25_top_titles": [
+      "mini laguna bronzer bronzlaştırıcı kozmetik kişisel bakım makyaj ten makyajı pudra nars unknown unknown kapatıcılık orta renk kahverengi görünüm işıltılı form toz color detail 1",
+      "iconic lipstick ruj pinkestcosmetics kozmetik kişisel bakım makyaj dudak makyajı ruj nars unknown unknown görünüm saten form stick renk pembe boy orijinal boy color detail boukhara",
+      "afterglow sensual shine lipstick ruj stariumcosmetics kozmetik kişisel bakım makyaj dudak makyajı ruj nars unknown unknown kutu durumu kutu yok görünüm mat form stick renk bordo color detail show off",
+      "light reflecting eye brightener - göz altı aydınlatıcı kozmetik kişisel bakım makyaj ten makyajı aydınlatıcı nars unknown unknown form krem renk pembe menşei jp kutu durumu kutulu ürün güvenliği bilgisi tehlikeli değil color detail impossible dream",
+      "lıght reflecting setting powder crystal elsbeauty kozmetik kişisel bakım makyaj ten makyajı pudra nars unknown unknown kapatıcılık yüksek renk beyaz görünüm transparan form kompakt menşei au ürün güvenliği bilgisi tehlikeli değil color detail crystal"
+    ],
+    "semantic_top_titles": [
+      "nazar boncuklu 925 ayar gümüş bileklik aksesuar takı mücevher bileklik gümüş bileklik bey silver unisex yetişkin taş cinsi zirkon renk pembe ayar 925 ayar materyal gümüş menşei tr bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz özellik uzun color detail rose",
+      "nazar boncuğu desenli hayat ağacı füzyon cam duvar süsü ev mobilya ev ev dekorasyon duvar dekorasyonu duvar dekorasyon ürünü mixperi unknown unknown renk çok renkli materyal cam tema stil geleneksel color detail çok renkli",
+      "nazar boncuklu metal kaftan anahtarlık araba dikiz ayna süsü hediyelik aksesuar otomobil motosiklet otomobil yedek parça otomobil ayna dikiz aynası cuaderno unknown unknown araç marka ve model universal özellik uzun",
+      "nazar boncuk detaylı zincir bileklik aksesuar takı mücevher bileklik bijuteri bileklik venüs accessory unisex yetişkin taş cinsi yok materyal çelik renk altın bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz özellik uzun color detail gold",
+      "nazar boncuklu papatya deniz kabuklu duvar süsü balkon süsü bahçe süsü rüzar çanı ev dekor hediyelik hobi eğlence hediyelik ürünler konsept hediyelik antioch art and design unknown unknown renk çok renkli"
+    ],
+    "missed_by_semantic": [
+      "ITEM_0c6e407f4287",
+      "ITEM_15cff99cbe2d",
+      "ITEM_1acb3785ebf8",
+      "ITEM_3750f1710a28",
+      "ITEM_37c521af8e9d",
+      "ITEM_4f70c317f548",
+      "ITEM_617d3383bfbf",
+      "ITEM_638b1f63b99f",
+      "ITEM_6afce899e5d8",
+      "ITEM_70a151d77811",
+      "ITEM_756fed94726b",
+      "ITEM_7d871285ab42",
+      "ITEM_9eab4205133a",
+      "ITEM_b2dbe49fd675",
+      "ITEM_b603b3f4022a",
+      "ITEM_cfd64b98abbb"
+    ],
+    "failure_category": "semantic drift / exact-token loss"
+  },
+  {
+    "seed": 52,
+    "term_id": "TERM_6cadd67f",
+    "query": "waflee makinası",
+    "relevant_item_ids": [
+      "ITEM_110b885a673a"
+    ],
+    "semantic_recall50_delta": 1.0,
+    "incomplete_judgment_caution": "Unlabelled retrieved products are not necessarily irrelevant.",
+    "tfidf_top_titles": [
+      "fön makinası saç kurutma makinası tutucu yapışkanlı siyah ev mobilya ev banyo banyo aksesuarları banyo düzenleyici toptancı amca unknown unknown materyal krom renk siyah menşei tr color detail siyah",
+      "mercure karot makinası standart sehpa mc-7550 s bahçe elektrikli el aletleri elektrikli el aletleri karot makinası site hırdavat unknown unknown garanti süresi 2 yıl bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz özellik standart",
+      "andıs pro anımal ebc köpek traş makinası süpermarket pet shop kedi ürünleri köpek sağlık ürünü andis unknown unknown menşei tr",
+      "makarna makinası erişte makarna kesici erişte makinası 304 paslanmaz çelik ev mobilya ev sofra mutfak endüstriyel mutfak ekipmanı modacar unknown unknown materyal thermoset renk çok renkli garanti süresi 1 yıl kullanım alanı yardımcı ekipmanlar menşei tr bakım talimatları gıda temas ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz color detail renkli",
+      "washbox banyo kirli sepetli çamaşır makinası dolabı ve kurutma makinası dolabı beyaz ev mobilya mobilya mutfak banyo mobilyası banyo mobilyası çamaşır makinesi dolabı mirobi unknown unknown boyut ebat tek ebat fonksiyon kapaklı + çekmeceli materyal suntalam renk beyaz dolap ölçüsü 180 x 65 stil modern tema stil modern menşei tr özellik diğer color detail beyaz"
+    ],
+    "bm25_top_titles": [
+      "fön makinası saç kurutma makinası tutucu yapışkanlı siyah ev mobilya ev banyo banyo aksesuarları banyo düzenleyici toptancı amca unknown unknown materyal krom renk siyah menşei tr color detail siyah",
+      "mercure karot makinası standart sehpa mc-7550 s bahçe elektrikli el aletleri elektrikli el aletleri karot makinası site hırdavat unknown unknown garanti süresi 2 yıl bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz özellik standart",
+      "geleneksel türk kumda kahve makinası - ev tipi kumda kahve makinası - lüks kumda kahve makinası elektronik elektrikli ev aletleri yiyecek içecek hazırlama içecek hazırlama türk kahvesi makinesi ardıç endüstriyel unknown unknown damlama emniyeti yok su kapasitesi 0-1l otomatik kapanma var sesli ikaz yok taşma emniyeti yok materyal metal garanti süresi 2 yıl renk metalik fincan kapasitesi 3 fincan özel pişirme modu yok cezve malzemesi çelik otomatik su alımı yok gar",
+      "braun 10b traş makinası eleği braun 10b-20b traş makinası eleği 10b tıraşmakinesı eleği 10b-20b elek kozmetik kişisel bakım tıraş ağda ve epilasyon islak tıraş tıraş bıçağı oem erkek unknown bıçak sayısı tek bıçaklı tipi yedek tıraş bıçağı menşei de bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz",
+      "andıs pro anımal ebc köpek traş makinası süpermarket pet shop kedi ürünleri köpek sağlık ürünü andis unknown unknown menşei tr"
+    ],
+    "semantic_top_titles": [
+      "waffle express waffle makinesi - krem elektronik elektrikli ev aletleri yiyecek içecek hazırlama yiyecek hazırlama waffle makinesi schafer unknown unknown garanti tipi ithalatçı garantili renk bej plaka materyali döküm isı ayarı 1 kademe garanti süresi 2 yıl voltaj 220 - 240 v frekans 50 hz 60 hz priz tipi c f menşei tr bakım talimatları gıda temas ürünün kullanım ömrünü korumak için ürüne öz",
+      "mia waffle makinası rosa gold a319-03 elektronik elektrikli ev aletleri yiyecek içecek hazırlama yiyecek hazırlama waffle makinesi korkmaz unknown unknown garanti tipi resmi distribütör garantili renk pembe plaka materyali granit isı ayarı 3 kademeli garanti süresi 2 yıl voltaj 220 - 240 v frekans 50 hz 60 hz priz tipi c f menşei um bakım talimatları gıda temas ürünün kullanım ömrünü korumak ",
+      "cookie 1000w taşmayı önleyen derin plakalı isı kontrollü waffle makinesi inox siyah elektronik elektrikli ev aletleri yiyecek içecek hazırlama yiyecek hazırlama waffle makinesi goldmaster unknown unknown garanti tipi ithalatçı garantili renk siyah waffle kapasitesi 2 plaka materyali armor isı ayarı 2 kademeli garanti süresi 2 yıl voltaj 220 - 240 v bakım talimatları gıda temas ürünün kullanım ömrünü korumak için ürüne özel bakım talimatları",
+      "waffle funday plaka-orjinal yedek parça ev mobilya ev sofra mutfak pişirme tencere yedek parça ve aksesuar karaca unknown unknown bakım talimatları gıda temas ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz materyal waffle",
+      "mia waffle makinesi rosagold a319-03 elektronik elektrikli ev aletleri yiyecek içecek hazırlama yiyecek hazırlama waffle makinesi korkmaz unknown unknown garanti tipi resmi distribütör garantili renk pembe waffle kapasitesi 2 plaka materyali granit isı ayarı 2 kademeli garanti süresi 2 yıl voltaj 220 - 240 v frekans 50 hz 60 hz priz tipi c f menşei tr bakım talimatları gıda temas gıda ile te"
+    ],
+    "missed_by_semantic": [],
+    "failure_category": "lexical formulation mismatch improved by semantic retrieval"
+  },
+  {
+    "seed": 52,
+    "term_id": "TERM_f26e104d",
+    "query": "xiaomi 15",
+    "relevant_item_ids": [
+      "ITEM_8bd7d96b166b",
+      "ITEM_8c290733965c"
+    ],
+    "semantic_recall50_delta": 1.0,
+    "incomplete_judgment_caution": "Unlabelled retrieved products are not necessarily irrelevant.",
+    "tfidf_top_titles": [
+      "xiaomi mi 15 uyumlu siyah silikon kılıf çiziklere ve darbelere karşı koruma elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf bgaksesuar unknown unknown materyal silikon cep telefonu modeli xiaomi 15 renk siyah uyumlu marka xiaomi uyumlu menşei tr color detail valorant3g1",
+      "xiaomi redmi 15 ile uyumlu şeffaf darbeye dayanıklı silikon kılıf elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf guoi unknown unknown materyal silikon cep telefonu modeli xiaomi redmi 15 4g renk çok renkli uyumlu marka xiaomi uyumlu menşei cn color detail şeffaf",
+      "xiaomi mi max 2 iç kulaklık elektronik elektronik aksesuarlar cep telefonu aksesuarları cep telefonu yedek parçaları telefon kasası axya unknown unknown uyumlu marka xiaomi uyumlu garanti süresi 6 ay uyumlu telefon modeli xiaomi mi max",
+      "xiaomi mi mix 3 iç kulaklık elektronik elektronik aksesuarlar cep telefonu aksesuarları cep telefonu yedek parçaları telefon kasası axya unknown unknown uyumlu marka xiaomi uyumlu garanti süresi 6 ay uyumlu telefon modeli xiaomi mi mix 3",
+      "xiaomi mi note 10 pro lavanta siyah telefon kılıfı elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf constrain unknown unknown materyal silikon cep telefonu modeli xiaomi mi note 10 pro renk siyah uyumlu marka xiaomi uyumlu color detail siyah"
+    ],
+    "bm25_top_titles": [
+      "xiaomi mi 15 uyumlu siyah silikon kılıf çiziklere ve darbelere karşı koruma elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf bgaksesuar unknown unknown materyal silikon cep telefonu modeli xiaomi 15 renk siyah uyumlu marka xiaomi uyumlu menşei tr color detail valorant3g1",
+      "xiaomi redmi 15 ile uyumlu şeffaf darbeye dayanıklı silikon kılıf elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf guoi unknown unknown materyal silikon cep telefonu modeli xiaomi redmi 15 4g renk çok renkli uyumlu marka xiaomi uyumlu menşei cn color detail şeffaf",
+      "xiaomi redmi note 8 pro uyumlu kılıf hd baskılı kılıf + seramik nano tam kaplayan ekran koruyucu 15 elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf kılıfevreni unknown unknown materyal silikon cep telefonu modeli redmi note 8 pro renk çok renkli uyumlu marka xiaomi uyumlu menşei tr color detail cok renkli 15",
+      "iphone 15 serisi xiaomi ve samsung ile uyumlu type-c mikrofonlu kulaklık elektronik elektronik aksesuarlar bilgisayar aksesuarları ağ - modem elektronik devre elemanı bestech unknown unknown menşei cn",
+      "pad 7 8+256gb wi-fi mavi tablet xiaomi türkiye garantilixiaomi elektronik tablet grubu tablet xiaomi unknown unknown garanti tipi resmi distribütör garantili kamera çözünürlüğü 10 - 15 mp bluetooth var kapasite 256gb işletim sistemi android renk mavi bellek kapasitesi 4 - 16gb sim kart uyumu belirtilmemiş çözünürlük 1920 x 1080 bağlantılar usb-c işlemci ç"
+    ],
+    "semantic_top_titles": [
+      "15 ultra 1tb gümüş xiaomi türkiye garantili elektronik telefon akıllı cep telefonu android cep telefonu xiaomi unknown unknown yüz tanıma var kulaklık girişi usb type-c ana kamera flaş var batarya kapasitesi aralığı 4500-5000mah ekran teknolojisi qled suya toza dayanıklılık var ön kamera çözünürlüğü 32 mp dokunmatik ekran var ön kamera flaş var şarj hızı 60-80w ekr",
+      "xiaomi mi 15 uyumlu siyah silikon kılıf çiziklere ve darbelere karşı koruma elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf bgaksesuar unknown unknown materyal silikon cep telefonu modeli xiaomi 15 renk siyah uyumlu marka xiaomi uyumlu menşei tr color detail valorant3g1",
+      "xiaomi redmi 15 ile uyumlu şeffaf darbeye dayanıklı silikon kılıf elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf guoi unknown unknown materyal silikon cep telefonu modeli xiaomi redmi 15 4g renk çok renkli uyumlu marka xiaomi uyumlu menşei cn color detail şeffaf",
+      "xiaomi oppo a15s şeffaf kılıf elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf di aksesuar unknown unknown materyal silikon cep telefonu modeli oppo a15 s renk mavi uyumlu marka oppo uyumlu menşei cn color detail şeffaf",
+      "15t pro 12gb+256gb siyah elektronik telefon akıllı cep telefonu android cep telefonu xiaomi unknown unknown ekran teknolojisi dinamik amoled ana kamera flaş var batarya kapasitesi aralığı 6000-7000mah yüz tanıma var suya toza dayanıklılık var kulaklık girişi usb type-c ön kamera çözünürlüğü 20 - 40 mp dokunmatik ekran var ön kamera flaş var şarj "
+    ],
+    "missed_by_semantic": [],
+    "failure_category": "lexical formulation mismatch improved by semantic retrieval"
+  },
+  {
+    "seed": 62,
+    "term_id": "TERM_cf3d666a",
+    "query": "xiaomi redmi 13",
+    "relevant_item_ids": [
+      "ITEM_8870c9da664a"
+    ],
+    "semantic_recall50_delta": 1.0,
+    "incomplete_judgment_caution": "Unlabelled retrieved products are not necessarily irrelevant.",
+    "tfidf_top_titles": [
+      "xiaomi redmi 15 ile uyumlu şeffaf darbeye dayanıklı silikon kılıf elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf guoi unknown unknown materyal silikon cep telefonu modeli xiaomi redmi 15 4g renk çok renkli uyumlu marka xiaomi uyumlu menşei cn color detail şeffaf",
+      "xiaomi redmi 5 iç kulaklık elektronik elektronik aksesuarlar cep telefonu aksesuarları cep telefonu yedek parçaları telefon kasası axya unknown unknown materyal plastik garanti tipi ithalatçı garantili uyumlu marka xiaomi uyumlu garanti süresi 6 ay uyumlu telefon modeli xiaomi redmi 5",
+      "xiaomi redmi note 7 şarj soket mikrofon bordu elektronik elektronik aksesuarlar cep telefonu aksesuarları cep telefonu yedek parçaları telefon kasası axya unknown unknown uyumlu marka xiaomi uyumlu garanti süresi 6 ay uyumlu telefon modeli xiaomi redmi note 7",
+      "xiaomi redmi note 4 iç kulaklık elektronik elektronik aksesuarlar cep telefonu aksesuarları cep telefonu yedek parçaları telefon kasası axya unknown unknown materyal metal garanti tipi ithalatçı garantili uyumlu marka xiaomi uyumlu garanti süresi 6 ay uyumlu telefon modeli xiaomi redmi note 4",
+      "xiaomi redmi 9a uyumlu çiçek ve notalar tasarımlı baskılı şeffaf telefon kılıfı elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf moonset unknown unknown materyal silikon cep telefonu modeli xiaomi redmi 9a renk çok renkli uyumlu marka xiaomi uyumlu menşei cn color detail desen208"
+    ],
+    "bm25_top_titles": [
+      "xiaomi redmi note 13 pro plus uyumlu 5g kılıf hd baskılı kılıf elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf adveksiyon unknown unknown materyal silikon cep telefonu modeli redmi note 13 pro plus 5g renk çok renkli uyumlu marka xiaomi uyumlu menşei tr color detail se-5116",
+      "xiaomi redmi note 13 pro plus - telefon kılıfı - askılı ipli kartlıklı kamera korumalı - yeşil elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf newface unknown unknown materyal silikon cep telefonu modeli redmi note 13 pro plus 5g renk yeşil uyumlu marka xiaomi uyumlu menşei cn color detail yeşil",
+      "xiaomi redmi note 13 pro 4g uyumlu mat siyah kılıf - yumuşak silikon koruyucu şok emici kapak elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf bgaksesuar unknown unknown materyal silikon cep telefonu modeli redmi note 13 pro 4g renk siyah uyumlu marka xiaomi uyumlu menşei tr color detail cicek2g1",
+      "x6 - xiaomi redmi note 13 pro 5g kılıf isim yazılı kişiye özel silikon model-44 elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf poco unknown unknown materyal silikon cep telefonu modeli redmi note 13 pro 5g renk yeşil uyumlu marka xiaomi uyumlu menşei tr color detail model-44",
+      "xiaomi redmi note 13 pro 4g kılıf hd desen baskılı arka kapak - atatürk 9-15 elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf mrciletisim unknown unknown materyal silikon cep telefonu modeli redmi note 13 pro 4g renk çok renkli uyumlu marka xiaomi uyumlu menşei tr color detail no-color-132"
+    ],
+    "semantic_top_titles": [
+      "xiaomi redmi 13c uyumlu kamera korumalı yumuşak premium tasarım şeffaf silikon kılıf elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf casemood unknown unknown materyal silikon cep telefonu modeli redmi 13c renk çok renkli uyumlu marka xiaomi uyumlu menşei cn color detail so lucky",
+      "xiaomi redmi 13c baskılı ve kamera korumalı mor renk silikon kılıf elektronik elektronik aksesuarlar tablet aksesuarları tablet kılıfı bgaksesuar unknown unknown uyku modu yok renk mor kılıf tipi arka kapak uyumlu marka xiaomi uyumlu uyumlu model belirtilmemiş bakım talimatları genel ürünün kullanım ömrünü korumak için ürüne özel bakım talimatlarını takip ediniz color detail mor123",
+      "redmi note 13 8gb ram 256gb mavi xiaomi türkiye garantili elektronik telefon akıllı cep telefonu android cep telefonu xiaomi unknown unknown batarya kapasitesi aralığı 4500-5000mah ana kamera flaş var kulaklık girişi 3 5mm suya toza dayanıklılık var ekran teknolojisi dled yüz tanıma var ön kamera çözünürlüğü 16 mp dokunmatik ekran var ön kamera flaş yok şarj hızı 10-20w ekran bo",
+      "xiaomi redmi 13c uyumlu ejderhanı nasıl eğitirsin desenli hd baskılı silikon kılıf elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf snacase unknown unknown materyal silikon cep telefonu modeli redmi 13c renk çok renkli uyumlu marka xiaomi uyumlu color detail ejderhanı nasıl eğitirsin 298",
+      "xiaomi redmi 13c kılıf nano içi kadife silikon - pudra elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf eco port unknown unknown materyal plastik cep telefonu modeli iphone 11 pro renk çok renkli uyumlu marka belirtilmemiş menşei tr color detail çok renkli"
+    ],
+    "missed_by_semantic": [],
+    "failure_category": "lexical formulation mismatch improved by semantic retrieval"
+  },
+  {
+    "seed": 82,
+    "term_id": "TERM_f26e104d",
+    "query": "xiaomi 15",
+    "relevant_item_ids": [
+      "ITEM_8bd7d96b166b",
+      "ITEM_8c290733965c"
+    ],
+    "semantic_recall50_delta": 1.0,
+    "incomplete_judgment_caution": "Unlabelled retrieved products are not necessarily irrelevant.",
+    "tfidf_top_titles": [
+      "xiaomi mi 15 uyumlu siyah silikon kılıf çiziklere ve darbelere karşı koruma elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf bgaksesuar unknown unknown materyal silikon cep telefonu modeli xiaomi 15 renk siyah uyumlu marka xiaomi uyumlu menşei tr color detail valorant3g1",
+      "xiaomi redmi 15 ile uyumlu şeffaf darbeye dayanıklı silikon kılıf elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf guoi unknown unknown materyal silikon cep telefonu modeli xiaomi redmi 15 4g renk çok renkli uyumlu marka xiaomi uyumlu menşei cn color detail şeffaf",
+      "xiaomi mi max 2 iç kulaklık elektronik elektronik aksesuarlar cep telefonu aksesuarları cep telefonu yedek parçaları telefon kasası axya unknown unknown uyumlu marka xiaomi uyumlu garanti süresi 6 ay uyumlu telefon modeli xiaomi mi max",
+      "xiaomi mi mix 3 iç kulaklık elektronik elektronik aksesuarlar cep telefonu aksesuarları cep telefonu yedek parçaları telefon kasası axya unknown unknown uyumlu marka xiaomi uyumlu garanti süresi 6 ay uyumlu telefon modeli xiaomi mi mix 3",
+      "xiaomi mi note 10 pro lavanta siyah telefon kılıfı elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf constrain unknown unknown materyal silikon cep telefonu modeli xiaomi mi note 10 pro renk siyah uyumlu marka xiaomi uyumlu color detail siyah"
+    ],
+    "bm25_top_titles": [
+      "xiaomi mi 15 uyumlu siyah silikon kılıf çiziklere ve darbelere karşı koruma elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf bgaksesuar unknown unknown materyal silikon cep telefonu modeli xiaomi 15 renk siyah uyumlu marka xiaomi uyumlu menşei tr color detail valorant3g1",
+      "xiaomi redmi 15 ile uyumlu şeffaf darbeye dayanıklı silikon kılıf elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf guoi unknown unknown materyal silikon cep telefonu modeli xiaomi redmi 15 4g renk çok renkli uyumlu marka xiaomi uyumlu menşei cn color detail şeffaf",
+      "xiaomi redmi note 8 pro uyumlu kılıf hd baskılı kılıf + seramik nano tam kaplayan ekran koruyucu 15 elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf kılıfevreni unknown unknown materyal silikon cep telefonu modeli redmi note 8 pro renk çok renkli uyumlu marka xiaomi uyumlu menşei tr color detail cok renkli 15",
+      "iphone 15 serisi xiaomi ve samsung ile uyumlu type-c mikrofonlu kulaklık elektronik elektronik aksesuarlar bilgisayar aksesuarları ağ - modem elektronik devre elemanı bestech unknown unknown menşei cn",
+      "pad 7 8+256gb wi-fi mavi tablet xiaomi türkiye garantilixiaomi elektronik tablet grubu tablet xiaomi unknown unknown garanti tipi resmi distribütör garantili kamera çözünürlüğü 10 - 15 mp bluetooth var kapasite 256gb işletim sistemi android renk mavi bellek kapasitesi 4 - 16gb sim kart uyumu belirtilmemiş çözünürlük 1920 x 1080 bağlantılar usb-c işlemci ç"
+    ],
+    "semantic_top_titles": [
+      "15 ultra 1tb gümüş xiaomi türkiye garantili elektronik telefon akıllı cep telefonu android cep telefonu xiaomi unknown unknown yüz tanıma var kulaklık girişi usb type-c ana kamera flaş var batarya kapasitesi aralığı 4500-5000mah ekran teknolojisi qled suya toza dayanıklılık var ön kamera çözünürlüğü 32 mp dokunmatik ekran var ön kamera flaş var şarj hızı 60-80w ekr",
+      "xiaomi mi 15 uyumlu siyah silikon kılıf çiziklere ve darbelere karşı koruma elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf bgaksesuar unknown unknown materyal silikon cep telefonu modeli xiaomi 15 renk siyah uyumlu marka xiaomi uyumlu menşei tr color detail valorant3g1",
+      "xiaomi redmi 15 ile uyumlu şeffaf darbeye dayanıklı silikon kılıf elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf guoi unknown unknown materyal silikon cep telefonu modeli xiaomi redmi 15 4g renk çok renkli uyumlu marka xiaomi uyumlu menşei cn color detail şeffaf",
+      "xiaomi oppo a15s şeffaf kılıf elektronik elektronik aksesuarlar cep telefonu aksesuarları kapak kılıf di aksesuar unknown unknown materyal silikon cep telefonu modeli oppo a15 s renk mavi uyumlu marka oppo uyumlu menşei cn color detail şeffaf",
+      "15t pro 12gb+256gb siyah elektronik telefon akıllı cep telefonu android cep telefonu xiaomi unknown unknown ekran teknolojisi dinamik amoled ana kamera flaş var batarya kapasitesi aralığı 6000-7000mah yüz tanıma var suya toza dayanıklılık var kulaklık girişi usb type-c ön kamera çözünürlüğü 20 - 40 mp dokunmatik ekran var ön kamera flaş var şarj "
+    ],
+    "missed_by_semantic": [],
+    "failure_category": "lexical formulation mismatch improved by semantic retrieval"
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "asset": "models/v3/lexical_demo.joblib",
+  "asset_bytes": 8914086,
+  "catalogue_rows": 5000,
+  "cold_load_ms": 1228.5079579996818,
+  "warm_retrieval": {
+    "tfidf": {
+      "runs": 100,
+      "p50_ms": 0.6206044999998994,
+      "p95_ms": 0.6467500002145243,
+      "max_ms": 0.6612919996769051
+    },
+    "bm25": {
+      "runs": 100,
+      "p50_ms": 0.12235400004101393,
+      "p95_ms": 0.2565419999882579,
+      "max_ms": 0.2640830002746952
+    }
+  },
+  "cache_policy": "Streamlit st.cache_resource; no per-query reload",
+  "semantic": "unavailable",
+  "hybrid": "unavailable_without_semantic_scores"
+}

@@ -9,7 +9,6 @@ from sklearn.linear_model import LogisticRegression,SGDClassifier
 from sklearn.model_selection import GroupKFold
 from sklearn.svm import LinearSVC
 from sklearn.tree import DecisionTreeClassifier
-from xgboost import XGBClassifier,XGBRanker
 from config import DATA_PATH,FEATURE_COLUMNS,MODELS_DIR,OUTPUTS_DIR,RANDOM_SEED,REPORTS_DIR
 from feature_engineering import similarity_features
 from utils import ensure_directories,write_json
@@ -60,6 +59,8 @@ def sorted_group(frame,x):
     order=np.argsort(frame.term_id.astype(str).to_numpy(),kind="stable"); result=frame.iloc[order].reset_index(drop=True); return result,x[order],pd.factorize(result.term_id,sort=False)[0],order
 
 def evaluate_seed(data,seed):
+    # Training-only native dependency; live ranker inference is subprocess-isolated.
+    from xgboost import XGBClassifier,XGBRanker
     train,val,test,audit=split(data,seed); dense=DenseFeatures().fit(train); xa,names=dense.transform(train); xv,_=dense.transform(val); xt,_=dense.transform(test); oa,ov,ot=base_scores(train,val,test,xa,xv,xt); xtrain=np.c_[xa,oa]; xval=np.c_[xv,ov]; xtest=np.c_[xt,ot]
     models={"logistic":LogisticRegression(max_iter=400,solver="liblinear"),"tuned_logistic":LogisticRegression(C=.5,max_iter=400,solver="liblinear"),"linear_svc":LinearSVC(C=.5),"sgd_log_loss":SGDClassifier(loss="log_loss",random_state=seed),"sgd_modified_huber":SGDClassifier(loss="modified_huber",random_state=seed),"decision_tree":DecisionTreeClassifier(max_depth=8,min_samples_leaf=20,random_state=seed),"random_forest":RandomForestClassifier(n_estimators=80,max_depth=12,min_samples_leaf=5,n_jobs=2,random_state=seed),"extra_trees":ExtraTreesClassifier(n_estimators=80,max_depth=14,min_samples_leaf=5,n_jobs=2,random_state=seed),"hist_gradient_boosting":HistGradientBoostingClassifier(max_iter=80,random_state=seed),"xgb_classifier":XGBClassifier(n_estimators=80,max_depth=5,learning_rate=.08,n_jobs=2,random_state=seed)}
     classification=[]; fitted={}

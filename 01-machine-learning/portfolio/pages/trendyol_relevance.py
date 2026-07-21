@@ -6,10 +6,12 @@ from portfolio.config import TRENDYOL_RELEVANCE_DIR
 from portfolio.loaders import load_csv_safe,load_json_safe,load_text_safe
 from portfolio.project_registry import project_by_id
 from portfolio.trendyol_relevance_service import predict_batch,predict_single,rank_sample
+from portfolio.trendyol_retrieval_service import load_retrieval_asset,search as retrieval_search,semantic_state
 from portfolio.ui_components import (architecture_flow,comparison_cards,decision_banner,evidence_strip,information_panel,
     metric_table,model_stage_timeline,page_header,prediction_result_card,render_safe_table,section_heading,status_badge)
 
 PRESETS=["kablosuz kulaklık","beyaz kadın sneaker","çocuk yağmurluk","erkek siyah pantolon","güneş gözlüğü"]
+RETRIEVAL_PRESETS=PRESETS+["telefon hızlı şarj adaptörü","su geçirmez erkek mont","küçük ırk köpek maması","500 ml şampuan","iphone 15 pro max kılıfı"]
 
 def classification_demo():
     preset=st.selectbox("Örnek sorgu",PRESETS,key="relevance_preset")
@@ -54,13 +56,48 @@ def ranking_demo():
         term=st.selectbox("Holdout query grubu",frame.term_id.drop_duplicates().tolist()); view=frame[frame.term_id.eq(term)].sort_values("rank_after"); view["rank_change"]=view.rank_before-view.rank_after
         render_safe_table(view[["query","title","label","first_stage_score","rank_before","final_ranking_score","rank_after","rank_change"]],max_rows=100)
 
+def semantic_search_demo():
+    information_panel("What candidate retrieval means","Retrieval broader bir katalogdan aday keşfeder; classifier query-product alakasını puanlar, ranker ise bulunan adayların sırasını düzenler.")
+    st.warning("This is a bounded offline retrieval demonstration and not a catalogue-wide production search engine.")
+    state=semantic_state(); status="Ready" if state["model_cache"] and state["dense_index"] else "Unavailable"
+    evidence_strip([("Semantic runtime",status,"Model cache + dense index"),("Embedding model",state["model_id"],"Pinned revision"),("Dimension",str(state["dimension"]),"L2 normalized"),("Demo index",f"{state['indexed_products']:,}","Bounded products")])
+    preset=st.selectbox("Örnek retrieval sorgusu",RETRIEVAL_PRESETS,key="v3_preset"); query=st.text_input("Search query",preset,key="v3_query"); method=st.radio("Retrieval method",["TF-IDF","BM25","Semantic","Hybrid"],horizontal=True); top_k=st.select_slider("Number of results",[5,10,20],value=10)
+    asset=load_retrieval_asset(); catalogue=asset["catalogue"] if asset else pd.DataFrame(); categories=[""]+sorted(catalogue.category.dropna().astype(str).unique().tolist()) if not catalogue.empty else [""]; brands=[""]+sorted(catalogue.brand.dropna().astype(str).unique().tolist()) if not catalogue.empty else [""]
+    with st.expander("Advanced controls"):
+        category=st.selectbox("Optional category filter",categories,format_func=lambda x:x or "All"); brand=st.selectbox("Optional brand filter",brands,format_func=lambda x:x or "All")
+    if st.button("Retrieve candidates",key="v3_retrieve"):
+        try:
+            result,latency=retrieval_search(query,method,top_k,category,brand); st.success(f"{method} · bounded demo · {latency:.1f} ms")
+            if method in {"Semantic","Hybrid"}:st.caption(f"{state['model_id']} · revision {state['revision'][:12]} · {state['indexed_products']:,} indexed products · real local scores")
+            render_safe_table(result[["rank","title","category","brand","lexical_score","semantic_score","hybrid_score","retrieval_source","signals_used_during_retrieval","experimental_status"]],max_rows=20)
+        except (ValueError,RuntimeError) as exc:st.warning(str(exc))
+    section_heading("Method Comparison","All methods use the same query and bounded 5,000-product demo catalogue; unlabelled products are not necessarily irrelevant.")
+    availability=load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v3/method_availability.csv")); metric_table(availability)
+    comparison=st.session_state.setdefault("v31_comparison",{})
+    cols=st.columns(2)
+    for index,name in enumerate(["TF-IDF","BM25","Semantic","Hybrid"]):
+        column=cols[index%2]
+        with column:
+            if st.button(f"Compare {name}",key=f"compare_{name}"):
+                try: result,latency=retrieval_search(query,name,5); comparison[name]={"frame":result,"latency":latency,"query":query}
+                except RuntimeError as exc:st.warning(str(exc))
+            saved=comparison.get(name)
+            if saved and saved["query"]==query:
+                st.caption(f"{name} · {saved['latency']:.1f} ms"); frame=saved["frame"].copy(); all_ids=[set(value["frame"].item_id.astype(str)) for value in comparison.values() if value.get("query")==query]; frame["shared_product"]=frame.item_id.astype(str).map(lambda x:sum(x in ids for ids in all_ids)>1); render_safe_table(frame[["rank","title","lexical_score","semantic_score","hybrid_score","shared_product"]],max_rows=5)
+    section_heading("Offline Evidence"); metric_table(load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v3/retrieval_metrics_by_seed.csv"))); metric_table(load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v3/index_performance.csv")))
+    section_heading("Query-Level and Segment Evidence"); metric_table(load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v3/query_segment_metrics.csv")))
+    examples=load_json_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v3/retrieval_error_examples.json")); render_safe_table(pd.DataFrame(examples),max_rows=8) if examples else st.caption("Qualitative error examples are not available yet.")
+    section_heading("Multi-stage Search Architecture"); architecture_flow([("User Query","current"),("Normalization","current"),("Lexical Retrieval","experimental"),("Semantic Retrieval","experimental"),("Candidate Fusion","experimental"),("V1 Scoring","current"),("Reranking","planned"),("Results","experimental")])
+    decision=load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/V3_1_MODEL_SELECTION.md"))
+    decision_banner("V3.1 governance",decision or "Measured semantic/hybrid governance is pending; V1 remains unchanged.")
+
 def render():
     metadata=load_json_safe(str(TRENDYOL_RELEVANCE_DIR/"models/model_metadata.json")); metrics=load_json_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/metrics.json"))
     page_header("Trendyol Search & Product Intelligence","Bir kullanıcı sorgusuyla ürün arasındaki alaka düzeyini tahmin eden ve aday ürün sıralama challengers’ını sorumlu biçimde değerlendiren canlı vaka çalışması.","SEARCH RELEVANCE · CLASSIFICATION · RANKING")
     evidence_strip([("Current champion","V1 Logistic Regression","Doğrulandı"),("V1 F1",f"{metrics.get('f1',0):.4f}","term-group validation"),("V1 PR AUC",f"{metrics.get('pr_auc',0):.4f}","100k sample"),("V2 ranker NDCG@10","0.8044","Deneysel"),("First-stage NDCG@10","0.8477","Leakage-safe"),("term_id overlap","0","Group split")])
     decision_banner("Champion korundu","Daha karmaşık modeller, istatistiksel kanıt sağlamadığı için otomatik olarak üretim modelinin yerini almamıştır.")
     comparison_cards([{"title":"V1 Verified Champion","status":"Doğrulandı","kind":"champion","algorithm":"TF-IDF + similarity + Logistic Regression","metric":"F1 0.6260 · PR AUC 0.7165","note":"Stable live probability inference."},{"title":"V2 Historical Experimental Challenger","status":"Deneysel","kind":"experimental","algorithm":"Random Forest","metric":"Holdout F1 0.6384","note":"Not Promoted."},{"title":"V2.1 Best Research Candidate","status":"Terfi edilmedi","kind":"experimental","algorithm":"HistGradientBoosting · not persisted","metric":"Mean F1 0.7539 · CI 0.7461–0.7618","note":"Offline Evaluation; Different historical split; Direct superiority not established."},{"title":"V2.1 Experimental Ranker","status":"Terfi edilmedi","kind":"experimental","algorithm":"XGBoost rank:ndcg topk","metric":"Delta −0.0075 · CI −0.0234–0.0084","note":"Bounded Candidate Sample; no reproducible improvement."}])
-    tabs=st.tabs(["01 · Executive & Live","02 · Evidence","03 · Model Journey","04 · Engineering","05 · Governance & Roadmap"])
+    tabs=st.tabs(["01 · Executive & Live","02 · Evidence","03 · Model Journey","04 · Engineering","05 · Governance & Roadmap","06 · Semantic & Hybrid Search"])
     with tabs[0]:
         section_heading("Canlı Demo","Classification ve bounded ranking modları."); mode=st.radio("Demo modu",["Relevance Classification","Product Ranking","Batch Classification"],horizontal=True)
         if mode=="Relevance Classification": classification_demo()
@@ -75,7 +112,7 @@ def render():
         section_heading("V2.1 Repeated-Seed Evidence"); metric_table(load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v2_1/classification_repeated_seed_ci.csv"))); metric_table(load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v2_1/ranking_repeated_seed_ci.csv")))
         section_heading("Error Analysis"); st.markdown(load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/error_analysis.md")))
     with tabs[2]:
-        model_stage_timeline([("V0","Dummy baseline","Minimum reference","Tamamlandı"),("V1","Sparse-text classifier","Word/character TF-IDF + Logistic Regression","Doğrulandı"),("V2","Classical challengers","Trees, calibration, hard negatives","Deneysel"),("V2 Ranking","Learning to rank","XGBoost + query bootstrap","Terfi edilmedi"),("V2.1","Robust evaluation","1.000 groups × five seeds","Deneysel"),("V3","Semantic retrieval","Embeddings + cross-encoder","Planlandı")])
+        model_stage_timeline([("V0","Dummy baseline","Minimum reference","Tamamlandı"),("V1","Sparse-text classifier","Word/character TF-IDF + Logistic Regression","Doğrulandı"),("V2","Classical challengers","Trees, calibration, hard negatives","Deneysel"),("V2 Ranking","Learning to rank","XGBoost + query bootstrap","Terfi edilmedi"),("V2.1","Robust evaluation","1.000 groups × five seeds","Deneysel"),("V3","Candidate retrieval","TF-IDF/BM25 implemented; semantic index required","Bounded Demo")])
     with tabs[3]:
         section_heading("Search Architecture"); architecture_flow([("Query","current"),("Bounded candidates","current"),("Lexical scoring","current"),("V1 probability","current"),("V2 reranker","experimental"),("Ranked results","experimental")])
         section_heading("Reproducibility"); information_panel("Offline-first","Raw source is local and ignored; experiments never download data on normal runs. Seeds, split audits, artifacts and metrics are persisted."); information_panel("Inference contract","V1 accepts query/title plus optional catalogue fields. V2 artifacts consume precomputed dense research features and are not exposed as production inference.")
@@ -84,3 +121,4 @@ def render():
         section_heading("Champion / Challenger Governance"); architecture_flow([("Baseline","current"),("Challenger","experimental"),("Holdout evaluation","current"),("Confidence interval","current"),("Decision","current"),("Retain champion","current")])
         st.markdown(load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/V2_MODEL_SELECTION.md"))); section_heading("Limitations"); st.markdown(load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/V2_LIMITATIONS.md")))
         section_heading("Roadmap"); information_panel("V2.1","Repeated complete-group evaluation and fair hard-negative comparison."); information_panel("V3","Multilingual embeddings, hybrid retrieval and cross-encoder reranking after retrieval-quality baselines exist.")
+    with tabs[5]: semantic_search_demo()
