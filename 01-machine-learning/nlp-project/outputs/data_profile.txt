@@ -1,0 +1,34 @@
+UCI SENTIMENT LABELLED SENTENCES DATA PROFILE
+============================================================
+Shape after exact duplicate removal: 2982 rows x 4 columns
+Language: English
+Sources: Amazon, IMDb, Yelp
+Target: label (0 negative, 1 positive)
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+Original source: https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences
+
+First five rows:
+                                                                              text  label source
+So there is no way for me to plug it in here in the US unless I go by a converter.      0 amazon
+                                                       Good case, Excellent value.      1 amazon
+                                                            Great for the jawbone.      1 amazon
+   Tied to charger for conversations lasting more than 45 minutes.MAJOR PROBLEMS!!      0 amazon
+                                                                 The mic is great.      1 amazon
+
+Missing values:
+text          0
+label         0
+source        0
+clean_text    0
+
+Text length statistics:
+count    2982.000000
+mean       64.860161
+std        43.901810
+min         5.000000
+25%        32.000000
+50%        55.000000
+75%        87.000000
+max       477.000000
+
+Preprocessing: HTML/URL handling, lowercase and whitespace normalization; TF-IDF is fit inside CV folds.
