@@ -1,0 +1,12 @@
+REGRESSION PROJECT FINAL SUMMARY
+Dataset: California Housing (20640 rows, 9 columns)
+Source: https://scikit-learn.org/1.5/datasets/real_world.html#california-housing-dataset
+Fallback used: False
+Split: 60% train / 20% validation / 20% untouched test; random_state=42
+Preprocessing: median imputation, StandardScaler, SelectKBest(f_regression)
+Engineered features: RoomsPerBedroom, BedroomsPerOccupant (target-independent)
+Models: Linear Regression, Ridge, Random Forest, Gradient Boosting
+Selected model: Random Forest
+Best parameters: {'model__max_depth': 18, 'model__min_samples_leaf': 1, 'model__n_estimators': 180}
+Test metrics: {'MAE': 0.3346478561192907, 'MSE': 0.2622768441324158, 'RMSE': 0.5121297141666512, 'R2': 0.8087142295919889}
+Limitations: 1990 California census context; geographic and temporal transfer is limited; associations are not causal; capped target and spatial dependence can bias evaluation.

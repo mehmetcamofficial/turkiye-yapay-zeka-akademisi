@@ -1,0 +1,10 @@
+NLP PROJECT FINAL SUMMARY
+Dataset: UCI Sentiment Labelled Sentences; English; CC BY 4.0
+Local records used after exact duplicate removal: 2982
+Target: 0 negative, 1 positive; sources: Amazon, IMDb, Yelp
+Split: 60% train / 20% validation / 20% untouched test, stratified, random_state=42
+Preprocessing: deterministic text cleaning + leakage-safe TF-IDF inside pipeline
+Models: Logistic Regression, LinearSVC, MultinomialNB
+Selected model: MultinomialNB; best parameters: {'model__alpha': 0.5, 'tfidf__ngram_range': (1, 2)}
+Test metrics: {'Accuracy': 0.8190954773869347, 'Precision': 0.8104575163398693, 'Recall': 0.8322147651006712, 'F1': 0.8211920529801324}
+Limitations: short English review sentences, deliberately no neutral class, domain/source bias, sarcasm/context difficulty, and labels are not causal or production guarantees.

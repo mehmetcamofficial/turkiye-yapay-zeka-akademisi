@@ -1,0 +1,13 @@
+{
+  "model_name": "MultinomialNB",
+  "best_cv_f1": 0.8112488582110867,
+  "best_params": {
+    "model__alpha": 0.5,
+    "tfidf__ngram_range": [
+      1,
+      2
+    ]
+  },
+  "cv_folds": 5,
+  "scoring": "f1"
+}

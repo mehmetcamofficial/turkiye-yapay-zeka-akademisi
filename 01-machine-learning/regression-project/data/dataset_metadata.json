@@ -1,0 +1,10 @@
+{
+  "dataset": "California Housing",
+  "source": "https://scikit-learn.org/1.5/datasets/real_world.html#california-housing-dataset",
+  "original_repository": "StatLib (derived from 1990 U.S. Census)",
+  "license": "No standalone dataset license stated by scikit-learn; research dataset distributed via StatLib. Cite Pace & Barry (1997).",
+  "fallback_used": false,
+  "rows": 20640,
+  "columns": 9,
+  "target": "target (median house value, units of USD 100,000)"
+}

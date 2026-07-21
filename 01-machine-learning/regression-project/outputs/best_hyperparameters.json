@@ -1,0 +1,11 @@
+{
+  "model_name": "Random Forest",
+  "best_cv_rmse": 0.5266842096073961,
+  "best_params": {
+    "model__max_depth": 18,
+    "model__min_samples_leaf": 1,
+    "model__n_estimators": 180
+  },
+  "cv_folds": 5,
+  "scoring": "neg_root_mean_squared_error"
+}

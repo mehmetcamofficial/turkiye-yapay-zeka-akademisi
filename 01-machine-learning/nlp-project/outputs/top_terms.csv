@@ -1,0 +1,61 @@
+term,weight,sentiment
+great,2.875896077367295,positive
+fantastic,2.689459124273963,positive
+love,2.6610366487462684,positive
+wonderful,2.5198197266293203,positive
+excellent,2.516832794260927,positive
+works,2.4680212907442094,positive
+loved,2.466607136677143,positive
+beautiful,2.461525909756144,positive
+love this,2.444324291017831,positive
+works great,2.4206683067623693,positive
+nice,2.4061611043507636,positive
+awesome,2.3124845830301997,positive
+very good,2.206665553362086,positive
+delicious,2.201261317436213,positive
+incredible,2.1775665421563035,positive
+amazing,2.172498488223191,positive
+love the,2.1587835134303273,positive
+pleased,2.144356053568754,positive
+perfect,2.137537044081766,positive
+enjoyed,2.1219247237907375,positive
+great product,2.0278917418993023,positive
+is great,2.0033335720853858,positive
+spot,1.9263048584368256,positive
+highly recommend,1.9221970292621622,positive
+love it,1.9213280617683504,positive
+loved it,1.9117343890420564,positive
+was great,1.910084901973926,positive
+really good,1.9080604459392898,positive
+so far,1.8859738122523622,positive
+friendly and,1.881131098039825,positive
+terrible,-2.9634085209759373,negative
+bad,-2.8493858140402297,negative
+waste,-2.838922721278559,negative
+worst,-2.7758110118430697,negative
+poor,-2.737186387912743,negative
+horrible,-2.667752129392907,negative
+awful,-2.643011563521921,negative
+the worst,-2.613514010413449,negative
+disappointing,-2.4830931526294275,negative
+sucked,-2.3491728889711814,negative
+waste your,-2.3473548227875636,negative
+disappointment,-2.2934513654322224,negative
+not good,-2.2651218326651144,negative
+junk,-2.249759790390647,negative
+very disappointed,-2.2357679621945152,negative
+not work,-2.182002602286758,negative
+slow,-2.1650812179245253,negative
+crap,-2.161379251749449,negative
+stupid,-2.1377612396268546,negative
+waste of,-2.1067292683004606,negative
+worse,-2.088879148388524,negative
+sucks,-2.083667354846675,negative
+don waste,-2.075205879074046,negative
+so bad,-2.0723969043041484,negative
+bland,-2.0665683634832437,negative
+mediocre,-1.9963435615364302,negative
+would not,-1.9955250153591146,negative
+do not,-1.9687446361597214,negative
+rude,-1.927490431843487,negative
+your money,-1.913870616511974,negative

@@ -1,0 +1,109 @@
+text,source,actual,predicted,error_type
+"I felt asleep the first time I watched it, so I can recommend it for insomniacs.",imdb,0,1,false_positive
+"too bad cause I know it's family owned, I really wanted to like this place.",yelp,0,1,false_positive
+"I do not know if this was Emilio Estevez's directorial debut, but the pacing, the interplay and development of the characters as well as some clever camera work surrounding the character Estevez plays all suggest a natural eye.",imdb,1,0,false_negative
+"The soundtrack wasn't terrible, either.",imdb,1,0,false_negative
+"One nice thing was that they added gratuity on the bill since our party was larger than 6 or 8, and they didn't expect more tip than that.",yelp,1,0,false_negative
+The stories were as unbelievable as the actors.,imdb,0,1,false_positive
+It was that loud.Glad to say that the Plantronics 510 maintains a flawless connection to my cell and with no static during normal use.,amazon,1,0,false_negative
+"My father has the V265, and the battery is dying.",amazon,0,1,false_positive
+Now imagine that every single one of those decisions was made wrong.,imdb,0,1,false_positive
+"The movie showed a lot of Florida at it's best, made it look very appealing.",imdb,1,0,false_negative
+"We had so much to say about the place before we walked in that he expected it to be amazing, but was quickly disappointed.",yelp,0,1,false_positive
+Why was this film made?,imdb,0,1,false_positive
+"And the drinks are WEAK, people!",yelp,0,1,false_positive
+I've had better atmosphere.,yelp,0,1,false_positive
+These products cover up the important light sensor above the ear outlet.,amazon,0,1,false_positive
+"Plus, it's only 8 bucks.",yelp,1,0,false_negative
+This is an Outstanding little restaurant with some of the Best Food I have ever tasted.,yelp,1,0,false_negative
+"To be honest with you, this is unbelievable nonsense and very foolish.",imdb,0,1,false_positive
+"I have watched their prices inflate, portions get smaller and management attitudes grow rapidly!",yelp,0,1,false_positive
+This is so embarassing and also my ears hurt if I try to push the ear plug into my ear.,amazon,0,1,false_positive
+Ryan's Bar is definitely one Edinburgh establishment I won't be revisiting.,yelp,0,1,false_positive
+The battery runs down quickly.,amazon,0,1,false_positive
+"Also, I feel like the chips are bought, not made in house.",yelp,0,1,false_positive
+I have bought this Nokia cell phone a few weeks ago and it was a nightmare.,amazon,0,1,false_positive
+It is unusable in a moving car at freeway speed.,amazon,0,1,false_positive
+Seriously killer hot chai latte.,yelp,1,0,false_negative
+A film not easily forgotten.,imdb,1,0,false_negative
+Unfortunately the ability to actually know you are receiving a call is a rather important feature and this phone is pitiful in that respect.,amazon,0,1,false_positive
+"After one bite, I was hooked.",yelp,1,0,false_negative
+":) Anyway, the plot flowed smoothly and the male-bonding scenes were a hoot.",imdb,1,0,false_negative
+"The chains, which I'm no fan of, beat this place easily.",yelp,0,1,false_positive
+It was a long time that i didn't see a so charismatic actor on screen.,imdb,1,0,false_negative
+the movie is littered with overt racial slurs towards the black cast members and in return the whites are depicted as morons and boobs.,imdb,0,1,false_positive
+I've had this bluetoooth headset for some time now and still not comfortable with the way it fits on the ear.,amazon,0,1,false_positive
+It was just not a fun experience.,yelp,1,0,false_negative
+I ordered this for sony Ericsson W810i but I think it only worked once (thats when I first used it).,amazon,0,1,false_positive
+"You get incredibly fresh fish, prepared with care.",yelp,1,0,false_negative
+If you check the director's filmography on this site you will see why this film didn't have a chance.,imdb,0,1,false_positive
+The screen does get smudged easily because it touches your ear and face.,amazon,0,1,false_positive
+"Easily, none other cartoon made me laugh in a tender way (before getting into dark sitcoms oriented for teenagers).",imdb,1,0,false_negative
+It'll be a regular stop on my trips to Phoenix!,yelp,1,0,false_negative
+The tables outside are also dirty a lot of the time and the workers are not always friendly and helpful with the menu.,yelp,0,1,false_positive
+But in terms of the writing it's very fresh and bold.,imdb,1,0,false_negative
+No complaints!,yelp,1,0,false_negative
+I had to go to a store and bought a new NOKIA phone which is working great.,amazon,1,0,false_negative
+You won't be disappointed.,yelp,1,0,false_negative
+It does everything the description said it would.,amazon,1,0,false_negative
+"This place is overpriced, not consistent with their boba, and it really is OVERPRICED!",yelp,0,1,false_positive
+A good quality bargain.. I bought this after I bought a cheapy from Big Lots that sounded awful and people on the other end couldn't hear me.,amazon,1,0,false_negative
+The characters were very 'stagey' and the storyline was a lot like a stage farce.,imdb,0,1,false_positive
+This place deserves no stars.,yelp,0,1,false_positive
+Don't be afraid of subtitles........ its worth a little aversion therapy 10/10,imdb,1,0,false_negative
+"When a song could explain the emotions of the subjects better, such as when Jay Adams' unfortunate life was a subject of talk, the song Old Man by Neil Young was played, which evokes many emotions.",imdb,1,0,false_negative
+"The menu is always changing, food quality is going down & service is extremely slow.",yelp,0,1,false_positive
+NOT WHAT I WANTED.,amazon,0,1,false_positive
+"I saw ""Mirrormask"" last night and it was an unsatisfactory experience.",imdb,0,1,false_positive
+"That just SCREAMS ""LEGIT"" in my book...somethat's also pretty rare here in Vegas.",yelp,1,0,false_negative
+Talk about great customer service of course we will be back.,yelp,1,0,false_negative
+The story itself is just predictable and lazy.,imdb,0,1,false_positive
+say bye bye to your tip lady!,yelp,0,1,false_positive
+The death row scenes were entirely unmoving.,imdb,0,1,false_positive
+I have yet to run this new battery below two bars and that's three days without charging.,amazon,1,0,false_negative
+The place was not clean and the food oh so stale!,yelp,0,1,false_positive
+"Level 5 spicy was perfect, where spice didn't over-whelm the soup.",yelp,1,0,false_negative
+I don't know what kind it is but they have the best iced tea.,yelp,1,0,false_negative
+It's a shame to see good actors like Thomerson and James make a living in a mess like this.,imdb,0,1,false_positive
+"Some applause should be given to the ""prelude"" however.",imdb,1,0,false_negative
+"Plus, I seriously do not believe it is worth its steep price point.",amazon,0,1,false_positive
+The volume for the ringer is REAL good (you have choices how loud).,amazon,1,0,false_negative
+One of the few places in Phoenix that I would definately go back to again .,yelp,1,0,false_negative
+"The acting, as you'd expect from this cast, is top notch.",imdb,1,0,false_negative
+Awkward to use and unreliable.,amazon,0,1,false_positive
+"for 40 bucks a head, i really expect better food.",yelp,0,1,false_positive
+"All I can do is whine on the Internet, so here it goes.The more I use the thing the less I like it.",amazon,0,1,false_positive
+My wife had the Lobster Bisque soup which was lukewarm.,yelp,0,1,false_positive
+The commercials are the most misleading.,amazon,0,1,false_positive
+"The new characters weren't all that memorable, and I found myself forgetting who was who.",imdb,0,1,false_positive
+Go rent it.,imdb,1,0,false_negative
+"Comfortable fit - you need your headset to be comfortable for at least an hour at a time, if not for an entire day.",amazon,1,0,false_negative
+Crostini that came with the salad was stale.,yelp,0,1,false_positive
+We made the drive all the way from North Scottsdale... and I was not one bit disappointed!,yelp,1,0,false_negative
+It's a long time since I was so entertained by a movie.,imdb,1,0,false_negative
+I ordered this product first and was unhappy with it immediately.,amazon,0,1,false_positive
+"It's like a really sexy party in your mouth, where you're outrageously flirting with the hottest person at the party.",yelp,1,0,false_negative
+"I can hear while I'm driving in the car, and usually don't even have to put it on it's loudest setting.",amazon,1,0,false_negative
+I had absolutely no problem with this headset linking to my 8530 Blackberry Curve!,amazon,1,0,false_negative
+Some may say this buffet is pricey but I think you get what you pay for and this place you are getting quite a lot!,yelp,1,0,false_negative
+"The color is even prettier than I thought it would be, and the graphics are incredibly sharp.",amazon,1,0,false_negative
+The replacement died in a few weeks.,amazon,0,1,false_positive
+"The sound quality for the device is unacceptable.Unless you are in a really quiet area, you almost hear nothing.",amazon,0,1,false_positive
+i wouldnt see this movie again for free.,imdb,0,1,false_positive
+If you plan to use this in a car forget about it.,amazon,0,1,false_positive
+"This is a chilly, unremarkable movie about an author living/working in a chilly abstruse culture.",imdb,0,1,false_positive
+"The suspense builders were good, & just cross the line from G to PG.",imdb,1,0,false_negative
+"Speaking of the music, it is unbearably predictably and kitchy.",imdb,0,1,false_positive
+good protection and does not make phone too bulky.,amazon,1,0,false_negative
+The only place good for this film is in the garbage.,imdb,0,1,false_positive
+":-)Oh, the charger seems to work fine.",amazon,1,0,false_negative
+The waiter wasn't helpful or friendly and rarely checked on us.,yelp,0,1,false_positive
+Waste your money on this game.,imdb,1,0,false_negative
+I miss it and wish they had one in Philadelphia!,yelp,1,0,false_negative
+But this understated film leaves a lasting impression.,imdb,1,0,false_negative
+"All in all, I'd expected a better consumer experience from Motorola.",amazon,0,1,false_positive
+Oh and I forgot to also mention the weird color effect it has on your phone.,amazon,0,1,false_positive
+Its a total package.,amazon,1,0,false_negative
+You can find better movies at youtube.,imdb,0,1,false_positive
+great...no problems at all!.,amazon,1,0,false_negative
+You need at least 3 mins to get to your phone book from the time you first turn on the phone.Battery life is short.,amazon,0,1,false_positive
