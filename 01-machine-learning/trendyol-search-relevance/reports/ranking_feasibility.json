@@ -1,0 +1,15 @@
+{
+  "source_rows": 1000000,
+  "unique_terms": 17968,
+  "candidate_distribution": {"median": 28.0, "mean": 55.65449688334817, "p90": 119.0, "max": 6095},
+  "groups_at_least_two": 17968,
+  "groups_at_least_two_pct": 100.0,
+  "groups_both_labels": 17968,
+  "groups_both_labels_pct": 100.0,
+  "unsuitable_single_candidate": 0,
+  "unsuitable_single_label": 0,
+  "positive_products_per_query": {"median": 7.0, "mean": 13.913624220837043, "p90": 30.0, "max": 1525},
+  "duplicate_term_item_pairs": 59650,
+  "sample_weight_distribution": {"1.0": 750000, "2.0": 250000},
+  "ranking_feasible": true
+}

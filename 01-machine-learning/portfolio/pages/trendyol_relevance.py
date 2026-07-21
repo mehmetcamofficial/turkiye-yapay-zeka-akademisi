@@ -54,13 +54,21 @@ def _playground():
         except ValueError as exc: st.warning(str(exc))
         except Exception: st.error("Katalog örneği sıralanamadı.")
 
+def _ranking_playground():
+    frame=load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v2/ranking_playground.csv"))
+    information_panel("Deneysel V2 reranking", "Yerel holdout adaylarını gösterir. Ranker terfi edilmemiştir; V1 canlı tahmin akışı değişmemiştir.")
+    if frame.empty: empty_state_panel("V2 çıktısı yok", "Önce V2 deneyini açıkça çalıştırın."); return
+    term=st.selectbox("Sorgu grubu",frame["term_id"].drop_duplicates().tolist(),key="v2_term")
+    view=frame[frame.term_id.eq(term)].sort_values("rank_after")
+    render_safe_table(view[[c for c in ["query","title","label","first_stage_score","rank_before","final_ranking_score","rank_after"] if c in view]],max_rows=100)
+
 def render():
     project=project_by_id("trendyol_relevance"); metadata=load_json_safe(str(TRENDYOL_RELEVANCE_DIR/"models/model_metadata.json")); metrics=load_json_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/metrics.json"))
     hero_panel("Trendyol Arama Alaka Zekâsı", "Query-product ilişkisini term-group validation ve sparse lexical özelliklerle sınıflandıran ilk çalışan baseline.", "MACHINE LEARNING")
     st.markdown(status_badge(project["status"]),unsafe_allow_html=True)
     cards=[("Veri modu",metadata.get("data_mode","—")),("Satır",metadata.get("training_rows",0)+metadata.get("validation_rows",0)),("Validation","term_id group"),("Model",metadata.get("model_type","—")),("F1",f"{metrics.get('f1',0):.4f}"),("Artifact","Mevcut" if project["model_artifact_available"] else "Eksik"),("Canlı inference","Açık" if project["app_available"] else "Kapalı")]
     st.markdown('<div class="kpi-grid">'+''.join(f'<div class="kpi-card"><small>{a}</small><strong>{b}</strong></div>' for a,b in cards)+'</div>',unsafe_allow_html=True)
-    tabs=st.tabs(["Proje Özeti","Canlı Alaka Tahmini","Toplu Tahmin","AI Playground","Model Performansı","Hata Analizi","Özellikler","Veri ve Split","Model Kartı","Teknik Detaylar"])
+    tabs=st.tabs(["Proje Özeti","Canlı Alaka Tahmini","Toplu Tahmin","AI Playground","Model Performansı","Hata Analizi","Özellikler","Veri ve Split","Model Kartı","Teknik Detaylar","Classification Benchmark","Ranking Benchmark","Hybrid Search","Calibration","Statistical Comparison","Ranking Playground","V2 Model Card","V2 Limitations"])
     with tabs[0]:
         information_panel("Problem",project["description"]); information_panel("Seçim",load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/model_selection.md")))
         information_panel("Sınırlamalar","; ".join(project["limitations"]))
@@ -81,3 +89,13 @@ def render():
     with tabs[8]: st.markdown(load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"README.md")))
     with tabs[9]:
         with st.expander("Relative artifact yolları",expanded=False): st.code("01-machine-learning/trendyol-search-relevance/models/\n01-machine-learning/trendyol-search-relevance/outputs/\n01-machine-learning/trendyol-search-relevance/reports/")
+    with tabs[10]: metric_table(load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v2/classification_leaderboard.csv")))
+    with tabs[11]: metric_table(load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v2/ranking_leaderboard.csv")))
+    with tabs[12]: st.markdown(load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/HYBRID_SYSTEM.md")))
+    with tabs[13]:
+        metric_table(load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v2/calibration_results.csv")))
+        metric_table(load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v2/operating_points.csv")))
+    with tabs[14]: st.markdown(load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/STATISTICAL_COMPARISON.md")))
+    with tabs[15]: _ranking_playground()
+    with tabs[16]: st.markdown(load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/V2_MODEL_SELECTION.md")))
+    with tabs[17]: st.markdown(load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/V2_LIMITATIONS.md")))

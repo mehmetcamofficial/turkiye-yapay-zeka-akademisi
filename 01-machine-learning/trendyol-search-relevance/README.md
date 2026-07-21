@@ -16,6 +16,10 @@ DummyClassifier, LogisticRegression, LinearSVC and MultinomialNB are evaluated. 
 
 The first persisted artifact uses the deterministic 100,000-row sample. Combined word/character TF-IDF + explicit similarities with Logistic Regression was selected: group-term validation F1 0.6260, precision 0.7406, recall 0.5422, PR AUC 0.7165 and ROC AUC 0.9100. These are bounded validation results, not production performance.
 
+## V2 challenger research
+
+V2 keeps V1 frozen and evaluates classification and learning-to-rank separately on 7,724 rows from 119 complete query groups. The 70/15/15 `term_id` split has zero overlap. Random Forest is the classification challenger (holdout F1 0.6384); XGBoost `rank:ndcg` top-k is the ranking challenger (holdout NDCG@10 0.8044). It did not beat the leakage-safe first-stage NDCG@10 of 0.8477, so neither challenger is promoted. The Streamlit page exposes bounded benchmark and playground views, while live inference remains V1.
+
 ## Reproduce
 
 ```bash

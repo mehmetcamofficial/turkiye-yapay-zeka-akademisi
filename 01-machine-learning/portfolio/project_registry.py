@@ -107,6 +107,13 @@ def get_project_registry() -> list[dict[str, Any]]:
         "limitations":trendyol_metadata.get("known_limitations",["Bounded lexical baseline"]),
         "data_mode":trendyol_metadata.get("data_mode","—"), "validation_strategy":trendyol_metadata.get("validation_strategy","—")})
 
+    v2=load_json_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v2/v2_results.json"))
+    for project_id,name,category,artifact,metric,value in [
+        ("trendyol_v2_classifier","Trendyol V2 Classification Challenger","Classification challenger","classification_challenger.pkl","F1",v2.get("classification_holdout",{}).get("f1")),
+        ("trendyol_v2_ranker","Trendyol V2 Search Ranker","Learning to rank challenger","search_ranker.pkl","NDCG@10",v2.get("ranking_holdout",{}).get("ndcg@10"))]:
+        path=TRENDYOL_RELEVANCE_DIR/"models/v2"/artifact; expected=[f"models/v2/{artifact}","outputs/v2/v2_results.json"]
+        projects.append({"id":project_id,"name":name,"short_name":name,"category":category,"description":"Grup-güvenli V2 deneysel challenger; üretim şampiyonu değildir.","directory":TRENDYOL_RELEVANCE_DIR,"status":"Deneysel","dataset":"Public Datathon group-complete sample","dataset_size":f"{v2.get('sample',{}).get('rows',0):,} rows","final_model":v2.get("classification_validation_champion" if "classifier" in project_id else "ranking_champion","—"),"primary_metric_name":metric,"primary_metric_value":value,"secondary_metrics":{},"model_path":path,"expected_output_files":expected,"app_available":False,"training_available":True,"data_source_available":True,"readme_available":True,"validation_available":bool(v2),"model_artifact_available":path.is_file(),"last_verified":_last_verified(TRENDYOL_RELEVANCE_DIR,expected),"limitations":["Deneysel challenger","V1 değiştirilmedi","Bounded group-complete sample"],"data_mode":"ranking-sample","validation_strategy":"70/15/15 complete term_id groups; zero overlap"})
+
     cluster_expected = ["models/clustering_pipeline.pkl", "outputs/model_comparison.csv", "outputs/pca_clusters.png"]
     cluster_status = "Henüz Başlanmadı" if not CLUSTERING_DIR.is_dir() else ("Tamamlandı" if _exists_all(CLUSTERING_DIR, cluster_expected) else "Geliştiriliyor")
     projects.append({"id":"clustering", "name":"Customer Segmentation", "short_name":"Kümeleme", "category":"Denetimsiz Öğrenme",

@@ -1,0 +1,21 @@
+{
+  "mode": "ranking-sample",
+  "rows": 7724,
+  "groups": 119,
+  "complete_group_sampling": true,
+  "seed": 42,
+  "train_rows": 5598,
+  "validation_rows": 1004,
+  "test_rows": 1122,
+  "train_groups": 83,
+  "validation_groups": 18,
+  "test_groups": 18,
+  "train_validation_overlap": 0,
+  "train_test_overlap": 0,
+  "validation_test_overlap": 0,
+  "positive_rates": [
+    0.24294390853876385,
+    0.250996015936255,
+    0.23975044563279857
+  ]
+}
