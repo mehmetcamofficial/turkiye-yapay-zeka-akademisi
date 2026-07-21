@@ -1171,7 +1171,7 @@ def overview_page() -> None:
 
         st.dataframe(
             project_flow_df,
-            use_column_width=True,
+            use_container_width=True,
             hide_index=True,
         )
 
@@ -1628,7 +1628,7 @@ def single_prediction_page() -> None:
 
             st.dataframe(
                 engineered_display_df.round(2),
-                use_column_width=True,
+                use_container_width=True,
                 hide_index=True,
             )
 
@@ -1637,7 +1637,7 @@ def single_prediction_page() -> None:
         ):
             st.dataframe(
                 customer_df,
-                use_column_width=True,
+                use_container_width=True,
                 hide_index=True,
             )
 
@@ -1698,7 +1698,6 @@ def batch_prediction_page() -> None:
             ),
             file_name="churn_batch_template.csv",
             mime="text/csv",
-            use_column_width=True,
         )
 
     uploaded_file = st.file_uploader(
@@ -1717,7 +1716,7 @@ def batch_prediction_page() -> None:
 
         st.dataframe(
             sample_df,
-            use_column_width=True,
+            use_container_width=True,
             hide_index=True,
         )
 
@@ -1774,7 +1773,7 @@ def batch_prediction_page() -> None:
     with preview_tab:
         st.dataframe(
             uploaded_df.head(25),
-            use_column_width=True,
+            use_container_width=True,
             hide_index=True,
         )
 
@@ -1799,7 +1798,7 @@ def batch_prediction_page() -> None:
 
         st.dataframe(
             column_status_df,
-            use_column_width=True,
+            use_container_width=True,
             hide_index=True,
         )
 
@@ -1822,7 +1821,7 @@ def batch_prediction_page() -> None:
 
     if st.button(
         "Toplu Tahmini Başlat",
-        use_column_width=True,
+        use_container_width=True,
     ):
         normalized_df = normalize_batch_dataframe(
             uploaded_df
@@ -1988,7 +1987,7 @@ def batch_prediction_page() -> None:
 
             st.dataframe(
                 result_df[preferred_columns],
-                use_column_width=True,
+                use_container_width=True,
                 hide_index=True,
             )
 
@@ -2007,7 +2006,7 @@ def batch_prediction_page() -> None:
                     high_risk_df[
                         preferred_columns
                     ],
-                    use_column_width=True,
+                    use_container_width=True,
                     hide_index=True,
                 )
 
@@ -2044,7 +2043,6 @@ def batch_prediction_page() -> None:
             ),
             file_name="churn_prediction_results.csv",
             mime="text/csv",
-            use_column_width=True,
         )
 
     render_footer()
@@ -2164,7 +2162,7 @@ def model_performance_page() -> None:
 
         st.dataframe(
             display_df,
-            use_column_width=True,
+            use_container_width=True,
             hide_index=True,
         )
 
@@ -2358,7 +2356,7 @@ def project_information_page() -> None:
 
         st.dataframe(
             pipeline_df,
-            use_column_width=True,
+            use_container_width=True,
             hide_index=True,
         )
 
@@ -2398,7 +2396,7 @@ def project_information_page() -> None:
 
         st.dataframe(
             feature_df,
-            use_column_width=True,
+            use_container_width=True,
             hide_index=True,
         )
 
@@ -2487,7 +2485,7 @@ def assignments_page() -> None:
 
     st.dataframe(
         assignments_df,
-        use_column_width=True,
+        use_container_width=True,
         hide_index=True,
     )
 
