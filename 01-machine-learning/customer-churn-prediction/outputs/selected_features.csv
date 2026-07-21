@@ -1,0 +1,52 @@
+feature,selected
+numeric__Tenure Months,True
+numeric__Monthly Charges,True
+numeric__Total Charges,True
+numeric__Average Monthly Spend,True
+numeric__Is Long Term Customer,True
+numeric__Has Support Services,True
+numeric__High Monthly Charge,True
+categorical__Gender_Female,True
+categorical__Senior Citizen_No,True
+categorical__Partner_No,True
+categorical__Dependents_Yes,True
+categorical__Phone Service_Yes,True
+categorical__Multiple Lines_No,True
+categorical__Internet Service_Fiber optic,True
+categorical__Online Security_No,True
+categorical__Online Backup_No,True
+categorical__Online Backup_Yes,True
+categorical__Device Protection_No,True
+categorical__Tech Support_No,True
+categorical__Streaming TV_Yes,True
+categorical__Contract_Month-to-month,True
+categorical__Contract_Two year,True
+categorical__Paperless Billing_No,True
+categorical__Payment Method_Bank transfer (automatic),True
+categorical__Payment Method_Credit card (automatic),True
+categorical__Payment Method_Electronic check,True
+numeric__CLTV,False
+categorical__Gender_Male,False
+categorical__Senior Citizen_Yes,False
+categorical__Partner_Yes,False
+categorical__Dependents_No,False
+categorical__Phone Service_No,False
+categorical__Multiple Lines_No phone service,False
+categorical__Multiple Lines_Yes,False
+categorical__Internet Service_DSL,False
+categorical__Internet Service_No,False
+categorical__Online Security_No internet service,False
+categorical__Online Security_Yes,False
+categorical__Online Backup_No internet service,False
+categorical__Device Protection_No internet service,False
+categorical__Device Protection_Yes,False
+categorical__Tech Support_No internet service,False
+categorical__Tech Support_Yes,False
+categorical__Streaming TV_No,False
+categorical__Streaming TV_No internet service,False
+categorical__Streaming Movies_No,False
+categorical__Streaming Movies_No internet service,False
+categorical__Streaming Movies_Yes,False
+categorical__Contract_One year,False
+categorical__Paperless Billing_Yes,False
+categorical__Payment Method_Mailed check,False

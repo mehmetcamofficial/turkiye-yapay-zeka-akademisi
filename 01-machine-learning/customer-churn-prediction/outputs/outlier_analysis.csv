@@ -1,0 +1,5 @@
+column,count,mean,std,min,q1,median,q3,max,iqr,lower_bound,upper_bound,outlier_count,outlier_ratio,treatment
+Tenure Months,7043,32.37114865824223,24.55948102309446,0.0,9.0,29.0,55.0,72.0,46.0,-60.0,124.0,0,0.0,retained — valid customer behaviour; no automatic deletion; median imputation + scaling in pipeline
+Monthly Charges,7043,64.76169246059918,30.090047097678493,18.25,35.5,70.35,89.85,118.75,54.349999999999994,-46.02499999999999,171.375,0,0.0,retained — valid customer behaviour; no automatic deletion; median imputation + scaling in pipeline
+Total Charges,7032,2283.3004408418656,2266.771361883145,18.8,401.45,1397.475,3794.7375,8684.8,3393.2875000000004,-4688.481250000001,8884.66875,0,0.0,retained — valid customer behaviour; no automatic deletion; median imputation + scaling in pipeline
+Average Monthly Spend,7043,64.76290591667772,30.189795909601063,13.775,35.93515625,70.3375,90.17415797317437,121.4,54.239001723174376,-45.42334633476157,171.53266055793594,0,0.0,retained — valid customer behaviour; no automatic deletion; median imputation + scaling in pipeline

@@ -1,0 +1,182 @@
+========================================================================
+CUSTOMER CHURN — EXPLORATORY DATA ANALYSIS
+========================================================================
+
+1. FIRST FIVE ROWS (raw, after numeric conversion)
+------------------------------------------------------------------------
+   CustomerID  Count        Country       State         City  Zip Code                Lat Long   Latitude   Longitude  Gender Senior Citizen Partner Dependents  Tenure Months Phone Service Multiple Lines Internet Service Online Security Online Backup Device Protection Tech Support Streaming TV Streaming Movies        Contract Paperless Billing             Payment Method  Monthly Charges  Total Charges Churn Label  Churn Value  Churn Score  CLTV                   Churn Reason
+0  3668-QPYBK      1  United States  California  Los Angeles     90003  33.964131, -118.272783  33.964131 -118.272783    Male             No      No         No              2           Yes             No              DSL             Yes           Yes                No           No           No               No  Month-to-month               Yes               Mailed check            53.85         108.15         Yes            1           86  3239   Competitor made better offer
+1  9237-HQITU      1  United States  California  Los Angeles     90005   34.059281, -118.30742  34.059281 -118.307420  Female             No      No        Yes              2           Yes             No      Fiber optic              No            No                No           No           No               No  Month-to-month               Yes           Electronic check            70.70         151.65         Yes            1           67  2701                          Moved
+2  9305-CDSKC      1  United States  California  Los Angeles     90006  34.048013, -118.293953  34.048013 -118.293953  Female             No      No        Yes              8           Yes            Yes      Fiber optic              No            No               Yes           No          Yes              Yes  Month-to-month               Yes           Electronic check            99.65         820.50         Yes            1           86  5372                          Moved
+3  7892-POOKP      1  United States  California  Los Angeles     90010  34.062125, -118.315709  34.062125 -118.315709  Female             No     Yes        Yes             28           Yes            Yes      Fiber optic              No            No               Yes          Yes          Yes              Yes  Month-to-month               Yes           Electronic check           104.80        3046.05         Yes            1           84  5003                          Moved
+4  0280-XJGEX      1  United States  California  Los Angeles     90015  34.039224, -118.266293  34.039224 -118.266293    Male             No      No        Yes             49           Yes            Yes      Fiber optic              No           Yes               Yes           No          Yes              Yes  Month-to-month               Yes  Bank transfer (automatic)           103.70        5036.30         Yes            1           89  5340  Competitor had better devices
+
+2. DATASET SHAPE
+------------------------------------------------------------------------
+Raw shape     : 7043 rows x 33 columns
+Cleaned shape : 7043 rows x 25 columns
+
+3. COLUMN NAMES (raw)
+------------------------------------------------------------------------
+  - CustomerID
+  - Count
+  - Country
+  - State
+  - City
+  - Zip Code
+  - Lat Long
+  - Latitude
+  - Longitude
+  - Gender
+  - Senior Citizen
+  - Partner
+  - Dependents
+  - Tenure Months
+  - Phone Service
+  - Multiple Lines
+  - Internet Service
+  - Online Security
+  - Online Backup
+  - Device Protection
+  - Tech Support
+  - Streaming TV
+  - Streaming Movies
+  - Contract
+  - Paperless Billing
+  - Payment Method
+  - Monthly Charges
+  - Total Charges
+  - Churn Label
+  - Churn Value
+  - Churn Score
+  - CLTV
+  - Churn Reason
+
+4. DATA TYPES (raw, after numeric conversion)
+------------------------------------------------------------------------
+CustomerID            object
+Count                  int64
+Country               object
+State                 object
+City                  object
+Zip Code               int64
+Lat Long              object
+Latitude             float64
+Longitude            float64
+Gender                object
+Senior Citizen        object
+Partner               object
+Dependents            object
+Tenure Months          int64
+Phone Service         object
+Multiple Lines        object
+Internet Service      object
+Online Security       object
+Online Backup         object
+Device Protection     object
+Tech Support          object
+Streaming TV          object
+Streaming Movies      object
+Contract              object
+Paperless Billing     object
+Payment Method        object
+Monthly Charges      float64
+Total Charges        float64
+Churn Label           object
+Churn Value            int64
+Churn Score            int64
+CLTV                   int64
+Churn Reason          object
+
+5. DESCRIPTIVE STATISTICS (numeric columns)
+------------------------------------------------------------------------
+        CustomerID   Count        Country       State         City      Zip Code                Lat Long     Latitude    Longitude Gender Senior Citizen Partner Dependents  Tenure Months Phone Service Multiple Lines Internet Service Online Security Online Backup Device Protection Tech Support Streaming TV Streaming Movies        Contract Paperless Billing    Payment Method  Monthly Charges  Total Charges Churn Label  Churn Value  Churn Score         CLTV                Churn Reason
+count         7043  7043.0           7043        7043         7043   7043.000000                    7043  7043.000000  7043.000000   7043           7043    7043       7043    7043.000000          7043           7043             7043            7043          7043              7043         7043         7043             7043            7043              7043              7043      7043.000000    7032.000000        7043  7043.000000  7043.000000  7043.000000                        1869
+unique        7043     NaN              1           1         1129           NaN                    1652          NaN          NaN      2              2       2          2            NaN             2              3                3               3             3                 3            3            3                3               3                 2                 4              NaN            NaN           2          NaN          NaN          NaN                          20
+top     3668-QPYBK     NaN  United States  California  Los Angeles           NaN  33.964131, -118.272783          NaN          NaN   Male             No      No         No            NaN           Yes             No      Fiber optic              No            No                No           No           No               No  Month-to-month               Yes  Electronic check              NaN            NaN          No          NaN          NaN          NaN  Attitude of support person
+freq             1     NaN           7043        7043          305           NaN                       5          NaN          NaN   3555           5901    3641       5416            NaN          6361           3390             3096            3498          3088              3095         3473         2810             2785            3875              4171              2365              NaN            NaN        5174          NaN          NaN          NaN                         192
+mean           NaN     1.0            NaN         NaN          NaN  93521.964646                     NaN    36.282441  -119.798880    NaN            NaN     NaN        NaN      32.371149           NaN            NaN              NaN             NaN           NaN               NaN          NaN          NaN              NaN             NaN               NaN               NaN        64.761692    2283.300441         NaN     0.265370    58.699418  4400.295755                         NaN
+std            NaN     0.0            NaN         NaN          NaN   1865.794555                     NaN     2.455723     2.157889    NaN            NaN     NaN        NaN      24.559481           NaN            NaN              NaN             NaN           NaN               NaN          NaN          NaN              NaN             NaN               NaN               NaN        30.090047    2266.771362         NaN     0.441561    21.525131  1183.057152                         NaN
+min            NaN     1.0            NaN         NaN          NaN  90001.000000                     NaN    32.555828  -124.301372    NaN            NaN     NaN        NaN       0.000000           NaN            NaN              NaN             NaN           NaN               NaN          NaN          NaN              NaN             NaN               NaN               NaN        18.250000      18.800000         NaN     0.000000     5.000000  2003.000000                         NaN
+25%            NaN     1.0            NaN         NaN          NaN  92102.000000                     NaN    34.030915  -121.815412    NaN            NaN     NaN        NaN       9.000000           NaN            NaN              NaN             NaN           NaN               NaN          NaN          NaN              NaN             NaN               NaN               NaN        35.500000     401.450000         NaN     0.000000    40.000000  3469.000000                         NaN
+50%            NaN     1.0            NaN         NaN          NaN  93552.000000                     NaN    36.391777  -119.730885    NaN            NaN     NaN        NaN      29.000000           NaN            NaN              NaN             NaN           NaN               NaN          NaN          NaN              NaN             NaN               NaN               NaN        70.350000    1397.475000         NaN     0.000000    61.000000  4527.000000                         NaN
+75%            NaN     1.0            NaN         NaN          NaN  95351.000000                     NaN    38.224869  -118.043237    NaN            NaN     NaN        NaN      55.000000           NaN            NaN              NaN             NaN           NaN               NaN          NaN          NaN              NaN             NaN               NaN               NaN        89.850000    3794.737500         NaN     1.000000    75.000000  5380.500000                         NaN
+max            NaN     1.0            NaN         NaN          NaN  96161.000000                     NaN    41.962127  -114.192901    NaN            NaN     NaN        NaN      72.000000           NaN            NaN              NaN             NaN           NaN               NaN          NaN          NaN              NaN             NaN               NaN               NaN       118.750000    8684.800000         NaN     1.000000   100.000000  6500.000000                         NaN
+
+6. MISSING-VALUE COUNTS (raw / after numeric conversion)
+------------------------------------------------------------------------
+Churn Reason         5174
+Total Charges          11
+Online Security         0
+CLTV                    0
+Churn Score             0
+Churn Value             0
+Churn Label             0
+Monthly Charges         0
+Payment Method          0
+Paperless Billing       0
+Contract                0
+Streaming Movies        0
+Streaming TV            0
+Tech Support            0
+Device Protection       0
+Online Backup           0
+CustomerID              0
+Count                   0
+Multiple Lines          0
+Phone Service           0
+Tenure Months           0
+Dependents              0
+Partner                 0
+Senior Citizen          0
+Gender                  0
+Longitude               0
+Latitude                0
+Lat Long                0
+Zip Code                0
+City                    0
+State                   0
+Country                 0
+Internet Service        0
+
+   Missing values after cleaning / feature engineering (before pipeline imputation):
+Total Charges            11
+Gender                    0
+Streaming Movies          0
+Has Support Services      0
+Is Long Term Customer     0
+Average Monthly Spend     0
+CLTV                      0
+Churn Value               0
+Monthly Charges           0
+Payment Method            0
+Paperless Billing         0
+Contract                  0
+Streaming TV              0
+Senior Citizen            0
+Tech Support              0
+Device Protection         0
+Online Backup             0
+Online Security           0
+Internet Service          0
+Multiple Lines            0
+Phone Service             0
+Tenure Months             0
+Dependents                0
+Partner                   0
+High Monthly Charge       0
+
+   Imputation strategy (applied inside sklearn pipeline, fit on training data only):
+     - Numeric columns     : median
+     - Categorical columns : most frequent
+
+7. TARGET DISTRIBUTION (Churn Value)
+------------------------------------------------------------------------
+  0 (No Churn): 5174 (73.46%)
+  1 (Churn): 1869 (26.54%)
+
+Note: Class imbalance is present; class_weight='balanced' is used where supported.
+
+========================================================================
+END OF DATA PROFILE
+========================================================================

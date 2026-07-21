@@ -1,0 +1,12 @@
+{
+  "model_name": "Logistic Regression",
+  "best_score_roc_auc": 0.8560861506266836,
+  "best_params": {
+    "model__C": 2.0,
+    "model__class_weight": null,
+    "model__solver": "lbfgs"
+  },
+  "cv_folds": 5,
+  "scoring": "roc_auc",
+  "search_method": "GridSearchCV"
+}
