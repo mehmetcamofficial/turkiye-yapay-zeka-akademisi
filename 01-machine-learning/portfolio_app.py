@@ -26,11 +26,12 @@ def render_sidebar() -> str:
     counts = portfolio_counts()
     science_counts = data_science_counts()
     if "requested_page" in st.session_state:
-        st.session_state["portfolio_navigation"] = st.session_state.pop("requested_page")
-    selected = st.session_state.get("portfolio_navigation", "Platform Overview")
-    selected_group = next((group for group, pages in NAVIGATION_GROUPS.items() if selected in pages), "OVERVIEW")
-    st.session_state["navigation_section"] = selected_group
-    st.session_state[f"navigation_page_{selected_group}"] = selected
+        requested=st.session_state.pop("requested_page")
+        requested_group=next((group for group,pages in NAVIGATION_GROUPS.items() if requested in pages),"OVERVIEW")
+        st.session_state["navigation_section"]=requested_group
+        st.session_state[f"navigation_page_{requested_group}"]=requested
+    if st.session_state.get("navigation_section") not in NAVIGATION_GROUPS:
+        st.session_state["navigation_section"]="OVERVIEW"
     with st.sidebar:
         st.markdown('<div class="sidebar-brand"><strong>AI & Data Intelligence Platform</strong><span>Türkiye Yapay Zeka Akademisi · Applied Analytics & Machine Learning</span></div>', unsafe_allow_html=True)
         section = st.radio("Çalışma alanı", list(NAVIGATION_GROUPS), key="navigation_section")
@@ -71,8 +72,8 @@ def main() -> None:
         "Deployment Hazırlığı": "deployment",
         "Artifact Sağlığı": "artifact_health",
         "Akademi Teslimleri": "assignments",
-        "Dokümantasyon": "documentation",
-        "Hakkında": "about",
+        "Repository Guide": "documentation",
+        "About Mehmet": "about",
     }
     try:
         page_module = importlib.import_module(f"portfolio.pages.{pages[selected]}")

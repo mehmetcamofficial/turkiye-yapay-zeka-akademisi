@@ -8,3 +8,5 @@
 - Category codes are ordinal conveniences, not semantic embeddings.
 - No neural semantic model or CatBoost candidate was run due missing optional runtimes and CPU/storage discipline.
 - Competition-snapshot metrics are not production-search evidence.
+- V2.1 candidate recall outside the supplied candidate set cannot be computed because no independent catalogue-wide relevance universe is available; Recall@K is conditional on supplied candidates.
+- The persisted V1 same-group row may overlap V1's historical training snapshot and is reported only as a reference, not an independent test.

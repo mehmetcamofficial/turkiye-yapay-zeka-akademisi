@@ -8,6 +8,10 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
+def render_safe_table(frame,**_kwargs):
+    """Render escaped semantic HTML without Streamlit's Arrow layer."""
+    st.markdown(frame.to_html(index=False,escape=True),unsafe_allow_html=True)
+
 BASE_DIR = Path(__file__).resolve().parent
 MODEL_PATH = BASE_DIR / "models" / "nlp_pipeline.pkl"
 OUTPUTS = BASE_DIR / "outputs"
@@ -70,7 +74,7 @@ elif page == "Toplu CSV":
             prepared = frame["text"].fillna("").map(clean_text)
             result = frame.copy(); result["label"] = model.predict(prepared)
             result["sentiment"] = result["label"].map({0: "negative", 1: "positive"}); result["confidence"] = confidence(model, prepared)
-            st.dataframe(result, use_container_width=True, hide_index=True)
+            render_safe_table(result)
             st.download_button("Sonuçları indir", result.to_csv(index=False).encode(), "sentiment_predictions.csv", "text/csv")
 
 else:
@@ -79,6 +83,6 @@ else:
                             ("top_terms.csv", "En güçlü terimler"), ("error_analysis.csv", "Hata analizi")]:
         st.markdown(f"#### {title}"); frame = safe_csv(filename)
         if frame.empty: st.info(f"{filename} bulunamadı veya boş.")
-        else: st.dataframe(frame.head(100).round(4), use_container_width=True, hide_index=True)
+        else: render_safe_table(frame.head(100).round(4))
     image = OUTPUTS / "confusion_matrix.png"
     if image.exists(): st.image(str(image), use_column_width=True)

@@ -17,6 +17,10 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
+def render_safe_table(frame,**_kwargs):
+    """Render escaped semantic HTML without Streamlit's Arrow layer."""
+    st.markdown(frame.to_html(index=False,escape=True),unsafe_allow_html=True)
+
 
 # =============================================================================
 # DOSYA YOLLARI
@@ -1261,7 +1265,7 @@ def overview_page() -> None:
             }
         )
 
-        st.dataframe(
+        render_safe_table(
             project_flow_df,
             use_container_width=True,
             hide_index=True,
@@ -1720,7 +1724,7 @@ def single_prediction_page() -> None:
                 "Yüksek Aylık Ücret",
             ]
 
-            st.dataframe(
+            render_safe_table(
                 engineered_display_df.round(2),
                 use_container_width=True,
                 hide_index=True,
@@ -1729,7 +1733,7 @@ def single_prediction_page() -> None:
         with st.expander(
             "Model girdisinin tamamını göster"
         ):
-            st.dataframe(
+            render_safe_table(
                 customer_df,
                 use_container_width=True,
                 hide_index=True,
@@ -1808,7 +1812,7 @@ def batch_prediction_page() -> None:
             unsafe_allow_html=True,
         )
 
-        st.dataframe(
+        render_safe_table(
             sample_df,
             use_container_width=True,
             hide_index=True,
@@ -1865,7 +1869,7 @@ def batch_prediction_page() -> None:
     )
 
     with preview_tab:
-        st.dataframe(
+        render_safe_table(
             uploaded_df.head(25),
             use_container_width=True,
             hide_index=True,
@@ -1890,7 +1894,7 @@ def batch_prediction_page() -> None:
             }
         )
 
-        st.dataframe(
+        render_safe_table(
             column_status_df,
             use_container_width=True,
             hide_index=True,
@@ -2079,7 +2083,7 @@ def batch_prediction_page() -> None:
                 if column in result_df.columns
             ]
 
-            st.dataframe(
+            render_safe_table(
                 result_df[preferred_columns],
                 use_container_width=True,
                 hide_index=True,
@@ -2096,7 +2100,7 @@ def batch_prediction_page() -> None:
                     "Yüksek riskli müşteri bulunmadı."
                 )
             else:
-                st.dataframe(
+                render_safe_table(
                     high_risk_df[
                         preferred_columns
                     ],
@@ -2280,7 +2284,7 @@ def model_performance_page() -> None:
             "train_model.py çalıştırıldığında üretilecektir."
         )
     else:
-        st.dataframe(
+        render_safe_table(
             _round_numeric_dataframe(cv_df),
             use_container_width=True,
             hide_index=True,
@@ -2303,7 +2307,7 @@ def model_performance_page() -> None:
     else:
         display_df = _round_numeric_dataframe(validation_df)
 
-        st.dataframe(
+        render_safe_table(
             display_df,
             use_container_width=True,
             hide_index=True,
@@ -2377,7 +2381,7 @@ def model_performance_page() -> None:
             else:
                 shown_df = selected_df
 
-            st.dataframe(
+            render_safe_table(
                 shown_df,
                 use_container_width=True,
                 hide_index=True,
@@ -2400,7 +2404,7 @@ def model_performance_page() -> None:
                 "Özellik önem dosyası bulunamadı."
             )
         else:
-            st.dataframe(
+            render_safe_table(
                 _round_numeric_dataframe(
                     importance_df.head(20)
                 ),
@@ -2602,7 +2606,7 @@ def project_information_page() -> None:
             }
         )
 
-        st.dataframe(
+        render_safe_table(
             pipeline_df,
             use_container_width=True,
             hide_index=True,
@@ -2642,7 +2646,7 @@ def project_information_page() -> None:
             }
         )
 
-        st.dataframe(
+        render_safe_table(
             feature_df,
             use_container_width=True,
             hide_index=True,
@@ -2731,7 +2735,7 @@ def assignments_page() -> None:
         }
     )
 
-    st.dataframe(
+    render_safe_table(
         assignments_df,
         use_container_width=True,
         hide_index=True,

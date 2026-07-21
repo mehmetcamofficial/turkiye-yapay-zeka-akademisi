@@ -25,7 +25,7 @@ NAVIGATION_GROUPS = {
     "DATA ANALYTICS": ["Veri Bilimi Çalışma Alanı", "Trendyol Veri Profili", "Trendyol Ara Proje", "Trendyol Final Projesi"],
     "MACHINE LEARNING": ["Customer Churn", "Konut Regresyonu", "Sentiment Intelligence", "Trendyol Arama Alaka Zekâsı", "Clustering", "Model Performansı"],
     "MODEL OPERATIONS": ["Model Registry", "Deployment Hazırlığı", "Artifact Sağlığı"],
-    "PORTFOLIO": ["Akademi Teslimleri", "Dokümantasyon", "Hakkında"],
+    "PORTFOLIO": ["Akademi Teslimleri", "Repository Guide", "About Mehmet"],
 }
 ML_NAVIGATION = [
     "Platform Overview",
@@ -41,6 +41,6 @@ DATA_SCIENCE_NAVIGATION = [
     "Veri Bilimi Çalışma Alanı", "Trendyol Veri Profili", "Trendyol Ara Proje", "Trendyol Final Projesi",
 ]
 PORTFOLIO_NAVIGATION = [
-    "Akademi Teslimleri", "Dokümantasyon", "Hakkında",
+    "Akademi Teslimleri", "Repository Guide", "About Mehmet",
 ]
 NAVIGATION = [page for pages in NAVIGATION_GROUPS.values() for page in pages]

@@ -7,11 +7,11 @@ import streamlit as st
 
 from portfolio.loaders import load_model_safe
 from portfolio.project_registry import get_project_registry, portfolio_counts
-from portfolio.ui_components import hero_panel, information_panel, metric_table
+from portfolio.ui_components import decision_banner,evidence_strip,page_header,information_panel,metric_table,section_heading,status_badge
 
 
 def render() -> None:
-    hero_panel("Model Registry", "Yerel model artifact'larının doğrulanmış yetenekleri, metrikleri ve çalışma zamanı durumu.", "MODEL OPERATIONS")
+    page_header("Model Registry", "Hangi modelin canlı, hangisinin deneysel ve neden terfi edilmediğini artifact düzeyinde gösteren yönetişim kaydı.", "MODEL GOVERNANCE")
     rows = []
     technical = []
     for project in get_project_registry():
@@ -19,8 +19,9 @@ def render() -> None:
         if path is None:
             continue
         result = load_model_safe(path) if path.is_file() else None
+        experimental=project["status"]=="Deneysel"; decision="Terfi edilmedi" if experimental else ("Doğrulandı" if result and result.ok else "İnceleme gerekli")
         rows.append({
-            "Project": project["name"], "Task": project["category"],
+            "Project": project["name"], "Role": "Challenger" if experimental else "Champion / project model", "Task": project["category"],
             "Final estimator": project["final_model"], "Pipeline type": type(result.model).__name__ if result and result.ok else "—", "Artifact": path.name,
             "Relative path": f"01-machine-learning/{path.parent.parent.name}/models/{path.name}",
             "Path status": "Present" if path.is_file() else "Missing",
@@ -35,15 +36,16 @@ def render() -> None:
             "Runtime": "Compatible" if result and result.ok else "Unavailable",
             "Live module": "Ready" if project["app_available"] and result and result.ok else "Unavailable",
             "Data mode": project.get("data_mode", "full/local"),
+            "Governance decision":decision,
         })
         technical.append({"Project": project["name"], "Relative path": f"{path.parent.parent.name}/models/{path.name}"})
     live = sum(row["Runtime"] == "Compatible" for row in rows)
     counts = portfolio_counts()
-    cols = st.columns(3)
-    cols[0].metric("Persist edilmiş artifact", len(rows))
-    cols[1].metric("Runtime hazır", live)
-    cols[2].metric("Değerlendirilen aday", counts["models_compared"])
+    experimental=sum(row["Role"]=="Challenger" for row in rows); production=len(rows)-experimental
+    evidence_strip([("Production-style",str(production),"Champion/project artifact"),("Experimental",str(experimental),"Challenger artifact"),("Healthy reload",str(live),"Fresh runtime compatible"),("Live inference",str(sum(row["Live module"]=="Ready" for row in rows)),"UI contract"),("Evaluated candidates",str(counts["models_compared"]),"Saved experiment rows")])
     information_panel("Registry ayrımı", f"Persist edilmiş doğrulanmış artifact sayısı {live}; {counts['models_compared']} değeri kayıtlı değerlendirme deneylerini ifade eder. Modeller yalnızca Registry veya tahmin sayfası açıldığında yüklenir.")
+    decision_banner("Challengers neden terfi edilmedi?","V2 Random Forest historical experimental challenger’dır. V2.1 HistGradientBoosting Best Research Candidate olsa da Different historical split nedeniyle direct superiority established değildir ve seçilmiş nesnesi retraining olmadan persist edilememiştir. XGBoost ranker ortak holdout baseline’ını tekrarlanabilir biçimde geçmedi. Live path Verified Champion V1’de kaldı.")
+    section_heading("Model governance inventory","Validation, runtime ve karar aynı görünümde.")
     metric_table(pd.DataFrame(rows))
     with st.expander("Technical artifact locations", expanded=False):
         metric_table(pd.DataFrame(technical))
