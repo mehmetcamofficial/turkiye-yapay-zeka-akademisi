@@ -9,6 +9,7 @@ streamlit run 01-machine-learning/customer-churn-prediction/app.py
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import joblib
@@ -52,12 +53,13 @@ ROC_CURVE_PATH = BASE_DIR / "outputs" / "roc_curve.png"
 # UYGULAMA AYARLARI
 # =============================================================================
 
-st.set_page_config(
-    page_title="Churn Analytics",
-    page_icon="📊",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+if os.environ.get("ML_PORTFOLIO_EMBEDDED") != "1":
+    st.set_page_config(
+        page_title="Churn Analytics",
+        page_icon="📊",
+        layout="wide",
+        initial_sidebar_state="expanded",
+    )
 
 
 # =============================================================================
@@ -430,10 +432,11 @@ CUSTOM_CSS = """
 </style>
 """
 
-st.markdown(
-    CUSTOM_CSS,
-    unsafe_allow_html=True,
-)
+if os.environ.get("ML_PORTFOLIO_EMBEDDED") != "1":
+    st.markdown(
+        CUSTOM_CSS,
+        unsafe_allow_html=True,
+    )
 
 
 # =============================================================================

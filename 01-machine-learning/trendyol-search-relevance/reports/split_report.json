@@ -1,0 +1,38 @@
+{
+  "split_type": "term_group",
+  "train_rows": 80715,
+  "validation_rows": 19285,
+  "train_positive_rate": 0.25063495013318465,
+  "validation_positive_rate": 0.2500907441016334,
+  "train_unique_terms": 11856,
+  "validation_unique_terms": 2965,
+  "term_overlap": 0,
+  "item_overlap": 4983,
+  "random_seed": 42,
+  "comparison": {
+    "random_stratified": {
+      "split_type": "random_stratified",
+      "train_rows": 80000,
+      "validation_rows": 20000,
+      "train_positive_rate": 0.250525,
+      "validation_positive_rate": 0.25055,
+      "train_unique_terms": 14070,
+      "validation_unique_terms": 8401,
+      "term_overlap": 7650,
+      "item_overlap": 5242,
+      "random_seed": 42
+    },
+    "item_group": {
+      "split_type": "item_group",
+      "train_rows": 79991,
+      "validation_rows": 20009,
+      "train_positive_rate": 0.25066569989123777,
+      "validation_positive_rate": 0.24998750562246988,
+      "train_unique_terms": 14112,
+      "validation_unique_terms": 8386,
+      "term_overlap": 7677,
+      "item_overlap": 0,
+      "random_seed": 42
+    }
+  }
+}

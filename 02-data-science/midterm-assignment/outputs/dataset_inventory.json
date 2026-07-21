@@ -1,0 +1,128 @@
+[
+  {
+    "relative_path": "items.csv",
+    "extension": ".csv",
+    "size_bytes": 402056631,
+    "sha256": "e420c87572fe1c4169d2021cb43a35813fe59f4d2cfe55e90eaf61a6fd477f21",
+    "readable": true,
+    "row_count": 962873,
+    "column_count": 7,
+    "columns": [
+      "item_id",
+      "title",
+      "category",
+      "brand",
+      "gender",
+      "age_group",
+      "attributes"
+    ],
+    "encoding": "utf-8-sig"
+  },
+  {
+    "relative_path": "parsed_items_for_sky.parquet",
+    "extension": ".parquet",
+    "size_bytes": 148454880,
+    "sha256": "d13d3e8cd889e44e7ad757beb94639fd66f7126f7827b7b541aa6add78c1ace9",
+    "readable": true,
+    "row_count": 962873,
+    "column_count": 12,
+    "columns": [
+      "item_id",
+      "title",
+      "category",
+      "brand",
+      "gender",
+      "age_group",
+      "attributes",
+      "parsed_color",
+      "parsed_material",
+      "parsed_fit_size",
+      "parsed_quantity",
+      "parsed_author"
+    ],
+    "encoding": null
+  },
+  {
+    "relative_path": "sample_submission.csv",
+    "extension": ".csv",
+    "size_bytes": 70553273,
+    "sha256": "6e75f1dcf4dab4b127a1ea988041a36f6cb1ec0b190cd9461c4cb144fb30adeb",
+    "readable": true,
+    "row_count": 3359679,
+    "column_count": 2,
+    "columns": [
+      "id",
+      "prediction"
+    ],
+    "encoding": "utf-8-sig"
+  },
+  {
+    "relative_path": "submission_pairs.csv",
+    "extension": ".csv",
+    "size_bytes": 171343648,
+    "sha256": "2d89e1622156776d37185c7f8d1fd7c34eaf5f475f07fb6adf89f64314b60b56",
+    "readable": true,
+    "row_count": 3359679,
+    "column_count": 3,
+    "columns": [
+      "id",
+      "term_id",
+      "item_id"
+    ],
+    "encoding": "utf-8-sig"
+  },
+  {
+    "relative_path": "terms.csv",
+    "extension": ".csv",
+    "size_bytes": 1625432,
+    "sha256": "9f94b15f225049bca882c50d8ee86f726d889456826d57a791bd3c4f33006812",
+    "readable": true,
+    "row_count": 50153,
+    "column_count": 2,
+    "columns": [
+      "term_id",
+      "query"
+    ],
+    "encoding": "utf-8-sig"
+  },
+  {
+    "relative_path": "train_with_negatives.parquet",
+    "extension": ".parquet",
+    "size_bytes": 169883350,
+    "sha256": "045da9bc978d58931cf1a51ed3864cd5e039b73e06098cb119d36a44bb0e65ea",
+    "readable": true,
+    "row_count": 1000000,
+    "column_count": 12,
+    "columns": [
+      "id",
+      "term_id",
+      "item_id",
+      "label",
+      "query",
+      "title",
+      "category",
+      "brand",
+      "gender",
+      "age_group",
+      "attributes",
+      "sample_weight"
+    ],
+    "encoding": null
+  },
+  {
+    "relative_path": "training_pairs.csv",
+    "extension": ".csv",
+    "size_bytes": 12250025,
+    "sha256": "3e015fd88e0900729a9444227a21bcefaa7be661f8319f3f1afec5eb5cdc9463",
+    "readable": true,
+    "row_count": 250000,
+    "column_count": 4,
+    "columns": [
+      "id",
+      "term_id",
+      "item_id",
+      "label"
+    ],
+    "encoding": "utf-8-sig"
+  }
+]

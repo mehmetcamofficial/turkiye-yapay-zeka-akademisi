@@ -1,0 +1,56 @@
+{
+  "project_name": "Trendyol Search Relevance Intelligence",
+  "version": "1.0.0",
+  "training_date": "2026-07-21T21:02:57.980060+00:00",
+  "data_mode": "sample",
+  "training_rows": 80715,
+  "validation_rows": 19285,
+  "validation_strategy": "GroupShuffleSplit by term_id",
+  "feature_set": "combined",
+  "model_type": "LogisticRegression",
+  "hyperparameters": {
+    "C": 1.0,
+    "class_weight": null,
+    "dual": false,
+    "fit_intercept": true,
+    "intercept_scaling": 1,
+    "l1_ratio": null,
+    "max_iter": 500,
+    "multi_class": "deprecated",
+    "n_jobs": null,
+    "penalty": "l2",
+    "random_state": null,
+    "solver": "liblinear",
+    "tol": 0.0001,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "primary_metric": "F1",
+  "metrics": {
+    "accuracy": 0.8380088151413015,
+    "precision": 0.7405834041348061,
+    "recall": 0.5421936554012026,
+    "f1": 0.626047402441944,
+    "support": 19285,
+    "positive_rate": 0.2500907441016334,
+    "pr_auc": 0.716490146204869,
+    "roc_auc": 0.910048226940512
+  },
+  "python_version": "3.12.4",
+  "package_versions": {
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "scikit_learn": "1.5.2",
+    "pandas": "2.2.3"
+  },
+  "source_dataset": "02-data-science/midterm-assignment/data/train_with_negatives.parquet",
+  "source_mtime": 1784664086.8845341,
+  "random_seed": 42,
+  "sample_strategy": "uniform_without_replacement_streamed_indices",
+  "known_limitations": [
+    "Bounded public Datathon sample",
+    "Group split is not perfectly label-stratified",
+    "Classical sparse lexical baseline",
+    "Not production-scale search"
+  ]
+}

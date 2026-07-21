@@ -1,0 +1,8 @@
+table,full_row_count,column_count,profiled_rows,metric_scope
+items.csv,962873,7,20000,sampled_first_20000_rows
+parsed_items_for_sky.parquet,962873,12,20000,sampled_first_20000_rows
+sample_submission.csv,3359679,2,20000,sampled_first_20000_rows
+submission_pairs.csv,3359679,3,20000,sampled_first_20000_rows
+terms.csv,50153,2,20000,sampled_first_20000_rows
+train_with_negatives.parquet,1000000,12,20000,sampled_first_20000_rows
+training_pairs.csv,250000,4,20000,sampled_first_20000_rows
