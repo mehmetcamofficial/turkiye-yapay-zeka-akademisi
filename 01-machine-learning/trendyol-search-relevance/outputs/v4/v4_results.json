@@ -1,0 +1,18 @@
+{
+  "catalogue_rows": 63841,
+  "queries": 1000,
+  "seeds": [
+    42,
+    52,
+    62,
+    72,
+    82
+  ],
+  "candidate_pool_size": 100,
+  "v1_batch_seconds": 184.03133208300096,
+  "ranker_compatibility": "unavailable: persisted 30/31-feature historical contracts do not match V4 live features",
+  "blended_policy": "not selected; degrades to V1 because ranker input is incompatible",
+  "selected_policy": "hybrid_rrf+retrieval_only",
+  "selection_reason": "V1 reranking materially degraded Recall@50, NDCG@10 and MRR; retain fixed-k=20 Hybrid RRF order",
+  "governance": "Best Pipeline Research Candidate; Not Production Promoted"
+}

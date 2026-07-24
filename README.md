@@ -31,6 +31,8 @@ V2.1 Offline Evaluation used 1,000 complete groups across five seeds. HistGradie
 
 V3/V3.1 adds candidate retrieval as a separate experimental layer. Five group-safe seeds evaluate 1,000 complete queries against a deterministic 63,841-product bounded broad catalogue with 100% judged-relevant-item availability. Combined enriched TF-IDF reaches Recall@50 `0.817239`; standalone multilingual E5 Small reaches `0.725147` and is not selected. Validation-selected RRF hybrid reaches Recall@50 `0.831392`, Recall@100 `0.900276`, NDCG@10 `0.618014` and MRR `0.713382`. Its Recall@50 delta CI versus TF-IDF is `[-0.006188, 0.034494]`, so it is a Best Research Candidate but Not Promoted. The live 5,000-product demo uses cached lexical and real local semantic indexes.
 
+V4 adds one bounded end-to-end contract: validated query → retrieval → fixed `RRF k=20` fusion → provenance → optional unchanged V1 scoring → deterministic policy/fallback → response. Selected policy is Hybrid RRF retrieval-only (pool 100, item-id tie-break) at Recall@50 `0.834640`, NDCG@10 `0.619136` and MRR `0.713543`. The verified V1 classifier remains valuable for relevance classification, but applying its probability directly as a reranking policy degraded Recall@50, NDCG@10 and MRR. V4 is an offline research pipeline, not production promoted.
+
 ## Architecture
 
 ```text
@@ -74,4 +76,4 @@ See [Repository Guide](01-machine-learning/REPOSITORY_GUIDE.md) for structure, r
 
 ## Status and limitations
 
-The Streamlit experience is a portfolio application, not evidence of commercial production traffic. Trendyol results use a public competition snapshot and bounded candidates; they do not establish online search impact, fairness, causal business value or catalogue-wide retrieval quality. V2.1 and V3 remain uncommitted experimental work until review.
+The Streamlit experience is a portfolio application, not evidence of commercial production traffic. Trendyol results use a public competition snapshot and bounded candidates; they do not establish online search impact, fairness, causal business value or catalogue-wide retrieval quality.

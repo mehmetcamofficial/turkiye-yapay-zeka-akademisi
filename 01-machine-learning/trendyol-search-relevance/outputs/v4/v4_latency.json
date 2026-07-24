@@ -1,0 +1,71 @@
+{
+  "cold_hybrid_v1_ms": 5337.484499999846,
+  "warm_lexical": {
+    "p50_ms": 332.59539550090267,
+    "p95_ms": 337.26295350024884,
+    "max_ms": 341.877167000348,
+    "runs": 30,
+    "pipeline_status": "completed",
+    "warnings": []
+  },
+  "warm_semantic": {
+    "p50_ms": 462.54004149977845,
+    "p95_ms": 558.2011812504786,
+    "max_ms": 593.7783339995804,
+    "runs": 30,
+    "pipeline_status": "completed",
+    "warnings": []
+  },
+  "warm_hybrid": {
+    "p50_ms": 461.2355210001624,
+    "p95_ms": 517.4171226996805,
+    "max_ms": 524.8082910002267,
+    "runs": 30,
+    "pipeline_status": "completed",
+    "warnings": []
+  },
+  "warm_hybrid_v1": {
+    "p50_ms": 462.42006300144567,
+    "p95_ms": 491.90304999938235,
+    "max_ms": 502.8815410005336,
+    "runs": 30,
+    "pipeline_status": "completed",
+    "warnings": []
+  },
+  "warm_hybrid_worker_policy": {
+    "p50_ms": 477.3279585006094,
+    "p95_ms": 543.110570799945,
+    "max_ms": 604.4215410001925,
+    "runs": 30,
+    "pipeline_status": "degraded",
+    "warnings": [
+      "Experimental ranker feature contract is incompatible; V1 relevance fallback used."
+    ]
+  },
+  "warm_blended_policy": {
+    "p50_ms": 461.39483349998045,
+    "p95_ms": 503.8908815498871,
+    "max_ms": 545.8490420005546,
+    "runs": 30,
+    "pipeline_status": "degraded",
+    "warnings": [
+      "Experimental ranker feature contract is incompatible; V1 relevance fallback used."
+    ]
+  },
+  "peak_rss_mb": 1099.453125,
+  "ending_rss_mb": 1091.203125,
+  "cold_initialization_increase_mb": 978.344,
+  "memory_status": "stable after warm-up",
+  "model_load_count": 1,
+  "index_load_count": 1,
+  "child_process_count": 1,
+  "fallback_count": 60,
+  "latency_governance": {
+    "all_warm_paths_below_one_second": true,
+    "hybrid_v1_250ms_target_met": false,
+    "worker_500ms_target_met": false,
+    "production_sla_claimed": false,
+    "selected_path_suitable_for_bounded_local_demo": true,
+    "cold_initialization_material": true
+  }
+}

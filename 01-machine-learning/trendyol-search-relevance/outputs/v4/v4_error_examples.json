@@ -1,0 +1,82 @@
+[
+  {
+    "seed": 62,
+    "term_id": "TERM_cf3d666a",
+    "query": "xiaomi redmi 13",
+    "hybrid_ndcg10": 0.0,
+    "v1_ndcg10": 1.0,
+    "delta": 1.0,
+    "failure_category": "V1 top-order correction",
+    "caution": "Candidate pool is unchanged; unlabelled products may be relevant."
+  },
+  {
+    "seed": 62,
+    "term_id": "TERM_3fc7a8bf",
+    "query": "prima 3",
+    "hybrid_ndcg10": 0.0,
+    "v1_ndcg10": 0.8503449055347546,
+    "delta": 0.8503449055347546,
+    "failure_category": "V1 top-order correction",
+    "caution": "Candidate pool is unchanged; unlabelled products may be relevant."
+  },
+  {
+    "seed": 62,
+    "term_id": "TERM_44f8d7e3",
+    "query": "oppo",
+    "hybrid_ndcg10": 0.0,
+    "v1_ndcg10": 0.7752805260144073,
+    "delta": 0.7752805260144073,
+    "failure_category": "V1 top-order correction",
+    "caution": "Candidate pool is unchanged; unlabelled products may be relevant."
+  },
+  {
+    "seed": 72,
+    "term_id": "TERM_44f8d7e3",
+    "query": "oppo",
+    "hybrid_ndcg10": 0.0,
+    "v1_ndcg10": 0.7752805260144073,
+    "delta": 0.7752805260144073,
+    "failure_category": "V1 top-order correction",
+    "caution": "Candidate pool is unchanged; unlabelled products may be relevant."
+  },
+  {
+    "seed": 42,
+    "term_id": "TERM_797674b9",
+    "query": "cam supla",
+    "hybrid_ndcg10": 1.0,
+    "v1_ndcg10": 0.0,
+    "delta": -1.0,
+    "failure_category": "V1 misclassification or incomplete judgments",
+    "caution": "Candidate pool is unchanged; unlabelled products may be relevant."
+  },
+  {
+    "seed": 42,
+    "term_id": "TERM_9de4899b",
+    "query": "bikini bölgesi ağda",
+    "hybrid_ndcg10": 1.0,
+    "v1_ndcg10": 0.0,
+    "delta": -1.0,
+    "failure_category": "V1 misclassification or incomplete judgments",
+    "caution": "Candidate pool is unchanged; unlabelled products may be relevant."
+  },
+  {
+    "seed": 52,
+    "term_id": "TERM_eb5ad4a5",
+    "query": "asena atalar",
+    "hybrid_ndcg10": 1.0,
+    "v1_ndcg10": 0.0,
+    "delta": -1.0,
+    "failure_category": "V1 misclassification or incomplete judgments",
+    "caution": "Candidate pool is unchanged; unlabelled products may be relevant."
+  },
+  {
+    "seed": 82,
+    "term_id": "TERM_0207161a",
+    "query": "duş borusu",
+    "hybrid_ndcg10": 1.0,
+    "v1_ndcg10": 0.0,
+    "delta": -1.0,
+    "failure_category": "V1 misclassification or incomplete judgments",
+    "caution": "Candidate pool is unchanged; unlabelled products may be relevant."
+  }
+]

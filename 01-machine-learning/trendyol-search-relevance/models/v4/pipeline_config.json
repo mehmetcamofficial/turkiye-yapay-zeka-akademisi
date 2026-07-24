@@ -1,0 +1,12 @@
+{
+  "pipeline_version": "4.0",
+  "default_retrieval_mode": "hybrid_rrf",
+  "default_ranking_policy": "retrieval_only",
+  "candidate_pool_size": 100,
+  "rrf_k": 20,
+  "v1_artifact_version": "1.0.0",
+  "semantic_model_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+  "ranker_worker": "isolated_but_feature_incompatible",
+  "fallback_support": true,
+  "governance": "Best Pipeline Research Candidate; Not Production Promoted"
+}

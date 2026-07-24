@@ -38,6 +38,20 @@ the incompatible PyTorch and XGBoost OpenMP runtimes out of the same
 interpreter. Registry and Artifact Health use persisted metadata instead of
 eager native artifact reloads.
 
+## V4 end-to-end search pipeline
+
+V4 coordinates verified retrieval, fixed `RRF k=20`, candidate pool `100`,
+deterministic item-id tie-break, candidate provenance, optional unchanged V1
+scoring, deterministic policies, explicit fallbacks and Local Pipeline
+Diagnostics behind versioned `4.0` contracts. Evaluation retains Hybrid
+retrieval-only: Recall@50 `0.834640`, Recall@100 `0.900276`, NDCG@10
+`0.619136`, MRR `0.713543`. The verified V1 classifier remains valuable for
+relevance classification, but applying its probability directly as a
+reranking policy degraded Recall@50, NDCG@10 and MRR, so V1 is not the
+selected final reranker. Historical XGBRanker features are incompatible with
+the V4 live candidate contract, so ranker/blended requests visibly fall back
+rather than fabricate scores. Not Production Promoted.
+
 ## Reproduce
 
 ```bash
