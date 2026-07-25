@@ -22,11 +22,15 @@ def _load_schema() -> dict[str, Any] | None:
     return None
 
 
-def _load_quality() -> dict[str, Any] | None:
+def _load_quality() -> list[dict[str, Any]]:
     path = PROFILE_DIR / "outputs" / "data_quality_report.json"
     if path.is_file():
-        return load_json_safe(str(path))
-    return None
+        data = load_json_safe(str(path))
+        if isinstance(data, list):
+            return data
+        if isinstance(data, dict) and "tables" in data:
+            return data["tables"]
+    return []
 
 
 def _profile_outputs() -> list[str]:
@@ -55,12 +59,13 @@ def render() -> None:
 
     with tabs[0]:
         schema_report = _load_schema()
-        available_cols = len(schema_report.get("columns", [])) if schema_report else 0
+        required_fields = schema_report.get("required_fields", []) if schema_report else []
+        available_cols = len(required_fields)
         kpi_grid([
             ("Status", "Available", "Technical completion verified"),
             ("Local Dataset", "Available" if midterm["dataset_path"] else "Cloud excluded",
              f"{midterm['downloaded_file_count']} files locally"),
-            ("Schema Columns", str(available_cols),
+            ("Schema Fields", str(available_cols),
              "From persisted profile" if available_cols else "Not available"),
             ("Notebook", "Ready" if midterm["notebook_ready"] else "Not Available",
              "Verified locally"),
@@ -85,12 +90,13 @@ def render() -> None:
 
     with tabs[2]:
         schema = _load_schema()
-        if schema and schema.get("columns"):
+        if schema and schema.get("required_fields"):
             section_heading("Schema Report", "Column-level schema analysis from persisted profile")
             render_safe_table(
-                schema["columns"],
-                column_map={"name": "Column", "dtype": "Type",
-                            "missing": "Missing", "unique": "Unique"},
+                schema["required_fields"],
+                column_map={"required_field": "Required Field", "source_file": "Source File",
+                            "actual_field": "Actual Field", "match_type": "Match Type",
+                            "transformation": "Transformation", "confidence": "Confidence"},
                 download_name="schema_report.csv",
             )
         else:
@@ -99,9 +105,9 @@ def render() -> None:
 
     with tabs[3]:
         quality = _load_quality()
-        if quality and quality.get("tables"):
+        if quality:
             section_heading("Data Quality", "Quality metrics from persisted profile")
-            render_safe_table(quality["tables"], download_name="data_quality.csv")
+            render_safe_table(quality, download_name="data_quality.csv")
         else:
             empty_state("Quality Report",
                         "Data quality report generated from persisted trendyol-profile outputs.")
