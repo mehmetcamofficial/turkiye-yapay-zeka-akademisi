@@ -1,5 +1,3 @@
-"""Central paths and navigation configuration."""
-
 from pathlib import Path
 
 ML_ROOT = Path(__file__).resolve().parents[1]
@@ -21,27 +19,35 @@ TRENDYOL_RELEVANCE_MODEL_PATH = TRENDYOL_RELEVANCE_DIR / "models" / "trendyol_re
 PORTFOLIO_VERSION = "1.0.0"
 
 NAVIGATION_GROUPS = {
-    "OVERVIEW": ["Platform Overview"],
-    "DATA ANALYTICS": ["Veri Bilimi Çalışma Alanı", "Trendyol Veri Profili", "Trendyol Ara Proje", "Trendyol Final Projesi"],
-    "MACHINE LEARNING": ["Customer Churn", "Konut Regresyonu", "Sentiment Intelligence", "Trendyol Arama Alaka Zekâsı", "Trendyol Cross-Encoder Reranking", "Clustering", "Model Performansı"],
-    "MODEL OPERATIONS": ["Model Registry", "Deployment Hazırlığı", "Artifact Sağlığı"],
-    "PORTFOLIO": ["Akademi Teslimleri", "Repository Guide", "About Mehmet"],
+    "OVERVIEW / GENEL BAKIŞ": ["Executive Overview"],
+    "SEARCH INTELLIGENCE / ARAMA ZEKÂSI": [
+        "Search Demo / Arama Demosu",
+        "Cross-Encoder Reranking",
+        "Evaluation Lab",
+        "Architecture / Mimari",
+    ],
+    "MACHINE LEARNING": [
+        "Customer Churn",
+        "Housing Regression",
+        "Sentiment Intelligence",
+    ],
+    "DATA & QUALITY / VERİ VE KALİTE": [
+        "Trendyol Data Workspace",
+    ],
+    "MODEL OPERATIONS": [
+        "Model Registry",
+        "Artifact Health",
+        "Deployment Readiness",
+    ],
+    "PORTFOLIO": [
+        "Projects",
+        "Documentation",
+        "About Mehmet",
+    ],
+    "ACADEMIC ARCHIVE / AKADEMİK ARŞİV": [
+        "Assignments",
+        "Notebook Status",
+    ],
 }
-ML_NAVIGATION = [
-    "Platform Overview",
-    "Customer Churn",
-    "Konut Regresyonu",
-    "Sentiment Intelligence",
-    "Trendyol Arama Alaka Zekâsı",
-    "Trendyol Cross-Encoder Reranking",
-    "Clustering",
-    "Deployment Hazırlığı",
-    "Model Performansı",
-]
-DATA_SCIENCE_NAVIGATION = [
-    "Veri Bilimi Çalışma Alanı", "Trendyol Veri Profili", "Trendyol Ara Proje", "Trendyol Final Projesi",
-]
-PORTFOLIO_NAVIGATION = [
-    "Akademi Teslimleri", "Repository Guide", "About Mehmet",
-]
-NAVIGATION = [page for pages in NAVIGATION_GROUPS.values() for page in pages]
+
+ALL_NAV_PAGES = [p for pages in NAVIGATION_GROUPS.values() for p in pages]

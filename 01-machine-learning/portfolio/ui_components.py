@@ -1,25 +1,163 @@
-"""Reusable presentation components shared by portfolio pages."""
-
 from __future__ import annotations
 
-from pathlib import Path
-from typing import Any
 from datetime import date, datetime
 from html import escape
+from pathlib import Path
+from typing import Any
 import json
 import math
 
 import pandas as pd
 import streamlit as st
 
+from portfolio.i18n import t as _t
 
-def normalize_display_value(value: Any) -> str:
-    """Return an escaped, deterministic display string without raising."""
+STATUS_CSS = {
+    "verified": "badge-verified",
+    "available": "badge-available",
+    "experimental": "badge-experimental",
+    "limited": "badge-limited",
+    "archived": "badge-archived",
+    "roadmap": "badge-roadmap",
+    "unavailable": "badge-unavailable",
+    "error": "badge-error",
+}
+
+STATUS_I18N_KEYS = {
+    "verified": "status_verified",
+    "available": "status_available",
+    "experimental": "status_experimental",
+    "limited": "status_limited",
+    "archived": "status_archived",
+    "roadmap": "status_roadmap",
+    "unavailable": "status_unavailable",
+    "error": "status_error",
+}
+
+
+def _map_status(legacy: str) -> str:
+    mapping = {
+        "Tamamlandı": "available",
+        "Hazır": "available",
+        "Sağlıklı": "available",
+        "Doğrulandı": "verified",
+        "Açık": "available",
+        "Deneysel": "experimental",
+        "Terfi edilmedi": "experimental",
+        "Geliştiriliyor": "experimental",
+        "Planlandı": "roadmap",
+        "Veri Bekleniyor": "limited",
+        "Henüz Başlanmadı": "roadmap",
+        "Henüz": "roadmap",
+        "Eksik": "limited",
+        "Şema Uyumsuz": "limited",
+        "Tamamlandı": "available",
+        "Current": "available",
+        "Implemented": "available",
+    }
+    return mapping.get(legacy, "experimental")
+
+
+def normalize_status(legacy: str) -> str:
+    return _map_status(legacy)
+
+
+def status_badge(legacy_status: str, *, lang_override: str | None = None) -> str:
+    normalized = _map_status(legacy_status)
+    css_class = STATUS_CSS.get(normalized, "badge-experimental")
+    i18n_key = STATUS_I18N_KEYS.get(normalized, "status_experimental")
+    if lang_override:
+        from portfolio.i18n import TRANSLATIONS, DEFAULT_LANG
+        label = TRANSLATIONS.get(i18n_key, {}).get(lang_override, TRANSLATIONS.get(i18n_key, {}).get(DEFAULT_LANG, legacy_status))
+    else:
+        label = _t(i18n_key)
+    return f'<span class="badge {css_class}">{escape(label)}</span>'
+
+
+def render_safe_table(
+    data: Any,
+    *,
+    title: str | None = None,
+    max_rows: int = 100,
+    column_map: dict[str, str] | None = None,
+    download_name: str | None = None,
+    empty_message: str | None = None,
+) -> None:
     try:
-        if hasattr(value, "item") and not isinstance(value, (str, bytes, dict, list, tuple)):
-            value = value.item()
+        if isinstance(data, pd.DataFrame):
+            frame = data.copy(deep=True).reset_index(drop=True)
+        elif isinstance(data, dict):
+            frame = pd.DataFrame([data])
+        else:
+            frame = pd.DataFrame(data).copy(deep=True).reset_index(drop=True)
+        total = len(frame)
+        if max_rows is not None:
+            frame = frame.head(max(0, max_rows))
+        if frame.empty:
+            st.markdown(
+                f'<div class="empty-state"><strong>{_t("table_empty")}</strong>'
+                f"<p>{empty_message or ''}</p></div>",
+                unsafe_allow_html=True,
+            )
+            return
+        if title:
+            section_heading(title)
+        display_columns = list(frame.columns)
+        if column_map:
+            headers = [column_map.get(c, c) for c in display_columns]
+        else:
+            headers = [_normalize_header(c) for c in display_columns]
+        header_html = "".join(f'<th scope="col">{escape(h)}</th>' for h in headers)
+        rows_html = ""
+        for row in frame.itertuples(index=False, name=None):
+            cells = "".join(
+                f"<td>{_display_value(v)}</td>" for v in row
+            )
+            rows_html += f"<tr>{cells}</tr>"
+        st.markdown(
+            f'<div class="safe-table-wrap"><table class="safe-table">'
+            f"<thead><tr>{header_html}</tr></thead><tbody>{rows_html}</tbody></table></div>",
+            unsafe_allow_html=True,
+        )
+        if total > len(frame):
+            st.caption(_t("table_showing", count=len(frame), total=total))
+        if download_name:
+            source = data if isinstance(data, pd.DataFrame) else pd.DataFrame(data)
+            st.download_button(
+                _t("table_download"),
+                source.to_csv(index=False).encode("utf-8"),
+                download_name,
+                "text/csv",
+            )
+    except Exception as exc:
+        st.error(f"Table error: {exc}")
+        with st.expander(_t("error_detail"), expanded=False):
+            st.code(type(exc).__name__)
+
+
+def _normalize_header(header: str) -> str:
+    friendly = {
+        "relative_path": _t("table_file"),
+        "extension": _t("table_type"),
+        "size_mb": _t("table_size"),
+        "row_count": _t("table_rows"),
+        "column_count": _t("table_columns"),
+        "sha256_short": _t("table_sha256"),
+        "readable": _t("table_readable"),
+        "status": _t("table_status"),
+        "artifact": _t("table_artifact"),
+        "Durum": _t("table_status"),
+        "Artifact": _t("table_artifact"),
+    }
+    return friendly.get(header, header.replace("_", " ").title())
+
+
+def _display_value(value: Any) -> str:
+    try:
         if value is None:
             return "—"
+        if hasattr(value, "item") and not isinstance(value, (str, bytes, dict, list, tuple)):
+            value = value.item()
         try:
             missing = pd.isna(value)
             if isinstance(missing, bool) and missing:
@@ -27,14 +165,20 @@ def normalize_display_value(value: Any) -> str:
         except (TypeError, ValueError):
             pass
         if isinstance(value, (pd.Timestamp, datetime, date)):
-            text = value.isoformat(sep=" ", timespec="seconds") if isinstance(value, datetime) else value.isoformat()
+            if isinstance(value, datetime):
+                text = value.isoformat(sep=" ", timespec="seconds")
+            else:
+                text = value.isoformat()
         elif isinstance(value, bool):
-            text = "Evet" if value else "Hayır"
+            text = "✓" if value else "—"
         elif isinstance(value, float):
             text = f"{value:.4f}" if math.isfinite(value) else "—"
         elif isinstance(value, (dict, list, tuple, set)):
-            serializable = list(value) if isinstance(value, (tuple, set)) else value
-            text = json.dumps(serializable, ensure_ascii=False, default=str, sort_keys=isinstance(value, dict))
+            text = json.dumps(
+                list(value) if isinstance(value, (tuple, set)) else value,
+                ensure_ascii=False,
+                default=str,
+            )
         else:
             text = str(value)
         return escape(text, quote=True)
@@ -45,156 +189,64 @@ def normalize_display_value(value: Any) -> str:
             return "—"
 
 
-def prepare_dataframe_for_display(data: Any, max_rows: int | None = None) -> tuple[list[str], list[list[str]], int]:
-    """Copy and normalize tabular data; never mutate the caller's object."""
-    if isinstance(data, pd.DataFrame):
-        frame = data.copy(deep=True).reset_index(drop=True)
-    elif isinstance(data, dict):
-        frame = pd.DataFrame([data])
-    else:
-        frame = pd.DataFrame(data).copy(deep=True).reset_index(drop=True)
-    total = len(frame)
-    if max_rows is not None:
-        frame = frame.head(max(0, max_rows)).copy()
-    headers = [normalize_display_value(column) for column in frame.columns]
-    rows = [[normalize_display_value(value) for value in row] for row in frame.itertuples(index=False, name=None)]
-    return headers, rows, total
-
-
-def safe_html_table(headers: list[str], rows: list[list[str]]) -> str:
-    header_html = "".join(f'<th scope="col">{header}</th>' for header in headers)
-    body_html = "".join("<tr>" + "".join(f"<td>{value}</td>" for value in row) + "</tr>" for row in rows)
-    return f'<div class="safe-table-wrap"><table class="safe-table"><thead><tr>{header_html}</tr></thead><tbody>{body_html}</tbody></table></div>'
-
-
-def classification_report_frame(report: str) -> pd.DataFrame:
-    """Parse sklearn's text report into a compact display frame."""
-    rows: list[dict[str, Any]] = []
-    for line in report.splitlines():
-        parts = line.split()
-        if not parts or parts[0] == "precision":
-            continue
-        try:
-            if parts[0] == "accuracy" and len(parts) >= 3:
-                rows.append({"Sınıf/Özet": "accuracy", "Precision": None, "Recall": None,
-                             "F1": float(parts[-2]), "Support": int(parts[-1])})
-            elif len(parts) >= 5:
-                rows.append({"Sınıf/Özet": " ".join(parts[:-4]), "Precision": float(parts[-4]),
-                             "Recall": float(parts[-3]), "F1": float(parts[-2]), "Support": int(parts[-1])})
-        except (TypeError, ValueError):
-            continue
-    return pd.DataFrame(rows)
-
-
-def render_safe_table(data: Any, *, title: str | None = None, max_rows: int = 100,
-                      allow_arrow: bool = False, download_name: str | None = None,
-                      empty_message: str = "Rapor henüz mevcut değil.") -> None:
-    """Render tabular data without Arrow by default; ``allow_arrow`` is reserved."""
-    try:
-        headers, rows, total = prepare_dataframe_for_display(data, max_rows=max_rows)
-        if not headers or not rows:
-            empty_state_panel("Artifact bulunamadı", empty_message)
-            return
-        if title:
-            section_heading(title)
-        # Semantic HTML deliberately avoids the Arrow serialization layer.
-        st.markdown(safe_html_table(headers, rows), unsafe_allow_html=True)
-        if total > len(rows):
-            st.caption(f"{total} kaydın ilk {len(rows)} satırı gösteriliyor.")
-        if download_name:
-            source = data if isinstance(data, pd.DataFrame) else pd.DataFrame(data)
-            st.download_button("CSV olarak indir", source.to_csv(index=False).encode("utf-8"), download_name, "text/csv")
-    except Exception as exc:
-        st.error("Tablo güvenli biçimde görüntülenemedi. Kaydedilmiş çıktıyı kontrol edin.")
-        with st.expander("Teknik ayrıntı", expanded=False):
-            st.code(type(exc).__name__)
-
-
-def hero_panel(title: str, subtitle: str, kicker: str = "PLATFORM MODULE") -> None:
-    st.markdown(f'<section class="portfolio-hero"><div class="portfolio-kicker">{escape(kicker)}</div><h1>{escape(title)}</h1><p>{escape(subtitle)}</p></section>', unsafe_allow_html=True)
-
-def page_header(title:str,subtitle:str,kicker:str="PLATFORM MODULE",actions:list[tuple[str,str]]|None=None)->None:
-    links="".join(f'<a href="{escape(url,quote=True)}" target="_blank" rel="noopener noreferrer">{escape(label)}</a>' for label,url in (actions or []))
-    st.markdown(f'<section class="portfolio-hero"><div class="portfolio-kicker">{escape(kicker)}</div><h1>{escape(title)}</h1><p>{escape(subtitle)}</p><div class="hero-actions">{links}</div></section>',unsafe_allow_html=True)
+def hero_panel(title: str, subtitle: str, kicker: str | None = None) -> None:
+    kicker_html = f'<div class="hero-kicker">{escape(kicker)}</div>' if kicker else ""
+    st.markdown(
+        f'<div class="hero">{kicker_html}<h1>{escape(title)}</h1>'
+        f"<p>{escape(subtitle)}</p></div>",
+        unsafe_allow_html=True,
+    )
 
 
 def section_heading(title: str, subtitle: str = "") -> None:
-    st.markdown(f'<div class="section-heading"><h2>{title}</h2><p>{subtitle}</p></div>', unsafe_allow_html=True)
-
-
-def status_badge(status: str) -> str:
-    css = {"Tamamlandı":"complete", "Hazır":"complete", "Sağlıklı":"complete", "Geliştiriliyor":"progress",
-           "Doğrulandı":"complete", "Açık":"complete", "Deneysel":"progress", "Terfi edilmedi":"progress", "Planlandı":"planned", "Veri Bekleniyor":"planned", "Şema Uyumsuz":"progress"}.get(status, "empty")
-    return f'<span class="status status-{css}">{escape(status)}</span>'
-
-def evidence_strip(items:list[tuple[str,str,str]])->None:
-    cards="".join(f'<div class="evidence-item"><small>{escape(a)}</small><strong>{escape(str(b))}</strong><span>{escape(c)}</span></div>' for a,b,c in items)
-    st.markdown(f'<div class="evidence-strip">{cards}</div>',unsafe_allow_html=True)
-
-def decision_banner(title:str,text:str,status:str="Terfi edilmedi")->None:
-    st.markdown(f'<div class="decision-banner">{status_badge(status)}<strong>{escape(title)}</strong><p>{escape(text)}</p></div>',unsafe_allow_html=True)
-
-def comparison_cards(items:list[dict[str,str]])->None:
-    cards="".join(f'<article class="comparison-card {escape(x.get("kind","experimental"))}">{status_badge(x["status"])}<h3>{escape(x["title"])}</h3><small>{escape(x["algorithm"])}</small><strong>{escape(x["metric"])}</strong><p>{escape(x["note"])}</p></article>' for x in items)
-    st.markdown(f'<div class="comparison-grid">{cards}</div>',unsafe_allow_html=True)
-
-def architecture_flow(nodes:list[tuple[str,str]])->None:
-    html="".join(f'<div class="architecture-node {escape(state)}">{escape(label)}<small>{escape(state.title())}</small></div>' for label,state in nodes)
-    st.markdown(f'<div class="architecture-flow">{html}</div>',unsafe_allow_html=True)
-
-def model_stage_timeline(stages:list[tuple[str,str,str,str]])->None:
-    html="".join(f'<article class="timeline-stage">{status_badge(status)}<h3>{escape(stage)}</h3><small>{escape(label)}</small><p>{escape(text)}</p></article>' for stage,label,text,status in stages)
-    st.markdown(f'<div class="timeline">{html}</div>',unsafe_allow_html=True)
-
-def external_action(label:str,url:str)->None:
-    st.markdown(f'<a class="external-action" href="{escape(url,quote=True)}" target="_blank" rel="noopener noreferrer">{escape(label)}</a>',unsafe_allow_html=True)
+    sub = f"<p>{escape(subtitle)}</p>" if subtitle else ""
+    st.markdown(
+        f'<div class="section-heading"><h2>{escape(title)}</h2>{sub}</div>',
+        unsafe_allow_html=True,
+    )
 
 
 def metric_card(label: str, value: str, help_text: str | None = None) -> None:
     st.metric(label, value, help=help_text)
 
 
-def project_card(project: dict[str, Any], action_label: str = "Projeyi aç") -> bool:
-    primary = project["primary_metric_value"]
-    primary_text = "—" if primary is None else f"{primary:.4f}"
+def kpi_grid(items: list[tuple[str, str, str]]) -> None:
+    html = "".join(
+        f'<div class="metric-card"><small>{escape(a)}</small><strong>{escape(b)}</strong>'
+        f"<span>{escape(c)}</span></div>"
+        for a, b, c in items
+    )
+    st.markdown(f'<div class="kpi-grid">{html}</div>', unsafe_allow_html=True)
+
+
+def card_grid(items: list[dict[str, str]]) -> None:
+    html = "".join(
+        f'<div class="card"><h3>{escape(item.get("title", ""))}</h3>'
+        f"<p>{escape(item.get("text", ""))}</p></div>"
+        for item in items
+    )
+    st.markdown(f'<div class="card-grid">{html}</div>', unsafe_allow_html=True)
+
+
+def callout(title: str, text: str) -> None:
     st.markdown(
-        f'''<div class="project-card">{status_badge(project['status'])}<h3>{project['name']}</h3>
-        <p>{project['description']}</p><div class="card-meta">
-        <div><small>Kategori</small><strong>{project['category']}</strong></div>
-        <div><small>Veri seti</small><strong>{project['dataset']} · {project['dataset_size']}</strong></div>
-        <div><small>Final model</small><strong>{project['final_model']}</strong></div>
-        <div><small>{project['primary_metric_name']}</small><strong>{primary_text}</strong></div>
-        <div><small>Validation</small><strong>{'Mevcut' if project['validation_available'] else 'Eksik'}</strong></div>
-        <div><small>Model artifact</small><strong>{'Mevcut' if project['model_artifact_available'] else 'Eksik'}</strong></div>
-        </div></div>''', unsafe_allow_html=True)
-    return st.button(action_label, key=f"open_{project['id']}", disabled=project["id"] not in {"churn", "regression", "nlp"})
+        f'<div class="callout"><strong>{escape(title)}</strong><p>{escape(text)}</p></div>',
+        unsafe_allow_html=True,
+    )
 
 
-def information_panel(title: str, text: str) -> None:
-    st.markdown(f'<div class="info-panel"><strong>{title}</strong><p>{text}</p></div>', unsafe_allow_html=True)
+def empty_state(title: str, text: str = "") -> None:
+    st.markdown(
+        f'<div class="empty-state"><strong>{escape(title)}</strong>'
+        f"<p>{escape(text)}</p></div>",
+        unsafe_allow_html=True,
+    )
 
 
-def empty_state_panel(title: str, text: str) -> None:
-    st.markdown(f'<div class="empty-panel"><strong>{title}</strong><p>{text}</p></div>', unsafe_allow_html=True)
-
-
-def warning_panel(text: str) -> None:
-    st.warning(text)
-
-
-def prediction_result_card(label: str, value: str, detail: str) -> None:
-    st.markdown(f'<div class="prediction-card"><small>{label}</small><h2>{value}</h2><p>{detail}</p></div>', unsafe_allow_html=True)
-
-
-def metric_table(frame: pd.DataFrame, empty_message: str = "Rapor henüz mevcut değil.") -> None:
-    """Backward-compatible small report renderer with no Arrow serialization."""
-    render_safe_table(frame, max_rows=100, allow_arrow=False, empty_message=empty_message)
-
-
-def artifact_checklist(project: dict[str, Any]) -> None:
-    rows = []
-    directory: Path = project["directory"]
-    for relative in project["expected_output_files"]:
-        path = directory / relative.rstrip("/")
-        rows.append({"Artifact": relative, "Durum": "Mevcut" if path.exists() else "Eksik"})
-    metric_table(pd.DataFrame(rows))
+def evidence_strip(items: list[tuple[str, str, str]]) -> None:
+    html = "".join(
+        f'<div class="metric-card"><small>{escape(a)}</small>'
+        f"<strong>{escape(str(b))}</strong><span>{escape(c)}</span></div>"
+        for a, b, c in items
+    )
+    st.markdown(f'<div class="kpi-grid">{html}</div>', unsafe_allow_html=True)
