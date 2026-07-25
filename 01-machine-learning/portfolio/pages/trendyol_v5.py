@@ -15,6 +15,9 @@ from portfolio.ui_components import (
     architecture_flow,
     decision_banner,
     evidence_strip,
+    format_delta,
+    format_latency_ms,
+    format_ranking_metric,
     information_panel,
     metric_table,
     page_header,
@@ -44,7 +47,7 @@ def load_paired() -> pd.DataFrame:
 
 
 def demo_section():
-    section_heading("Live Demo", "Cross-encoder reranking on a bounded 5,000-product demo catalogue.")
+    section_heading("Live Inference", "Cross-encoder reranking on a bounded 5,000-product preview catalogue.")
     st.warning("Cold model load may take several seconds on first inference. Model/tokenizer are cached after loading.")
     frozen = load_frozen_policy()
     left, right = st.columns(2)
@@ -57,9 +60,9 @@ def demo_section():
         st.metric("Batch size", str(frozen.get("batch_size", 8)))
         st.metric("Model", frozen.get("model_id", "—").split("/")[-1])
 
-    preset = st.selectbox("Örnek sorgu", PRESETS, key="v5_demo_preset")
-    query = st.text_input("Search query", preset, key="v5_demo_query")
-    if st.button("Run V5 cross-encoder reranking", key="v5_demo_run"):
+    preset = st.selectbox(t("nav_search_demo"), PRESETS, key="v5_demo_preset")
+    query = st.text_input("Query", preset, key="v5_demo_query")
+    if st.button(t("nav_cross_encoder"), key="v5_demo_run"):
         started = time.perf_counter()
         response = v5_search(query=query)
         total_ms = (time.perf_counter() - started) * 1000.0
@@ -75,7 +78,7 @@ def demo_section():
                 display.append({
                     "Sıra": r.get("final_rank", r.get("cross_encoder_rank", "—")),
                     "Ürün": r.get("title", "—"),
-                    "Cross-encoder score": f"{r.get('cross_encoder_score', '—'):.4f}" if isinstance(r.get("cross_encoder_score"), (int, float)) else "—",
+                    "Cross-encoder score": format_ranking_metric(r.get("cross_encoder_score")),
                     "Rank değişimi": r.get("rank_delta", "—"),
                     "Önceki sıra": r.get("pre_rerank_rank", "—"),
                 })
@@ -121,10 +124,10 @@ def evidence_section():
     worsened = results.get("holdout_worsened", "—")
 
     evidence_strip([
-        ("Hybrid RRF NDCG@10", f"{baseline_ndcg:.4f}" if isinstance(baseline_ndcg, float) else str(baseline_ndcg), "V5 holdout baseline"),
-        ("V5 NDCG@10", f"{v5_ndcg:.4f}" if isinstance(v5_ndcg, float) else str(v5_ndcg), "Cross-encoder reranking"),
-        ("Absolute Δ", f"+{delta:.4f}" if isinstance(delta, float) else str(delta), f"Relative: +{rel_pct:.1f}%" if isinstance(rel_pct, float) else ""),
-        ("MRR Δ", f"+{mrr_delta:.4f}" if isinstance(mrr_delta, float) else str(mrr_delta), "Paired bootstrap"),
+        ("Hybrid RRF NDCG@10", format_ranking_metric(baseline_ndcg), "V5 holdout baseline"),
+        ("V5 NDCG@10", format_ranking_metric(v5_ndcg), "Cross-encoder reranking"),
+        ("Absolute Δ", format_delta(delta), f"Relative: +{rel_pct:.1f}%" if isinstance(rel_pct, float) else ""),
+        ("MRR Δ", format_delta(mrr_delta), "Paired bootstrap"),
     ])
 
     decision_banner(
@@ -138,12 +141,12 @@ def evidence_section():
         st.metric("Improved queries", str(improved))
         st.metric("Unchanged queries", str(unchanged))
         if ndcg_ci:
-            st.info(f"NDCG@10 95% CI: [{ndcg_ci[0]:.4f}, {ndcg_ci[1]:.4f}]")
+            st.info(f"NDCG@10 95% CI: [{format_ranking_metric(ndcg_ci[0])}, {format_ranking_metric(ndcg_ci[1])}]")
     with cols[1]:
         st.metric("Worsened queries", str(worsened))
         st.metric("Total queries", str(results.get("holdout_query_count", "—")))
         if mrr_ci:
-            st.caption(f"MRR 95% CI: [{mrr_ci[0]:.4f}, {mrr_ci[1]:.4f}]")
+            st.caption(f"MRR 95% CI: [{format_ranking_metric(mrr_ci[0])}, {format_ranking_metric(mrr_ci[1])}]")
 
 
 def holdout_detail_section():
@@ -190,10 +193,10 @@ def benchmark_section():
     section_heading("Warm Latency", "Holdout latency (150 queries, pool 20).")
     results = load_results()
     if results:
-        st.metric("Mean warm latency (ms)", f"{results.get('pool20_warm_latency_mean_ms', '—'):.1f}")
-        st.metric("P50 warm latency (ms)", f"{results.get('pool20_warm_latency_p50_ms', '—'):.1f}")
-        st.metric("P95 warm latency (ms)", f"{results.get('pool20_warm_latency_p95_ms', '—'):.1f}")
-        st.metric("Cold load (s)", f"{results.get('cold_tokenizer_model_load_seconds', '—'):.2f}")
+        st.metric("Mean warm latency (ms)", f"{results.get('pool20_warm_latency_mean_ms', 0):.1f}" if isinstance(results.get('pool20_warm_latency_mean_ms'), (int, float)) else "—")
+        st.metric("P50 warm latency (ms)", f"{results.get('pool20_warm_latency_p50_ms', 0):.1f}" if isinstance(results.get('pool20_warm_latency_p50_ms'), (int, float)) else "—")
+        st.metric("P95 warm latency (ms)", f"{results.get('pool20_warm_latency_p95_ms', 0):.1f}" if isinstance(results.get('pool20_warm_latency_p95_ms'), (int, float)) else "—")
+        st.metric("Cold load (s)", f"{results.get('cold_tokenizer_model_load_seconds', 0):.2f}" if isinstance(results.get('cold_tokenizer_model_load_seconds'), (int, float)) else "—")
 
 
 def repeated_seed_section():
@@ -222,8 +225,8 @@ def error_analysis_section():
             errors = json.loads(errors_path.read_text(encoding="utf-8"))
             if errors:
                 display = pd.DataFrame([
-                    {"Query": e.get("query", "—"), "Baseline NDCG": f"{e['baseline_ndcg']:.4f}",
-                     "V5 NDCG": f"{e['v5_ndcg']:.4f}", "Δ": f"{e['delta']:+.4f}"}
+                    {"Query": e.get("query", "—"), "Baseline NDCG": format_ranking_metric(e.get('baseline_ndcg')),
+                     "V5 NDCG": format_ranking_metric(e.get('v5_ndcg')), "Δ": format_delta(e.get('delta'))}
                     for e in errors
                 ])
                 render_safe_table(display, max_rows=20)
@@ -250,7 +253,7 @@ def render():
     page_header(
         "Trendyol Cross-Encoder Reranking (V5)",
         "Experimental reranking of Hybrid RRF candidates using a multilingual cross-encoder.",
-        "CROSS-ENCODER · RERANKING · EXPERIMENTAL"
+        "CROSS-ENCODER \u00b7 RERANKING \u00b7 EXPERIMENTAL"
     )
     frozen = load_frozen_policy()
     results = load_results()

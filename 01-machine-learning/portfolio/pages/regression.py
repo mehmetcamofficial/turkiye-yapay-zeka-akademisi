@@ -7,6 +7,7 @@ import pandas as pd
 import streamlit as st
 
 from portfolio.config import REGRESSION_DIR, REGRESSION_MODEL_PATH
+from portfolio.i18n import t
 from portfolio.loaders import (load_csv_safe, load_image_path_safe,
                                load_json_safe, load_model_safe, load_text_safe)
 from portfolio.project_registry import project_by_id
@@ -33,7 +34,7 @@ def _model():
 def _single_prediction() -> None:
     model_result = _model()
     if not model_result.ok:
-        empty_state_panel("Model kullanılamıyor", model_result.public_message)
+        empty_state_panel(t("regression_model_unavail"), model_result.public_message)
         return
     model = model_result.model
     defaults = [3.87, 28.6, 5.43, 1.10, 1425.0, 3.07, 35.63, -119.57]
@@ -41,29 +42,30 @@ def _single_prediction() -> None:
         columns = st.columns(2); values = {}
         for index, (name, default) in enumerate(zip(RAW_COLUMNS, defaults)):
             values[name] = columns[index % 2].number_input(name, value=float(default), format="%.4f")
-        submitted = st.form_submit_button("Tahmin Oluştur")
+        submitted = st.form_submit_button(t("regression_predict"))
     if submitted:
         try:
             prediction = float(model.predict(_prepare(pd.DataFrame([values])))[0])
-            prediction_result_card("Tahmini medyan bölge ev değeri", f"${prediction * 100_000:,.0f}",
-                                   f"Model hedefi {prediction:.4f} (100.000 USD birimi). Eğitim amaçlı model tahminidir; ekspertiz değeri değildir.")
+            prediction_result_card(t("regression_pred_value"),
+                                   f"${prediction * 100_000:,.0f}",
+                                   t("regression_pred_desc", pred=prediction))
         except Exception:
-            st.error("Tahmin oluşturulamadı. Girdi değerlerini kontrol edin.")
+            st.error(t("regression_pred_failed"))
 
 
 def _batch_prediction() -> None:
     model_result = _model()
-    uploaded = st.file_uploader("Sekiz California Housing özelliğini içeren CSV yükleyin", type="csv", key="regression_batch")
+    uploaded = st.file_uploader(t("regression_upload_csv"), type="csv", key="regression_batch")
     if uploaded is None:
-        information_panel("Beklenen sütunlar", ", ".join(RAW_COLUMNS))
+        information_panel(t("regression_expected_cols"), ", ".join(RAW_COLUMNS))
         return
     try:
         frame = pd.read_csv(uploaded)
     except (UnicodeError, pd.errors.ParserError):
-        st.error("CSV okunamadı. Dosya kodlamasını ve ayırıcısını kontrol edin."); return
+        st.error(t("regression_csv_error")); return
     missing = [column for column in RAW_COLUMNS if column not in frame]
     if missing:
-        st.error("Eksik sütunlar: " + ", ".join(missing)); return
+        st.error(t("regression_missing_cols", cols=", ".join(missing))); return
     if not model_result.ok:
         st.error(model_result.public_message); return
     model = model_result.model
@@ -72,42 +74,46 @@ def _batch_prediction() -> None:
         result["PredictedValue100kUSD"] = model.predict(_prepare(frame[RAW_COLUMNS]))
         result["PredictedValueUSD"] = result["PredictedValue100kUSD"] * 100_000
         render_safe_table(result, max_rows=100)
-        st.download_button("Tahminleri CSV olarak indir", result.to_csv(index=False).encode("utf-8"),
+        st.download_button(t("regression_download_pred"), result.to_csv(index=False).encode("utf-8"),
                            "california_housing_predictions.csv", "text/csv")
     except Exception:
-        st.error("Toplu tahmin tamamlanamadı. Sayısal alanları kontrol edin.")
+        st.error(t("regression_batch_failed"))
 
 
 def _performance() -> None:
-    section_heading("Final test metrikleri")
+    section_heading(t("regression_final_metrics"))
     metric_table(load_csv_safe(str(REGRESSION_DIR / "outputs/test_metrics.csv")))
-    section_heading("Validation karşılaştırması")
+    section_heading(t("regression_validation"))
     metric_table(load_csv_safe(str(REGRESSION_DIR / "outputs/validation_results.csv")))
-    section_heading("5-fold cross-validation")
+    section_heading(t("regression_cv"))
     metric_table(load_csv_safe(str(REGRESSION_DIR / "outputs/cross_validation_results.csv")))
-    section_heading("En iyi hiperparametreler")
+    section_heading(t("regression_best_params"))
     payload = load_json_safe(str(REGRESSION_DIR / "outputs/best_hyperparameters.json"))
-    st.json(payload) if payload else empty_state_panel("JSON bulunamadı", "Hiperparametre raporu mevcut değil.")
-    with st.expander("GridSearchCV sonuçları", expanded=False):
+    st.json(payload) if payload else empty_state_panel(t("regression_json_missing"), t("regression_hparam_missing"))
+    with st.expander(t("regression_gridsearch"), expanded=False):
         metric_table(load_csv_safe(str(REGRESSION_DIR / "outputs/hyperparameter_search_results.csv")))
-    section_heading("Özellik önemi")
+    section_heading(t("regression_feature_imp"))
     metric_table(load_csv_safe(str(REGRESSION_DIR / "outputs/feature_importance.csv")))
 
 
 def _residuals() -> None:
     columns = st.columns(2)
-    for column, filename, title in [(columns[0], "residual_plot.png", "Artık analizi"),
-                                     (columns[1], "prediction_vs_actual.png", "Tahmin ve gerçek")]:
+    for column, filename, title in [(columns[0], "residual_plot.png", t("regression_residuals")),
+                                     (columns[1], "prediction_vs_actual.png", t("regression_pred_vs_actual"))]:
         with column:
             section_heading(title)
             image = load_image_path_safe(str(REGRESSION_DIR / "outputs" / filename))
             if image: st.image(image, use_column_width=True)
-            else: empty_state_panel("Görsel bulunamadı", filename)
+            else: empty_state_panel(t("regression_visual_missing"), filename)
 
 
 def render() -> None:
-    hero_panel("California Housing Regresyonu", "Yerel veri, leakage-safe pipeline, gerçek test metrikleri ve canlı tahmin deneyimi.", "MACHINE LEARNING")
-    tabs = st.tabs(["Proje Özeti", "Tekli Tahmin", "Toplu Tahmin", "Model Performansı", "Artık Analizi", "Veri Kaynağı"])
+    hero_panel(
+        title=t("ml_section_housing"),
+        subtitle=t("subtitle_regression"),
+        kicker=t("section_ml"),
+    )
+    tabs = st.tabs([t("tab_overview"), t("tab_single_prediction"), t("tab_batch_prediction"), t("tab_model_performance"), t("tab_residuals"), t("tab_data_source")])
     with tabs[0]:
         project = project_by_id("regression")
         metrics = load_csv_safe(str(REGRESSION_DIR / "outputs/test_metrics.csv"))
@@ -115,11 +121,11 @@ def render() -> None:
         for column, name in zip(columns, ["RMSE", "MAE", "R2"]):
             value = float(metrics.iloc[0][name]) if not metrics.empty and name in metrics else None
             column.metric(name, "—" if value is None else f"{value:.4f}")
-        information_panel("Amaç", project["description"])
-        information_panel("Veri ve model", f"{project['dataset']} ({project['dataset_size']}) · {project['final_model']}")
-        information_panel("İş akışı", "Yerel veri → EDA → hedef-bağımsız oranlar → preprocessing → SelectKBest → 5-fold CV → tuning → test")
-        information_panel("Sınırlamalar", "; ".join(project["limitations"]))
-        with st.expander("Teknik detaylar", expanded=False):
+        information_panel(t("purpose"), project["description"])
+        information_panel(t("data_model"), f"{project['dataset']} ({project['dataset_size']}) · {project['final_model']}")
+        information_panel(t("workflow"), "Yerel veri → EDA → hedef-bağımsız oranlar → preprocessing → SelectKBest → 5-fold CV → tuning → test")
+        information_panel(t("limitations"), "; ".join(project["limitations"]))
+        with st.expander(t("tab_technical"), expanded=False):
             artifact_checklist(project)
     with tabs[1]: _single_prediction()
     with tabs[2]: _batch_prediction()
@@ -127,4 +133,4 @@ def render() -> None:
     with tabs[4]: _residuals()
     with tabs[5]:
         source = load_text_safe(str(REGRESSION_DIR / "DATA_SOURCE.md"))
-        st.markdown(source) if source else empty_state_panel("Kaynak belgesi yok", "DATA_SOURCE.md bulunamadı.")
+        st.markdown(source) if source else empty_state_panel(t("regression_data_missing"), t("regression_data_not_found"))

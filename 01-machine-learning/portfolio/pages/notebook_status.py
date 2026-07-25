@@ -10,8 +10,8 @@ from portfolio.ui_components import hero_panel, kpi_grid
 def render() -> None:
     hero_panel(
         title=t("nav_notebook_status"),
-        subtitle="Status of data science notebooks and outputs.",
-        kicker="ACADEMIC ARCHIVE",
+        subtitle=t("subtitle_notebook_status"),
+        kicker=t("nav_academic"),
     )
 
     midterm = evaluate_midterm()

@@ -11,8 +11,8 @@ from portfolio.config import TRENDYOL_RELEVANCE_DIR
 def render() -> None:
     hero_panel(
         title=t("nav_eval_lab"),
-        subtitle="Evaluation results for V2.1–V5 Trendyol search experiments.",
-        kicker="SEARCH INTELLIGENCE",
+        subtitle=t("subtitle_eval_lab"),
+        kicker=t("section_search"),
     )
 
     tab_labels = ["V2.1 Robust Evaluation", "V3 Retrieval", "V4 Pipeline", "V5 Cross-Encoder"]

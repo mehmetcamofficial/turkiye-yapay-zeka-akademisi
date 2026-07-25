@@ -34,43 +34,77 @@ STATUS_I18N_KEYS = {
     "error": "status_error",
 }
 
-
-def _map_status(legacy: str) -> str:
-    mapping = {
-        "Tamamlandı": "available",
-        "Hazır": "available",
-        "Sağlıklı": "available",
-        "Doğrulandı": "verified",
-        "Açık": "available",
-        "Deneysel": "experimental",
-        "Terfi edilmedi": "experimental",
-        "Geliştiriliyor": "experimental",
-        "Planlandı": "roadmap",
-        "Veri Bekleniyor": "limited",
-        "Henüz Başlanmadı": "roadmap",
-        "Henüz": "roadmap",
-        "Eksik": "limited",
-        "Şema Uyumsuz": "limited",
-        "Tamamlandı": "available",
-        "Current": "available",
-        "Implemented": "available",
-    }
-    return mapping.get(legacy, "experimental")
+LEGACY_STATUS_MAP = {
+    "Tamamlandı": "available",
+    "Hazır": "available",
+    "Sağlıklı": "available",
+    "Doğrulandı": "verified",
+    "Açık": "available",
+    "Deneysel": "experimental",
+    "Terfi edilmedi": "experimental",
+    "Geliştiriliyor": "experimental",
+    "Planlandı": "roadmap",
+    "Veri Bekleniyor": "limited",
+    "Henüz Başlanmadı": "roadmap",
+    "Eksik": "limited",
+    "Şema Uyumsuz": "limited",
+}
 
 
 def normalize_status(legacy: str) -> str:
-    return _map_status(legacy)
+    return LEGACY_STATUS_MAP.get(legacy, "experimental")
 
 
-def status_badge(legacy_status: str, *, lang_override: str | None = None) -> str:
-    normalized = _map_status(legacy_status)
+def _fmt(val: Any, default: str = "—") -> str:
+    if val is None:
+        return default
+    if isinstance(val, float):
+        if abs(val) >= 1000:
+            return f"{val:.1f}"
+        if abs(val) >= 1:
+            return f"{val:.4f}"
+        return f"{val:.4f}"
+    if isinstance(val, int):
+        return str(val)
+    return str(val)
+
+
+def _display_value(value: Any) -> str:
+    return _fmt(value)
+
+
+def format_metric(value: float | None, digits: int = 4) -> str:
+    if value is None:
+        return "—"
+    return f"{value:.{digits}f}"
+
+
+def format_ranking_metric(value: float | None) -> str:
+    if value is None:
+        return "—"
+    return f"{value:.4f}"
+
+
+def format_delta(value: float | None) -> str:
+    if value is None:
+        return "—"
+    sign = "+" if value >= 0 else ""
+    return f"{sign}{value:.4f}"
+
+
+def format_latency_ms(value: float | None) -> str:
+    if value is None:
+        return "—"
+    return f"{value:.0f} ms"
+
+
+def status_badge(status: str) -> str:
+    """Accept either normalized status (verified, available, etc.) or legacy Turkish status."""
+    normalized = LEGACY_STATUS_MAP.get(status, status)
+    if normalized not in STATUS_CSS:
+        normalized = "experimental"
     css_class = STATUS_CSS.get(normalized, "badge-experimental")
-    i18n_key = STATUS_I18N_KEYS.get(normalized, "status_experimental")
-    if lang_override:
-        from portfolio.i18n import TRANSLATIONS, DEFAULT_LANG
-        label = TRANSLATIONS.get(i18n_key, {}).get(lang_override, TRANSLATIONS.get(i18n_key, {}).get(DEFAULT_LANG, legacy_status))
-    else:
-        label = _t(i18n_key)
+    label = _t(STATUS_I18N_KEYS.get(normalized, "status_experimental"))
     return f'<span class="badge {css_class}">{escape(label)}</span>'
 
 
@@ -110,9 +144,7 @@ def render_safe_table(
         header_html = "".join(f'<th scope="col">{escape(h)}</th>' for h in headers)
         rows_html = ""
         for row in frame.itertuples(index=False, name=None):
-            cells = "".join(
-                f"<td>{_display_value(v)}</td>" for v in row
-            )
+            cells = "".join(f"<td>{escape(_fmt(v))}</td>" for v in row)
             rows_html += f"<tr>{cells}</tr>"
         st.markdown(
             f'<div class="safe-table-wrap"><table class="safe-table">'
@@ -152,43 +184,6 @@ def _normalize_header(header: str) -> str:
     return friendly.get(header, header.replace("_", " ").title())
 
 
-def _display_value(value: Any) -> str:
-    try:
-        if value is None:
-            return "—"
-        if hasattr(value, "item") and not isinstance(value, (str, bytes, dict, list, tuple)):
-            value = value.item()
-        try:
-            missing = pd.isna(value)
-            if isinstance(missing, bool) and missing:
-                return "—"
-        except (TypeError, ValueError):
-            pass
-        if isinstance(value, (pd.Timestamp, datetime, date)):
-            if isinstance(value, datetime):
-                text = value.isoformat(sep=" ", timespec="seconds")
-            else:
-                text = value.isoformat()
-        elif isinstance(value, bool):
-            text = "✓" if value else "—"
-        elif isinstance(value, float):
-            text = f"{value:.4f}" if math.isfinite(value) else "—"
-        elif isinstance(value, (dict, list, tuple, set)):
-            text = json.dumps(
-                list(value) if isinstance(value, (tuple, set)) else value,
-                ensure_ascii=False,
-                default=str,
-            )
-        else:
-            text = str(value)
-        return escape(text, quote=True)
-    except Exception:
-        try:
-            return escape(str(value), quote=True)
-        except Exception:
-            return "—"
-
-
 def hero_panel(title: str, subtitle: str, kicker: str | None = None) -> None:
     kicker_html = f'<div class="hero-kicker">{escape(kicker)}</div>' if kicker else ""
     st.markdown(
@@ -206,14 +201,22 @@ def section_heading(title: str, subtitle: str = "") -> None:
     )
 
 
-def metric_card(label: str, value: str, help_text: str | None = None) -> None:
-    st.metric(label, value, help=help_text)
-
-
-def kpi_grid(items: list[tuple[str, str, str]]) -> None:
+def kpi_grid(items: list[tuple[str, str, str | None]]) -> None:
     html = "".join(
-        f'<div class="metric-card"><small>{escape(a)}</small><strong>{escape(b)}</strong>'
-        f"<span>{escape(c)}</span></div>"
+        f'<div class="metric-card"><small>{escape(a)}</small>'
+        f"<strong>{escape(str(b))}</strong>"
+        f"{'<span>' + escape(c) + '</span>' if c else ''}</div>"
+        for a, b, c in items
+    )
+    st.markdown(f'<div class="kpi-grid">{html}</div>', unsafe_allow_html=True)
+
+
+def kpi_grid_mixed(items: list[tuple[str, str, str | None]]) -> None:
+    """Like kpi_grid but second value is raw HTML (for status badges)."""
+    html = "".join(
+        f'<div class="metric-card"><small>{escape(a)}</small>'
+        f"<strong>{b}</strong>"
+        f"{'<span>' + escape(c) + '</span>' if c else ''}</div>"
         for a, b, c in items
     )
     st.markdown(f'<div class="kpi-grid">{html}</div>', unsafe_allow_html=True)
@@ -243,10 +246,143 @@ def empty_state(title: str, text: str = "") -> None:
     )
 
 
-def evidence_strip(items: list[tuple[str, str, str]]) -> None:
-    html = "".join(
-        f'<div class="metric-card"><small>{escape(a)}</small>'
-        f"<strong>{escape(str(b))}</strong><span>{escape(c)}</span></div>"
-        for a, b, c in items
+def evidence_card(label: str, value: str, note: str) -> None:
+    st.markdown(
+        f'<div class="metric-card"><small>{escape(label)}</small>'
+        f"<strong>{escape(value)}</strong><span>{escape(note)}</span></div>",
+        unsafe_allow_html=True,
     )
-    st.markdown(f'<div class="kpi-grid">{html}</div>', unsafe_allow_html=True)
+
+
+def metric_card(label: str, value: str, help_text: str | None = None) -> None:
+    st.metric(label, value, help=help_text)
+
+
+def decision_banner(title: str, text: str) -> None:
+    st.markdown(
+        f'<div class="callout" style="border-left:4px solid var(--warning);background:var(--warning-soft)">'
+        f"<strong>{escape(title)}</strong><p>{escape(text)}</p></div>",
+        unsafe_allow_html=True,
+    )
+
+
+def comparison_cards(items: list[dict[str, str]]) -> None:
+    cards = ""
+    for x in items:
+        kind = x.get("kind", "experimental")
+        css = "champion" if kind == "champion" else "experimental"
+        cards += (
+            f'<div class="card" style="border-top:3px solid '
+            f'{("var(--success)" if kind == "champion" else "var(--warning)")}">'
+            f"{status_badge(x.get('status', 'experimental'))}"
+            f"<h3>{escape(x.get('title', ''))}</h3>"
+            f"<p>{escape(x.get('algorithm', ''))}</p>"
+            f"<strong>{escape(x.get('metric', ''))}</strong>"
+            f"<p>{escape(x.get('note', ''))}</p></div>"
+        )
+    st.markdown(f'<div class="card-grid">{cards}</div>', unsafe_allow_html=True)
+
+
+def evidence_strip(items: list[tuple[str, str, str]]) -> None:
+    kpi_grid(items)
+
+
+def page_header(title: str, subtitle: str, kicker: str | None = None) -> None:
+    hero_panel(title, subtitle, kicker)
+
+
+def external_action(label: str, url: str) -> None:
+    st.markdown(
+        f'<a href="{escape(url)}" target="_blank" rel="noopener noreferrer" '
+        f'class="external-action">{escape(label)}</a>',
+        unsafe_allow_html=True,
+    )
+
+
+def information_panel(title: str, text: str) -> None:
+    st.markdown(
+        f'<div class="information-panel"><strong>{escape(title)}</strong>'
+        f"<p>{escape(text)}</p></div>",
+        unsafe_allow_html=True,
+    )
+
+
+def empty_state_panel(status: str, message: str) -> None:
+    empty_state(status, message)
+
+
+def metric_table(data: Any, empty_message: str | None = None) -> None:
+    render_safe_table(data, empty_message=empty_message)
+
+
+def artifact_checklist(project: dict[str, Any]) -> None:
+    required = project.get("required_artifacts", [])
+    existing = project.get("existing_artifacts", [])
+    html = '<div class="checklist">'
+    for art in required:
+        ok = art in existing
+        icon = "✓" if ok else "—"
+        cls = "checklist-item check-ok" if ok else "checklist-item check-miss"
+        html += f'<div class="{cls}"><span class="check-icon">{icon}</span>'
+        html += f"<span>{escape(art)}</span></div>"
+    html += "</div>"
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def architecture_flow(stages: list[tuple[str, str]]) -> None:
+    html = '<div class="architecture-flow">'
+    for i, (name, stage_status) in enumerate(stages):
+        cls = "stage-current" if stage_status == "current" else "stage-experimental" if stage_status == "experimental" else "stage-planned"
+        arrow = f'<span class="stage-arrow">→</span>' if i > 0 else ""
+        html += f'{arrow}<div class="stage {cls}">{escape(name)}</div>'
+    html += "</div>"
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def classification_report_frame(
+    data: pd.DataFrame | dict[str, Any] | None,
+    *,
+    title: str | None = None,
+) -> None:
+    if data is None or (isinstance(data, pd.DataFrame) and data.empty):
+        empty_state("Classification Report", "Not available")
+        return
+    try:
+        if isinstance(data, dict):
+            data = pd.DataFrame(data)
+        render_safe_table(data, title=title)
+    except Exception:
+        empty_state("Classification Report", "Could not render")
+
+
+def prediction_result_card(
+    label: str,
+    probability: float | None,
+    true_label: str | None = None,
+) -> None:
+    pct = f"{probability * 100:.1f}%" if probability is not None else "—"
+    html = (
+        f'<div class="prediction-card">'
+        f"<strong>{escape(label)}</strong>"
+        f"<span>{escape(pct)}</span>"
+        f"{'<small>True: ' + escape(true_label) + '</small>' if true_label else ''}"
+        f"</div>"
+    )
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def model_stage_timeline(stages: list[tuple[str, str, str, str]]) -> None:
+    html = '<div class="timeline">'
+    for name, subtitle, desc, stage_status in stages:
+        cls = STATUS_CSS.get(stage_status, "badge-experimental")
+        html += (
+            f'<div class="timeline-item">'
+            f'<div class="timeline-marker {cls}"></div>'
+            f'<div class="timeline-content">'
+            f"<h4>{escape(name)}</h4>"
+            f"<p>{escape(subtitle)}</p>"
+            f"<small>{escape(desc)}</small>"
+            f"</div></div>"
+        )
+    html += "</div>"
+    st.markdown(html, unsafe_allow_html=True)

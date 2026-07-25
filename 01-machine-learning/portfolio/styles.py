@@ -37,11 +37,13 @@ section[data-testid="stSidebar"] > div { background: var(--surface); border-righ
 .section-heading h2 { font-size: 1.25rem; color: var(--text); margin: 0 0 0.25rem; font-weight: 600; }
 .section-heading p { color: var(--muted); font-size: 0.88rem; margin: 0; }
 
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 0.5rem; box-shadow: var(--shadow); }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 0.5rem; box-shadow: var(--shadow); transition: box-shadow 180ms ease, border-color 180ms ease, transform 180ms ease; }
+.card:hover { box-shadow: var(--shadow-md); border-color: var(--accent); transform: translateY(-2px); }
 .card h3 { font-size: 1rem; margin: 0 0 0.4rem; color: var(--text); font-weight: 600; }
 .card p { color: var(--muted); line-height: 1.55; font-size: 0.88rem; margin: 0; }
 
-.metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.15rem; min-width: 0; }
+.metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.15rem; min-width: 0; transition: box-shadow 150ms ease, border-color 150ms ease; }
+.metric-card:hover { box-shadow: var(--shadow-md); border-color: var(--accent); }
 .metric-card small { color: var(--muted); display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
 .metric-card strong { color: var(--text); display: block; font-size: 1.35rem; margin: 0.25rem 0; font-weight: 700; }
 .metric-card span { color: var(--muted); font-size: 0.75rem; line-height: 1.4; display: block; }
@@ -83,7 +85,7 @@ section[data-testid="stSidebar"] div[role="radiogroup"] label { padding: 0.15rem
 section[data-testid="stSidebar"] [data-testid="stSelectbox"] { margin-bottom: 0.3rem; }
 section[data-testid="stSidebar"] [data-testid="stRadio"] > label { color: var(--muted); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
 
-div.stButton > button { border-radius: var(--radius-sm); border-color: var(--accent); color: var(--accent); font-weight: 600; width: 100%; }
+div.stButton > button { border-radius: var(--radius-sm); border-color: var(--accent); color: var(--accent); font-weight: 600; width: 100%; transition: background 150ms ease, border-color 150ms ease, color 150ms ease; }
 div.stButton > button:hover { border-color: var(--accent-hover); color: var(--accent-hover); background: var(--accent-soft); }
 
 @media (max-width: 700px) {

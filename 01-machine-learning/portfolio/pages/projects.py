@@ -5,14 +5,15 @@ import pandas as pd
 
 from portfolio.i18n import t
 from portfolio.project_registry import get_project_registry
-from portfolio.ui_components import hero_panel, section_heading, status_badge
+from portfolio.ui_components import (format_metric, hero_panel,
+                                     section_heading, status_badge)
 
 
 def render() -> None:
     hero_panel(
         title=t("nav_projects"),
-        subtitle="All portfolio projects with current status, metrics, and evidence.",
-        kicker="PORTFOLIO",
+        subtitle=t("subtitle_projects"),
+        kicker=t("section_portfolio"),
     )
 
     projects = get_project_registry()
@@ -20,7 +21,7 @@ def render() -> None:
     rows = []
     for p in projects:
         primary = p.get("primary_metric_value")
-        primary_str = f"{primary:.4f}" if primary is not None else "—"
+        primary_str = format_metric(primary)
         rows.append({
             "Project": p.get("name", "—"),
             "Category": p.get("category", "—"),

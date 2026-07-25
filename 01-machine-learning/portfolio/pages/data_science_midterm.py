@@ -33,11 +33,13 @@ def render() -> None:
     st.markdown(status_badge(item["status"]), unsafe_allow_html=True)
     summary = [
         ("Veri seti", "Hazır" if item["inventory_ready"] else "Eksik"),
-        ("Kaynak tablo", str(item["downloaded_file_count"])),
+        ("Kaynak dosyalar", str(item["downloaded_file_count"])),
         ("Toplam boyut", f"{item['downloaded_size_bytes']/1024**3:.2f} GiB"),
         ("Profil örneği", "20.000 / tablo"),
         ("Üretilen çıktı", str(len(item["profile_outputs"]))),
         ("Tamamlanan kapsam", f"{item['completed_questions']}/15"),
+        ("Desteklenen sorular", ", ".join(str(q) for q in item["supported_questions"])),
+        ("Blokeli sorular", ", ".join(str(q) for q in item["blocked_questions"])),
         ("Notebook", "Hazır" if item["notebook_ready"] else "Eksik"),
         ("Son doğrulama", (item["last_verified"] or "—").replace("T", " ")),
     ]
@@ -46,11 +48,12 @@ def render() -> None:
                     "Alaka Etiketleri", "Temizlik Sonuçları", "Görselleştirmeler", "Notebook", "Çıktılar", "Teknik Detaylar"])
     with tabs[0]:
         information_panel("Amaç", "Ürün kataloğu, sorgu ve relevance tablolarında şema, kalite, kategori, marka ve metin özelliklerini incelemek.")
+        completed = item["completed_questions"]
         metric_table(pd.DataFrame({"No": range(1, 16), "Uyarlanmış kapsam": SCOPE,
-                                   "Durum": ["✓ Tamamlandı" if i <= item["completed_questions"] else "◐ Geliştiriliyor" for i in range(1,16)]}))
+                                   "Durum": ["Tamamlandı" if i <= completed else "Planlandı" for i in range(1,16)]}))
         information_panel("Sınırlamalar", "Profil dağılımları tablo başına ilk 20.000 satır örneğine aittir; tam veri performansı olarak yorumlanmamalıdır.")
-        if st.button("Model geliştirme projesine geç", key="midterm_to_relevance"):
-            st.session_state["requested_page"]="Trendyol Arama Alaka Zekâsı"; st.rerun()
+        if st.button("Trendyol Arama Alaka Zekâsına geç", key="midterm_to_relevance"):
+            st.session_state["requested_page"] = "Trendyol Arama Alaka Zekâsı"; st.rerun()
     with tabs[1]:
         inventory = pd.DataFrame(item["inventory"])
         if not inventory.empty:
@@ -71,7 +74,9 @@ def render() -> None:
     with tabs[5]:
         labels = load_csv_safe(str(outputs / "categorical_summary.csv"))
         metric_table(_filter(labels, column="label"), "Label dağılımı bulunamadı.")
-        information_panel("Kapsam", "Pozitif/negatif relevance örnekleri ve hata analizi final proje deney planına aktarılmıştır.")
+        supported = item["supported_questions"]
+        blocked = item["blocked_questions"]
+        st.caption(f"Desteklenen: {', '.join(map(str, supported))} · Blokeli: {', '.join(map(str, blocked))}")
     with tabs[6]:
         metric_table(load_csv_safe(str(outputs / "column_profile.csv")))
         information_panel("Temizlik", "Kaynak tablolar değiştirilmez. Null normalizasyonu ve metin temizleme kuralları analiz örneğine uygulanacak; ham veri korunacaktır.")
