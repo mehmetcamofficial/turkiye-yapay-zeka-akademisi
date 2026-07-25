@@ -62,6 +62,18 @@ def _record(group: str, root, relative: str) -> dict:
         retrieval_type=_retrieval_type(str(path),path.stat().st_mtime,path.stat().st_size)
     if path.suffix==".npy" and path.is_file():
         metadata=path.with_name(path.stem+"_metadata.json"); retrieval_type=_dense_index_type(str(path),path.stat().st_mtime,path.stat().st_size,metadata.stat().st_mtime if metadata.is_file() else 0)
+    if relative.endswith("native_ranker_worker.py") and exists:retrieval_type="Worker Isolated · Experimental"
+    elif relative.endswith("pipeline_config.json") and exists:retrieval_type="V4 Pipeline Configuration · Healthy"
+    elif relative.endswith("request_schema.json") and exists:retrieval_type="V4 Request Schema · Healthy"
+    elif relative.endswith("response_schema.json") and exists:retrieval_type="V4 Response Schema · Healthy"
+    elif relative.endswith("semantic_demo_metadata.json") and exists:retrieval_type="Semantic metadata · Experimental"
+    elif relative.endswith("v5_frozen_policy.json") and exists:retrieval_type="V5 Frozen Policy · Metadata Verified"
+    elif relative.endswith("v5_results.json") and exists:retrieval_type="V5 Evaluation Results · Metadata Verified"
+    elif relative.endswith("v5_smoke_test.json") and exists:retrieval_type="V5 Smoke Test · Experimental"
+    elif relative.endswith("v5_paired_bootstrap.csv") and exists:retrieval_type="V5 Paired Bootstrap · Healthy"
+    elif relative.endswith("cross_encoder_contracts.py") and exists:retrieval_type="V5 Cross-Encoder Contracts · Healthy"
+    elif relative.endswith("cross_encoder_service.py") and exists:retrieval_type="V5 Cross-Encoder Service · Metadata Verified"
+    elif relative.endswith("memory_utils.py") and exists:retrieval_type="V5 Memory Utils · Healthy"
     loadable = model_result.ok if model_result else (readable if path.is_file() else exists)
     return {"Dependent module": group, "Artifact": relative, "Status": "Healthy" if exists and readable else "Missing",
             "Algorithm / object": retrieval_type or ("Persisted artifact · deep reload isolated" if path.suffix in {".pkl",".joblib"} and exists else ("Not persisted" if path.suffix in {".pkl",".joblib",".npy"} and not exists else "—")),

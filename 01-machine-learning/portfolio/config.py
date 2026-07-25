@@ -23,7 +23,7 @@ PORTFOLIO_VERSION = "1.0.0"
 NAVIGATION_GROUPS = {
     "OVERVIEW": ["Platform Overview"],
     "DATA ANALYTICS": ["Veri Bilimi Çalışma Alanı", "Trendyol Veri Profili", "Trendyol Ara Proje", "Trendyol Final Projesi"],
-    "MACHINE LEARNING": ["Customer Churn", "Konut Regresyonu", "Sentiment Intelligence", "Trendyol Arama Alaka Zekâsı", "Clustering", "Model Performansı"],
+    "MACHINE LEARNING": ["Customer Churn", "Konut Regresyonu", "Sentiment Intelligence", "Trendyol Arama Alaka Zekâsı", "Trendyol Cross-Encoder Reranking", "Clustering", "Model Performansı"],
     "MODEL OPERATIONS": ["Model Registry", "Deployment Hazırlığı", "Artifact Sağlığı"],
     "PORTFOLIO": ["Akademi Teslimleri", "Repository Guide", "About Mehmet"],
 }
@@ -33,6 +33,7 @@ ML_NAVIGATION = [
     "Konut Regresyonu",
     "Sentiment Intelligence",
     "Trendyol Arama Alaka Zekâsı",
+    "Trendyol Cross-Encoder Reranking",
     "Clustering",
     "Deployment Hazırlığı",
     "Model Performansı",

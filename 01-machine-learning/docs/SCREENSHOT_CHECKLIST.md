@@ -21,5 +21,16 @@ After starting the app on port 8503, capture optimized WebP or PNG images. Use a
 | `v3-registry-assets.png` | Model Registry | 1440 px; V3.1 rows visible | Model revision, dimension, Recall@50, RRF role and artifact availability | Expanded model cache paths |
 | `v3-artifact-health.png` | Artifact Health | 1440 px; retrieval rows visible | Dense shapes, dtype, fingerprint-compatible metadata and cached checks | Recomputed checksum trace |
 | `v3-search-architecture.png` | Trendyol → Semantic & Hybrid Search | 1440 px; architecture section | Implemented lexical, semantic and fusion paths versus planned reranking | Production labels |
+| `v4-overview.png` | Platform Overview | 1440 px; V4 card visible | Fixed-k Hybrid policy, bounded scope and Not Production Promoted | Production-ready wording |
+| `v4-default-search.png` | Trendyol → End-to-End Pipeline | 1440 px; query `kablosuz kulaklık`; Hybrid RRF; retrieval-only; pool 100 | Results, total latency, policy and governance | Raw catalogue or cache path |
+| `v4-stage-stepper.png` | End-to-End Pipeline | 1440 px; default search completed | Normalize/Retrieve/Fuse/Score/Rerank/Return status and timing | Fake progress animation |
+| `v4-candidate-provenance.png` | End-to-End Pipeline | 1440 px; query `waflee makinası`; explanations on | Sources, lexical/semantic/RRF ranks and pipeline signals | Causal explanation claim |
+| `v4-rank-evolution.png` | End-to-End Pipeline | 1280 px; Hybrid + V1 policy | Retrieval, fused, V1 and final ranks with movement | Claim that V1 was selected |
+| `v4-policy-comparison.png` | End-to-End Pipeline | 1440 px; policy evidence visible | Retrieval-only retained and V1/ranker/blended rejection | Fabricated XGBoost scores |
+| `v4-fallback-simulation.png` | End-to-End Pipeline | 1280 px; simulate `V1 artifact unavailable` | Simulation label, degraded path, warning and continuity | Mutation of real artifacts |
+| `v4-latency-breakdown.png` | End-to-End Pipeline | 1440 px; diagnostics on | Cold/warm, stage timings and cache counts | Production SLA claim |
+| `v4-registry.png` | Model Registry | 1440 px; V4 row visible | Version, policy, latency, isolation and limitations | Eager native reload |
+| `v4-artifact-health.png` | Artifact Health | 1440 px; V4 components visible | Config, schemas, metadata and Worker Isolated state | Local paths |
+| `v4-architecture.png` | End-to-End Pipeline | 1440 px; stage flow visible | Query → Retrieval → Fusion → Relevance → Ranking → Results | Production deployment claim |
 
 Also repeat Overview and Trendyol at 390 px width to check wrapping, focus order, button labels and absence of horizontal page overflow. Store only optimized final captures under this directory.

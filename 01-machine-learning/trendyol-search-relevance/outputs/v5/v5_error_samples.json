@@ -1,0 +1,119 @@
+[
+  {
+    "query": "fullamoda mont",
+    "term_id": "TERM_9bcceaed",
+    "baseline_ndcg": 0.3333333333333333,
+    "v5_ndcg": 1.0,
+    "delta": 0.6666666666666667,
+    "top_item_before": "ITEM_e85c0c7a4569",
+    "top_item_after": "ITEM_a2913510783f"
+  },
+  {
+    "query": "jrl",
+    "term_id": "TERM_8481af2b",
+    "baseline_ndcg": 0.36413303326188057,
+    "v5_ndcg": 1.0,
+    "delta": 0.6358669667381194,
+    "top_item_before": "ITEM_8b9a0bb09d25",
+    "top_item_after": "ITEM_37a5b34ca3cc"
+  },
+  {
+    "query": "nd yavru kedi maması",
+    "term_id": "TERM_29ee9c58",
+    "baseline_ndcg": 0.38685280723454163,
+    "v5_ndcg": 1.0,
+    "delta": 0.6131471927654584,
+    "top_item_before": "ITEM_72e1306f2bb1",
+    "top_item_after": "ITEM_592e5ae5887c"
+  },
+  {
+    "query": "iphone 11 kamera lensi",
+    "term_id": "TERM_3220af3b",
+    "baseline_ndcg": 0.38685280723454163,
+    "v5_ndcg": 1.0,
+    "delta": 0.6131471927654584,
+    "top_item_before": "ITEM_a2fc42c30850",
+    "top_item_after": "ITEM_a8ea126c9255"
+  },
+  {
+    "query": "küçük lego",
+    "term_id": "TERM_4a053deb",
+    "baseline_ndcg": 0.38685280723454163,
+    "v5_ndcg": 1.0,
+    "delta": 0.6131471927654584,
+    "top_item_before": "ITEM_10b0ae13178f",
+    "top_item_after": "ITEM_263b8a81bab8"
+  },
+  {
+    "query": "telefon sticker",
+    "term_id": "TERM_f18ab0d4",
+    "baseline_ndcg": 0.2406672991267921,
+    "v5_ndcg": 0.8318724637288826,
+    "delta": 0.5912051646020905,
+    "top_item_before": "ITEM_5d7f3e336464",
+    "top_item_after": "ITEM_cd488b44362e"
+  },
+  {
+    "query": "puantiye etek",
+    "term_id": "TERM_6618d527",
+    "baseline_ndcg": 0.5,
+    "v5_ndcg": 1.0,
+    "delta": 0.5,
+    "top_item_before": "ITEM_f052a2355f85",
+    "top_item_after": "ITEM_2dacd083a3f3"
+  },
+  {
+    "query": "nars",
+    "term_id": "TERM_bbdc88cf",
+    "baseline_ndcg": 0.3321737110889728,
+    "v5_ndcg": 0.800693766409882,
+    "delta": 0.4685200553209092,
+    "top_item_before": "ITEM_d08f3d1c3ced",
+    "top_item_after": "ITEM_7d871285ab42"
+  },
+  {
+    "query": "wideleg",
+    "term_id": "TERM_32330dce",
+    "baseline_ndcg": 1.0,
+    "v5_ndcg": 0.6934264036172708,
+    "delta": -0.3065735963827292,
+    "top_item_before": "ITEM_625ca4e9d527",
+    "top_item_after": "ITEM_f9a09a832e6c"
+  },
+  {
+    "query": "vicco erkek çocuk",
+    "term_id": "TERM_2faa6fab",
+    "baseline_ndcg": 0.40877874879535264,
+    "v5_ndcg": 0.16617090792688713,
+    "delta": -0.2426078408684655,
+    "top_item_before": "ITEM_fdc4c24f5abc",
+    "top_item_after": "ITEM_a19fbc6ad51f"
+  },
+  {
+    "query": "çalışma masaso",
+    "term_id": "TERM_3a10bbbe",
+    "baseline_ndcg": 0.23719771276929622,
+    "v5_ndcg": 0.0,
+    "delta": -0.23719771276929622,
+    "top_item_before": "ITEM_720ccff305ae",
+    "top_item_after": "ITEM_85399445911e"
+  },
+  {
+    "query": "kesim tahtası",
+    "term_id": "TERM_492d5fe5",
+    "baseline_ndcg": 0.3746661058764784,
+    "v5_ndcg": 0.1610425878239398,
+    "delta": -0.21362351805253862,
+    "top_item_before": "ITEM_7aeece69794b",
+    "top_item_after": "ITEM_5a5df2d0cd31"
+  },
+  {
+    "query": "anne yanı sallanan beşik",
+    "term_id": "TERM_380d26b3",
+    "baseline_ndcg": 0.7467045958894682,
+    "v5_ndcg": 0.5404673768993046,
+    "delta": -0.20623721899016367,
+    "top_item_before": "ITEM_7fb915f13ba3",
+    "top_item_after": "ITEM_442d515e349a"
+  }
+]

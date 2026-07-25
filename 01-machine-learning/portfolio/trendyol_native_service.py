@@ -8,6 +8,7 @@ import subprocess
 import sys
 import threading
 import atexit
+import time
 from dataclasses import dataclass
 
 import numpy as np
@@ -23,6 +24,8 @@ TIMEOUT_SECONDS = 12.0
 class RankerWorker:
     process: subprocess.Popen
     lock: threading.Lock
+    request_count: int = 0
+    last_successful_response_time: float | None = None
 
     def request(self, payload: dict) -> dict:
         encoded = json.dumps(payload, sort_keys=True, separators=(",", ":"))
@@ -42,7 +45,13 @@ class RankerWorker:
         if not response.get("success"):
             LOGGER.warning("Ranker worker error code: %s", response.get("error_code"))
             raise RuntimeError(response.get("safe_error_message") or "Experimental ranker is unavailable.")
+        self.request_count+=1
+        self.last_successful_response_time=time.time()
         return response
+
+    @property
+    def health_state(self) -> str:
+        return "healthy" if self.process.poll() is None else "unavailable"
 
     def close(self) -> None:
         if self.process.poll() is None:
@@ -68,4 +77,9 @@ def ranker_predict(features, artifact: str = "v21_ranker", top_k: int = 10) -> d
         "retrieval_method": "xgboost", "filters": {"features": values.tolist()},
         "request_version": "1",
     }
-    return ranker_worker().request(payload)
+    worker=ranker_worker()
+    try:return worker.request(payload)
+    except RuntimeError:
+        if worker.process.poll() is None:raise
+        ranker_worker.clear()
+        return ranker_worker().request(payload)

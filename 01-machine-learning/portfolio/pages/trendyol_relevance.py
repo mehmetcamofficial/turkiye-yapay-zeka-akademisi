@@ -7,11 +7,13 @@ from portfolio.loaders import load_csv_safe,load_json_safe,load_text_safe
 from portfolio.project_registry import project_by_id
 from portfolio.trendyol_relevance_service import predict_batch,predict_single,rank_sample
 from portfolio.trendyol_retrieval_service import load_retrieval_asset,search as retrieval_search,semantic_state
+from portfolio.trendyol_pipeline_service import pipeline_search
 from portfolio.ui_components import (architecture_flow,comparison_cards,decision_banner,evidence_strip,information_panel,
     metric_table,model_stage_timeline,page_header,prediction_result_card,render_safe_table,section_heading,status_badge)
 
 PRESETS=["kablosuz kulaklık","beyaz kadın sneaker","çocuk yağmurluk","erkek siyah pantolon","güneş gözlüğü"]
 RETRIEVAL_PRESETS=PRESETS+["telefon hızlı şarj adaptörü","su geçirmez erkek mont","küçük ırk köpek maması","500 ml şampuan","iphone 15 pro max kılıfı"]
+V4_PRESETS=["kablosuz kulaklık","waflee makinası","iphone 15 pro max kılıf","500 ml şampuan","kadın beyaz sneaker","çocuk yağmurluk","küçük ırk köpek maması","usb c hızlı şarj adaptörü","samsung galaxy s24 ultra kılıf","su geçirmez erkek mont"]
 
 def classification_demo():
     preset=st.selectbox("Örnek sorgu",PRESETS,key="relevance_preset")
@@ -91,13 +93,62 @@ def semantic_search_demo():
     decision=load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/V3_1_MODEL_SELECTION.md"))
     decision_banner("V3.1 governance",decision or "Measured semantic/hybrid governance is pending; V1 remains unchanged.")
 
+def pipeline_demo():
+    st.warning("V4 is an End-to-End Research Pipeline on a bounded 5,000-product demo. It is not production promoted.")
+    decision_banner("Selected pipeline policy","Hybrid RRF + retrieval-only · RRF k=20 · candidate pool 100 · deterministic item-id tie-break. Historical XGBRanker is contract-incompatible; V1 is not the selected final reranker.")
+    st.caption("Cold model/index initialization remains material; warm paths are for a bounded local demo only and no production SLA is claimed.")
+    section_heading("Search Demo","One versioned request coordinates retrieval, fusion, V1 scoring, policy and safe fallback.")
+    preset=st.selectbox("Pipeline preset",V4_PRESETS,key="v4_preset");query=st.text_input("Pipeline query",preset,key="v4_query")
+    left,right=st.columns(2);mode=left.selectbox("Retrieval mode",["hybrid_rrf","tfidf","bm25","semantic"]);policy=right.selectbox("Final ranking policy",["retrieval_only","v1_relevance","experimental_ranker","blended_policy"])
+    top_k=left.selectbox("Top results",[5,10,20],index=1);pool=right.selectbox("Candidate pool size",[20,50,100,200],index=2)
+    with st.expander("Filters and diagnostics"):
+        category=st.text_input("Category filter",key="v4_category");brand=st.text_input("Brand filter",key="v4_brand");explanations=st.checkbox("Include pipeline signals",value=True);debug=st.checkbox("Advanced diagnostics",value=False)
+    if st.button("Run end-to-end pipeline",key="v4_run"):
+        st.session_state["v4_result"]=pipeline_search(query=query,retrieval_mode=mode,final_ranking_policy=policy,top_k=top_k,candidate_pool_size=pool,category_filter=category,brand_filter=brand,include_explanations=explanations,include_stage_debug=debug)
+    result=st.session_state.get("v4_result")
+    if result:
+        status=result["pipeline_status"];st.success(f"{status.title()} · {result['stage_metrics']['total_ms']:.1f} ms · {result['result_count']} results") if result["success"] else st.error(result.get("error",{}).get("message","Pipeline unavailable."))
+        for warning in result.get("warnings",[]):st.warning(warning)
+        rows=pd.DataFrame(result.get("results",[]))
+        if not rows.empty:
+            section_heading("Rank Evolution","Positive movement means the final policy moved a candidate upward.")
+            columns=[c for c in ["final_rank","title","brand","retrieval_sources","lexical_rank","semantic_rank","fused_rank","v1_scored_rank","experimental_ranker_rank","retrieval_score","v1_relevance_probability","final_score","rank_changes"] if c in rows]
+            render_safe_table(rows[columns],max_rows=20)
+            section_heading("Candidate Provenance","Retriever membership and ranks are pipeline signals, not causal explanations.")
+            provenance=rows[[c for c in ["item_id","title","candidate_provenance","matching_signals","artifact_versions","experimental_flags"] if c in rows]];render_safe_table(provenance,max_rows=20)
+        section_heading("Pipeline Stages","Local Pipeline Diagnostics")
+        stage_rows=[{"Stage":k,"Value":v,"Status":"Completed" if isinstance(v,(int,float)) and v>=0 else "Skipped"} for k,v in result["stage_metrics"].items()];render_safe_table(pd.DataFrame(stage_rows),max_rows=40)
+        architecture_flow([("Normalize","current"),("Retrieve","current"),("Fuse","experimental"),("Score","current"),("Rerank","experimental"),("Return","current")])
+    section_heading("Policy Comparison","Candidate recall and final ordering metrics remain separate.")
+    policies=load_csv_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v4/v4_repeated_seed_ci.csv"));selected_columns=[c for c in ["retrieval_mode","policy","recall@50_mean","recall@100_mean","ndcg@10_mean","mrr_mean"] if c in policies];render_safe_table(policies[selected_columns],max_rows=12) if not policies.empty else st.caption("V4 policy evidence is unavailable.")
+    section_heading("Latency Breakdown","Measured local CPU diagnostics; targets are not production SLAs.")
+    latency=load_json_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/v4/v4_latency.json"));latency_rows=[]
+    for name,value in latency.items():
+        if isinstance(value,dict):latency_rows.append({"Path":name,"p50 ms":value.get("p50_ms"),"p95 ms":value.get("p95_ms"),"max ms":value.get("max_ms"),"Status":value.get("pipeline_status")})
+    if latency_rows:render_safe_table(pd.DataFrame(latency_rows),max_rows=10)
+    if latency.get("cold_hybrid_v1_ms") is not None:
+        st.caption(
+            f"Cold Hybrid + V1: {latency['cold_hybrid_v1_ms']:.1f} ms · peak RSS: {latency.get('peak_rss_mb',0):.1f} MB"
+            f" · ending RSS: {latency.get('ending_rss_mb',0):.1f} MB · cold init +{latency.get('cold_initialization_increase_mb',0):.1f} MB"
+            f" · {latency.get('memory_status','stable after warm-up')}. All warm paths remained below one second;"
+            " the 250 ms Hybrid + V1 and 500 ms worker targets were not met."
+        )
+    section_heading("Fallback Simulation","Educational simulation; real artifacts are not mutated.")
+    failure=st.selectbox("Simulated unavailable component",["semantic_model","dense_index","v1_artifact","ranker_worker"])
+    if st.button("Run simulation",key="v4_simulate"):
+        sim_mode="hybrid_rrf" if failure in {"semantic_model","dense_index"} else "tfidf";sim_policy="experimental_ranker" if failure=="ranker_worker" else "v1_relevance"
+        simulated=pipeline_search(query=query,retrieval_mode=sim_mode,final_ranking_policy=sim_policy,top_k=5,candidate_pool_size=20,simulated_unavailable=(failure,));st.session_state["v4_simulation"]=simulated
+    simulated=st.session_state.get("v4_simulation")
+    if simulated:information_panel("Simulation result",f"Status: {simulated['pipeline_status']} · final policy: {simulated['selected_ranking_policy']} · warnings: {'; '.join(simulated['warnings']) or 'none'}")
+    section_heading("Governance and Limitations");decision_banner("V4 governance","End-to-End Research Pipeline · Bounded Demo · Offline Evaluation · Not Production Promoted. The verified V1 classifier remains valuable for relevance classification, but applying its probability directly as a reranking policy degraded Recall@50, NDCG@10 and MRR. Experimental ranker feature compatibility is not fabricated.")
+
 def render():
     metadata=load_json_safe(str(TRENDYOL_RELEVANCE_DIR/"models/model_metadata.json")); metrics=load_json_safe(str(TRENDYOL_RELEVANCE_DIR/"outputs/metrics.json"))
     page_header("Trendyol Search & Product Intelligence","Bir kullanıcı sorgusuyla ürün arasındaki alaka düzeyini tahmin eden ve aday ürün sıralama challengers’ını sorumlu biçimde değerlendiren canlı vaka çalışması.","SEARCH RELEVANCE · CLASSIFICATION · RANKING")
     evidence_strip([("Current champion","V1 Logistic Regression","Doğrulandı"),("V1 F1",f"{metrics.get('f1',0):.4f}","term-group validation"),("V1 PR AUC",f"{metrics.get('pr_auc',0):.4f}","100k sample"),("V2 ranker NDCG@10","0.8044","Deneysel"),("First-stage NDCG@10","0.8477","Leakage-safe"),("term_id overlap","0","Group split")])
     decision_banner("Champion korundu","Daha karmaşık modeller, istatistiksel kanıt sağlamadığı için otomatik olarak üretim modelinin yerini almamıştır.")
     comparison_cards([{"title":"V1 Verified Champion","status":"Doğrulandı","kind":"champion","algorithm":"TF-IDF + similarity + Logistic Regression","metric":"F1 0.6260 · PR AUC 0.7165","note":"Stable live probability inference."},{"title":"V2 Historical Experimental Challenger","status":"Deneysel","kind":"experimental","algorithm":"Random Forest","metric":"Holdout F1 0.6384","note":"Not Promoted."},{"title":"V2.1 Best Research Candidate","status":"Terfi edilmedi","kind":"experimental","algorithm":"HistGradientBoosting · not persisted","metric":"Mean F1 0.7539 · CI 0.7461–0.7618","note":"Offline Evaluation; Different historical split; Direct superiority not established."},{"title":"V2.1 Experimental Ranker","status":"Terfi edilmedi","kind":"experimental","algorithm":"XGBoost rank:ndcg topk","metric":"Delta −0.0075 · CI −0.0234–0.0084","note":"Bounded Candidate Sample; no reproducible improvement."}])
-    tabs=st.tabs(["01 · Executive & Live","02 · Evidence","03 · Model Journey","04 · Engineering","05 · Governance & Roadmap","06 · Semantic & Hybrid Search"])
+    tabs=st.tabs(["01 · Executive & Live","02 · Evidence","03 · Model Journey","04 · Engineering","05 · Governance & Roadmap","06 · Semantic & Hybrid Search","07 · End-to-End Pipeline"])
     with tabs[0]:
         section_heading("Canlı Demo","Classification ve bounded ranking modları."); mode=st.radio("Demo modu",["Relevance Classification","Product Ranking","Batch Classification"],horizontal=True)
         if mode=="Relevance Classification": classification_demo()
@@ -120,5 +171,6 @@ def render():
     with tabs[4]:
         section_heading("Champion / Challenger Governance"); architecture_flow([("Baseline","current"),("Challenger","experimental"),("Holdout evaluation","current"),("Confidence interval","current"),("Decision","current"),("Retain champion","current")])
         st.markdown(load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/V2_MODEL_SELECTION.md"))); section_heading("Limitations"); st.markdown(load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/V2_LIMITATIONS.md")))
-        section_heading("Roadmap"); information_panel("V2.1","Repeated complete-group evaluation and fair hard-negative comparison."); information_panel("V3","Multilingual embeddings, hybrid retrieval and cross-encoder reranking after retrieval-quality baselines exist.")
+        section_heading("Roadmap"); information_panel("V2.1","Repeated complete-group evaluation and fair hard-negative comparison."); information_panel("V3","Multilingual embeddings, hybrid retrieval baselines exist."); information_panel("V5","Cross-encoder reranking researched as a separate candidate.")
     with tabs[5]: semantic_search_demo()
+    with tabs[6]: pipeline_demo()

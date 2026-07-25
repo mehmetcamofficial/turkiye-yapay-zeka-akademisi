@@ -24,6 +24,14 @@ Product path: Overview → Trendyol Executive & Live → Business Problem → Go
 
 V3/V3.1 demonstrates that candidate retrieval, relevance classification and ranking are distinct search-system stages. Recruiters see a bounded live lexical, semantic and hybrid demo. Technical reviewers see pinned multilingual E5 embeddings, catalogue fingerprints, NumPy cosine indexing, validation-only fusion tuning, Recall@K, latency/index cost and group-safe statistical evaluation. Product and search reviewers see explicit catalogue scope and incomplete-judgment risks. Standalone semantic retrieval underperformed; RRF became the Best Research Candidate at Recall@50 `0.831392` but remains Not Promoted because uncertainty and bounded scope remain.
 
+V4 exposes the complete path as one observable contract: retrieval, fusion,
+provenance, optional V1 scoring, policy selection and degraded fallbacks.
+Selected policy is Hybrid RRF retrieval-only with fixed `k=20`, pool 100 and
+item-id tie-break. The verified V1 classifier remains valuable for relevance
+classification, but applying its probability directly as a reranking policy
+degraded Recall@50, NDCG@10 and MRR. Native XGBoost isolation is preserved
+without claiming feature compatibility or production deployment.
+
 ## Confusing areas found and changed
 
 - Replaced eighteen equal-priority Trendyol tabs with five guided groups.

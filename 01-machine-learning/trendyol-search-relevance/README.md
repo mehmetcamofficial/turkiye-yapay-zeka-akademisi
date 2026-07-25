@@ -38,6 +38,44 @@ the incompatible PyTorch and XGBoost OpenMP runtimes out of the same
 interpreter. Registry and Artifact Health use persisted metadata instead of
 eager native artifact reloads.
 
+## V4 end-to-end search pipeline
+
+V4 coordinates verified retrieval, fixed `RRF k=20`, candidate pool `100`,
+deterministic item-id tie-break, candidate provenance, optional unchanged V1
+scoring, deterministic policies, explicit fallbacks and Local Pipeline
+Diagnostics behind versioned `4.0` contracts. Evaluation retains Hybrid
+retrieval-only: Recall@50 `0.834640`, Recall@100 `0.900276`, NDCG@10
+`0.619136`, MRR `0.713543`. The verified V1 classifier remains valuable for
+relevance classification, but applying its probability directly as a
+reranking policy degraded Recall@50, NDCG@10 and MRR, so V1 is not the
+selected final reranker. Historical XGBRanker features are incompatible with
+the V4 live candidate contract, so ranker/blended requests visibly fall back
+rather than fabricate scores. Not Production Promoted.
+
+## V5 cross-encoder reranking
+
+V5 adds an experimental cross-encoder reranker after Hybrid RRF candidate
+fusion. The selected model is `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1`
+pinned at revision `1427fd652930e4ba29e8149678df786c240d8825` (Apache-2.0).
+Document variant is `title_compact_metadata` (title + category + brand +
+bounded attributes), selected on 150 validation queries. Batch size is 8,
+candidate pool is 20, and score normalization is per-query min-max.
+
+The alpha grid selected pure cross-encoder (alpha=1.0) as the best policy
+on validation data. On the frozen 150-query V5 holdout (seed 42, pool 20):
+
+- Hybrid RRF baseline: NDCG@10 = 0.6121, MRR = 0.7176
+- Selected cross-encoder: NDCG@10 = 0.6785, MRR = 0.7720
+- Absolute NDCG@10 gain: +0.0664 (+10.8%)
+- Paired 95% CI: [0.0368, 0.0960]
+- Improved: 74 queries, Worsened: 42 queries
+
+Candidate Recall@20 is a retrieval property preserved by reranking.
+Cold load: ~1.6 s (model + tokenizer download on first run). Warm pool-20
+latency: p95 ~433 ms, mean ~313 ms (CPU, cross-encoder batch size 8).
+
+Best Reranking Research Candidate · Not Production Promoted.
+
 ## Reproduce
 
 ```bash
