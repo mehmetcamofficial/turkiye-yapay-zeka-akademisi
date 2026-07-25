@@ -1,0 +1,13 @@
+streamlit==1.39.0
+numpy==1.26.4
+pandas==2.2.3
+scikit-learn==1.5.2
+matplotlib==3.9.2
+joblib==1.4.2
+torch==2.13.0
+sentence-transformers==5.1.2
+transformers==4.57.6
+tokenizers==0.22.2
+safetensors==0.8.0
+huggingface-hub==0.36.2
+pytest==8.3.5
