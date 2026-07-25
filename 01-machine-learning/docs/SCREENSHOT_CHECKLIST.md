@@ -32,5 +32,14 @@ After starting the app on port 8503, capture optimized WebP or PNG images. Use a
 | `v4-registry.png` | Model Registry | 1440 px; V4 row visible | Version, policy, latency, isolation and limitations | Eager native reload |
 | `v4-artifact-health.png` | Artifact Health | 1440 px; V4 components visible | Config, schemas, metadata and Worker Isolated state | Local paths |
 | `v4-architecture.png` | End-to-End Pipeline | 1440 px; stage flow visible | Query → Retrieval → Fusion → Relevance → Ranking → Results | Production deployment claim |
+| `v5-cross-encoder-search.png` | Trendyol Cross-Encoder Reranking | 1440 px; query `kablosuz kulaklık`; Live Demo tab | Hybrid RRF and cross-encoder scores, reranked results | Production SLA claim |
+| `v5-evidence-comparison.png` | Trendyol Cross-Encoder Reranking | 1440 px; Evidence tab | V4/V5 scope clarification, table of metrics | Stale hybrid-blend values |
+| `v5-holdout-detail.png` | Trendyol Cross-Encoder Reranking | 1440 px; Holdout Detail tab | Paired bootstrap CI, improved/unchanged/worsened counts | Fabricated metrics |
+| `v5-benchmarks.png` | Trendyol Cross-Encoder Reranking | 1440 px; Benchmarks tab | Pool-size comparison, batch-size latency, alpha grid | Stale alpha values |
+| `v5-validation-seeds.png` | Trendyol Cross-Encoder Reranking | 1440 px; Validation & Seeds tab | Document variant comparison, seed stability | Production promotion claims |
+| `v5-error-analysis.png` | Trendyol Cross-Encoder Reranking | 1280 px; Error Analysis tab | Worst-degraded queries, failure patterns | Fabricated error samples |
+| `v5-registry.png` | Model Registry | 1440 px; V5 row visible | Model revision, license, policy, alpha, metrics, governance | Production-ready wording |
+| `v5-artifact-health.png` | Artifact Health | 1440 px; V5 columns visible | Frozen policy, evaluation results, smoke test, reports, CE contracts | Uncached diagnostics |
+| `overview-v5-cross-encoder.png` | Platform Overview | 1440 px; V5 card visible | Cross-encoder NDCG@10 gain, pool size, governance | Stale alpha or policy |
 
 Also repeat Overview and Trendyol at 390 px width to check wrapping, focus order, button labels and absence of horizontal page overflow. Store only optimized final captures under this directory.
