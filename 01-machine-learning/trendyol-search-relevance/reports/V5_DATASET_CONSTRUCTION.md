@@ -63,10 +63,17 @@ the same pair set. The `build_pairs()` function in
 
 ## Output Files
 
-- `outputs/v5/v5_candidate_pairs.csv`: All candidate pairs with labels
-- `outputs/v5/v5_query_metrics.csv`: Per-query metrics for all policies
+- `outputs/v5/v5_frozen_policy.json`: Frozen policy configuration
+- `outputs/v5/v5_results.json`: Overall results and metadata
+- `outputs/v5/v5_smoke_test.json`: Smoke test results
+- `outputs/v5/v5_validation_document_variants.csv`: Document variant comparison on validation
+- `outputs/v5/v5_batch_benchmark.csv`: Batch size latency benchmark
+- `outputs/v5/v5_pool_benchmark.csv`: Candidate pool size benchmark
+- `outputs/v5/v5_alpha_grid.csv`: Alpha grid comparison on validation
+- `outputs/v5/v5_holdout_query_metrics.csv`: Per-query holdout metrics
+- `outputs/v5/v5_holdout_summary.csv`: Holdout aggregate summary
 - `outputs/v5/v5_metrics_by_seed.csv`: Per-seed aggregated metrics
 - `outputs/v5/v5_repeated_seed_ci.csv`: Repeated-seed confidence intervals
 - `outputs/v5/v5_paired_bootstrap.csv`: Paired bootstrap comparisons
-- `outputs/v5/v5_paired_deltas.csv`: Paired delta summaries
-- `outputs/v5/v5_results.json`: Overall results and metadata
+- `outputs/v5/v5_error_samples.json`: Bounded error examples
+- `outputs/v5/v5_split_audit.csv`: Split audit information

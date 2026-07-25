@@ -19,7 +19,7 @@ End-to-end machine-learning systems across classification, regression, NLP, sear
 | Customer Churn Intelligence | Binary classification | Persisted pipeline | ROC AUC, recall and batch inference |
 | Housing Value Forecasting | Regression | Persisted pipeline | RMSE, residual analysis and local California Housing data |
 | Sentiment Intelligence | English NLP classification | Persisted pipeline | UCI source, TF-IDF terms and live inference |
-| Trendyol Search & Product Intelligence | Relevance classification and ranking research | V1 champion + experimental challengers | term-group split, NDCG, bootstrap CI and governance |
+| Trendyol Search & Product Intelligence | Relevance classification, ranking and retrieval research | V1 champion + V2–V5 experimental challengers | term-group split, NDCG, bootstrap CI and governance |
 
 ## Featured evidence: Trendyol
 
@@ -32,6 +32,8 @@ V2.1 Offline Evaluation used 1,000 complete groups across five seeds. HistGradie
 V3/V3.1 adds candidate retrieval as a separate experimental layer. Five group-safe seeds evaluate 1,000 complete queries against a deterministic 63,841-product bounded broad catalogue with 100% judged-relevant-item availability. Combined enriched TF-IDF reaches Recall@50 `0.817239`; standalone multilingual E5 Small reaches `0.725147` and is not selected. Validation-selected RRF hybrid reaches Recall@50 `0.831392`, Recall@100 `0.900276`, NDCG@10 `0.618014` and MRR `0.713382`. Its Recall@50 delta CI versus TF-IDF is `[-0.006188, 0.034494]`, so it is a Best Research Candidate but Not Promoted. The live 5,000-product demo uses cached lexical and real local semantic indexes.
 
 V4 adds one bounded end-to-end contract: validated query → retrieval → fixed `RRF k=20` fusion → provenance → optional unchanged V1 scoring → deterministic policy/fallback → response. Selected policy is Hybrid RRF retrieval-only (pool 100, item-id tie-break) at Recall@50 `0.834640`, NDCG@10 `0.619136` and MRR `0.713543`. The verified V1 classifier remains valuable for relevance classification, but applying its probability directly as a reranking policy degraded Recall@50, NDCG@10 and MRR. V4 is an offline research pipeline, not production promoted.
+
+V5 adds experimental cross-encoder reranking. `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1` revision `1427fd65` is the selected model, scoring Hybrid RRF candidates (pool 20) with `title_compact_metadata` document text. The pure cross-encoder policy was selected via validation alpha grid (alpha=1.0). On the frozen 150-query V5 holdout, NDCG@10 increased from `0.6121` to `0.6785`, an absolute gain of `+0.0664` (+10.8%). The paired 95% CI was `[0.0368, 0.0960]`; 74 queries improved, 42 worsened. V5 is a Best Reranking Research Candidate, Not Production Promoted.
 
 ## Architecture
 
@@ -54,6 +56,11 @@ Query → Normalization ─→ Lexical Retrieval ─┐
 ```text
 Champion → Challenger → Holdout → Confidence Interval → Decision
                                                 ↘ Promote / retain
+
+```text
+Query → Hybrid RRF (pool 20) → Cross-Encoder → Reranked Results
+                              → (or fallback: retrieval-only)
+```
 ```
 
 ## Run

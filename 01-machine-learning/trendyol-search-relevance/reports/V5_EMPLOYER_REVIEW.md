@@ -50,8 +50,8 @@ Can they inspect:
 
 ## Governance
 
-- **Role**: Experimental Cross-Encoder Reranker
-- **Status**: Best Reranking Research Candidate (if supported by metrics)
+- **Role**: Best Reranking Research Candidate
+- **Status**: Experimental
 - **Promotion**: Not Production Promoted
 - **Scope**: Bounded 5,000-product demo, 63,841-product offline evaluation
 - **SLA**: No production SLA claimed

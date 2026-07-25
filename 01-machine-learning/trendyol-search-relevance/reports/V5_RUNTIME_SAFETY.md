@@ -66,9 +66,11 @@ Hybrid RRF retrieval-only
 
 ## Memory Governance
 
-- Peak RSS: measured (expected ~1,300–1,400 MB)
-- Ending RSS: measured
-- Cold initialization increase: measured
+- Cold RSS before load: ~414.5 MiB
+- Cold RSS after load: ~704.5 MiB
+- Cold initialization increase: ~290.0 MiB
+- Peak main RSS: ~574.7 MiB (warm)
+- Total process-tree RSS: ~574.7 MiB
 - Cross-encoder model load count: 1/1
 - Tokenizer load count: 1/1
 - E5 model/index load count: 1/1

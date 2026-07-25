@@ -69,11 +69,19 @@ Raw logits (regression output). NOT probabilities. NOT calibrated.
 
 ## Document Variant
 
-title_category_brand (Query + title + category + brand)
+title_compact_metadata (Query + title + category + brand + bounded attributes)
+
+Selected via NDCG@10 on 150 validation queries (seed 42, pool 20, pure CE).
+
+Validation variants NDCG@10:
+- title_only: 0.4920
+- title_category: 0.5086
+- title_category_brand: 0.6780
+- title_compact_metadata: 0.6926 (selected)
 
 ## Candidate Pool Sizes Tested
 
-- 20 (live demo default)
+- 20 (live demo default, selected)
 - 50 (live demo alternative)
 - 100 (benchmark only)
 
@@ -94,6 +102,21 @@ title_category_brand (Query + title + category + brand)
 Min-max normalization per query for hybrid blend. Raw logits are NOT
 labeled as probabilities.
 
+## Alpha Selection
+
+Alpha grid evaluated on 150 validation queries (selected variant, pool 20).
+
+Validation alpha NDCG@10:
+- 0.50: 0.6843
+- 0.65: 0.6878
+- 0.80: 0.6907
+- 0.90: 0.6878
+- 1.00: 0.6926 (selected, pure cross-encoder)
+
+Selected policy: pure cross-encoder (alpha=1.0). Hybrid blend was not
+selected because pure cross-encoder achieved the highest NDCG@10 on
+the validation set.
+
 ## Smoke Test Results
 
 - Tokenizer load: 5.56s
@@ -107,8 +130,17 @@ labeled as probabilities.
 
 ## Governance Decision
 
-**Experimental Cross-Encoder Reranker · Not Production Promoted**
+**Best Reranking Research Candidate · Not Production Promoted**
+
+On the frozen 150-query V5 holdout (seed 42, pool 20):
+
+- Hybrid RRF baseline: NDCG@10 = 0.6121, MRR = 0.7176
+- Pure cross-encoder: NDCG@10 = 0.6785, MRR = 0.7720
+- Absolute NDCG@10 gain: +0.0664
+- Relative NDCG@10 gain: +10.8%
+- Paired 95% CI: [0.0368, 0.0960]
+- Improved: 74, Unchanged: 34, Worsened: 42
 
 The cross-encoder is an experimental reranker. It does not improve candidate
-recall. It may improve top-of-list ranking quality (NDCG@10, MRR) but this
-must be verified with full holdout evaluation.
+recall. Candidate Recall@20 is a retrieval property preserved during
+reranking of the same pool.

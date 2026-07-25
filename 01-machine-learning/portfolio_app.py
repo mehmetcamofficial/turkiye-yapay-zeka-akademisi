@@ -62,6 +62,7 @@ def main() -> None:
         "Konut Regresyonu": "regression",
         "Sentiment Intelligence": "nlp",
         "Trendyol Arama Alaka Zekâsı": "trendyol_relevance",
+        "Trendyol Cross-Encoder Reranking": "trendyol_v5",
         "Clustering": "clustering",
         "Model Performansı": "performance",
         "Veri Bilimi Çalışma Alanı": "data_science_overview",

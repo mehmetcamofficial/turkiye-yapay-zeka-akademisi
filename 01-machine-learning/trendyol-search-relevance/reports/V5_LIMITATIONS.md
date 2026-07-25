@@ -13,6 +13,6 @@
 - The cross-encoder is an experimental reranker, not a production ranking model.
 - Fine-tuning is optional and may not be justified by the dataset size.
 - Score normalization is per-query min-max, which may be unstable for short candidate lists.
-- The hybrid blend alpha is tuned on validation only; generalization to unseen queries is not guaranteed.
-- Runtime coexistence with E5 semantic model and XGBoost worker must be verified.
+- The alpha was tuned on validation only; generalization to unseen queries is not guaranteed.
+- Runtime coexistence with E5 semantic model and XGBoost worker was verified.
 - Not Production Promoted.

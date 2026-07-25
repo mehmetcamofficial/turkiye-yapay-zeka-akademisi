@@ -171,6 +171,6 @@ def render():
     with tabs[4]:
         section_heading("Champion / Challenger Governance"); architecture_flow([("Baseline","current"),("Challenger","experimental"),("Holdout evaluation","current"),("Confidence interval","current"),("Decision","current"),("Retain champion","current")])
         st.markdown(load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/V2_MODEL_SELECTION.md"))); section_heading("Limitations"); st.markdown(load_text_safe(str(TRENDYOL_RELEVANCE_DIR/"reports/V2_LIMITATIONS.md")))
-        section_heading("Roadmap"); information_panel("V2.1","Repeated complete-group evaluation and fair hard-negative comparison."); information_panel("V3","Multilingual embeddings, hybrid retrieval and cross-encoder reranking after retrieval-quality baselines exist.")
+        section_heading("Roadmap"); information_panel("V2.1","Repeated complete-group evaluation and fair hard-negative comparison."); information_panel("V3","Multilingual embeddings, hybrid retrieval baselines exist."); information_panel("V5","Cross-encoder reranking researched as a separate candidate.")
     with tabs[5]: semantic_search_demo()
     with tabs[6]: pipeline_demo()

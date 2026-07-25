@@ -54,7 +54,7 @@ def render():
     architecture_flow([("Data Sources","current"),("Validation","current"),("Feature Engineering","current"),("Training","current"),("Evaluation","current"),("Artifact Registry","current"),("Live Inference","current"),("Monitoring","planned")])
     section_heading("Araştırma Yol Haritası","Kompleksite yalnız tekrarlanabilir kanıt ürettiğinde artırılır.")
     information_panel("V2.1 robust evaluation","1.000 tam sorgu grubu, beş seed, aynı holdout sistem karşılaştırmaları ve hard-negative yeniden doğrulama.")
-    information_panel("V3.1 semantic retrieval","Pinned multilingual E5, normalized NumPy dense retrieval and measured hybrid fusion are experimental; cross-encoder reranking remains planned.")
+    information_panel("V3.1 semantic retrieval","Pinned multilingual E5, normalized NumPy dense retrieval and measured hybrid fusion are experimental.")
     information_panel("V4 end-to-end pipeline","Versioned orchestration, provenance, explicit fallbacks and Local Pipeline Diagnostics connect the verified stages; fixed-k Hybrid retrieval-only remains the selected research policy.")
     section_heading("Profesyonel Profil","AI engineering, machine learning, data science ve ürün odaklı teknik sistemler.")
     st.caption("Bağlantılar yeni sekmede güvenli biçimde açılır: Portfolio · LinkedIn · GitHub")

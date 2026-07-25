@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -9,7 +10,8 @@ from typing import Any
 from portfolio.config import (CHURN_DIR, CHURN_MODEL_PATH, CLUSTERING_DIR,
                               DEPLOYMENT_DIR, NLP_DIR, NLP_MODEL_PATH,
                               REGRESSION_DIR, REGRESSION_MODEL_PATH,
-                              TRENDYOL_RELEVANCE_DIR, TRENDYOL_RELEVANCE_MODEL_PATH)
+                              TRENDYOL_RELEVANCE_DIR, TRENDYOL_RELEVANCE_MODEL_PATH,
+                              REPOSITORY_ROOT)
 from portfolio.loaders import load_csv_safe, load_json_safe
 
 
@@ -143,6 +145,89 @@ def get_project_registry() -> list[dict[str, Any]]:
     selected=v4.get("selected_policy","hybrid_rrf+retrieval_only");selected_row=v4_metrics[(v4_metrics.retrieval_mode.eq("hybrid_rrf"))&(v4_metrics.policy.eq("retrieval_only"))] if not v4_metrics.empty else v4_metrics
     v4_expected=["models/v4/pipeline_config.json","models/v4/request_schema.json","models/v4/response_schema.json","search_pipeline/contracts.py","search_pipeline/orchestrator.py","native_ranker_worker.py","models/v3/lexical_demo_metadata.json","models/v3/semantic_demo_metadata.json","models/v3/semantic_demo.npy","models/trendyol_relevance_pipeline.pkl","outputs/v4/v4_results.json","outputs/v4/v4_latency.json"]
     projects.append({"id":"trendyol_v4_pipeline","name":"Trendyol End-to-End Search Pipeline V4","short_name":"Trendyol Pipeline V4","category":"Best Pipeline Research Candidate","description":"Hybrid retrieval, provenance, unchanged V1 scoring, fallback-safe orchestration and local stage diagnostics.","directory":TRENDYOL_RELEVANCE_DIR,"status":"Deneysel","dataset":"Bounded broad product catalogue","dataset_size":"5,000 live · 63,841 offline","final_model":selected,"primary_metric_name":"Recall@50","primary_metric_value":float(selected_row.iloc[0]["recall@50_mean"]) if not selected_row.empty else None,"secondary_metrics":{"NDCG@10":float(selected_row.iloc[0]["ndcg@10_mean"]) if not selected_row.empty else None,"MRR":float(selected_row.iloc[0]["mrr_mean"]) if not selected_row.empty else None},"model_path":v4_path,"expected_output_files":v4_expected,"app_available":v4_path.is_file(),"training_available":False,"data_source_available":True,"readme_available":True,"validation_available":bool(v4),"model_artifact_available":v4_path.is_file(),"last_verified":_last_verified(TRENDYOL_RELEVANCE_DIR,v4_expected),"limitations":["Not Production Promoted","5,000-product bounded demo","63,841-product offline scope","Incomplete judgments","No online A/B test","CPU-only semantic runtime","XGBoost worker feature-incompatible"],"data_mode":"orchestrated_bounded_demo","validation_strategy":"1,000 complete queries · five group-safe seeds","artifact_kind":"pipeline_config","pipeline_version":"4.0","retrieval_method":"Hybrid RRF k=20","relevance_model":"V1 Logistic Regression (optional)","ranking_policy":"retrieval-only selected; V1 optional","candidate_pool_size":100,"indexed_product_count":5000,"evaluation_product_count":63841,"p95_latency_ms":v4_latency.get("warm_hybrid",{}).get("p95_ms"),"worker_isolation":"Persistent bounded JSON worker","fallback_support":True,"governance_decision":"Best Pipeline Research Candidate · Not Production Promoted"})
+
+    v5_results = load_json_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_results.json"))
+    v5_policy = load_json_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_frozen_policy.json"))
+    v5_expected = ["outputs/v5/v5_frozen_policy.json", "outputs/v5/v5_results.json",
+                   "outputs/v5/v5_smoke_test.json", "outputs/v5/v5_validation_document_variants.csv",
+                   "outputs/v5/v5_batch_benchmark.csv", "outputs/v5/v5_pool_benchmark.csv",
+                   "outputs/v5/v5_alpha_grid.csv", "outputs/v5/v5_holdout_summary.csv",
+                   "outputs/v5/v5_paired_bootstrap.csv", "outputs/v5/v5_error_samples.json",
+                   "reports/V5_CROSS_ENCODER_FEASIBILITY.md", "reports/V5_MODEL_SELECTION.md",
+                   "reports/V5_LIMITATIONS.md", "reports/V5_RUNTIME_SAFETY.md",
+                   "search_pipeline/cross_encoder_contracts.py", "search_pipeline/cross_encoder_service.py",
+                   "search_pipeline/memory_utils.py", "v5_evaluate.py"]
+    v5_ready = _exists_all(TRENDYOL_RELEVANCE_DIR, v5_expected)
+    v5_paired = load_csv_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_paired_bootstrap.csv"))
+    v5_ndcg_row = v5_paired[(v5_paired.candidate.eq("hybrid_rrf+cross_encoder")) & (v5_paired.metric.eq("ndcg@10"))]
+    v5_mrr_row = v5_paired[(v5_paired.candidate.eq("hybrid_rrf+cross_encoder")) & (v5_paired.metric.eq("mrr"))]
+    raw = v5_results.get("holdout_ndcg_ci95", [None, None])
+    v5_ci95 = json.loads(raw) if isinstance(raw, str) else list(raw) if isinstance(raw, (list, tuple)) else [None, None]
+    projects.append({
+        "id": "trendyol_v5_reranker", "name": "V5 Cross-Encoder Reranker", "short_name": "V5 Reranker",
+        "category": "Best Reranking Research Candidate",
+        "description": "Experimental multilingual cross-encoder reranking of Hybrid RRF candidates. "
+                       "Selected pure cross-encoder policy (alpha=1.0) on title_compact_metadata "
+                       "document variant with pool=20.",
+        "directory": TRENDYOL_RELEVANCE_DIR, "status": "Deneysel",
+        "dataset": "Bounded broad product catalogue · V4 Hybrid RRF candidates",
+        "dataset_size": "63,841 products · 1,000 queries · 150 holdout",
+        "final_model": "cross_encoder",
+        "primary_metric_name": "NDCG@10",
+        "primary_metric_value": v5_results.get("holdout_blended_ndcg@10"),
+        "secondary_metrics": {
+            "holdout_hybrid_rrf_ndcg@10": v5_results.get("holdout_hybrid_rrf_ndcg@10"),
+            "holdout_mrr": v5_results.get("holdout_blended_mrr"),
+            "absolute_ndcg_delta": v5_results.get("holdout_ndcg_absolute_delta"),
+            "relative_ndcg_pct": v5_results.get("holdout_ndcg_relative_pct_vs_hybrid"),
+            "mrr_delta": v5_results.get("holdout_mrr_delta"),
+            "improved": v5_results.get("holdout_improved"),
+            "worsened": v5_results.get("holdout_worsened"),
+            "warm_latency_p95_ms": v5_results.get("pool20_warm_latency_p95_ms"),
+            "cold_load_seconds": v5_results.get("cold_tokenizer_model_load_seconds"),
+        },
+        "model_path": TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_frozen_policy.json",
+        "expected_output_files": v5_expected,
+        "app_available": v5_ready,
+        "training_available": (TRENDYOL_RELEVANCE_DIR / "v5_evaluate.py").is_file(),
+        "data_source_available": True,
+        "readme_available": (TRENDYOL_RELEVANCE_DIR / "README.md").is_file(),
+        "validation_available": bool(v5_results),
+        "model_artifact_available": (TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_frozen_policy.json").is_file(),
+        "last_verified": _last_verified(TRENDYOL_RELEVANCE_DIR, v5_expected),
+        "limitations": [
+            "Not Production Promoted",
+            "5,000-product bounded demo",
+            "Bounded offline evaluation scope",
+            "Cross-encoder scores are raw logits, not probabilities",
+            "No fine-tuning applied",
+            "No online A/B test",
+            "CPU-only inference",
+            "Candidate recall is a retrieval property, not improved by reranking",
+        ],
+        "data_mode": "cross_encoder_reranking",
+        "validation_strategy": "150 validation + 150 holdout queries (seed 42) · zero term_id overlap",
+        "artifact_kind": "frozen_policy",
+        "pipeline_version": "5.0",
+        "retrieval_method": "Hybrid RRF k=20 (from V4)",
+        "reranking_model": v5_results.get("cross_encoder_model", "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"),
+        "revision": v5_results.get("cross_encoder_revision", "1427fd652930e4ba29e8149678df786c240d8825"),
+        "document_variant": v5_policy.get("document_variant", "title_compact_metadata"),
+        "alpha": v5_policy.get("alpha", 1.0),
+        "policy": v5_policy.get("policy", "cross_encoder"),
+        "batch_size": v5_policy.get("batch_size", 8),
+        "candidate_pool_size": v5_policy.get("candidate_pool", 20),
+        "device": v5_results.get("device", "cpu"),
+        "license": v5_policy.get("license", "Apache-2.0"),
+        "evaluation_query_count": v5_results.get("holdout_query_count", 150),
+        "paired_ndcg_ci95": v5_ci95,
+        "paired_improved": int(v5_ndcg_row.iloc[0]["improved"]) if not v5_ndcg_row.empty else None,
+        "paired_unchanged": int(v5_ndcg_row.iloc[0]["unchanged"]) if not v5_ndcg_row.empty else None,
+        "paired_worsened": int(v5_ndcg_row.iloc[0]["worsened"]) if not v5_ndcg_row.empty else None,
+        "governance_decision": "Best Reranking Research Candidate · Not Production Promoted",
+        "fallback_support": True,
+        "cold_start_ms": v5_results.get("cold_tokenizer_model_load_seconds", 0) * 1000 if v5_results.get("cold_tokenizer_model_load_seconds") else None,
+    })
 
     cluster_expected = ["models/clustering_pipeline.pkl", "outputs/model_comparison.csv", "outputs/pca_clusters.png"]
     cluster_status = "Henüz Başlanmadı" if not CLUSTERING_DIR.is_dir() else ("Tamamlandı" if _exists_all(CLUSTERING_DIR, cluster_expected) else "Geliştiriliyor")
