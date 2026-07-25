@@ -1,0 +1,7 @@
+candidate,baseline,metric,split,seed,delta,ci_low,ci_high,improved,unchanged,worsened
+hybrid_rrf+cross_encoder,hybrid_rrf+retrieval_only,ndcg@10,holdout,42,0.06635315226043852,0.03675398200240101,0.09603200782951332,74,34,42
+hybrid_rrf+cross_encoder,hybrid_rrf+retrieval_only,mrr,holdout,42,0.0543899122320175,-0.0026656850946324678,0.10950799938365718,35,88,27
+hybrid_rrf+cross_encoder,hybrid_rrf+retrieval_only,recall@20,holdout,42,0.0,0.0,0.0,0,150,0
+hybrid_rrf+hybrid_cross_encoder_blend,hybrid_rrf+retrieval_only,ndcg@10,holdout,42,0.06635315226043852,0.03675398200240101,0.09603200782951332,74,34,42
+hybrid_rrf+hybrid_cross_encoder_blend,hybrid_rrf+retrieval_only,mrr,holdout,42,0.0543899122320175,-0.0026656850946324678,0.10950799938365718,35,88,27
+hybrid_rrf+hybrid_cross_encoder_blend,hybrid_rrf+retrieval_only,recall@20,holdout,42,0.0,0.0,0.0,0,150,0

@@ -7,7 +7,7 @@ from typing import Any
 
 REQUEST_VERSION = "4.0"
 RETRIEVAL_MODES = {"tfidf", "bm25", "semantic", "hybrid_rrf"}
-RANKING_POLICIES = {"retrieval_only", "v1_relevance", "experimental_ranker", "blended_policy"}
+RANKING_POLICIES = {"retrieval_only", "v1_relevance", "experimental_ranker", "blended_policy", "cross_encoder", "hybrid_cross_encoder_blend"}
 MAX_QUERY_LENGTH = 300
 MAX_PAYLOAD_BYTES = 16_384
 

@@ -1,0 +1,19 @@
+{
+  "model_id": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+  "revision": "1427fd652930e4ba29e8149678df786c240d8825",
+  "license": "apache-2.0",
+  "architecture": [
+    "XLMRobertaForSequenceClassification"
+  ],
+  "hidden_size": 384,
+  "num_layers": 12,
+  "num_params": 117641089,
+  "max_position_embeddings": 514,
+  "model_load_seconds": 13.23321441700682,
+  "tokenizer_load_seconds": 5.557781708004768,
+  "first_inference_ms": 124.31174999801442,
+  "second_inference_ms": 33.23658301087562,
+  "rss_after_mb": 701312.0,
+  "deterministic": true,
+  "scores_finite": true
+}
