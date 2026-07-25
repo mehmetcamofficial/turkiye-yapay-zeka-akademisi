@@ -8,7 +8,7 @@ from pathlib import Path
 import streamlit as st
 
 st.set_page_config(
-    page_title="AI & Data Intelligence Platform",
+    page_title="AI Search & Intelligence Platform",
     page_icon="AI",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -25,25 +25,29 @@ LOGGER = logging.getLogger(__name__)
 
 PAGE_MODULE_MAP = {
     "nav_overview": "overview",
+    "nav_search_intelligence": "search_demo",
+    "nav_relevance_classification": "trendyol_relevance",
+    "nav_hybrid_retrieval": "search_demo",
+    "nav_cross_encoder": "trendyol_v5",
+    "nav_policy_comparison": "search_demo",
+    "nav_live_inference": "trendyol_v5",
+    "nav_runtime_diagnostics": "eval_lab",
+    "nav_model_governance": "eval_lab",
+    "nav_architecture": "architecture",
     "nav_churn": "churn",
     "nav_housing": "regression",
     "nav_sentiment": "nlp",
-    "nav_search_relevance": "trendyol_relevance",
-    "nav_search_ranking": "search_demo",
-    "nav_cross_encoder": "trendyol_v5",
-    "nav_pipeline_diagnostics": "eval_lab",
-    "nav_architecture": "architecture",
     "nav_data_workspace": "data_science_overview",
     "nav_data_science_midterm": "data_science_midterm",
     "nav_data_science_final": "data_science_final",
     "nav_registry": "model_registry",
     "nav_artifact_health": "artifact_health",
     "nav_deployment": "deployment",
-    "nav_assignments": "assignments",
+    "nav_enterprise_readiness": "deployment",
+    "nav_projects": "projects",
     "nav_docs": "documentation",
     "nav_about": "about",
     "nav_notebook_status": "notebook_status",
-    "nav_projects": "projects",
 }
 
 
@@ -105,7 +109,7 @@ def render_sidebar() -> str:
             + t("sidebar_assignments")
         )
         st.success(t("sidebar_verified"))
-        st.caption(f"Portfolio v{__version__}")
+        st.caption(f"Platform v{__version__}")
     return selected
 
 
