@@ -19,35 +19,21 @@ TRENDYOL_RELEVANCE_MODEL_PATH = TRENDYOL_RELEVANCE_DIR / "models" / "trendyol_re
 PORTFOLIO_VERSION = "1.0.0"
 
 NAVIGATION_GROUPS = {
-    "OVERVIEW / GENEL BAKIŞ": ["Executive Overview"],
-    "SEARCH INTELLIGENCE / ARAMA ZEKÂSI": [
-        "Search Demo / Arama Demosu",
-        "Cross-Encoder Reranking",
-        "Evaluation Lab",
-        "Architecture / Mimari",
+    "section_overview": ["nav_overview"],
+    "section_ml": ["nav_churn", "nav_housing", "nav_sentiment"],
+    "section_search": [
+        "nav_search_relevance",
+        "nav_search_ranking",
+        "nav_cross_encoder",
+        "nav_pipeline_diagnostics",
     ],
-    "MACHINE LEARNING": [
-        "Customer Churn",
-        "Housing Regression",
-        "Sentiment Intelligence",
+    "section_data_science": [
+        "nav_data_workspace",
+        "nav_data_science_midterm",
+        "nav_data_science_final",
     ],
-    "DATA & QUALITY / VERİ VE KALİTE": [
-        "Trendyol Data Workspace",
-    ],
-    "MODEL OPERATIONS": [
-        "Model Registry",
-        "Artifact Health",
-        "Deployment Readiness",
-    ],
-    "PORTFOLIO": [
-        "Projects",
-        "Documentation",
-        "About Mehmet",
-    ],
-    "ACADEMIC ARCHIVE / AKADEMİK ARŞİV": [
-        "Assignments",
-        "Notebook Status",
-    ],
+    "section_model_ops": ["nav_registry", "nav_artifact_health", "nav_deployment"],
+    "section_portfolio": ["nav_assignments", "nav_docs", "nav_about", "nav_notebook_status"],
 }
 
 ALL_NAV_PAGES = [p for pages in NAVIGATION_GROUPS.values() for p in pages]

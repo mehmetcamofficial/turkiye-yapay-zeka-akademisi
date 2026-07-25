@@ -4,15 +4,15 @@ import streamlit as st
 
 from portfolio.config import REPOSITORY_ROOT
 from portfolio.i18n import t
-from portfolio.ui_components import (hero_panel, kpi_grid, section_heading,
-                                     status_badge)
+from portfolio.ui_components import (hero_panel, kpi_grid, kpi_grid_mixed,
+                                     section_heading, status_badge)
 
 
 def render() -> None:
     hero_panel(
         title=t("nav_deployment"),
-        subtitle="Current deployment status of the portfolio application and ML services.",
-        kicker="MODEL OPERATIONS",
+        subtitle=t("subtitle_deployment"),
+        kicker=t("section_model_ops"),
     )
 
     streamlit_available = (REPOSITORY_ROOT / "requirements.txt").is_file()
@@ -29,14 +29,13 @@ def render() -> None:
          "portfolio_app.py"),
         ("Test Suite", "Available" if test_suite else "Unavailable",
          "51 passing tests"),
-        ("Production API", status_badge("roadmap"),
-         "No REST endpoint deployed"),
-        ("Authentication", status_badge("roadmap"),
-         "Not configured"),
-        ("Monitoring", status_badge("roadmap"),
-         "Not implemented"),
-        ("A/B Testing", status_badge("roadmap"),
-         "Not implemented"),
+    ])
+
+    kpi_grid_mixed([
+        ("Production API", status_badge("roadmap"), "No REST endpoint deployed"),
+        ("Authentication", status_badge("roadmap"), "Not configured"),
+        ("Monitoring", status_badge("roadmap"), "Not implemented"),
+        ("A/B Testing", status_badge("roadmap"), "Not implemented"),
     ])
 
     section_heading("Deployment Readiness Summary")

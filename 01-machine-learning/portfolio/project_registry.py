@@ -488,7 +488,7 @@ def project_by_id(project_id: str) -> dict[str, Any]:
 
 def portfolio_counts() -> dict[str, int]:
     projects = get_project_registry()
-    completed = [p for p in projects if p["status"] in {"available", "verified"}]
+    completed = [p for p in projects if p.get("status") in {"available", "verified"}]
     model_counts = 0
     for project in projects[:3]:
         comparison = load_csv_safe(str(project["directory"] / "outputs" / "validation_results.csv"))

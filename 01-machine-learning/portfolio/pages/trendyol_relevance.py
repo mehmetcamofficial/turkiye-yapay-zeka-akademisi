@@ -7,7 +7,7 @@ from portfolio.i18n import t
 from portfolio.loaders import load_csv_safe, load_json_safe
 from portfolio.project_registry import get_project_registry
 from portfolio.ui_components import (comparison_cards, decision_banner,
-                                     evidence_strip, hero_panel,
+                                     hero_panel, kpi_grid_mixed,
                                      model_stage_timeline, render_safe_table,
                                      section_heading, status_badge)
 
@@ -15,15 +15,15 @@ from portfolio.ui_components import (comparison_cards, decision_banner,
 def render() -> None:
     hero_panel(
         title="Trendyol Search Intelligence",
-        subtitle="V1–V5 research pipeline: sparse classification, semantic retrieval, hybrid fusion, cross-encoder reranking.",
-        kicker="SEARCH INTELLIGENCE",
+        subtitle=t("subtitle_trendyol_relevance"),
+        kicker=t("section_search"),
     )
 
     projects = {p["id"]: p for p in get_project_registry()}
     metrics = load_json_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs" / "metrics.json"))
 
     section_heading("Executive Summary")
-    evidence_strip([
+    kpi_grid_mixed([
         ("V1 Champion", f"F1 {metrics.get('f1', 0):.4f}", status_badge("verified")),
         ("V3 Hybrid RRF", f"Recall@50 0.8314", status_badge("experimental")),
         ("V4 Pipeline", f"NDCG@10 0.6191", status_badge("experimental")),

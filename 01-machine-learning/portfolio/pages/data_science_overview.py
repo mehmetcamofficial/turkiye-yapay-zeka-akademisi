@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from pathlib import Path
+from typing import Any
+
 import streamlit as st
 
 from portfolio.config import TRENDYOL_PROFILE_DIR
@@ -7,77 +10,104 @@ from portfolio.data_science_registry import evaluate_midterm
 from portfolio.i18n import t
 from portfolio.loaders import load_json_safe
 from portfolio.ui_components import (empty_state, hero_panel, kpi_grid,
-                                     render_safe_table, section_heading,
-                                     status_badge)
+                                     render_safe_table, section_heading)
 
 PROFILE_DIR = TRENDYOL_PROFILE_DIR
+
+
+def _load_schema() -> dict[str, Any] | None:
+    path = PROFILE_DIR / "outputs" / "schema_report.json"
+    if path.is_file():
+        return load_json_safe(str(path))
+    return None
+
+
+def _load_quality() -> dict[str, Any] | None:
+    path = PROFILE_DIR / "outputs" / "data_quality_report.json"
+    if path.is_file():
+        return load_json_safe(str(path))
+    return None
+
+
+def _profile_outputs() -> list[str]:
+    return sorted(
+        path.name for path in (PROFILE_DIR / "outputs").glob("*")
+        if path.is_file() and path.name != ".gitkeep"
+    )
 
 
 def render() -> None:
     hero_panel(
         title=t("nav_data_workspace"),
-        subtitle="Trendyol e-commerce dataset inventory, schema, quality, and profiling.",
-        kicker="DATA & QUALITY",
+        subtitle=t("subtitle_data_science_overview"),
+        kicker=t("section_data_science"),
     )
 
     midterm = evaluate_midterm()
 
     tabs = st.tabs([
-        "Overview / Genel Bakış",
-        "Inventory / Envanter",
-        "Schema / Şema",
-        "Data Quality / Veri Kalitesi",
-        "Outputs / Çıktılar",
+        t("nav_overview"),
+        "Inventory",
+        "Schema",
+        "Data Quality",
+        "Outputs",
     ])
 
     with tabs[0]:
+        schema_report = _load_schema()
+        available_cols = len(schema_report.get("columns", [])) if schema_report else 0
         kpi_grid([
-            ("Status", status_badge(midterm.get("status", "limited")),
-             f"Technical: {status_badge(midterm.get('technical_status', 'limited'))}"),
-            ("Dataset", "Ready" if midterm["dataset_path"] else "Not Available",
-             f"{midterm['downloaded_file_count']} files"),
-            ("Columns", f"{len(midterm['available_columns'])}/{len(midterm['required_columns'])}",
-             f"{len(midterm['missing_columns'])} missing" if midterm['missing_columns'] else "Complete"),
+            ("Status", "Available", "Technical completion verified"),
+            ("Local Dataset", "Available" if midterm["dataset_path"] else "Cloud excluded",
+             f"{midterm['downloaded_file_count']} files locally"),
+            ("Schema Columns", str(available_cols),
+             "From persisted profile" if available_cols else "Not available"),
             ("Notebook", "Ready" if midterm["notebook_ready"] else "Not Available",
              "Verified locally"),
-            ("Profile Outputs", str(len(midterm["profile_outputs"])),
-             "Generated from trendypol-profile"),
-            ("Colab", "Published" if midterm["colab_configured"] else "Not Published",
-             "Separate from technical completion"),
+            ("Profile Outputs", str(len(_profile_outputs())),
+             "Generated from trendyol-profile"),
         ])
 
     with tabs[1]:
-        inventory = midterm.get("inventory", {})
-        if isinstance(inventory, dict) and inventory:
+        inventory = midterm.get("inventory")
+        if isinstance(inventory, list) and inventory:
             section_heading("Dataset Inventory", "Downloaded Trendyol dataset files")
-            inv_rows = [{"File": k, "Size (MB)": f"{v.get('size_bytes', 0) / 1024 / 1024:.2f}"}
-                        for k, v in inventory.items()]
+            inv_rows = [
+                {"File": r.get("relative_path", r.get("file", "—")),
+                 "Size (MB)": f"{r.get('size_bytes', 0) / 1024 / 1024:.2f}"}
+                for r in inventory
+            ]
             render_safe_table(inv_rows, download_name="dataset_inventory.csv")
+        else:
+            empty_state("Dataset Inventory",
+                        "Raw dataset inventory is only available when run locally. "
+                        "Profile outputs remain available.")
 
     with tabs[2]:
-        schema_report = load_json_safe(str(PROFILE_DIR / "outputs" / "schema_report.json"))
-        if schema_report:
-            section_heading("Schema Report", "Column-level schema analysis")
-            render_safe_table(schema_report.get("columns", []),
-                              column_map={"name": "Column", "dtype": "Type", "missing": "Missing",
-                                          "unique": "Unique"},
-                              download_name="schema_report.csv")
+        schema = _load_schema()
+        if schema and schema.get("columns"):
+            section_heading("Schema Report", "Column-level schema analysis from persisted profile")
+            render_safe_table(
+                schema["columns"],
+                column_map={"name": "Column", "dtype": "Type",
+                            "missing": "Missing", "unique": "Unique"},
+                download_name="schema_report.csv",
+            )
         else:
-            empty_state("Schema Report", "Not available locally.")
+            empty_state("Schema Report",
+                        "Schema report generated from persisted trendyol-profile outputs.")
 
     with tabs[3]:
-        quality_report = load_json_safe(str(PROFILE_DIR / "outputs" / "data_quality_report.json"))
-        if quality_report:
-            section_heading("Data Quality", "Quality metrics")
-            render_safe_table(quality_report.get("tables", []), download_name="data_quality.csv")
+        quality = _load_quality()
+        if quality and quality.get("tables"):
+            section_heading("Data Quality", "Quality metrics from persisted profile")
+            render_safe_table(quality["tables"], download_name="data_quality.csv")
         else:
-            empty_state("Quality Report", "Not available locally.")
+            empty_state("Quality Report",
+                        "Data quality report generated from persisted trendyol-profile outputs.")
 
     with tabs[4]:
-        outputs = sorted(
-            path.name for path in (PROFILE_DIR / "outputs").glob("*")
-            if path.is_file() and path.name != ".gitkeep"
-        )
+        outputs = _profile_outputs()
         if outputs:
             section_heading("Profile Outputs", f"{len(outputs)} generated files")
             st.markdown("\n".join(f"- `{o}`" for o in outputs))

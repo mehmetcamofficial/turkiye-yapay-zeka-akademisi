@@ -11,7 +11,7 @@ from portfolio.config import (CHURN_DIR, CLUSTERING_DIR, DEPLOYMENT_DIR,
 from portfolio.i18n import t
 from portfolio.project_registry import get_project_registry
 from portfolio.ui_components import (hero_panel, kpi_grid, render_safe_table,
-                                     section_heading, status_badge)
+                                     section_heading)
 
 
 def _is_cloud() -> bool:
@@ -35,8 +35,8 @@ def render() -> None:
     is_cloud = _is_cloud()
     hero_panel(
         title=t("nav_artifact_health"),
-        subtitle="Artifact availability across core portfolio and optional components.",
-        kicker="MODEL OPERATIONS",
+        subtitle=t("subtitle_artifact_health"),
+        kicker=t("section_model_ops"),
     )
 
     if is_cloud:
@@ -87,7 +87,7 @@ def render() -> None:
             rows.append({
                 "Project": project.get("short_name", project.get("name", "—")),
                 "Category": project.get("category", "—"),
-                "Status": status_badge(project.get("status", "experimental")),
+                "Status": project.get("status", "experimental").title(),
                 "Artifact": exists_str,
                 "Type": classification,
             })

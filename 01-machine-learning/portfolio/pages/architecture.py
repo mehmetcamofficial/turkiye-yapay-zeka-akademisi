@@ -9,8 +9,8 @@ from portfolio.ui_components import hero_panel, section_heading
 def render() -> None:
     hero_panel(
         title=t("nav_architecture"),
-        subtitle="System architecture for the Search Intelligence pipeline and portfolio platform.",
-        kicker="SEARCH INTELLIGENCE",
+        subtitle=t("subtitle_architecture"),
+        kicker=t("section_search"),
     )
 
     st.markdown(
