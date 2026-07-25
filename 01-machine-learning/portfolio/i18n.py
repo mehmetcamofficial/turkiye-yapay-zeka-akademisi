@@ -171,7 +171,7 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
     "issues_label": {"tr": "Sorunlar", "en": "Issues"},
     "cloud_excluded_artifact": {"tr": "Cloud dışı bırakıldı", "en": "Excluded from cloud"},
 
-    "tab_overview": {"tr": "Genel Bakış", "en": "Overview"},
+"tab_overview": {"tr": "Genel Bakış", "en": "Overview"},
     "tab_single_prediction": {"tr": "Tekli Tahmin", "en": "Single Prediction"},
     "tab_batch_prediction": {"tr": "Toplu Tahmin", "en": "Batch Prediction"},
     "tab_batch_csv": {"tr": "Toplu CSV Analizi", "en": "Batch CSV Analysis"},
@@ -202,10 +202,6 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
     "tab_schema": {"tr": "Şema", "en": "Schema"},
     "tab_quality": {"tr": "Veri Kalitesi", "en": "Data Quality"},
     "tab_outputs": {"tr": "Çıktılar", "en": "Outputs"},
-    "tab_docs_readme": {"tr": "Platform README", "en": "Platform README"},
-    "tab_docs_evidence": {"tr": "Portfolio Kanıtı", "en": "Portfolio Evidence"},
-    "tab_tables": {"tr": "Tablolar", "en": "Tables"},
-    "tab_columns": {"tr": "Sütunlar", "en": "Columns"},
 
     "churn_risk_calc": {"tr": "Churn Riskini Hesapla", "en": "Calculate Churn Risk"},
     "churn_model_unavail": {"tr": "Model kullanılamıyor", "en": "Model unavailable"},

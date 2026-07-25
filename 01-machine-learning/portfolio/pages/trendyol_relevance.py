@@ -82,7 +82,7 @@ def render() -> None:
         "kind": "experimental",
         "algorithm": "Hybrid RRF",
         "metric": f"Recall@50 {v3_hybrid.get('primary_metric_value', '—')}",
-        "note": "Bounded Demo · Offline Evaluation · Not Promoted",
+        "note": "Bounded Preview · Offline Evaluation · Not Promoted",
     }])
 
     section_heading("V4 — End-to-End Pipeline")

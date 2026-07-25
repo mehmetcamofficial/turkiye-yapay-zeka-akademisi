@@ -47,7 +47,7 @@ def load_paired() -> pd.DataFrame:
 
 
 def demo_section():
-    section_heading("Live Demo", "Cross-encoder reranking on a bounded 5,000-product demo catalogue.")
+    section_heading("Live Inference", "Cross-encoder reranking on a bounded 5,000-product preview catalogue.")
     st.warning("Cold model load may take several seconds on first inference. Model/tokenizer are cached after loading.")
     frozen = load_frozen_policy()
     left, right = st.columns(2)

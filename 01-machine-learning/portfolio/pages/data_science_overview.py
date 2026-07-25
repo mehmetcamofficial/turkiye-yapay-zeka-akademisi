@@ -51,10 +51,10 @@ def render() -> None:
 
     tabs = st.tabs([
         t("nav_overview"),
-        "Inventory",
-        "Schema",
-        "Data Quality",
-        "Outputs",
+        t("tab_inventory"),
+        t("tab_schema"),
+        t("tab_quality"),
+        t("tab_outputs"),
     ])
 
     with tabs[0]:

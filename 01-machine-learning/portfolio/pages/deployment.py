@@ -42,12 +42,12 @@ def render() -> None:
     st.markdown(
         f"""
 <div class="card" style="border-left:4px solid #4f46e5;margin-top:0.5rem">
-<h3>Portfolio Demo Ready / Portföy Demosuna Hazır</h3>
+<h3>Deployment Ready / Dağıtıma Hazır</h3>
 <p>
 The Streamlit Community Cloud deployment is operational with:
 </p>
 <ul style="color:var(--muted);line-height:1.6">
-<li>Unified bilingual portfolio application</li>
+<li>Unified bilingual AI product platform</li>
 <li>13 verified pinned dependencies</li>
 <li>Lazy-loaded ML models (no startup download)</li>
 <li>Bounded data loading (no full catalogue scan)</li>

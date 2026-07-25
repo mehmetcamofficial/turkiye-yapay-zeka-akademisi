@@ -124,7 +124,7 @@ def render() -> None:
 
     with tabs[6]:
         information_panel("Live Inference",
-            "The Trendyol V5 page provides an interactive cross-encoder reranking demo on a bounded 5,000-product catalogue. "
+            "The Trendyol V5 page provides an interactive cross-encoder reranking live inference on a bounded 5,000-product catalogue. "
             "Lazy model loading, cold-start ~several seconds, warm latency p95 ≈ 200ms (pool 20, CPU). "
             "Fallback to retrieval-only on CE failure.")
         evidence_strip([
