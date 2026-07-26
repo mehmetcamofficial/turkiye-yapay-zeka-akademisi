@@ -1,5 +1,3 @@
-"""Fully integrated UCI sentiment-analysis module."""
-
 from __future__ import annotations
 
 import re
@@ -38,6 +36,41 @@ def _confidence(model, texts: list[str] | pd.Series) -> np.ndarray | None:
     return None
 
 
+def _confidence_gauge(prob: float) -> None:
+    color = "#22c55e" if prob >= 0.8 else ("#f59e0b" if prob >= 0.6 else "#ef4444")
+    fig, ax = plt.subplots(figsize=(6, 0.5))
+    ax.barh([""], [prob], color=color, height=0.4)
+    ax.set_xlim(0, 1)
+    ax.set_xticks([0, 0.25, 0.5, 0.75, 1.0])
+    ax.set_xticklabels(["0%", "25%", "50%", "75%", "100%"], fontsize=7)
+    ax.axvline(0.6, color="#94a3b8", linestyle="--", linewidth=0.5)
+    ax.axvline(0.8, color="#94a3b8", linestyle="--", linewidth=0.5)
+    ax.tick_params(axis="y", length=0)
+    fig.tight_layout()
+    st.pyplot(fig)
+
+
+def _term_influence(text: str, terms_df: pd.DataFrame) -> None:
+    words = _clean_text(text).split()
+    if not words or terms_df.empty:
+        return
+    if "sentiment" not in terms_df or "weight" not in terms_df or "term" not in terms_df:
+        return
+    word_matches = terms_df[terms_df["term"].isin(words)].copy()
+    if word_matches.empty:
+        st.caption(t("nlp_no_matched_terms"))
+        return
+    fig, ax = plt.subplots(figsize=(6, max(1.5, len(word_matches) * 0.3)))
+    colors = ["#22c55e" if r["sentiment"] == "positive" else "#ef4444" for _, r in word_matches.iterrows()]
+    sorted_matches = word_matches.sort_values("weight")
+    ax.barh(sorted_matches["term"], sorted_matches["weight"], color=colors, height=0.5)
+    ax.axvline(0, color="#64748b", linewidth=0.5)
+    ax.set_xlabel(t("weight"))
+    ax.set_title(t("nlp_matched_terms"), fontsize=10)
+    fig.tight_layout()
+    st.pyplot(fig)
+
+
 def _single() -> None:
     model_result = _model()
     text = st.text_area(t("nlp_text_input"), "This product works perfectly and I love it.", height=130)
@@ -54,6 +87,11 @@ def _single() -> None:
             if scores is not None:
                 detail += " " + t("nlp_score", score=float(scores[0]))
             prediction_result_card(t("nlp_predicted"), t("nlp_positive") if label == 1 else t("nlp_negative"), detail)
+            if scores is not None:
+                _confidence_gauge(float(scores[0]))
+            terms = load_csv_safe(str(NLP_DIR / "outputs/top_terms.csv"))
+            if not terms.empty:
+                _term_influence(text, terms)
         except Exception:
             st.error(t("nlp_analysis_failed"))
 

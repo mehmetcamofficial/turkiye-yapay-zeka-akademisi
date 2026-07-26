@@ -8,7 +8,7 @@ import pandas as pd
 import streamlit as st
 
 from portfolio.config import TRENDYOL_PROFILE_DIR
-from portfolio.data_science_registry import evaluate_midterm
+from portfolio.data_science_registry import evaluate_midterm, EXPECTED_OUTPUTS
 from portfolio.i18n import t
 from portfolio.loaders import load_csv_safe, load_json_safe
 from portfolio.ui_components import (empty_state, hero_panel, kpi_grid,
@@ -175,6 +175,15 @@ def render() -> None:
         if outputs:
             section_heading(t("profile_outputs"), f"{len(outputs)} {t('generated_files')}")
             st.markdown("\n".join(f"- `{o}`" for o in outputs))
+
+        section_heading(t("canonical_manifest"), t("canonical_manifest_desc"))
+        manifest_status = []
+        for expected in EXPECTED_OUTPUTS:
+            exists = expected in outputs
+            icon = "✅" if exists else "❌"
+            manifest_status.append(f"{icon} `{expected}`")
+        st.markdown("\n".join(manifest_status))
+        st.caption(t("canonical_manifest_note", count=len(EXPECTED_OUTPUTS)))
 
         numeric = load_csv_safe(str(PROFILE_DIR / "outputs/numeric_summary.csv"))
         label_stats = numeric[numeric["column"] == "label"] if not numeric.empty else pd.DataFrame()

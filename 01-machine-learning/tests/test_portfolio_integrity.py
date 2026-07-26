@@ -29,12 +29,19 @@ PAGES_DIR = SRC_DIR / "portfolio" / "pages"
 # All navigation i18n keys and their expected modules
 NAV_ROUTES: dict[str, str] = {
     "nav_overview": "overview",
+    "nav_search_intelligence": "search_demo",
+    "nav_relevance_classification": "trendyol_relevance",
+    "nav_hybrid_retrieval": "search_demo",
+    "nav_cross_encoder": "trendyol_v5",
+    "nav_policy_comparison": "policy_comparison",
+    "nav_live_inference": "live_inference",
+    "nav_runtime_diagnostics": "runtime_diagnostics",
+    "nav_model_governance": "model_governance",
     "nav_churn": "churn",
     "nav_housing": "regression",
     "nav_sentiment": "nlp",
     "nav_search_relevance": "trendyol_relevance",
     "nav_search_ranking": "search_demo",
-    "nav_cross_encoder": "trendyol_v5",
     "nav_pipeline_diagnostics": "eval_lab",
     "nav_data_workspace": "data_science_overview",
     "nav_data_science_midterm": "data_science_midterm",
@@ -42,6 +49,7 @@ NAV_ROUTES: dict[str, str] = {
     "nav_registry": "model_registry",
     "nav_artifact_health": "artifact_health",
     "nav_deployment": "deployment",
+    "nav_enterprise_readiness": "enterprise_readiness",
     "nav_assignments": "assignments",
     "nav_docs": "documentation",
     "nav_about": "about",
@@ -53,7 +61,8 @@ NAV_ROUTES: dict[str, str] = {
 REQUIRED_MODULES: set[str] = {
     "churn", "regression", "nlp",
     "trendyol_relevance", "trendyol_v5",
-    "model_registry", "artifact_health", "deployment",
+    "model_registry", "artifact_health", "deployment", "enterprise_readiness",
+    "policy_comparison", "live_inference", "runtime_diagnostics", "model_governance",
     "data_science_overview", "data_science_midterm", "data_science_final",
     "assignments", "documentation", "about", "overview",
 }
@@ -352,3 +361,59 @@ def test_format_metric_bounded_precision() -> None:
     assert result == "1.2346", f"Expected 4dp truncation, got: {result}"
     result = format_metric(None)
     assert result == "\u2014"
+
+
+# ---- Test 19: Churn model loads and predicts with presets ----
+def test_churn_model_inference() -> None:
+    from portfolio.loaders import load_model_safe
+    from portfolio.config import CHURN_MODEL_PATH
+    from portfolio.churn_service import RAW_COLUMNS, prepare_model_input
+    import pandas as pd
+    model_result = load_model_safe(CHURN_MODEL_PATH)
+    assert model_result.ok, f"Churn model load failed: {model_result.public_message}"
+    model = model_result.model
+    raw = pd.DataFrame([dict(zip(RAW_COLUMNS, [
+        "Female", "No", "Yes", "No", 12, "Yes", "No", "Fiber optic",
+        "No", "Yes", "No", "No", "Yes", "Yes", "Month-to-month", "Yes",
+        "Electronic check", 89.5, 1074.0, 3200.0
+    ]))])
+    prepared = prepare_model_input(raw)
+    pred = int(model.predict(prepared)[0])
+    prob = float(model.predict_proba(prepared)[0, 1])
+    assert pred in (0, 1), f"Churn prediction should be 0 or 1, got {pred}"
+    assert 0.0 <= prob <= 1.0, f"Churn probability should be [0,1], got {prob}"
+
+
+# ---- Test 20: Housing model loads and predicts with defaults ----
+def test_housing_model_inference() -> None:
+    from portfolio.loaders import load_model_safe
+    from portfolio.config import REGRESSION_MODEL_PATH
+    from portfolio.pages.regression import _prepare, RAW_COLUMNS
+    import pandas as pd
+    model_result = load_model_safe(REGRESSION_MODEL_PATH)
+    assert model_result.ok, f"Housing model load failed: {model_result.public_message}"
+    model = model_result.model
+    defaults = [3.87, 28.6, 5.43, 1.10, 1425.0, 3.07, 35.63, -119.57]
+    raw = pd.DataFrame([dict(zip(RAW_COLUMNS, defaults))])
+    prepared = _prepare(raw)
+    pred = float(model.predict(prepared)[0])
+    assert 0.0 <= pred <= 10.0, f"Housing prediction should be in [0,10], got {pred}"
+
+
+# ---- Test 21: Sentiment model loads and predicts both classes ----
+def test_sentiment_model_inference() -> None:
+    from portfolio.loaders import load_model_safe
+    from portfolio.config import NLP_MODEL_PATH
+    from portfolio.pages.nlp import _clean_text
+    model_result = load_model_safe(NLP_MODEL_PATH)
+    assert model_result.ok, f"Sentiment model load failed: {model_result.public_message}"
+    model = model_result.model
+    for text, expected in [
+        ("This product works perfectly and I love it.", 1),
+        ("This is the worst product I have ever purchased.", 0),
+    ]:
+        prepared = [_clean_text(text)]
+        pred = int(model.predict(prepared)[0])
+        assert pred == expected, f"Expected {expected}, got {pred} for: {text[:50]}"
+        proba = model.predict_proba(prepared).max(axis=1)[0]
+        assert 0.0 <= proba <= 1.0, f"Probas should be in [0,1], got {proba}"

@@ -1,21 +1,46 @@
-"""Native unified-portfolio UI for the existing churn pipeline."""
-
 from __future__ import annotations
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import streamlit as st
 
-from portfolio.churn_service import (RAW_COLUMNS, predict_batch, prepare_model_input,
-                                     sample_batch, validate_raw_batch)
+from portfolio.churn_service import (
+    MODEL_COLUMNS,
+    RAW_COLUMNS,
+    prepare_model_input,
+    sample_batch,
+    validate_raw_batch,
+    predict_batch,
+)
 from portfolio.config import CHURN_DIR, CHURN_MODEL_PATH
 from portfolio.i18n import t
-from portfolio.loaders import (load_csv_safe, load_image_path_safe,
-                               load_json_safe, load_model_safe, load_text_safe)
+from portfolio.loaders import (
+    load_csv_safe,
+    load_image_path_safe,
+    load_json_safe,
+    load_model_safe,
+    load_text_safe,
+)
 from portfolio.project_registry import project_by_id
-from portfolio.ui_components import (artifact_checklist, classification_report_frame, empty_state_panel,
-                                     hero_panel, information_panel, metric_table,
-                                     prediction_result_card, render_safe_table, section_heading)
+from portfolio.ui_components import (
+    artifact_checklist,
+    classification_report_frame,
+    empty_state_panel,
+    hero_panel,
+    information_panel,
+    metric_table,
+    prediction_result_card,
+    render_safe_table,
+    section_heading,
+)
+
+LOW_RISK = ["Female", "No", "Yes", "No", 12, "Yes", "No", "Fiber optic",
+            "No", "Yes", "No", "No", "Yes", "Yes", "Month-to-month", "Yes",
+            "Electronic check", 89.5, 1074.0, 3200.0]
+HIGH_RISK = ["Male", "Yes", "No", "No", 2, "Yes", "Yes", "Fiber optic",
+             "No", "No", "No", "No", "No", "No", "Month-to-month", "Yes",
+             "Electronic check", 120.0, 240.0, 1800.0]
 
 
 def _model_result():
@@ -27,30 +52,40 @@ def _single_prediction() -> None:
     if not model_result.ok:
         empty_state_panel(t("churn_model_unavail"), model_result.public_message)
         return
+
+    st.markdown(f"**{t('preset_scenarios')}**")
+    preset_left, preset_right = st.columns(2)
+    with preset_left:
+        use_low = st.button(t("low_risk_preset"), key="churn_low_preset", type="secondary")
+    with preset_right:
+        use_high = st.button(t("high_risk_preset"), key="churn_high_preset", type="secondary")
+
+    preselected = LOW_RISK if use_low else (HIGH_RISK if use_high else None)
+
     with st.form("portfolio_churn_single"):
         left, right = st.columns(2)
         with left:
-            gender = st.selectbox(t("gender"), ["Female", "Male"])
-            senior = st.selectbox(t("senior_citizen"), ["No", "Yes"])
-            partner = st.selectbox(t("partner"), ["No", "Yes"])
-            dependents = st.selectbox(t("dependents"), ["No", "Yes"])
-            tenure = st.number_input(t("tenure_months"), min_value=0, max_value=120, value=12)
-            phone = st.selectbox(t("phone_service"), ["Yes", "No"])
-            multiple = st.selectbox(t("multiple_lines"), ["No", "Yes", "No phone service"])
-            internet = st.selectbox(t("internet_service"), ["Fiber optic", "DSL", "No"])
-            security = st.selectbox(t("online_security"), ["No", "Yes", "No internet service"])
-            backup = st.selectbox(t("online_backup"), ["No", "Yes", "No internet service"])
+            gender = st.selectbox(t("gender"), ["Female", "Male"], index=0 if preselected is None else 0 if preselected[0] == "Female" else 1)
+            senior = st.selectbox(t("senior_citizen"), ["No", "Yes"], index=0 if preselected is None else 0 if preselected[1] == "No" else 1)
+            partner = st.selectbox(t("partner"), ["No", "Yes"], index=0 if preselected is None else 0 if preselected[2] == "No" else 1)
+            dependents = st.selectbox(t("dependents"), ["No", "Yes"], index=0 if preselected is None else 0 if preselected[3] == "No" else 1)
+            tenure = st.number_input(t("tenure_months"), min_value=0, max_value=120, value=12 if preselected is None else preselected[4])
+            phone = st.selectbox(t("phone_service"), ["Yes", "No"], index=0 if preselected is None else 0 if preselected[5] == "Yes" else 1)
+            multiple = st.selectbox(t("multiple_lines"), ["No", "Yes", "No phone service"], index=0 if preselected is None else ["No", "Yes", "No phone service"].index(preselected[6]))
+            internet = st.selectbox(t("internet_service"), ["Fiber optic", "DSL", "No"], index=0 if preselected is None else ["Fiber optic", "DSL", "No"].index(preselected[7]))
+            security = st.selectbox(t("online_security"), ["No", "Yes", "No internet service"], index=0 if preselected is None else ["No", "Yes", "No internet service"].index(preselected[8]))
+            backup = st.selectbox(t("online_backup"), ["No", "Yes", "No internet service"], index=0 if preselected is None else ["No", "Yes", "No internet service"].index(preselected[9]))
         with right:
-            protection = st.selectbox(t("device_protection"), ["No", "Yes", "No internet service"])
-            support = st.selectbox(t("tech_support"), ["No", "Yes", "No internet service"])
-            tv = st.selectbox(t("streaming_tv"), ["No", "Yes", "No internet service"])
-            movies = st.selectbox(t("streaming_movies"), ["No", "Yes", "No internet service"])
-            contract = st.selectbox(t("contract"), ["Month-to-month", "One year", "Two year"])
-            paperless = st.selectbox(t("paperless_billing"), ["Yes", "No"])
-            payment = st.selectbox(t("payment_method"), ["Electronic check", "Mailed check", "Bank transfer (automatic)", "Credit card (automatic)"])
-            monthly = st.number_input(t("monthly_charges"), min_value=0.0, value=75.0)
-            total = st.number_input(t("total_charges"), min_value=0.0, value=900.0)
-            cltv = st.number_input(t("cltv"), min_value=0.0, value=3500.0)
+            protection = st.selectbox(t("device_protection"), ["No", "Yes", "No internet service"], index=0 if preselected is None else ["No", "Yes", "No internet service"].index(preselected[10]))
+            support = st.selectbox(t("tech_support"), ["No", "Yes", "No internet service"], index=0 if preselected is None else ["No", "Yes", "No internet service"].index(preselected[11]))
+            tv = st.selectbox(t("streaming_tv"), ["No", "Yes", "No internet service"], index=0 if preselected is None else ["No", "Yes", "No internet service"].index(preselected[12]))
+            movies = st.selectbox(t("streaming_movies"), ["No", "Yes", "No internet service"], index=0 if preselected is None else ["No", "Yes", "No internet service"].index(preselected[13]))
+            contract = st.selectbox(t("contract"), ["Month-to-month", "One year", "Two year"], index=0 if preselected is None else ["Month-to-month", "One year", "Two year"].index(preselected[14]))
+            paperless = st.selectbox(t("paperless_billing"), ["Yes", "No"], index=0 if preselected is None else 0 if preselected[15] == "Yes" else 1)
+            payment = st.selectbox(t("payment_method"), ["Electronic check", "Mailed check", "Bank transfer (automatic)", "Credit card (automatic)"], index=0 if preselected is None else ["Electronic check", "Mailed check", "Bank transfer (automatic)", "Credit card (automatic)"].index(preselected[16]))
+            monthly = st.number_input(t("monthly_charges"), min_value=0.0, value=75.0 if preselected is None else preselected[17])
+            total = st.number_input(t("total_charges"), min_value=0.0, value=900.0 if preselected is None else preselected[18])
+            cltv = st.number_input(t("cltv"), min_value=0.0, value=3500.0 if preselected is None else preselected[19])
         submitted = st.form_submit_button(t("churn_risk_calc"))
     if submitted:
         raw = pd.DataFrame([dict(zip(RAW_COLUMNS, [gender, senior, partner, dependents, tenure, phone, multiple,
@@ -63,102 +98,104 @@ def _single_prediction() -> None:
             risk = t("churn_risk_high") if probability >= .7 else (t("churn_risk_medium") if probability >= .4 else t("churn_risk_low"))
             prediction_result_card(t("churn_prediction"), t("churn_risk_high") if prediction else t("churn_risk_low"),
                                    t("churn_prob", prob=probability, risk=risk))
+            fig, ax = plt.subplots(figsize=(6, 0.6))
+            ax.barh([""], [probability], color="#ef4444" if probability >= 0.7 else ("#f59e0b" if probability >= 0.4 else "#22c55e"), height=0.4)
+            ax.set_xlim(0, 1)
+            ax.set_xticks([0, 0.25, 0.5, 0.75, 1.0])
+            ax.set_xticklabels(["0%", "25%", "50%", "75%", "100%"], fontsize=7)
+            ax.axvline(0.4, color="#94a3b8", linestyle="--", linewidth=0.5)
+            ax.axvline(0.7, color="#94a3b8", linestyle="--", linewidth=0.5)
+            ax.tick_params(axis="y", length=0)
+            fig.tight_layout()
+            st.pyplot(fig)
+            st.caption(t("churn_prob_scale"))
         except Exception:
             st.error(t("churn_pred_failed"))
 
 
-def _read_uploaded_csv(uploaded) -> pd.DataFrame | None:
-    try:
-        frame = pd.read_csv(uploaded)
-        if len(frame.columns) == 1:
-            uploaded.seek(0)
-            alternate = pd.read_csv(uploaded, sep=";")
-            if len(alternate.columns) > 1:
-                frame = alternate
-        return frame
-    except (UnicodeError, pd.errors.ParserError, ValueError):
-        st.error(t("churn_csv_error"))
-        return None
-
-
 def _batch_prediction() -> None:
-    template = sample_batch()
-    st.download_button(t("churn_download_template"), template.to_csv(index=False).encode("utf-8"),
-                       "churn_batch_template.csv", "text/csv")
-    uploaded = st.file_uploader(t("churn_upload_csv"), type="csv", key="portfolio_churn_batch")
+    model_result = _model_result()
+    uploaded = st.file_uploader(t("churn_upload_csv"), type="csv", key="churn_batch")
     if uploaded is None:
+        sample = sample_batch()
+        if st.button(t("churn_download_template")):
+            st.download_button(t("churn_download_template"), sample.to_csv(index=False).encode("utf-8"),
+                               "churn_sample.csv", "text/csv")
         information_panel(t("churn_batch_pred"), t("churn_batch_desc"))
         return
-    frame = _read_uploaded_csv(uploaded)
-    if frame is None:
-        return
+    try:
+        frame = pd.read_csv(uploaded)
+    except (UnicodeError, pd.errors.ParserError):
+        st.error(t("churn_csv_error")); return
     errors = validate_raw_batch(frame)
     if errors:
-        for error in errors: st.warning(error)
-        return
-    st.caption(t("churn_records_validated", count=len(frame)))
-    render_safe_table(frame, max_rows=25)
-    if st.button(t("churn_run_batch"), key="portfolio_churn_batch_run"):
-        model_result = _model_result()
-        if not model_result.ok:
-            st.error(model_result.public_message); return
+        for e in errors: st.error(e); return
+    if not model_result.ok:
+        st.error(model_result.public_message); return
+    if st.button(t("churn_run_batch"), key="churn_batch"):
         try:
             result = predict_batch(model_result.model, frame)
-            st.session_state["churn_batch_result"] = result
+            high_count = int(result["Risk Band"].eq("Yüksek").sum())
+            render_safe_table(result, max_rows=100)
+            st.download_button(t("churn_download_all"), result.to_csv(index=False).encode("utf-8"),
+                               "churn_predictions.csv", "text/csv")
+            if high_count:
+                high_risk = result[result["Risk Band"] == "Yüksek"]
+                st.download_button(t("churn_download_high"), high_risk.to_csv(index=False).encode("utf-8"),
+                                   "churn_high_risk.csv", "text/csv")
+                st.warning(t("churn_high_risk", count=high_count))
         except Exception:
             st.error(t("churn_batch_failed"))
-    result = st.session_state.get("churn_batch_result")
-    if isinstance(result, pd.DataFrame):
-        render_safe_table(result, max_rows=100, download_name=None)
-        high_risk = result[result["Risk Band"] == t("churn_risk_high")]
-        col1, col2 = st.columns(2)
-        with col1:
-            st.download_button(t("churn_download_all"), result.to_csv(index=False).encode("utf-8"), "churn_predictions.csv", "text/csv")
-        with col2:
-            st.download_button(t("churn_download_high"), high_risk.to_csv(index=False).encode("utf-8"), "high_risk_customers.csv", "text/csv")
-        st.caption(t("churn_high_risk", count=len(high_risk)))
-        if "Risk Band" in result.columns:
-            fig, ax = plt.subplots(figsize=(5, 2))
-            risk_counts = result["Risk Band"].value_counts()
-            colors = {"Yüksek Risk": "#ef4444", "Orta Risk": "#eab308", "Düşük Risk": "#22c55e"}
-            bar_colors = [colors.get(r, "#94a3b8") for r in risk_counts.index]
-            ax.bar(risk_counts.index, risk_counts.values, color=bar_colors, width=0.5)
-            for i, v in enumerate(risk_counts.values):
-                ax.text(i, v + 0.1, str(v), ha="center", fontsize=9)
-            ax.set_title(t("risk_distribution"), fontsize=10)
-            ax.tick_params(axis="x", rotation=30)
-            fig.tight_layout()
-            st.pyplot(fig)
 
 
 def _performance() -> None:
-    reports = [(t("churn_final_metrics"), "test_metrics.csv"), (t("churn_validation"), "validation_results.csv"),
-               (t("churn_cv"), "cross_validation_results.csv"), (t("churn_gridsearch"), "hyperparameter_search_results.csv")]
-    for title, filename in reports:
-        section_heading(title); metric_table(load_csv_safe(str(CHURN_DIR / "outputs" / filename)))
-    section_heading(t("churn_best_params"))
-    params = load_json_safe(str(CHURN_DIR / "outputs/best_hyperparameters.json"))
-    if params: st.json(params)
-    else: empty_state_panel(t("churn_report_missing"), t("churn_json_missing"))
+    section_heading(t("churn_final_metrics"))
+    metric_table(load_csv_safe(str(CHURN_DIR / "outputs/test_metrics.csv")))
+    section_heading(t("churn_validation"))
+    metric_table(load_csv_safe(str(CHURN_DIR / "outputs/validation_results.csv")))
+    section_heading(t("churn_cv"))
+    metric_table(load_csv_safe(str(CHURN_DIR / "outputs/cross_validation_results.csv")))
     report = load_text_safe(str(CHURN_DIR / "outputs/classification_report.txt"))
     if report:
         section_heading(t("churn_class_report"), t("churn_class_desc"))
         metric_table(classification_report_frame(report))
-    columns = st.columns(2)
-    for column, filename, title in [(columns[0], "confusion_matrix.png", t("churn_confusion")), (columns[1], "roc_curve.png", t("churn_roc"))]:
-        with column:
-            image = load_image_path_safe(str(CHURN_DIR / "outputs" / filename))
-            if image: st.image(image, caption=title, use_column_width=True)
+    image = load_image_path_safe(str(CHURN_DIR / "outputs/confusion_matrix.png"))
+    if image: st.image(image, use_column_width=True)
 
 
-def _explainability() -> None:
+def _coefficients() -> None:
     section_heading(t("churn_selected_features"))
-    selected = load_csv_safe(str(CHURN_DIR / "outputs/selected_features.csv"))
-    if "selected" in selected: selected = selected[selected["selected"] == True]  # noqa: E712
-    metric_table(selected)
+    metric_table(load_csv_safe(str(CHURN_DIR / "outputs/selected_features.csv")))
     section_heading(t("churn_coeff"))
-    metric_table(load_csv_safe(str(CHURN_DIR / "outputs/feature_importance.csv")))
+    coef = load_csv_safe(str(CHURN_DIR / "outputs/feature_importance.csv"))
+    if not coef.empty:
+        col_name = [c for c in coef if "coef" in c.lower() or "importance" in c.lower()]
+        coef_col = col_name[0] if col_name else coef.columns[-1]
+        feature_col = [c for c in coef if "feature" in c.lower() or c == "feature" or c == "Variable"]
+        feat_col = feature_col[0] if feature_col else coef.columns[0]
+        coef["abs"] = coef[coef_col].abs()
+        top = coef.nlargest(15, "abs")[[feat_col, coef_col]]
+        top.columns = [t("feature"), t("coefficient")]
+        render_safe_table(top, max_rows=15)
     st.caption(t("churn_coeff_note"))
+    section_heading(t("churn_best_params"))
+    payload = load_json_safe(str(CHURN_DIR / "outputs/best_hyperparameters.json"))
+    st.json(payload) if payload else empty_state_panel(t("churn_json_missing"), t("churn_json_missing"))
+    with st.expander(t("churn_gridsearch"), expanded=False):
+        metric_table(load_csv_safe(str(CHURN_DIR / "outputs/hyperparameter_search_results.csv")))
+    section_heading(t("churn_preprocessing"), t("churn_preprocessing_desc"))
+    section_heading(t("churn_model_selection"), t("churn_model_selection_desc"))
+
+
+def _roc_curve() -> None:
+    image = load_image_path_safe(str(CHURN_DIR / "outputs/roc_curve.png"))
+    if image:
+        st.image(image, use_column_width=True)
+    else:
+        empty_state_panel(t("churn_report_missing"), t("churn_roc"))
+    with st.expander(t("churn_final_report"), expanded=False):
+        report = load_text_safe(str(CHURN_DIR / "outputs/final_report.md"))
+        if report: st.markdown(report)
 
 
 def render() -> None:
@@ -167,39 +204,22 @@ def render() -> None:
         subtitle=t("subtitle_churn"),
         kicker=t("section_ml"),
     )
-    tabs = st.tabs([t("tab_overview"), t("tab_single_prediction"), t("tab_batch_csv"), t("tab_model_performance"), t("tab_explainability"), t("tab_methodology"), t("tab_technical")])
-    project = project_by_id("churn")
+    tabs = st.tabs([t("tab_overview"), t("tab_single_prediction"), t("tab_batch_prediction"), t("tab_model_performance"), t("tab_explainability"), t("tab_roc_curve")])
     with tabs[0]:
+        project = project_by_id("churn")
         metrics = load_csv_safe(str(CHURN_DIR / "outputs/test_metrics.csv"))
         columns = st.columns(4)
-        for column, name in zip(columns, ["Accuracy", "Recall", "F1 Score", "ROC AUC"]):
+        for column, name in zip(columns, ["Accuracy", "Recall", "F1", "ROC AUC"]):
             value = float(metrics.iloc[0][name]) if not metrics.empty and name in metrics else None
             column.metric(name, "—" if value is None else f"{value:.4f}")
-        fig, ax = plt.subplots(figsize=(5, 2))
-        names = ["Accuracy", "Recall", "F1 Score", "ROC AUC"]
-        vals = [float(metrics.iloc[0][n]) if not metrics.empty and n in metrics else 0 for n in names]
-        bars = ax.bar(names, vals, color=["#6366f1", "#22c55e", "#eab308", "#ef4444"], width=0.5)
-        for bar, v in zip(bars, vals):
-            ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.01,
-                    f"{v:.4f}", ha="center", fontsize=8)
-        ax.set_ylim(0, 1.0)
-        ax.set_title(t("model_performance"), fontsize=10)
-        ax.tick_params(axis="x", rotation=30)
-        fig.tight_layout()
-        st.pyplot(fig)
         information_panel(t("purpose"), project["description"])
         information_panel(t("data_model"), f"{project['dataset']} ({project['dataset_size']}) · {project['final_model']}")
-        information_panel(t("workflow"), "EDA → feature engineering → preprocessing → feature selection → 5-fold CV → tuning → untouched test")
+        information_panel(t("workflow"), "Kaggle verisi → EDA → preprocessing pipeline → SelectFromModel → 5-fold stratified CV → tuning → test")
         information_panel(t("limitations"), "; ".join(project["limitations"]))
+        with st.expander(t("tab_technical"), expanded=False):
+            artifact_checklist(project)
     with tabs[1]: _single_prediction()
     with tabs[2]: _batch_prediction()
     with tabs[3]: _performance()
-    with tabs[4]: _explainability()
-    with tabs[5]:
-        information_panel(t("churn_preprocessing"), t("churn_preprocessing_desc"))
-        information_panel(t("churn_model_selection"), t("churn_model_selection_desc"))
-    with tabs[6]:
-        with st.expander(t("churn_artifact_checklist"), expanded=False): artifact_checklist(project)
-        with st.expander(t("churn_final_report"), expanded=False):
-            summary = load_text_safe(str(CHURN_DIR / "outputs/final_summary.txt"))
-            st.text(summary) if summary else st.info(t("churn_final_report_missing"))
+    with tabs[4]: _coefficients()
+    with tabs[5]: _roc_curve()
