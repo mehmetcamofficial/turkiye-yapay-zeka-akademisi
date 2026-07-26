@@ -756,6 +756,7 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
     "risk_distribution": {"tr": "Risk Dağılımı", "en": "Risk Distribution"},
     "completeness_pct": {"tr": "Tamamlama Yüzdesi", "en": "Completeness %"},
     "table_completeness": {"tr": "Tablo Tamamlama", "en": "Table Completeness"},
+    "test_outdated": {"tr": "Test doğrulaması bu sürüm için güncel değil.", "en": "Test verification is not current for this version."},
 }
 
 TECHNICAL_TERMS = {

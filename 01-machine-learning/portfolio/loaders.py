@@ -93,22 +93,19 @@ def load_image_path_safe(path: str) -> str | None:
 
 
 @st.cache_data(show_spinner=False)
-def get_trendyol_test_results() -> dict[str, int]:
-    import re
-    import subprocess
-    from portfolio.config import TRENDYOL_RELEVANCE_DIR
+def load_test_metadata() -> dict | None:
+    """Read the CI-generated test_metadata.json artifact.
+
+    Returns None when the file is missing or unreadable.
+    Never runs pytest — the file must be generated ahead of time via
+    ``scripts/generate_test_metadata.py``.
+    """
+    from portfolio.config import TEST_METADATA_PATH
+    import json
     try:
-        result = subprocess.run(
-            [sys.executable, "-m", "pytest", "tests/", "--tb=no", "-q"],
-            capture_output=True, text=True, timeout=120,
-            cwd=str(TRENDYOL_RELEVANCE_DIR),
-        )
-        stdout = result.stdout + result.stderr
-        passed = len(re.findall(r'^\.', stdout, re.MULTILINE))
-        m_failed = re.search(r'(\d+)\s+failed', stdout)
-        m_passed = re.search(r'(\d+)\s+passed', stdout)
-        failed = int(m_failed.group(1)) if m_failed else 0
-        total = int(m_passed.group(1)) + failed if m_passed else passed
-        return {"passed": int(m_passed.group(1)) if m_passed else passed, "failed": failed, "total": total}
-    except Exception:
-        return {"passed": 0, "failed": 0, "total": 0}
+        path = Path(TEST_METADATA_PATH)
+        if not path.is_file():
+            return None
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None

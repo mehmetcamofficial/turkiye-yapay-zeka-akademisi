@@ -1,12 +1,26 @@
 from __future__ import annotations
 
+import subprocess
+
 import streamlit as st
 
-from portfolio.config import REPOSITORY_ROOT
+from portfolio.config import REPOSITORY_ROOT, ML_ROOT
 from portfolio.i18n import t
-from portfolio.loaders import get_trendyol_test_results
+from portfolio.loaders import load_test_metadata
 from portfolio.ui_components import (hero_panel, kpi_grid, kpi_grid_mixed,
                                      section_heading, status_badge)
+
+
+def _deployed_commit() -> str:
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "--short=12", "HEAD"],
+            capture_output=True, text=True, timeout=10,
+            cwd=str(REPOSITORY_ROOT),
+        )
+        return result.stdout.strip() if result.returncode == 0 else "unknown"
+    except Exception:
+        return "unknown"
 
 
 def render() -> None:
@@ -21,8 +35,24 @@ def render() -> None:
     portfolio_entry = (REPOSITORY_ROOT / "01-machine-learning" / "portfolio_app.py").is_file()
     test_suite = (REPOSITORY_ROOT / "01-machine-learning" / "trendyol-search-relevance" / "tests").is_dir()
 
-    test_results = get_trendyol_test_results()
-    test_label = f"{test_results['passed']} passing, {test_results['failed']} failed" if test_results["total"] else "Not available"
+    metadata = load_test_metadata()
+    deployed_sha = _deployed_commit()
+    metadata_valid = (
+        metadata is not None
+        and metadata.get("verified_commit") == deployed_sha
+    )
+
+    if metadata_valid:
+        total = metadata["total"]
+        test_label = f"{total['passed']} passing, {total['failed']} failed, {total['skipped']} skipped"
+        summary_items = [
+            f"Portfolio: {metadata['portfolio']['passed']} passed, {metadata['portfolio']['failed']} failed",
+            f"Trendyol:  {metadata['trendyol']['passed']} passed, {metadata['trendyol']['failed']} failed",
+            f"Total:     {total['passed']} passing, {total['failed']} failed, {total['skipped']} skipped",
+        ]
+    else:
+        test_label = t("test_outdated")
+        summary_items = [t("test_outdated")]
 
     kpi_grid([
         ("Streamlit Deployment", "Available" if streamlit_available else "Unavailable",
@@ -43,6 +73,7 @@ def render() -> None:
     ])
 
     section_heading("Deployment Readiness Summary")
+    summary_lines = "".join(f"<li>{item}</li>" for item in summary_items)
     st.markdown(
         f"""
 <div class="card" style="border-left:4px solid #4f46e5;margin-top:0.5rem">
@@ -56,7 +87,7 @@ The Streamlit Community Cloud deployment is operational with:
 <li>Lazy-loaded ML models (no startup download)</li>
 <li>Bounded data loading (no full catalogue scan)</li>
 <li>Graceful fallback for missing artifacts</li>
-<li>{test_results['passed']} passing Trendyol test suite</li>
+{summary_lines}
 </ul>
 <p style="margin-top:0.5rem;color:var(--muted)">
 Production capabilities (API, auth, monitoring, horizontal scaling, online A/B testing)

@@ -16,6 +16,7 @@ CHURN_MODEL_PATH = CHURN_DIR / "models" / "churn_model.pkl"
 REGRESSION_MODEL_PATH = REGRESSION_DIR / "models" / "regression_model.pkl"
 NLP_MODEL_PATH = NLP_DIR / "models" / "nlp_pipeline.pkl"
 TRENDYOL_RELEVANCE_MODEL_PATH = TRENDYOL_RELEVANCE_DIR / "models" / "trendyol_relevance_pipeline.pkl"
+TEST_METADATA_PATH = ML_ROOT / "test_metadata.json"
 PORTFOLIO_VERSION = "1.0.0"
 
 NAVIGATION_GROUPS = {
