@@ -55,8 +55,9 @@ def render() -> None:
     ])
 
     catalog = {"verified": verified, "available": available, "experimental": experimental}
-    category = st.selectbox(t("filter_status"), [t("filter_all")] + list(catalog))
-    filtered = projects if category == "All" else catalog.get(category, [])
+    filter_all_label = t("filter_all")
+    category = st.selectbox(t("filter_status"), [filter_all_label] + list(catalog))
+    filtered = projects if category == filter_all_label else catalog.get(category, [])
 
     for project in filtered:
         governance = _evidence_status(project)

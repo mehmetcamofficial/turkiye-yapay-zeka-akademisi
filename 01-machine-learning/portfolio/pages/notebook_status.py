@@ -1,10 +1,25 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import streamlit as st
 
+from portfolio.config import DATA_SCIENCE_MIDTERM_DIR
 from portfolio.data_science_registry import evaluate_midterm
 from portfolio.i18n import t
 from portfolio.ui_components import hero_panel, kpi_grid
+
+
+def _rel_path(path: str | None) -> str:
+    """Convert absolute path to repository-relative path for display."""
+    if path is None:
+        return "—"
+    try:
+        p = Path(path)
+        repo_root = Path(__file__).resolve().parents[3]  # 01-machine-learning/portfolio/pages
+        return str(p.relative_to(repo_root))
+    except (ValueError, TypeError):
+        return str(path)
 
 
 def render() -> None:
@@ -20,7 +35,7 @@ def render() -> None:
         ("Dataset", "Ready" if midterm["dataset_path"] else "Not Available",
          f"{midterm['downloaded_file_count']} files, {midterm['downloaded_size_bytes'] / (1024**3):.2f} GiB"),
         ("Notebook", "Ready" if midterm["notebook_ready"] else "Not Available",
-         str(midterm["notebook_path"])),
+         _rel_path(midterm["notebook_path"])),
         ("Outputs", f"{len(midterm['existing_outputs'])}/{len(midterm['expected_outputs'])}",
          f"{len(midterm['profile_outputs'])} profile outputs"),
         ("Schema", "Compatible" if midterm["schema_compatible"] else "Issues",

@@ -10,7 +10,7 @@ from portfolio.config import (CHURN_DIR, CHURN_MODEL_PATH, CLUSTERING_DIR,
                               REGRESSION_DIR, REGRESSION_MODEL_PATH,
                               TRENDYOL_RELEVANCE_DIR, TRENDYOL_RELEVANCE_MODEL_PATH,
                               REPOSITORY_ROOT)
-from portfolio.loaders import load_csv_safe, load_json_safe
+from portfolio.loaders import load_csv_safe, load_json_safe, load_model_safe
 
 
 def _exists_all(directory: Path, relative_paths: list[str]) -> bool:
@@ -35,6 +35,17 @@ def _last_verified(directory: Path, relative_paths: list[str]) -> str | None:
     return datetime.fromtimestamp(max(timestamps)).astimezone().isoformat(timespec="minutes") if timestamps else None
 
 
+def _model_loads(model_path: Path) -> bool:
+    """Check if model artifact can be loaded successfully."""
+    if not model_path.is_file():
+        return False
+    try:
+        result = load_model_safe(model_path)
+        return result.ok
+    except Exception:
+        return False
+
+
 def _supervised_project(*, project_id: str, name: str, short_name: str,
                         category: str, description: str, directory: Path,
                         dataset: str, dataset_size: str, model_path: Path,
@@ -43,7 +54,8 @@ def _supervised_project(*, project_id: str, name: str, short_name: str,
     metrics = load_csv_safe(str(directory / "outputs" / "test_metrics.csv"))
     validation = load_csv_safe(str(directory / "outputs" / "validation_results.csv"))
     completed = directory.is_dir() and _exists_all(directory, expected)
-    if completed:
+    model_loads = _model_loads(model_path)
+    if completed and model_loads:
         status = "available"
     elif directory.is_dir():
         status = "experimental"
@@ -64,7 +76,7 @@ def _supervised_project(*, project_id: str, name: str, short_name: str,
         "data_source_available": (directory / "DATA_SOURCE.md").is_file(),
         "readme_available": (directory / "README.md").is_file(),
         "validation_available": not validation.empty,
-        "model_artifact_available": model_path.is_file(),
+        "model_artifact_available": model_path.is_file() and model_loads,
         "last_verified": _last_verified(directory, expected),
         "limitations": limitations,
     }

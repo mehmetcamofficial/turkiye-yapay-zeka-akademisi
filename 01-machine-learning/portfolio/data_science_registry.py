@@ -10,6 +10,9 @@ import pandas as pd
 from portfolio.config import DATA_SCIENCE_FINAL_DIR, DATA_SCIENCE_MIDTERM_DIR, TRENDYOL_PROFILE_DIR
 from portfolio.loaders import load_json_safe
 
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]  # 01-machine-learning/portfolio
+REPOSITORY_ROOT = REPOSITORY_ROOT.parent.parent  # repository root
+
 REQUIRED_COLUMNS = ["indirim_orani", "musteri_puani", "odeme_turu", "musteri_tipi",
                     "siparis_tarihi", "sehir", "kategori", "birim_fiyat", "toplam_tutar", "teslimat_gunu"]
 EXPECTED_OUTPUTS = ["data_profile.csv", "missing_values.csv", "duplicate_summary.json",
@@ -18,6 +21,16 @@ EXPECTED_OUTPUTS = ["data_profile.csv", "missing_values.csv", "duplicate_summary
                     "total_amount_histogram.png", "total_amount_boxplot.png",
                     "final_clean_dataset.csv", "final_summary.md"]
 TOTAL_QUESTIONS = 15
+
+
+def _rel_path(path: Path | None) -> str:
+    """Convert absolute path to repository-relative path."""
+    if path is None:
+        return ""
+    try:
+        return str(path.resolve().relative_to(REPOSITORY_ROOT))
+    except (ValueError, TypeError):
+        return str(path)
 
 
 def _discover_dataset(project_dir: Path, configured: Path | None = None) -> Path | None:
@@ -93,8 +106,8 @@ def evaluate_midterm(
         "status": status,
         "dataset": "TEKNOFEST Trendyol 2026 Datathon / akademi e-ticaret verisi",
         "source": "https://www.kaggle.com/datasets/thetrumpet/teknofest-trendyol-2026-datathonn",
-        "dataset_path": dataset,
-        "notebook_path": notebook,
+        "dataset_path": _rel_path(dataset),
+        "notebook_path": _rel_path(notebook),
         "colab_url": configured_colab,
         "required_columns": REQUIRED_COLUMNS,
         "available_columns": available,
@@ -119,7 +132,7 @@ def evaluate_midterm(
         "last_verified": datetime.fromtimestamp(max(timestamp_candidates)).astimezone().isoformat(
             timespec="minutes"
         ) if timestamp_candidates else None,
-        "project_dir": project_dir,
+        "project_dir": _rel_path(project_dir),
         "technical_status": "verified" if technical_ready else "limited",
         "public_notebook_status": "available" if configured_colab else "limited",
     }

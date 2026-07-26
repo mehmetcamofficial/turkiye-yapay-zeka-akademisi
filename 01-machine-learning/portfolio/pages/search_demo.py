@@ -29,20 +29,19 @@ def render() -> None:
     )
 
     samples = get_sample_labels()
-    custom_label = t("nav_search_demo") + " / " + t("nav_cross_encoder")
-    selected_example = st.selectbox(t("nav_search_demo"), samples, index=0)
+    selected_example = st.selectbox(t("preset_query"), samples, index=0)
     sample = get_sample_by_label(selected_example) if selected_example != "Custom" else None
 
     col1, col2 = st.columns([3, 1])
     with col1:
         query = st.text_input(
-            "Query",
+            t("query_label"),
             value=sample.get("query", "") if sample else "kablosuz kulaklık",
         )
     with col2:
-        pool = st.selectbox("Candidate Pool", [20, 50, 100], index=0)
+        pool = st.selectbox(t("candidate_pool_label"), [20, 50, 100], index=0)
 
-    if st.button(t("nav_search_demo"), type="primary"):
+    if st.button(t("run_inference"), type="primary"):
         section_heading("Results")
         if mode == "Relevance Classification (V1)":
             st.info(
