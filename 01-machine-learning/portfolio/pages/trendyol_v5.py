@@ -51,42 +51,79 @@ def load_paired() -> pd.DataFrame:
 
 def demo_section():
     section_heading(t("live_inference"), t("demo_section_desc"))
-    st.warning(t("cold_start_warning"))
     frozen = load_frozen_policy()
-    left, right = st.columns(2)
-    with left:
-        st.metric(t("policy_label"), frozen.get("policy", "cross_encoder"))
-        st.metric(t("alpha_label"), f"{frozen.get('alpha', 1.0):.2f}")
-        st.metric(t("document_variant_label"), frozen.get("document_variant", "title_compact_metadata"))
-    with right:
-        st.metric(t("candidate_pool_label"), str(frozen.get("candidate_pool", 20)))
-        st.metric(t("batch_size_label"), str(frozen.get("batch_size", 8)))
-        st.metric(t("model_label"), frozen.get("model_id", "—").split("/")[-1])
+    counters = v5_load_counters()
+    model_loaded = bool(counters.get("model_loaded"))
+
+    if not model_loaded:
+        st.info(t("cold_start_hint"))
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric(t("policy_label"), t("policy_cross_encoder"))
+    c2.metric(t("candidate_pool_label"), f'{frozen.get("candidate_pool", 20)} {t("unit_product")}')
+    c3.metric(t("top_k_label"), f'10 {t("unit_product")}')
+    c4.metric(t("batch_size_label"), str(frozen.get("batch_size", 8)))
+
+    c1, c2, c3, c4 = st.columns(4)
+    model_id = frozen.get("model_id", "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1")
+    c1.metric(t("document_variant_label"), t("docvar_title_compact"),
+              help=t("docvar_raw", raw=frozen.get("document_variant", "title_compact_metadata")))
+    c2.metric(t("model_label"), t("model_mmarco_minilm"),
+              help=model_id)
+    c3.metric(t("device_label"), t("cpu_label"))
+    c4.metric(t("alpha_label"), f"{frozen.get('alpha', 1.0):.2f}")
 
     preset = st.selectbox(t("preset_query"), PRESETS, key="v5_demo_preset")
-    query = st.text_input(t("query_label"), preset, key="v5_demo_query")
-    if st.button(t("run_inference"), key="v5_demo_run"):
+    colq, colp, colk = st.columns([3, 1, 1])
+    with colq:
+        query = st.text_input(t("query_label"), preset, key="v5_demo_query")
+    with colp:
+        pool = st.selectbox(t("candidate_pool_label"), [20, 50, 100], index=0, key="v5_demo_pool")
+    with colk:
+        top_k = st.selectbox(t("top_k_label"), [5, 10, 20], index=1, key="v5_demo_topk")
+
+    if st.button(t("run_inference"), key="v5_demo_run", type="primary"):
         started = time.perf_counter()
-        response = v5_search(query=query)
+        response = v5_search(
+            query=query,
+            candidate_pool_size=pool,
+            top_k=top_k,
+            final_ranking_policy="cross_encoder",
+        )
         total_ms = (time.perf_counter() - started) * 1000.0
         if response.get("success"):
             results = response.get("results", [])
-            st.success(f"{len(results)} sonuç · {total_ms:.0f} ms total")
             stage = response.get("stage_metrics", {})
             xs = stage.get("cross_encoder_ms")
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric(t("result_count_label"), f'{len(results)} {t("unit_product")}')
+            c2.metric(t("total_latency_label"), f"{total_ms:.0f} ms")
             if xs is not None:
-                st.caption(f"Cross-encoder scoring: {xs:.1f} ms")
+                c3.metric(t("ce_latency_label"), f"{xs:.1f} ms")
+            c4.metric(t("pool_summary_label"), f"{pool} {t('pool_to')} {top_k} {t('unit_product')}")
+
             display = []
             for r in results:
+                delta = r.get("rank_delta")
+                if delta is not None:
+                    if delta > 0:
+                        delta_display = f"\u25b2 {delta}"
+                    elif delta < 0:
+                        delta_display = f"\u25bc {abs(delta)}"
+                    else:
+                        delta_display = f"\u2014 0"
+                else:
+                    delta_display = "\u2014"
+                ce_score = r.get("cross_encoder_score")
                 display.append({
-                    t("rank_label"): r.get("final_rank", r.get("cross_encoder_rank", "—")),
-                    t("product_label"): r.get("title", "—"),
-                    t("cross_encoder_score_label"): format_ranking_metric(r.get("cross_encoder_score")),
-                    t("rank_delta_label"): r.get("rank_delta", "—"),
-                    t("pre_rerank_rank_label"): r.get("pre_rerank_rank", "—"),
+                    t("rank_label"): r.get("final_rank", r.get("cross_encoder_rank", "\u2014")),
+                    t("product_label"): r.get("title", "\u2014"),
+                    t("cross_encoder_score_label"): f"{ce_score:.4f}" if isinstance(ce_score, (int, float)) else "\u2014",
+                    t("pre_rerank_rank_label"): r.get("pre_rerank_rank", "\u2014"),
+                    t("rank_delta_label"): delta_display,
                 })
             if display:
-                render_safe_table(pd.DataFrame(display), max_rows=20)
+                render_safe_table(pd.DataFrame(display), max_rows=top_k)
             rank_movements = [r.get("rank_delta", 0) for r in results if r.get("rank_delta") is not None]
             if rank_movements:
                 fig, ax = plt.subplots(figsize=(6, 2.5))
@@ -97,23 +134,21 @@ def demo_section():
                 ax.set_title(t("rank_movement"), fontsize=10)
                 fig.tight_layout()
                 st.pyplot(fig)
-            ce_meta = response.get("cross_encoder_metadata", {})
-            if ce_meta:
-                st.caption(
-                    f"Model: {ce_meta.get('model_name', '—')} · "
-                    f"Revision: {ce_meta.get('model_revision', '—')[:12]} · "
-                    f"Variant: {ce_meta.get('document_variant', '—')} · "
-                    f"Batch: {ce_meta.get('batch_size', '—')}"
-                )
+
+            with st.expander(t("technical_details"), expanded=False):
+                ce_meta = response.get("cross_encoder_metadata", {})
+                if ce_meta:
+                    st.metric(t("policy_label"), t("policy_cross_encoder"))
+                    st.metric(t("alpha_label"), f"{frozen.get('alpha', 1.0):.2f}")
+                    st.metric(t("batch_size_label"), str(frozen.get("batch_size", 8)))
+                    st.metric(t("document_variant_label"), frozen.get("document_variant", "title_compact_metadata"))
+                    st.metric(t("model_label"), ce_meta.get("model_name", "\u2014"))
+                    st.metric(t("device_label"), t("cpu_label"))
+                    revision = ce_meta.get("model_revision", "")
+                    if revision:
+                        st.caption(f"{t('revision_label')}: {revision[:12]}")
         else:
             st.error(t("pipeline_unavailable"))
-
-    counters = v5_load_counters()
-    st.caption(
-        f"{t('model_load_count_label')}: {counters.get('model_load_count', '—')} · "
-        f"{t('tokenizer_load_count_label')}: {counters.get('tokenizer_load_count', '—')} · "
-        f"{t('model_loaded_label')}: {'Yes' if counters.get('model_loaded') else 'No'}"
-    )
 
 
 def evidence_section():
@@ -316,8 +351,8 @@ def limitations_section():
 
 def render():
     page_header(
-        "Trendyol Cross-Encoder Reranking (V5)",
-        "Experimental reranking of Hybrid RRF candidates using a multilingual cross-encoder.",
+        t("nav_cross_encoder"),
+        t("subtitle_cross_encoder"),
         "CROSS-ENCODER \u00b7 RERANKING \u00b7 EXPERIMENTAL"
     )
     frozen = load_frozen_policy()
@@ -330,13 +365,13 @@ def render():
     ])
 
     tabs = st.tabs([
-        "01 · " + t("live_inference_short"),
-        "02 · " + t("evidence"),
-        "03 · " + t("holdout_detail"),
-        "04 · " + t("benchmarks"),
-        "05 · " + t("validation_variants") + " & " + t("repeated_seed_evaluation"),
-        "06 · " + t("error_analysis"),
-        "07 · " + t("frozen_policy_config") + " & " + t("limitations"),
+        "01 \u00b7 " + t("live_inference_short"),
+        "02 \u00b7 " + t("evidence"),
+        "03 \u00b7 " + t("holdout_detail"),
+        "04 \u00b7 " + t("benchmarks"),
+        "05 \u00b7 " + t("validation_variants") + " & " + t("repeated_seed_evaluation"),
+        "06 \u00b7 " + t("error_analysis"),
+        "07 \u00b7 " + t("frozen_policy_config") + " & " + t("limitations"),
     ])
 
     with tabs[0]:

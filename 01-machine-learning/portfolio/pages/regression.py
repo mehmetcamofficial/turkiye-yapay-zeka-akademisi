@@ -12,7 +12,7 @@ from portfolio.loaders import (load_csv_safe, load_image_path_safe,
 from portfolio.project_registry import project_by_id
 from portfolio.ui_components import (artifact_checklist, empty_state_panel,
                                      hero_panel, information_panel, metric_table,
-                                     prediction_result_card, render_safe_table, section_heading)
+                                     render_safe_table, section_heading)
 
 RAW_COLUMNS = ["MedInc", "HouseAge", "AveRooms", "AveBedrms", "Population", "AveOccup", "Latitude", "Longitude"]
 DEFAULTS = [3.87, 28.6, 5.43, 1.10, 1425.0, 3.07, 35.63, -119.57]
@@ -58,14 +58,33 @@ def _single_prediction() -> None:
         for index, (name, default) in enumerate(zip(RAW_COLUMNS, preset_vals)):
             values[name] = columns[index % 2].number_input(name, value=float(default), format="%.4f")
         submitted = st.form_submit_button(t("regression_predict"))
+
     if submitted:
+        st.session_state.pop("regression_prediction", None)
+        st.session_state.pop("regression_usd", None)
+        st.session_state.pop("regression_error", None)
         try:
             prepared = _prepare(pd.DataFrame([values]))
             prediction = float(model.predict(prepared)[0])
             usd_value = prediction * 100_000
-            st.metric(t("regression_pred_value"), f"${usd_value:,.0f}",
-                      help=t("regression_pred_desc", pred=prediction))
+            st.session_state["regression_prediction"] = prediction
+            st.session_state["regression_usd"] = usd_value
+        except Exception:
+            st.session_state["regression_error"] = t("regression_pred_failed")
 
+    prediction = st.session_state.get("regression_prediction")
+    usd_value = st.session_state.get("regression_usd")
+    error = st.session_state.get("regression_error")
+
+    if error and prediction is None:
+        st.error(error)
+        return
+
+    if prediction is not None:
+        st.metric(t("regression_pred_value"), f"${usd_value:,.0f}",
+                  help=t("regression_pred_desc", pred=prediction))
+
+        try:
             metrics = load_csv_safe(str(REGRESSION_DIR / "outputs/test_metrics.csv"))
             if not metrics.empty:
                 r2 = float(metrics.iloc[0].get("R2", 0))
@@ -88,7 +107,7 @@ def _single_prediction() -> None:
                 st.pyplot(fig)
                 st.caption(t("regression_context_note", rmse_approx=f"${expected_rmse:,.0f}"))
         except Exception:
-            st.error(t("regression_pred_failed"))
+            st.caption(t("regression_chart_unavailable"))
 
 
 def _batch_prediction() -> None:

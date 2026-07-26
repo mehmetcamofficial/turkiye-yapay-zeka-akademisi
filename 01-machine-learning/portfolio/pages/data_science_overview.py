@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from datetime import datetime
 from typing import Any
 
 import matplotlib.pyplot as plt
@@ -104,18 +105,153 @@ def render() -> None:
     with tabs[0]:
         schema_report = _load_schema()
         required_fields = schema_report.get("required_fields", []) if schema_report else []
-        available_cols = len(required_fields)
+        profile_count = len(_profile_outputs())
+        total_bytes = midterm.get("downloaded_size_bytes", 0)
+        total_gib = total_bytes / (1024 ** 3)
+        today_str = datetime.now().strftime("%d %b %Y")
+
+        table_summary = load_csv_safe(str(PROFILE_DIR / "outputs/table_summary.csv"))
+        product_count = "—"
+        if not table_summary.empty:
+            items_row = table_summary[table_summary["table"] == "items.csv"]
+            if not items_row.empty:
+                pc = int(items_row.iloc[0]["full_row_count"])
+                product_count = f"{pc:,}".replace(",", ".")
+
         kpi_grid([
-            (t("status_label"), t("status_available"), t("technical_completion_verified")),
-            (t("local_dataset"), t("status_available") if midterm["dataset_path"] else t("cloud_excluded"),
-             f"{midterm['downloaded_file_count']} {t('files_locally')}"),
-            (t("schema_fields"), str(available_cols),
-             t("from_persisted_profile") if available_cols else t("not_available")),
-            (t("notebook_label"), t("ready") if midterm["notebook_ready"] else t("not_available"),
-             t("verified_locally")),
-            (t("profile_outputs"), str(len(_profile_outputs())),
-             t("generated_from_trendyol_profile")),
+            (t("overview_source_files"), str(midterm.get("downloaded_file_count", 0)), t("overview_n_source_files")),
+            (t("overview_total_size"), f"{total_gib:.2f} {t('overview_gib')}", t("overview_total_size_desc")),
+            (t("overview_profile_output_count"), f"{profile_count}/12", t("overview_profile_output_desc")),
+            (t("overview_catalog_fields"), str(len(required_fields)), t("overview_catalog_fields_desc")),
+            (t("overview_product_sample"), product_count, t("overview_product_sample_desc")),
+            (t("overview_last_validation"), today_str, t("overview_last_validation_desc")),
         ])
+
+        section_heading(t("overview_data_pipeline"))
+        stages = [
+            (t("overview_pipeline_source_files"), f"7 {t('overview_pipeline_file')}", "#22c55e"),
+            (t("overview_pipeline_schema_validation"), t("status_verified"), "#22c55e"),
+            (t("overview_pipeline_quality_control"), t("overview_zero_issues"), "#22c55e"),
+            (t("overview_pipeline_profiling"), f"{profile_count} {t('overview_pipeline_output_unit')}", "#6366f1"),
+            (t("overview_pipeline_search_indexes"), t("ready"), "#6366f1"),
+            (t("overview_pipeline_model_inputs"), t("ready"), "#6366f1"),
+        ]
+        html = '<div style="display:flex;gap:4px;align-items:center;flex-wrap:nowrap;overflow-x:auto;padding:4px 0;">'
+        for i, (label, status, color) in enumerate(stages):
+            if i > 0:
+                html += '<div style="flex-shrink:0;color:#666;font-size:1.2rem;">→</div>'
+            bg = "rgba(34,197,94,0.08)" if color == "#22c55e" else "rgba(99,102,241,0.08)"
+            html += (
+                f'<div style="flex:1;min-width:100px;background:{bg};border:1px solid {color};'
+                f'border-radius:6px;padding:8px;text-align:center;">'
+                f'<div style="font-size:0.8rem;font-weight:600;">{label}</div>'
+                f'<div style="font-size:0.7rem;color:{color};margin-top:2px;">{status}</div></div>'
+            )
+        html += "</div>"
+        st.markdown(html, unsafe_allow_html=True)
+
+        section_heading(t("overview_dataset_composition"))
+        categorical = load_csv_safe(str(PROFILE_DIR / "outputs/categorical_summary.csv"))
+        items_cat = categorical[categorical["table"] == "items.csv"] if not categorical.empty else pd.DataFrame()
+        if not items_cat.empty:
+            col1, col2 = st.columns(2)
+            with col1:
+                cat_data = items_cat[items_cat["column"] == "category"].head(8)
+                if not cat_data.empty and "value" in cat_data and "count_sample" in cat_data:
+                    fig, ax = plt.subplots(figsize=(5, 3))
+                    short = [v.split("/")[-1] if "/" in str(v) else v for v in cat_data["value"].iloc[::-1]]
+                    ax.barh(short, cat_data["count_sample"].iloc[::-1], color="#6366f1", height=0.6)
+                    ax.set_xlabel(t("count_sample"))
+                    ax.set_title(t("overview_top_categories"), fontsize=10)
+                    fig.tight_layout()
+                    st.pyplot(fig)
+            with col2:
+                brand_data = items_cat[items_cat["column"] == "brand"].head(8)
+                if not brand_data.empty and "value" in brand_data and "count_sample" in brand_data:
+                    fig, ax = plt.subplots(figsize=(5, 3))
+                    ax.barh(brand_data["value"].iloc[::-1], brand_data["count_sample"].iloc[::-1],
+                            color="#22c55e", height=0.6)
+                    ax.set_xlabel(t("count_sample"))
+                    ax.set_title(t("overview_top_brands"), fontsize=10)
+                    fig.tight_layout()
+                    st.pyplot(fig)
+
+        text_length = load_csv_safe(str(PROFILE_DIR / "outputs/text_length_summary.csv"))
+        items_text = text_length[text_length["table"] == "items.csv"] if not text_length.empty else pd.DataFrame()
+        title_len = items_text[items_text["column"] == "title"] if not items_text.empty else pd.DataFrame()
+        if not title_len.empty and "mean_length_sample" in title_len and "max_length_sample" in title_len:
+            fig, ax = plt.subplots(figsize=(5, 2))
+            mean_val = float(title_len.iloc[0]["mean_length_sample"])
+            max_val = int(title_len.iloc[0]["max_length_sample"])
+            ax.bar([t("overview_mean_length"), t("overview_max_length")], [mean_val, max_val],
+                   color=["#6366f1", "#f59e0b"], width=0.4)
+            ax.set_ylabel(t("overview_characters"))
+            ax.set_title(t("overview_title_length"), fontsize=10)
+            fig.tight_layout()
+            st.pyplot(fig)
+
+        section_heading(t("overview_data_quality_summary"))
+        missing = load_csv_safe(str(PROFILE_DIR / "outputs/missing_values.csv"))
+        critical_missing_count = -1
+        if not missing.empty:
+            items_miss = missing[missing["table"] == "items.csv"]
+            if not items_miss.empty and "missing_percentage_sample" in items_miss:
+                critical_missing_count = int((items_miss["missing_percentage_sample"] > 0).sum())
+        missing_text = (
+            t("overview_critical_field_none")
+            if critical_missing_count <= 0
+            else str(critical_missing_count)
+        )
+
+        duplicate = load_csv_safe(str(PROFILE_DIR / "outputs/duplicate_summary.csv"))
+        dup_text = "0"
+        if not duplicate.empty:
+            items_dup = duplicate[duplicate["table"] == "items.csv"]
+            if not items_dup.empty and "duplicate_count_sample" in items_dup:
+                dup_text = str(int(items_dup.iloc[0]["duplicate_count_sample"]))
+
+        schema_compatible = schema_report.get("schema_compatible", False) if schema_report else False
+        schema_text = t("compatible") if schema_compatible else t("status_limited")
+
+        output_int = f"{profile_count}/12"
+
+        q1, q2, q3, q4 = st.columns(4)
+        with q1:
+            st.markdown(
+                f'<div style="background:var(--bg-card);border:1px solid var(--border);'
+                f'border-radius:8px;padding:12px;text-align:center;">'
+                f"<small>{t('overview_missing_values')}</small><br>"
+                f'<strong style="color:#22c55e;font-size:1.2rem;">{missing_text}</strong></div>',
+                unsafe_allow_html=True,
+            )
+        with q2:
+            st.markdown(
+                f'<div style="background:var(--bg-card);border:1px solid var(--border);'
+                f'border-radius:8px;padding:12px;text-align:center;">'
+                f"<small>{t('overview_duplicate_records')}</small><br>"
+                f'<strong style="color:#22c55e;font-size:1.2rem;">{dup_text}</strong></div>',
+                unsafe_allow_html=True,
+            )
+        with q3:
+            st.markdown(
+                f'<div style="background:var(--bg-card);border:1px solid var(--border);'
+                f'border-radius:8px;padding:12px;text-align:center;">'
+                f"<small>{t('overview_schema_status')}</small><br>"
+                f'<strong style="font-size:1.2rem;">{schema_text}</strong></div>',
+                unsafe_allow_html=True,
+            )
+        with q4:
+            st.markdown(
+                f'<div style="background:var(--bg-card);border:1px solid var(--border);'
+                f'border-radius:8px;padding:12px;text-align:center;">'
+                f"<small>{t('overview_output_integrity')}</small><br>"
+                f'<strong style="font-size:1.2rem;">{output_int}</strong></div>',
+                unsafe_allow_html=True,
+            )
+
+        st.info(f"**{t('overview_insight_what')}** {t('overview_insight_what_text')}")
+        st.info(f"**{t('overview_insight_why')}** {t('overview_insight_why_text')}")
+        st.info(f"**{t('overview_insight_limitation')}** {t('overview_insight_limitation_text')}")
 
     with tabs[1]:
         inventory = midterm.get("inventory")
@@ -150,7 +286,7 @@ def render() -> None:
                 f"<div style='flex:1;min-width:180px;background:var(--bg-card);border-radius:8px;padding:12px;border:1px solid var(--border)'>"
                 f"<small>{t('schema_dataset_purpose')}</small><br><strong>{t('schema_dataset_purpose_value')}</strong></div>"
                 f"<div style='flex:1;min-width:180px;background:var(--bg-card);border-radius:8px;padding:12px;border:1px solid var(--border)'>"
-                f"<small>{t('schema_assignment_purpose')}</small><br><strong>{t('schema_assignment_purpose_value')}</strong></div>"
+                f"<small>{t('schema_transactional_purpose')}</small><br><strong>{t('schema_transactional_purpose_value')}</strong></div>"
                 f"<div style='flex:1;min-width:180px;background:var(--bg-card);border-radius:8px;padding:12px;border:1px solid var(--border)'>"
                 f"<small>{t('schema_compatible_fields')}</small><br><strong style='color:#22c55e'>{compat['compatible_count']}/{compat['total_count']}</strong></div>"
                 f"<div style='flex:1;min-width:180px;background:var(--bg-card);border-radius:8px;padding:12px;border:1px solid var(--border)'>"

@@ -75,7 +75,7 @@ def _term_influence(text: str, terms_df: pd.DataFrame) -> None:
 def _single() -> None:
     model_result = _model()
     text = st.text_area(t("nlp_text_input"), "This product works perfectly and I love it.", height=130)
-    if st.button(t("nlp_analyze"), key="nlp_single_predict"):
+    if st.button(t("nlp_analyze"), key="nlp_single_predict", type="primary"):
         if not model_result.ok:
             st.error(model_result.public_message); return
         model = model_result.model
@@ -84,22 +84,39 @@ def _single() -> None:
             st.warning(t("nlp_empty_text")); return
         try:
             label = int(model.predict(prepared)[0]); scores = _confidence(model, prepared)
-            detail = t("nlp_binary_note")
-            if scores is not None:
-                detail += " " + t("nlp_score", score=float(scores[0]))
+            sentiment_label = t("nlp_positive") if label == 1 else t("nlp_negative")
+            sentiment_color = "#22c55e" if label == 1 else "#ef4444"
+            st.markdown(f"**{escape(t('nlp_predicted'))}**")
             st.markdown(
-                f'<div class="prediction-card">'
-                f"<strong>{escape(t('nlp_predicted'))}</strong>"
-                f"<span>{escape(t('nlp_positive') if label == 1 else t('nlp_negative'))}</span>"
-                f"<small>{escape(detail)}</small>"
-                f"</div>",
+                f'<p style="font-size:2rem;font-weight:700;color:{sentiment_color};'
+                f"margin:0 0 8px 0;\">{escape(sentiment_label)}</p>",
                 unsafe_allow_html=True,
             )
             if scores is not None:
-                _confidence_gauge(float(scores[0]))
+                confidence_pct = float(scores[0]) * 100
+                st.metric(t("nlp_model_confidence"), f"%{confidence_pct:.1f}",
+                          help=t("nlp_binary_note"))
+            else:
+                st.caption(t("nlp_binary_note"))
+            if scores is not None:
+                prob = float(scores[0])
+                neg_prob = 1.0 - prob
+                fig, ax = plt.subplots(figsize=(6, 0.8))
+                labels = [t("nlp_negative"), t("nlp_positive")]
+                values = [neg_prob, prob]
+                colors = ["#ef4444", "#22c55e"]
+                ax.barh(labels, values, color=colors, height=0.4)
+                for i, v in enumerate(values):
+                    ax.text(v + 0.01, i, f"%{v*100:.1f}", va="center", fontsize=9)
+                ax.set_xlim(0, 1)
+                ax.set_xticks([0, 0.25, 0.5, 0.75, 1.0])
+                ax.set_xticklabels(["0%", "%25", "%50", "%75", "%100"], fontsize=7)
+                fig.tight_layout()
+                st.pyplot(fig)
             terms = load_csv_safe(str(NLP_DIR / "outputs/top_terms.csv"))
             if not terms.empty:
                 _term_influence(text, terms)
+                st.caption(t("nlp_term_influence_note"))
         except Exception:
             st.error(t("nlp_analysis_failed"))
 

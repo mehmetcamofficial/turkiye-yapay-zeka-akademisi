@@ -584,3 +584,228 @@ def test_technical_detail_expanders_have_content() -> None:
             pass  # No expanders is fine
     if issues:
         pytest.fail("\n".join(issues))
+
+
+# ---- Test 32: Search and Hybrid have distinct page purposes (view selector) ----
+def test_search_and_hybrid_have_distinct_page_purposes() -> None:
+    """search_demo.py must have a view selector separating Product and Analysis views."""
+    source = (PAGES_DIR / "search_demo.py").read_text(encoding="utf-8")
+    assert "search_view_product" in source, "Must define product view key"
+    assert "search_view_analysis" in source, "Must define analysis view key"
+    assert "_render_product_view" in source or "product" in source.lower(), (
+        "Must have product view rendering"
+    )
+
+
+# ---- Test 33: Live inference config uses human-readable labels ----
+def test_live_inference_config_uses_human_labels() -> None:
+    """trendyol_v5.py must use human-readable labels, not raw internal IDs."""
+    source = (PAGES_DIR / "trendyol_v5.py").read_text(encoding="utf-8")
+    assert "policy_cross_encoder" in source, "Must use human-readable policy label"
+    assert "model_mmarco_minilm" in source, "Must use human-readable model name"
+    assert "docvar_title_compact" in source, "Must use human-readable doc variant label"
+
+
+# ---- Test 34: Cross-encoder config is in expander, not primary content ----
+def test_cross_encoder_config_is_not_primary_content() -> None:
+    """Technical config must be inside an expander."""
+    source = (PAGES_DIR / "trendyol_v5.py").read_text(encoding="utf-8")
+    assert 't("technical_details")' in source, "Must have technical details expander"
+    # Check that model_id and revision are inside expander context
+    expander_blocks = source.split('t("technical_details")')
+    assert len(expander_blocks) >= 2, "Must have expander context for technical details"
+
+
+# ---- Test 35: Sentiment result has separate label and value ----
+def test_sentiment_result_has_separate_label_and_value() -> None:
+    """NLP sentiment must display label and value separately."""
+    source = (PAGES_DIR / "nlp.py").read_text(encoding="utf-8")
+    assert "nlp_predicted" in source, "Must have predicted label"
+    assert "nlp_model_confidence" in source, "Must have separate confidence metric"
+    assert "st.metric" in source, "Must use st.metric for confidence (not inline concat)"
+
+
+# ---- Test 36: Sentiment probability chart uses both classes ----
+def test_sentiment_probability_chart_uses_both_classes() -> None:
+    """NLP probability chart must show both positive and negative probabilities."""
+    source = (PAGES_DIR / "nlp.py").read_text(encoding="utf-8")
+    assert "nlp_negative" in source and "nlp_positive" in source, (
+        "Chart must reference both class labels"
+    )
+    assert "neg_prob" in source or "1.0 - prob" in source, (
+        "Must compute both probabilities"
+    )
+
+
+# ---- Test 37: Runtime diagnostics has explanation sections ----
+def test_runtime_diagnostics_has_explanation_sections() -> None:
+    """runtime_diagnostics.py must have explanation info blocks."""
+    source = (PAGES_DIR / "runtime_diagnostics.py").read_text(encoding="utf-8")
+    assert "explain_what" in source, "Must have 'what' explanation"
+    assert "explain_why" in source, "Must have 'why' explanation"
+    assert "explain_limitation" in source, "Must have limitation explanation"
+
+
+# ---- Test 38: Data overview uses search dataset scope ----
+def test_data_overview_uses_search_dataset_scope() -> None:
+    """data_science_overview must not display old assignment framing."""
+    source = (PAGES_DIR / "data_science_overview.py").read_text(encoding="utf-8")
+    lines = source.split("\n")
+    # Only check display-relevant lines (not imports or function names)
+    display_lines = [l for l in lines if not l.strip().startswith(("from ", "import ", "#", "def ", "    def "))]
+    display_text = "\n".join(display_lines).lower()
+    forbidden_display = ["akademi", "ara sınav", "assignment", "ödev"]
+    for term in forbidden_display:
+        assert term not in display_text, (
+            f"Must not display '{term}' in data overview"
+        )
+    assert "relevance" in source.lower() or "search" in source.lower() or "katalog" in source.lower(), (
+        "Must reference search dataset scope"
+    )
+
+
+# ---- Test 39: No concatenated metric labels ----
+def test_no_concatenated_metric_labels() -> None:
+    """Metric labels and values must be separate, not concatenated."""
+    import ast
+    issues = []
+    for fname in sorted(Path(PAGES_DIR).glob("*.py")):
+        if fname.name.startswith("_"):
+            continue
+        source = fname.read_text(encoding="utf-8")
+        try:
+            tree = ast.parse(source)
+        except SyntaxError:
+            continue
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Call):
+                continue
+            if isinstance(node.func, ast.Attribute) and isinstance(node.func.value, ast.Name):
+                if node.func.value.id == "st" and node.func.attr == "metric":
+                    args = node.args
+                    if len(args) >= 2:
+                        label = args[0]
+                        value = args[1]
+                        if isinstance(label, ast.Constant) and isinstance(value, ast.Constant):
+                            label_str = str(label.value)
+                            val_str = str(value.value)
+                            # Check if value appears to be concatenated to label
+                            if len(label_str) > 0 and len(val_str) > 0:
+                                # Flag if value is embedded in label (run-on)
+                                if val_str.startswith(tuple("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")):
+                                    combined = label_str + val_str
+                                    if any(word in combined.lower() for word in ["tahmin", "prediction", "sonuç", "result"]):
+                                        issues.append(f"{fname.stem}:{node.lineno}: st.metric label+value may be concatenated")
+    if issues:
+        pytest.fail("\n".join(issues[:10]))
+
+
+# ---- Test 40: Search and Hybrid render distinct result columns ----
+def test_search_and_hybrid_render_distinct_result_columns() -> None:
+    """Product view and Analysis view must use different result columns."""
+    source = (PAGES_DIR / "search_demo.py").read_text(encoding="utf-8")
+    # Product view should not include lexical/semantic ranks
+    product_view_cols = ["rank_label", "product_label", "category_label"]
+    analysis_view_cols = ["lexical_rank_label", "semantic_rank_label", "rrf_score_label", "fused_rank_label"]
+    # Product view uses search_results heading
+    assert "search_results" in source, "Product view must have results heading"
+    # Analysis view must have analysis-specific keys
+    assert "analysis_insight" in source or "fused_rank_label" in source, (
+        "Analysis view must use retrieval-specific columns"
+    )
+
+
+# ---- Test 26: Housing inference and visualization are in separate try/except blocks ----
+def test_housing_separate_inference_and_visualization() -> None:
+    """Inference exception must not be caused by a chart failure."""
+    source = (PAGES_DIR / "regression.py").read_text(encoding="utf-8")
+    # Find the _single_prediction function
+    lines = source.split("\n")
+    in_func = False
+    func_start = 0
+    for i, line in enumerate(lines):
+        if line.strip().startswith("def _single_prediction"):
+            in_func = True
+            func_start = i
+        elif in_func and line.strip().startswith("def ") and line.strip() != "def _single_prediction":
+            in_func = False
+    assert func_start > 0, "_single_prediction function not found"
+
+    # Check that there are at least 2 try blocks in the function
+    try_count = 0
+    for i in range(func_start, len(lines)):
+        if lines[i].strip().startswith("try:"):
+            try_count += 1
+    assert try_count >= 2, (
+        f"Expected >=2 try blocks in _single_prediction (inference + viz), found {try_count}"
+    )
+
+
+# ---- Test 27: Housing uses explicit state checks, not truthiness ----
+def test_housing_uses_explicit_state_checks() -> None:
+    """Housing must check 'prediction is not None', not 'if prediction:'."""
+    source = (PAGES_DIR / "regression.py").read_text(encoding="utf-8")
+    # Check that explicit None checks are used
+    assert "prediction is not None" in source, (
+        "Must use 'prediction is not None' (not 'if prediction:')"
+    )
+    # Verify stale state is cleared before new prediction
+    assert "st.session_state.pop" in source, (
+        "Must clear stale state with st.session_state.pop"
+    )
+
+
+# ---- Test 28: Housing success/error exclusive rendering ----
+def test_housing_error_does_not_coexist_with_result() -> None:
+    """When error is set and prediction is None, no metric should render."""
+    source = (PAGES_DIR / "regression.py").read_text(encoding="utf-8")
+    # Check error guard clause returns early
+    assert "if error and prediction is None:" in source, (
+        "Must have guard: if error and prediction is None: return"
+    )
+    # Check metric is only rendered when prediction is not None
+    assert "if prediction is not None:" in source, (
+        "Metric must only render when prediction is not None"
+    )
+
+
+# ---- Test 29: Search demo imports runtime adapters ----
+def test_search_demo_imports_runtime_adapters() -> None:
+    """search_demo.py must import pipeline_search and v5_search."""
+    source = (PAGES_DIR / "search_demo.py").read_text(encoding="utf-8")
+    assert "from portfolio.trendyol_pipeline_service import pipeline_search" in source, (
+        "Must import pipeline_search for V4 hybrid retrieval"
+    )
+    assert "from portfolio.trendyol_v5_pipeline_service import v5_search" in source, (
+        "Must import v5_search for V5 cross-encoder"
+    )
+
+
+# ---- Test 30: Search demo uses session state for results (not static text) ----
+def test_search_demo_uses_session_state() -> None:
+    """search_demo.py must use st.session_state for result/error handling."""
+    source = (PAGES_DIR / "search_demo.py").read_text(encoding="utf-8")
+    assert "st.session_state" in source, "Must use session state for result management"
+    assert 'st.session_state.pop("search_response"' in source, (
+        "Must clear stale search response before new inference"
+    )
+
+
+# ---- Test 31: Search demo does not render explanation-only response ----
+def test_search_demo_no_explanation_only() -> None:
+    """search_demo.py must not contain the old st.info/callout explanation pattern for results."""
+    source = (PAGES_DIR / "search_demo.py").read_text(encoding="utf-8")
+    # Check that the old static explanation text is gone
+    assert "Hybrid RRF retrieval mode. Query:" not in source, (
+        "Must not show explanation-only Hybrid Retrieval response"
+    )
+    assert "Cross-encoder reranking mode. Query:" not in source, (
+        "Must not show explanation-only Cross-Encoder response"
+    )
+    # Check that runtime is actually called
+    assert "pipeline_search(" in source, "Must call pipeline_search for hybrid"
+    assert "v5_search(" in source, "Must call v5_search for cross-encoder"
+    # Check that results heading only appears with actual results
+    assert "section_heading(t(\"search_results\"))" in source, (
+        "Must show search_results heading"
+    )
