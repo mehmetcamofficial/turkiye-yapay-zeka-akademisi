@@ -9,6 +9,7 @@ import pandas as pd
 import streamlit as st
 
 from portfolio.config import TRENDYOL_RELEVANCE_DIR, REPOSITORY_ROOT
+from portfolio.i18n import t
 from portfolio.loaders import load_csv_safe, load_json_safe, load_text_safe
 from portfolio.trendyol_v5_pipeline_service import v5_search, v5_load_counters, load_frozen_policy
 from portfolio.ui_components import (
@@ -47,22 +48,22 @@ def load_paired() -> pd.DataFrame:
 
 
 def demo_section():
-    section_heading("Live Inference", "Cross-encoder reranking on a bounded 5,000-product preview catalogue.")
-    st.warning("Cold model load may take several seconds on first inference. Model/tokenizer are cached after loading.")
+    section_heading(t("live_inference"), t("demo_section_desc"))
+    st.warning(t("cold_start_warning"))
     frozen = load_frozen_policy()
     left, right = st.columns(2)
     with left:
-        st.metric("Policy", frozen.get("policy", "cross_encoder"))
-        st.metric("Alpha", f"{frozen.get('alpha', 1.0):.2f}")
-        st.metric("Document variant", frozen.get("document_variant", "title_compact_metadata"))
+        st.metric(t("policy_label"), frozen.get("policy", "cross_encoder"))
+        st.metric(t("alpha_label"), f"{frozen.get('alpha', 1.0):.2f}")
+        st.metric(t("document_variant_label"), frozen.get("document_variant", "title_compact_metadata"))
     with right:
-        st.metric("Candidate pool", str(frozen.get("candidate_pool", 20)))
-        st.metric("Batch size", str(frozen.get("batch_size", 8)))
-        st.metric("Model", frozen.get("model_id", "—").split("/")[-1])
+        st.metric(t("candidate_pool_label"), str(frozen.get("candidate_pool", 20)))
+        st.metric(t("batch_size_label"), str(frozen.get("batch_size", 8)))
+        st.metric(t("model_label"), frozen.get("model_id", "—").split("/")[-1])
 
-    preset = st.selectbox(t("nav_search_demo"), PRESETS, key="v5_demo_preset")
-    query = st.text_input("Query", preset, key="v5_demo_query")
-    if st.button(t("nav_cross_encoder"), key="v5_demo_run"):
+    preset = st.selectbox(t("preset_query"), PRESETS, key="v5_demo_preset")
+    query = st.text_input(t("query_label"), preset, key="v5_demo_query")
+    if st.button(t("run_inference"), key="v5_demo_run"):
         started = time.perf_counter()
         response = v5_search(query=query)
         total_ms = (time.perf_counter() - started) * 1000.0
@@ -76,11 +77,11 @@ def demo_section():
             display = []
             for r in results:
                 display.append({
-                    "Sıra": r.get("final_rank", r.get("cross_encoder_rank", "—")),
-                    "Ürün": r.get("title", "—"),
-                    "Cross-encoder score": format_ranking_metric(r.get("cross_encoder_score")),
-                    "Rank değişimi": r.get("rank_delta", "—"),
-                    "Önceki sıra": r.get("pre_rerank_rank", "—"),
+                    t("rank_label"): r.get("final_rank", r.get("cross_encoder_rank", "—")),
+                    t("product_label"): r.get("title", "—"),
+                    t("cross_encoder_score_label"): format_ranking_metric(r.get("cross_encoder_score")),
+                    t("rank_delta_label"): r.get("rank_delta", "—"),
+                    t("pre_rerank_rank_label"): r.get("pre_rerank_rank", "—"),
                 })
             if display:
                 render_safe_table(pd.DataFrame(display), max_rows=20)
@@ -93,21 +94,21 @@ def demo_section():
                     f"Batch: {ce_meta.get('batch_size', '—')}"
                 )
         else:
-            st.error("Pipeline unavailable.")
+            st.error(t("pipeline_unavailable"))
 
     counters = v5_load_counters()
     st.caption(
-        f"Model load count: {counters.get('model_load_count', '—')} · "
-        f"Tokenizer load count: {counters.get('tokenizer_load_count', '—')} · "
-        f"Model loaded: {'Yes' if counters.get('model_loaded') else 'No'}"
+        f"{t('model_load_count_label')}: {counters.get('model_load_count', '—')} · "
+        f"{t('tokenizer_load_count_label')}: {counters.get('tokenizer_load_count', '—')} · "
+        f"{t('model_loaded_label')}: {'Yes' if counters.get('model_loaded') else 'No'}"
     )
 
 
 def evidence_section():
-    section_heading("Offline Evaluation", "Holdout results on 150 frozen queries (seed 42, pool 20).")
+    section_heading(t("evidence_section_title"), t("evidence_section_desc"))
     results = load_results()
     if not results:
-        st.warning("V5 results are not available.")
+        st.warning(t("v5_results_unavailable"))
         return
 
     baseline_ndcg = results.get("holdout_hybrid_rrf_ndcg@10", "—")
@@ -124,128 +125,126 @@ def evidence_section():
     worsened = results.get("holdout_worsened", "—")
 
     evidence_strip([
-        ("Hybrid RRF NDCG@10", format_ranking_metric(baseline_ndcg), "V5 holdout baseline"),
-        ("V5 NDCG@10", format_ranking_metric(v5_ndcg), "Cross-encoder reranking"),
-        ("Absolute Δ", format_delta(delta), f"Relative: +{rel_pct:.1f}%" if isinstance(rel_pct, float) else ""),
-        ("MRR Δ", format_delta(mrr_delta), "Paired bootstrap"),
+        (t("hybrid_rrf_ndcg"), format_ranking_metric(baseline_ndcg), t("v5_holdout_baseline")),
+        (t("v5_ndcg"), format_ranking_metric(v5_ndcg), t("cross_encoder_reranking")),
+        (t("absolute_gain"), format_delta(delta), f"Relative: +{rel_pct:.1f}%" if isinstance(rel_pct, float) else ""),
+        (t("mrr_delta"), format_delta(mrr_delta), t("paired_bootstrap")),
     ])
 
     decision_banner(
-        "Best Reranking Research Candidate · Not Production Promoted",
-        "The cross-encoder reranker improved NDCG@10 on the frozen 150-query V5 holdout. "
-        "It is an experimental reranker on a bounded demo; no production SLA or business impact is claimed."
+        t("best_reranking_candidate") + " · " + t("not_production_promoted"),
+        t("not_production_promoted_desc"),
     )
 
     cols = st.columns(2)
     with cols[0]:
-        st.metric("Improved queries", str(improved))
-        st.metric("Unchanged queries", str(unchanged))
+        st.metric(t("improved_queries"), str(improved))
+        st.metric(t("unchanged_queries"), str(unchanged))
         if ndcg_ci:
             st.info(f"NDCG@10 95% CI: [{format_ranking_metric(ndcg_ci[0])}, {format_ranking_metric(ndcg_ci[1])}]")
     with cols[1]:
-        st.metric("Worsened queries", str(worsened))
-        st.metric("Total queries", str(results.get("holdout_query_count", "—")))
+        st.metric(t("worsened_queries"), str(worsened))
+        st.metric(t("total_queries"), str(results.get("holdout_query_count", "—")))
         if mrr_ci:
             st.caption(f"MRR 95% CI: [{format_ranking_metric(mrr_ci[0])}, {format_ranking_metric(mrr_ci[1])}]")
 
 
 def holdout_detail_section():
-    section_heading("Holdout Detail", "Per-policy aggregate metrics on the frozen holdout.")
+    section_heading(t("holdout_detail"), t("holdout_detail_desc"))
     holdout = load_csv_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_holdout_summary.csv"))
     if not holdout.empty:
         display = holdout[["policy", "ndcg@10_mean", "mrr_mean", "candidate_recall@20_mean"]].copy()
-        display.columns = ["Policy", "NDCG@10", "MRR", "Candidate Recall@20"]
+        display.columns = [t("policy_col"), t("ndcg10_col"), t("mrr_col"), t("candidate_recall20_col")]
         render_safe_table(display, max_rows=10)
-    section_heading("Paired Bootstrap Results", "Query-level paired comparison vs Hybrid RRF baseline.")
+    section_heading(t("paired_bootstrap_results"), t("paired_bootstrap_desc"))
     paired = load_paired()
     if not paired.empty:
         display = paired[paired.metric.isin(["ndcg@10", "mrr"])][["candidate", "metric", "delta", "ci_low", "ci_high", "improved", "unchanged", "worsened"]].copy()
+        display.columns = [t("candidate_col"), t("metric_col"), t("delta_col"), t("ci_low_col"), t("ci_high_col"), t("improved_col"), t("unchanged_col"), t("worsened_col")]
         render_safe_table(display, max_rows=10)
 
 
 def segment_section():
-    section_heading("Query Segment Analysis", "Per-segment V5 impact on NDCG@10 and MRR.")
+    section_heading(t("query_segment_analysis"), t("query_segment_desc"))
     segment_path = TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_query_segment_metrics.csv"
     segment = load_csv_safe(str(segment_path)) if segment_path.is_file() else pd.DataFrame()
     if not segment.empty:
         render_safe_table(segment, max_rows=20)
     else:
-        st.caption("Segment analysis outputs are available in the offline evaluation bundle.")
+        st.caption(t("segment_analysis_available"))
 
 
 def model_config_section():
-    section_heading("Frozen Policy Configuration", "Selected by validation-only evaluation.")
+    section_heading(t("frozen_policy_config"), t("frozen_policy_desc"))
     frozen = load_frozen_policy()
     rows = [{"Parameter": k, "Value": v} for k, v in frozen.items() if k != "governance"]
     render_safe_table(pd.DataFrame(rows), max_rows=20)
-    decision_banner("Governance", frozen.get("governance", "Best Reranking Research Candidate · Not Production Promoted"))
+    decision_banner(t("governance_label"), frozen.get("governance", t("best_reranking_candidate") + " · " + t("not_production_promoted")))
 
 
 def benchmark_section():
-    section_heading("Batch Benchmark", "Pool 20, title_compact_metadata, 30 validation queries, CPU.")
+    section_heading(t("batch_benchmark"), t("batch_benchmark_desc"))
     batch = load_csv_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_batch_benchmark.csv"))
     if not batch.empty:
         render_safe_table(batch, max_rows=10)
-    section_heading("Pool Benchmark", "Selected variant, batch 8, validation queries, CPU.")
+    section_heading(t("pool_benchmark"), t("pool_benchmark_desc"))
     pool = load_csv_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_pool_benchmark.csv"))
     if not pool.empty:
         render_safe_table(pool, max_rows=10)
-    section_heading("Warm Latency", "Holdout latency (150 queries, pool 20).")
+    section_heading(t("warm_latency"), t("warm_latency_desc"))
     results = load_results()
     if results:
-        st.metric("Mean warm latency (ms)", f"{results.get('pool20_warm_latency_mean_ms', 0):.1f}" if isinstance(results.get('pool20_warm_latency_mean_ms'), (int, float)) else "—")
-        st.metric("P50 warm latency (ms)", f"{results.get('pool20_warm_latency_p50_ms', 0):.1f}" if isinstance(results.get('pool20_warm_latency_p50_ms'), (int, float)) else "—")
-        st.metric("P95 warm latency (ms)", f"{results.get('pool20_warm_latency_p95_ms', 0):.1f}" if isinstance(results.get('pool20_warm_latency_p95_ms'), (int, float)) else "—")
-        st.metric("Cold load (s)", f"{results.get('cold_tokenizer_model_load_seconds', 0):.2f}" if isinstance(results.get('cold_tokenizer_model_load_seconds'), (int, float)) else "—")
+        st.metric(t("mean_warm_latency"), f"{results.get('pool20_warm_latency_mean_ms', 0):.1f}" if isinstance(results.get('pool20_warm_latency_mean_ms'), (int, float)) else "—")
+        st.metric(t("p50_warm_latency"), f"{results.get('pool20_warm_latency_p50_ms', 0):.1f}" if isinstance(results.get('pool20_warm_latency_p50_ms'), (int, float)) else "—")
+        st.metric(t("p95_warm_latency"), f"{results.get('pool20_warm_latency_p95_ms', 0):.1f}" if isinstance(results.get('pool20_warm_latency_p95_ms'), (int, float)) else "—")
+        st.metric(t("cold_load"), f"{results.get('cold_tokenizer_model_load_seconds', 0):.2f}" if isinstance(results.get('cold_tokenizer_model_load_seconds'), (int, float)) else "—")
 
 
 def repeated_seed_section():
-    section_heading("Repeated-Seed Evaluation", "Five group-safe seeds (42, 52, 62, 72, 82).")
+    section_heading(t("repeated_seed_evaluation"), t("repeated_seed_desc"))
     repeated = load_csv_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_repeated_seed_ci.csv"))
     if not repeated.empty:
         display = repeated[["policy", "seeds", "ndcg@10_mean", "ndcg@10_ci95_low", "ndcg@10_ci95_high"]].copy()
-        display.columns = ["Policy", "Seeds", "NDCG@10 Mean", "CI Low", "CI High"]
+        display.columns = [t("policy_col"), t("seeds_col"), t("ndcg10_mean_col"), t("ci95_low_col"), t("ci95_high_col")]
         render_safe_table(display, max_rows=10)
 
 
 def validation_variants_section():
-    section_heading("Validation Document Variants", "Candidate document templates compared on 150 validation queries (pool 20, pure CE).")
+    section_heading(t("validation_document_variants"), t("validation_variants_desc"))
     variants = load_csv_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_validation_document_variants.csv"))
     if not variants.empty:
         display = variants[["document_variant", "ndcg@10_mean", "mrr_mean", "latency_p50_ms", "latency_mean_ms"]].copy()
-        display.columns = ["Document Variant", "NDCG@10", "MRR", "Latency P50 (ms)", "Latency Mean (ms)"]
+        display.columns = [t("document_variant_col"), t("ndcg10_col"), t("mrr_col"), t("latency_p50_col"), t("latency_mean_col")]
         render_safe_table(display, max_rows=10)
 
 
 def error_analysis_section():
-    section_heading("Error Analysis", "Bounded error examples from holdout (no raw catalogue data).")
+    section_heading(t("error_analysis"), t("error_analysis_desc"))
     errors_path = TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_error_samples.json"
     if errors_path.is_file():
         try:
             errors = json.loads(errors_path.read_text(encoding="utf-8"))
             if errors:
                 display = pd.DataFrame([
-                    {"Query": e.get("query", "—"), "Baseline NDCG": format_ranking_metric(e.get('baseline_ndcg')),
-                     "V5 NDCG": format_ranking_metric(e.get('v5_ndcg')), "Δ": format_delta(e.get('delta'))}
+                    {"Query": e.get("query", "—"), t("baseline_ndcg_col"): format_ranking_metric(e.get('baseline_ndcg')),
+                     t("v5_ndcg_col"): format_ranking_metric(e.get('v5_ndcg')), t("delta_col"): format_delta(e.get('delta'))}
                     for e in errors
                 ])
                 render_safe_table(display, max_rows=20)
         except (OSError, json.JSONDecodeError):
-            st.caption("Error samples unavailable.")
+            st.caption(t("error_samples_unavailable"))
     else:
-        st.caption("Error samples are available in the offline evaluation bundle.")
+        st.caption(t("error_samples_in_bundle"))
 
 
 def limitations_section():
-    section_heading("Limitations")
+    section_heading(t("limitations"))
     limitations = load_text_safe(str(TRENDYOL_RELEVANCE_DIR / "reports" / "V5_LIMITATIONS.md"))
     if limitations:
         st.markdown(limitations)
     decision_banner(
-        "Governance",
-        "Best Reranking Research Candidate · Not Production Promoted. "
-        "The cross-encoder is an experimental reranker on a bounded 5,000-product demo. "
-        "No production SLA, online A/B test, or business impact is claimed."
+        t("governance_not_prod"),
+        t("not_production_promoted_desc"),
     )
 
 
@@ -258,20 +257,20 @@ def render():
     frozen = load_frozen_policy()
     results = load_results()
     evidence_strip([
-        ("Model", frozen.get("model_id", "—").split("/")[-1], frozen.get("revision", "—")[:12]),
-        ("License", frozen.get("license", "—"), "Verified Apache-2.0"),
-        ("Device", results.get("device", "cpu"), "CPU inference"),
-        ("Governance", "Not Production Promoted", "Best Reranking Research Candidate"),
+        (t("model_id_label"), frozen.get("model_id", "—").split("/")[-1], frozen.get("revision", "—")[:12]),
+        (t("license_label"), frozen.get("license", "—"), t("verified_apache2")),
+        (t("device_col"), results.get("device", "cpu"), t("cpu_inference")),
+        (t("governance_label"), t("governance_not_prod"), t("best_reranking_candidate")),
     ])
 
     tabs = st.tabs([
-        "01 · Live Demo",
-        "02 · Evidence",
-        "03 · Holdout Detail",
-        "04 · Benchmarks",
-        "05 · Validation & Seeds",
-        "06 · Error Analysis",
-        "07 · Configuration & Limitations",
+        "01 · " + t("live_inference_short"),
+        "02 · " + t("evidence"),
+        "03 · " + t("holdout_detail"),
+        "04 · " + t("benchmarks"),
+        "05 · " + t("validation_variants") + " & " + t("repeated_seed_evaluation"),
+        "06 · " + t("error_analysis"),
+        "07 · " + t("frozen_policy_config") + " & " + t("limitations"),
     ])
 
     with tabs[0]:

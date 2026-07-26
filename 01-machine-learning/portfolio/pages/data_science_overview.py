@@ -62,60 +62,59 @@ def render() -> None:
         required_fields = schema_report.get("required_fields", []) if schema_report else []
         available_cols = len(required_fields)
         kpi_grid([
-            ("Status", "Available", "Technical completion verified"),
-            ("Local Dataset", "Available" if midterm["dataset_path"] else "Cloud excluded",
-             f"{midterm['downloaded_file_count']} files locally"),
-            ("Schema Fields", str(available_cols),
-             "From persisted profile" if available_cols else "Not available"),
-            ("Notebook", "Ready" if midterm["notebook_ready"] else "Not Available",
-             "Verified locally"),
-            ("Profile Outputs", str(len(_profile_outputs())),
-             "Generated from trendyol-profile"),
+            (t("status_label"), t("status_available"), t("technical_completion_verified")),
+            (t("local_dataset"), t("status_available") if midterm["dataset_path"] else t("cloud_excluded"),
+             f"{midterm['downloaded_file_count']} {t('files_locally')}"),
+            (t("schema_fields"), str(available_cols),
+             t("from_persisted_profile") if available_cols else t("not_available")),
+            (t("notebook_label"), t("ready") if midterm["notebook_ready"] else t("not_available"),
+             t("verified_locally")),
+            (t("profile_outputs"), str(len(_profile_outputs())),
+             t("generated_from_trendyol_profile")),
         ])
 
     with tabs[1]:
         inventory = midterm.get("inventory")
         if isinstance(inventory, list) and inventory:
-            section_heading("Dataset Inventory", "Downloaded Trendyol dataset files")
+            section_heading(t("dataset_inventory"), t("downloaded_trendyol_files"))
             inv_rows = [
                 {"File": r.get("relative_path", r.get("file", "—")),
-                 "Size (MB)": f"{r.get('size_bytes', 0) / 1024 / 1024:.2f}"}
+                 t("size_mb"): f"{r.get('size_bytes', 0) / 1024 / 1024:.2f}"}
                 for r in inventory
             ]
             render_safe_table(inv_rows, download_name="dataset_inventory.csv")
         else:
-            empty_state("Dataset Inventory",
-                        "Raw dataset inventory is only available when run locally. "
-                        "Profile outputs remain available.")
+            empty_state(t("dataset_inventory"),
+                        t("inventory_local_only"))
 
     with tabs[2]:
         schema = _load_schema()
         if schema and schema.get("required_fields"):
-            section_heading("Schema Report", "Column-level schema analysis from persisted profile")
+            section_heading(t("schema_report"), t("schema_report_desc"))
             render_safe_table(
                 schema["required_fields"],
-                column_map={"required_field": "Required Field", "source_file": "Source File",
-                            "actual_field": "Actual Field", "match_type": "Match Type",
-                            "transformation": "Transformation", "confidence": "Confidence"},
+                column_map={"required_field": t("required_field"), "source_file": t("source_file"),
+                            "actual_field": t("actual_field"), "match_type": t("match_type"),
+                            "transformation": t("transformation"), "confidence": t("confidence")},
                 download_name="schema_report.csv",
             )
         else:
-            empty_state("Schema Report",
-                        "Schema report generated from persisted trendyol-profile outputs.")
+            empty_state(t("schema_report"),
+                        t("schema_report_generated"))
 
     with tabs[3]:
         quality = _load_quality()
         if quality:
-            section_heading("Data Quality", "Quality metrics from persisted profile")
+            section_heading(t("data_quality"), t("quality_metrics_from_profile"))
             render_safe_table(quality, download_name="data_quality.csv")
         else:
-            empty_state("Quality Report",
-                        "Data quality report generated from persisted trendyol-profile outputs.")
+            empty_state(t("quality_report"),
+                        t("quality_report_generated"))
 
     with tabs[4]:
         outputs = _profile_outputs()
         if outputs:
-            section_heading("Profile Outputs", f"{len(outputs)} generated files")
+            section_heading(t("profile_outputs"), f"{len(outputs)} {t('generated_files')}")
             st.markdown("\n".join(f"- `{o}`" for o in outputs))
         else:
-            empty_state("Profile Outputs", "Not available.")
+            empty_state(t("profile_outputs"), t("not_available"))
