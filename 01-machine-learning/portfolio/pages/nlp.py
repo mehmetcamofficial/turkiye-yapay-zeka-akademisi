@@ -93,26 +93,27 @@ def _single() -> None:
                 unsafe_allow_html=True,
             )
             if scores is not None:
-                confidence_pct = float(scores[0]) * 100
-                st.metric(t("nlp_model_confidence"), f"%{confidence_pct:.1f}",
-                          help=t("nlp_binary_note"))
+                proba = model.predict_proba(prepared)[0]
+                pos_prob = float(proba[1])
+                neg_prob_val = float(proba[0])
+                col1, col2 = st.columns(2)
+                col1.metric(t("nlp_positive_prob"), f"%{pos_prob*100:.1f}",
+                            help=t("nlp_binary_note"))
+                col2.metric(t("nlp_negative_prob"), f"%{neg_prob_val*100:.1f}",
+                            help=t("nlp_binary_note"))
+                bar_html = (
+                    f'<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin:4px 0;">'
+                    f'<div style="flex:{pos_prob:.3f};background:#22c55e;"></div>'
+                    f'<div style="flex:{neg_prob_val:.3f};background:#ef4444;"></div>'
+                    f'</div>'
+                    f'<div style="display:flex;justify-content:space-between;font-size:0.7rem;">'
+                    f'<span style="color:#22c55e;">{t("nlp_positive")} %{pos_prob*100:.1f}</span>'
+                    f'<span style="color:#ef4444;">{t("nlp_negative")} %{neg_prob_val*100:.1f}</span>'
+                    f'</div>'
+                )
+                st.markdown(bar_html, unsafe_allow_html=True)
             else:
                 st.caption(t("nlp_binary_note"))
-            if scores is not None:
-                prob = float(scores[0])
-                neg_prob = 1.0 - prob
-                fig, ax = plt.subplots(figsize=(6, 0.8))
-                labels = [t("nlp_negative"), t("nlp_positive")]
-                values = [neg_prob, prob]
-                colors = ["#ef4444", "#22c55e"]
-                ax.barh(labels, values, color=colors, height=0.4)
-                for i, v in enumerate(values):
-                    ax.text(v + 0.01, i, f"%{v*100:.1f}", va="center", fontsize=9)
-                ax.set_xlim(0, 1)
-                ax.set_xticks([0, 0.25, 0.5, 0.75, 1.0])
-                ax.set_xticklabels(["0%", "%25", "%50", "%75", "%100"], fontsize=7)
-                fig.tight_layout()
-                st.pyplot(fig)
             terms = load_csv_safe(str(NLP_DIR / "outputs/top_terms.csv"))
             if not terms.empty:
                 _term_influence(text, terms)

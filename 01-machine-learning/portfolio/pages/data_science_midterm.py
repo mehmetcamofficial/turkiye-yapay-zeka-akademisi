@@ -9,7 +9,10 @@ from portfolio.config import DATA_SCIENCE_MIDTERM_DIR, TRENDYOL_PROFILE_DIR
 from portfolio.data_science_registry import evaluate_midterm
 from portfolio.i18n import t
 from portfolio.loaders import load_csv_safe, load_json_safe, load_text_safe
-from portfolio.ui_components import hero_panel, information_panel, metric_table, status_badge
+# i18n keys needed: gib_unit, category_profile_not_found, brand_profile_not_found, label_distribution_not_found
+
+from portfolio.ui_components import (empty_state, hero_panel, information_panel,
+                                     kpi_grid, metric_table, status_badge)
 
 CANONICAL_FILES = [
     "cardinality_summary.csv", "categorical_summary.csv", "column_profile.csv",
@@ -47,20 +50,15 @@ def render() -> None:
     st.markdown(status_badge(item["status"]), unsafe_allow_html=True)
 
     status_items = [
-        (t("status_label"), t("status_available") if item["inventory_ready"] else t("not_available")),
-        (t("midterm_source_files"), str(item["downloaded_file_count"])),
-        (t("midterm_total_size"), f"{item['downloaded_size_bytes']/1024**3:.2f} GiB"),
-        (t("profile_outputs"), f"{profile_count}/{len(CANONICAL_FILES)}"),
-        (t("notebook_label"), t("ready") if item["notebook_ready"] else t("not_available")),
-        (t("schema_compatibility"), t("partial_compatibility") if not item["schema_compatible"] else t("compatible")),
-        (t("midterm_last_verified"), (item["last_verified"] or "—").replace("T", " ")),
+        (t("status_label"), t("status_available") if item["inventory_ready"] else t("not_available"), None),
+        (t("midterm_source_files"), str(item["downloaded_file_count"]), None),
+        (t("midterm_total_size"), f"{item['downloaded_size_bytes']/1024**3:.2f} {t('gib_unit')}", None),
+        (t("profile_outputs"), f"{profile_count}/{len(CANONICAL_FILES)}", None),
+        (t("notebook_label"), t("ready") if item["notebook_ready"] else t("not_available"), None),
+        (t("schema_compatibility"), t("partial_compatibility") if not item["schema_compatible"] else t("compatible"), None),
+        (t("midterm_last_verified"), (item["last_verified"] or "—").replace("T", " "), None),
     ]
-    st.markdown(
-        '<div class="kpi-grid">' +
-        "".join(f'<div class="kpi-card"><small>{a}</small><strong>{b}</strong></div>' for a, b in status_items) +
-        '</div>',
-        unsafe_allow_html=True,
-    )
+    kpi_grid(status_items)
 
     tabs = st.tabs([
         t("midterm_tab_overview"),
@@ -78,19 +76,12 @@ def render() -> None:
         information_panel(t("purpose"), t("midterm_purpose_desc"))
         progress_pct = int(profile_count / len(CANONICAL_FILES) * 100)
         st.progress(progress_pct / 100, text=f"{t('overall_progress')}: {progress_pct}%")
-        st.markdown(
-            f"<div style='display:flex;flex-wrap:wrap;gap:12px;margin:16px 0;'>"
-            f"<div style='flex:1;min-width:140px;background:var(--bg-card);border-radius:8px;padding:12px;border:1px solid var(--border);text-align:center'>"
-            f"<small>{t('midterm_source_files')}</small><br><strong>{item['downloaded_file_count']}</strong></div>"
-            f"<div style='flex:1;min-width:140px;background:var(--bg-card);border-radius:8px;padding:12px;border:1px solid var(--border);text-align:center'>"
-            f"<small>{t('profile_outputs')}</small><br><strong>{profile_count}/{len(CANONICAL_FILES)}</strong></div>"
-            f"<div style='flex:1;min-width:140px;background:var(--bg-card);border-radius:8px;padding:12px;border:1px solid var(--border);text-align:center'>"
-            f"<small>{t('notebook_label')}</small><br><strong>{t('ready') if item['notebook_ready'] else t('not_available')}</strong></div>"
-            f"<div style='flex:1;min-width:140px;background:var(--bg-card);border-radius:8px;padding:12px;border:1px solid var(--border);text-align:center'>"
-            f"<small>{t('schema_compatibility')}</small><br><strong>{t('compatible') if item['schema_compatible'] else t('partial_compatibility')}</strong></div>"
-            f"</div>",
-            unsafe_allow_html=True,
-        )
+        kpi_grid([
+            (t("midterm_source_files"), str(item['downloaded_file_count']), None),
+            (t("profile_outputs"), f"{profile_count}/{len(CANONICAL_FILES)}", None),
+            (t("notebook_label"), t("ready") if item['notebook_ready'] else t("not_available"), None),
+            (t("schema_compatibility"), t("compatible") if item['schema_compatible'] else t("partial_compatibility"), None),
+        ])
         information_panel(t("limitations_panel"), t("limitations_desc_short"))
         information_panel(t("next_actions_panel"), t("next_actions_desc"))
 
@@ -107,8 +98,8 @@ def render() -> None:
 
     with tabs[3]:
         categories = load_csv_safe(str(outputs / "categorical_summary.csv"))
-        metric_table(_filter(categories, column="category"), "Kategori profili bulunamadı.")
-        metric_table(_filter(categories, column="brand"), "Marka profili bulunamadı.")
+        metric_table(_filter(categories, column="category"), t("category_profile_not_found"))
+        metric_table(_filter(categories, column="brand"), t("brand_profile_not_found"))
 
     with tabs[4]:
         lengths = load_csv_safe(str(outputs / "text_length_summary.csv"))
@@ -117,7 +108,7 @@ def render() -> None:
 
     with tabs[5]:
         labels = load_csv_safe(str(outputs / "categorical_summary.csv"))
-        metric_table(_filter(labels, column="label"), "Label dağılımı bulunamadı.")
+        metric_table(_filter(labels, column="label"), t("label_distribution_not_found"))
 
     with tabs[6]:
         files_data = [

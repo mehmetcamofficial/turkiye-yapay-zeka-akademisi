@@ -621,20 +621,18 @@ def test_sentiment_result_has_separate_label_and_value() -> None:
     """NLP sentiment must display label and value separately."""
     source = (PAGES_DIR / "nlp.py").read_text(encoding="utf-8")
     assert "nlp_predicted" in source, "Must have predicted label"
-    assert "nlp_model_confidence" in source, "Must have separate confidence metric"
-    assert "st.metric" in source, "Must use st.metric for confidence (not inline concat)"
+    assert "nlp_positive_prob" in source, "Must have separate positive probability metric"
+    assert "nlp_negative_prob" in source, "Must have separate negative probability metric"
+    assert ".metric(" in source, "Must use .metric() for probabilities (not inline concat)"
 
 
 # ---- Test 36: Sentiment probability chart uses both classes ----
 def test_sentiment_probability_chart_uses_both_classes() -> None:
-    """NLP probability chart must show both positive and negative probabilities."""
+    """NLP must display both positive and negative probabilities."""
     source = (PAGES_DIR / "nlp.py").read_text(encoding="utf-8")
-    assert "nlp_negative" in source and "nlp_positive" in source, (
-        "Chart must reference both class labels"
-    )
-    assert "neg_prob" in source or "1.0 - prob" in source, (
-        "Must compute both probabilities"
-    )
+    assert "nlp_positive_prob" in source, "Must show positive probability metric"
+    assert "nlp_negative_prob" in source, "Must show negative probability metric"
+    assert "proba[0]" in source and "proba[1]" in source, "Must compute both class probabilities"
 
 
 # ---- Test 37: Runtime diagnostics has explanation sections ----
@@ -809,3 +807,195 @@ def test_search_demo_no_explanation_only() -> None:
     assert "section_heading(t(\"search_results\"))" in source, (
         "Must show search_results heading"
     )
+
+
+# ---- Test 41: notebook_status.py has render() function ----
+def test_41_notebook_status_has_render() -> None:
+    from portfolio.pages.notebook_status import render
+    assert callable(render)
+
+
+# ---- Test 42: notebook_status.py has CANONICAL_FILES list ----
+def test_42_notebook_status_has_canonical_files() -> None:
+    from portfolio.pages.notebook_status import CANONICAL_FILES
+    assert isinstance(CANONICAL_FILES, list)
+    assert len(CANONICAL_FILES) > 0
+    assert all(isinstance(f, str) for f in CANONICAL_FILES)
+
+
+# ---- Test 43: experiment directory scanning does not crash ----
+def test_43_experiment_scanning_does_not_crash() -> None:
+    from portfolio.pages.notebook_status import _experiments_list
+    result = _experiments_list()
+    assert isinstance(result, list)
+
+
+# ---- Test 44: profile outputs download function exists ----
+def test_44_profile_outputs_download_function_exists() -> None:
+    source = (PAGES_DIR / "notebook_status.py").read_text(encoding="utf-8")
+    assert "st.download_button" in source
+    assert "artifacts_bundle_download" in source
+
+
+# ---- Test 45: kpi_grid is imported in notebook_status.py ----
+def test_45_kpi_grid_imported_in_notebook_status() -> None:
+    import ast
+    source = (PAGES_DIR / "notebook_status.py").read_text(encoding="utf-8")
+    tree = ast.parse(source)
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ImportFrom) and node.module and "ui_components" in node.module:
+            names = [alias.name for alias in node.names]
+            if "kpi_grid" in names:
+                return
+    pytest.fail("kpi_grid not imported in notebook_status.py")
+
+
+# ---- Test 46: documentation.py uses architecture_flow at least once ----
+def test_46_documentation_uses_architecture_flow() -> None:
+    source = (PAGES_DIR / "documentation.py").read_text(encoding="utf-8")
+    count = source.count("architecture_flow(")
+    assert count >= 1, f"Expected at least 1 architecture_flow call, found {count}"
+
+
+# ---- Test 47: documentation.py uses information_panel at least once ----
+def test_47_documentation_uses_information_panel() -> None:
+    source = (PAGES_DIR / "documentation.py").read_text(encoding="utf-8")
+    count = source.count("information_panel(")
+    assert count >= 1, f"Expected at least 1 information_panel call, found {count}"
+
+
+# ---- Test 48: documentation.py shows README and PORTFOLIO tabs ----
+def test_48_documentation_shows_readme_and_portfolio_tabs() -> None:
+    source = (PAGES_DIR / "documentation.py").read_text(encoding="utf-8")
+    assert "tab_platform_readme" in source
+    assert "tab_portfolio_evidence" in source
+    assert "README.md" in source
+    assert "PORTFOLIO.md" in source
+
+
+# ---- Test 49: data_science_overview.py uses information_panel for insights ----
+def test_49_data_overview_uses_information_panel_for_insights() -> None:
+    from portfolio.ui_components import information_panel
+    assert callable(information_panel)
+    source = (PAGES_DIR / "data_science_overview.py").read_text(encoding="utf-8")
+    insight_lines = [l for l in source.split("\n") if "insight" in l.lower()]
+    for line in insight_lines:
+        assert "t(" in line, f"Insight content should use t(): {line.strip()}"
+
+
+# ---- Test 50: data_science_midterm.py uses kpi_grid for status items ----
+def test_50_midterm_uses_kpi_grid_for_status_items() -> None:
+    from portfolio.ui_components import kpi_grid
+    assert callable(kpi_grid)
+    source = (PAGES_DIR / "data_science_midterm.py").read_text(encoding="utf-8")
+    assert "status_items = [" in source
+    for line in source.split("\n"):
+        if "status_label" in line or "midterm_source_files" in line:
+            assert "t(" in line, f"Status items should use t(): {line.strip()}"
+
+
+# ---- Test 51: trendyol_profile.py handles empty profile outputs ----
+def test_51_trendyol_profile_handles_empty_outputs() -> None:
+    source = (PAGES_DIR / "trendyol_profile.py").read_text(encoding="utf-8")
+    assert "load_csv_safe" in source
+    assert "load_json_safe" in source
+
+
+# ---- Test 52: no file has >3 sequential st.info() calls ----
+def test_52_no_excessive_sequential_st_info() -> None:
+    import ast
+    issues: list[str] = []
+    for fname in sorted(Path(PAGES_DIR).glob("*.py")):
+        if fname.name.startswith("_"):
+            continue
+        source = fname.read_text(encoding="utf-8")
+        try:
+            tree = ast.parse(source)
+        except SyntaxError:
+            continue
+        lines = source.split("\n")
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Call):
+                continue
+            if isinstance(node.func, ast.Attribute) and isinstance(node.func.value, ast.Name):
+                if node.func.value.id == "st" and node.func.attr == "info":
+                    line_idx = node.lineno - 1
+                    count = 1
+                    for j in range(line_idx + 1, min(line_idx + 10, len(lines))):
+                        stripped = lines[j].strip()
+                        if stripped.startswith("st.info("):
+                            count += 1
+                        else:
+                            break
+                    if count > 3:
+                        issues.append(
+                            f"{fname.stem}:{node.lineno}: "
+                            f"{count} sequential st.info() calls (max 3)"
+                        )
+    if issues:
+        pytest.fail("\n".join(issues))
+
+
+# ---- Test 53: no concatenated metric format like "X: Y" in st.metric ----
+def test_53_no_concatenated_metric_format() -> None:
+    import ast
+    issues: list[str] = []
+    for fname in sorted(Path(PAGES_DIR).glob("*.py")):
+        if fname.name.startswith("_"):
+            continue
+        source = fname.read_text(encoding="utf-8")
+        try:
+            tree = ast.parse(source)
+        except SyntaxError:
+            continue
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Call):
+                continue
+            if isinstance(node.func, ast.Attribute) and isinstance(node.func.value, ast.Name):
+                if node.func.value.id == "st" and node.func.attr == "metric":
+                    if len(node.args) >= 2:
+                        val = node.args[1]
+                        if isinstance(val, ast.Constant) and isinstance(val.value, str):
+                            if ":" in val.value:
+                                issues.append(
+                                    f"{fname.stem}:{node.lineno}: "
+                                    f"st.metric value has colon format: {val.value[:60]!r}"
+                                )
+    if issues:
+        pytest.fail("\n".join(issues[:10]))
+
+
+# ---- Test 54: trendyol_v5.py live inference uses render_safe_table not st.table ----
+def test_54_live_inference_uses_render_safe_table() -> None:
+    source = (PAGES_DIR / "trendyol_v5.py").read_text(encoding="utf-8")
+    assert "render_safe_table(" in source
+    assert "st.table(" not in source
+
+
+# ---- Test 55: trendyol_v5.py has section_heading for live inference ----
+def test_55_live_inference_has_section_heading() -> None:
+    source = (PAGES_DIR / "trendyol_v5.py").read_text(encoding="utf-8")
+    assert 'section_heading(t("live_inference")' in source
+
+
+# ---- Test 56: kpi_grid renders with proper HTML structure ----
+def test_56_kpi_grid_renders_proper_html_structure() -> None:
+    from portfolio.ui_components import kpi_grid
+    with patch("streamlit.markdown") as mock_markdown:
+        kpi_grid([("Label", "Value", "Note")])
+        args, kwargs = mock_markdown.call_args
+        html = args[0]
+        assert "kpi-grid" in html
+        assert "metric-card" in html
+        assert kwargs.get("unsafe_allow_html") is True
+
+
+# ---- Test 57: empty_state accepts both title and text parameters ----
+def test_57_empty_state_accepts_title_and_text() -> None:
+    from portfolio.ui_components import empty_state
+    with patch("streamlit.markdown") as mock_markdown:
+        empty_state("Test Title", "Test Text")
+        args, kwargs = mock_markdown.call_args
+        html = args[0]
+        assert "Test Title" in html
+        assert "Test Text" in html

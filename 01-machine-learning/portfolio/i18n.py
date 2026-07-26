@@ -810,6 +810,8 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
     "nlp_no_matched_terms": {"tr": "Bu metindeki kelimeler model terim sözlüğünde bulunamadı.", "en": "No matched terms from model vocabulary in this text."},
     "nlp_matched_terms": {"tr": "Eşleşen Terim Etkileri", "en": "Matched Term Influences"},
     "nlp_model_confidence": {"tr": "Model Güveni", "en": "Model Confidence"},
+    "nlp_positive_prob": {"tr": "Pozitif Olasılık", "en": "Positive Probability"},
+    "nlp_negative_prob": {"tr": "Negatif Olasılık", "en": "Negative Probability"},
     "nlp_term_influence_note": {"tr": "Bu değerler, terimlerin model kararına istatistiksel katkısını gösterir; nedensel etkiyi göstermez.", "en": "These values show the statistical contribution of terms to the model decision; they do not indicate causal effects."},
     "duplicate_analysis": {"tr": "Tekrar Analizi", "en": "Duplicate Analysis"},
     "duplicate_desc": {"tr": "Veri setlerinde tespit edilen tekrar kayıtlar", "en": "Duplicate records detected in datasets"},
@@ -1242,6 +1244,55 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
     "overview_insight_why_text": {"tr": "Kategori, marka, başlık ve nitelik alanları lexical, semantic ve reranking aşamalarında kullanılıyor.", "en": "Category, brand, title, and attribute fields are used in lexical, semantic, and reranking stages."},
     "overview_insight_limitation": {"tr": "Sınırlama", "en": "Limitation"},
     "overview_insight_limitation_text": {"tr": "Veri seti müşteri, ödeme veya teslimat işlemlerini içeren transactional bir veri seti değildir.", "en": "The dataset is not a transactional dataset containing customer, payment, or delivery operations."},
+
+    "tab_notebook": {"tr": "Notebook", "en": "Notebook"},
+    "tab_experiments": {"tr": "Deneyler", "en": "Experiments"},
+    "tab_artifacts": {"tr": "Artifact'ler", "en": "Artifacts"},
+    "tab_metadata": {"tr": "Meta Veri", "en": "Metadata"},
+    "tab_platform_readme": {"tr": "Platform README", "en": "Platform README"},
+    "tab_portfolio_evidence": {"tr": "Portföy Kanıtı", "en": "Portfolio Evidence"},
+
+    "experiment_name": {"tr": "Deney Adı", "en": "Experiment Name"},
+    "experiment_type": {"tr": "Tür", "en": "Type"},
+    "experiment_items": {"tr": "Öge", "en": "Items"},
+    "experiment_size": {"tr": "Boyut", "en": "Size"},
+    "experiment_modified": {"tr": "Değiştirilme", "en": "Modified"},
+    "experiments_title": {"tr": "Deneyler", "en": "Experiments"},
+    "experiments_empty": {"tr": "Deney Bulunamadı", "en": "No Experiments Found"},
+    "experiments_empty_desc": {"tr": "Henüz kaydedilmiş deney bulunmuyor.", "en": "No saved experiments yet."},
+
+    "notebook_execution_status": {"tr": "Notebook Çalıştırma Durumu", "en": "Notebook Execution Status"},
+    "notebook_download": {"tr": "Notebook İndir", "en": "Download Notebook"},
+    "notebook_colab": {"tr": "Colab'da Aç", "en": "Open in Colab"},
+
+    "artifacts_section": {"tr": "Artifact'ler", "en": "Artifacts"},
+    "artifacts_count": {"tr": "Mevcut Artifact", "en": "Available Artifacts"},
+    "artifacts_bundle_download": {"tr": "Artifact Paketini İndir", "en": "Download Artifact Bundle"},
+    "artifacts_filename": {"tr": "Dosya", "en": "File"},
+
+    "metadata_dataset_info": {"tr": "Veri Seti Bilgisi", "en": "Dataset Info"},
+    "metadata_columns_info": {"tr": "Sütun Bilgisi", "en": "Column Info"},
+    "metadata_required_cols": {"tr": "Gerekli Sütun", "en": "Required Columns"},
+    "metadata_available_cols": {"tr": "Mevcut Sütun", "en": "Available Columns"},
+    "metadata_missing_cols": {"tr": "Eksik Sütun", "en": "Missing Columns"},
+    "metadata_dataset_rows": {"tr": "Veri Seti Satırları", "en": "Dataset Rows"},
+    "metadata_available_rows": {"tr": "satır", "en": "rows"},
+    "metadata_schema_compat": {"tr": "Şema Uyumluluğu", "en": "Schema Compatibility"},
+
+    "kb_unit": {"tr": "KB", "en": "KB"},
+    "gib_unit": {"tr": "GiB", "en": "GiB"},
+    "gb_unit": {"tr": "GB", "en": "GB"},
+
+    "category_profile_not_found": {"tr": "Kategori profili bulunamadı.", "en": "Category profile not found."},
+    "brand_profile_not_found": {"tr": "Marka profili bulunamadı.", "en": "Brand profile not found."},
+    "label_distribution_not_found": {"tr": "Label dağılımı bulunamadı.", "en": "Label distribution not found."},
+
+    "trendyol_profile_tab_tables": {"tr": "Tablolar", "en": "Tables"},
+    "trendyol_profile_tab_columns": {"tr": "Sütunlar", "en": "Columns"},
+    "trendyol_profile_tab_quality": {"tr": "Kalite", "en": "Quality"},
+    "trendyol_profile_tab_schema": {"tr": "Şema", "en": "Schema"},
+    "trendyol_profile_no_outputs": {"tr": "Profil çıktısı bulunamadı", "en": "No Profile Outputs"},
+    "trendyol_profile_no_outputs_desc": {"tr": "Henüz profil çıktısı oluşturulmamış.", "en": "Profile outputs have not been generated yet."},
 }
 
 TECHNICAL_TERMS = {

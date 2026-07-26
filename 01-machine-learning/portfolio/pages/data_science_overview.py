@@ -12,7 +12,10 @@ from portfolio.config import TRENDYOL_PROFILE_DIR
 from portfolio.data_science_registry import evaluate_midterm
 from portfolio.i18n import t
 from portfolio.loaders import load_csv_safe, load_json_safe
-from portfolio.ui_components import (empty_state, hero_panel, kpi_grid,
+# i18n keys needed: kb_unit
+
+from portfolio.ui_components import (architecture_flow, empty_state, hero_panel,
+                                     information_panel, kpi_grid,
                                      render_safe_table, section_heading)
 
 PROFILE_DIR = TRENDYOL_PROFILE_DIR
@@ -121,34 +124,21 @@ def render() -> None:
         kpi_grid([
             (t("overview_source_files"), str(midterm.get("downloaded_file_count", 0)), t("overview_n_source_files")),
             (t("overview_total_size"), f"{total_gib:.2f} {t('overview_gib')}", t("overview_total_size_desc")),
-            (t("overview_profile_output_count"), f"{profile_count}/12", t("overview_profile_output_desc")),
+            (t("overview_profile_output_count"), f"{profile_count}/{len(CANONICAL_MANIFEST)}", t("overview_profile_output_desc")),
             (t("overview_catalog_fields"), str(len(required_fields)), t("overview_catalog_fields_desc")),
             (t("overview_product_sample"), product_count, t("overview_product_sample_desc")),
             (t("overview_last_validation"), today_str, t("overview_last_validation_desc")),
         ])
 
         section_heading(t("overview_data_pipeline"))
-        stages = [
-            (t("overview_pipeline_source_files"), f"7 {t('overview_pipeline_file')}", "#22c55e"),
-            (t("overview_pipeline_schema_validation"), t("status_verified"), "#22c55e"),
-            (t("overview_pipeline_quality_control"), t("overview_zero_issues"), "#22c55e"),
-            (t("overview_pipeline_profiling"), f"{profile_count} {t('overview_pipeline_output_unit')}", "#6366f1"),
-            (t("overview_pipeline_search_indexes"), t("ready"), "#6366f1"),
-            (t("overview_pipeline_model_inputs"), t("ready"), "#6366f1"),
-        ]
-        html = '<div style="display:flex;gap:4px;align-items:center;flex-wrap:nowrap;overflow-x:auto;padding:4px 0;">'
-        for i, (label, status, color) in enumerate(stages):
-            if i > 0:
-                html += '<div style="flex-shrink:0;color:#666;font-size:1.2rem;">→</div>'
-            bg = "rgba(34,197,94,0.08)" if color == "#22c55e" else "rgba(99,102,241,0.08)"
-            html += (
-                f'<div style="flex:1;min-width:100px;background:{bg};border:1px solid {color};'
-                f'border-radius:6px;padding:8px;text-align:center;">'
-                f'<div style="font-size:0.8rem;font-weight:600;">{label}</div>'
-                f'<div style="font-size:0.7rem;color:{color};margin-top:2px;">{status}</div></div>'
-            )
-        html += "</div>"
-        st.markdown(html, unsafe_allow_html=True)
+        architecture_flow([
+            (f"{t('overview_pipeline_source_files')}: 7 {t('overview_pipeline_file')}", "current"),
+            (f"{t('overview_pipeline_schema_validation')}: {t('status_verified')}", "current"),
+            (f"{t('overview_pipeline_quality_control')}: {t('overview_zero_issues')}", "current"),
+            (f"{t('overview_pipeline_profiling')}: {profile_count} {t('overview_pipeline_output_unit')}", "experimental"),
+            (f"{t('overview_pipeline_search_indexes')}: {t('ready')}", "experimental"),
+            (f"{t('overview_pipeline_model_inputs')}: {t('ready')}", "experimental"),
+        ])
 
         section_heading(t("overview_dataset_composition"))
         categorical = load_csv_safe(str(PROFILE_DIR / "outputs/categorical_summary.csv"))
@@ -213,45 +203,18 @@ def render() -> None:
         schema_compatible = schema_report.get("schema_compatible", False) if schema_report else False
         schema_text = t("compatible") if schema_compatible else t("status_limited")
 
-        output_int = f"{profile_count}/12"
+        output_int = f"{profile_count}/{len(CANONICAL_MANIFEST)}"
 
-        q1, q2, q3, q4 = st.columns(4)
-        with q1:
-            st.markdown(
-                f'<div style="background:var(--bg-card);border:1px solid var(--border);'
-                f'border-radius:8px;padding:12px;text-align:center;">'
-                f"<small>{t('overview_missing_values')}</small><br>"
-                f'<strong style="color:#22c55e;font-size:1.2rem;">{missing_text}</strong></div>',
-                unsafe_allow_html=True,
-            )
-        with q2:
-            st.markdown(
-                f'<div style="background:var(--bg-card);border:1px solid var(--border);'
-                f'border-radius:8px;padding:12px;text-align:center;">'
-                f"<small>{t('overview_duplicate_records')}</small><br>"
-                f'<strong style="color:#22c55e;font-size:1.2rem;">{dup_text}</strong></div>',
-                unsafe_allow_html=True,
-            )
-        with q3:
-            st.markdown(
-                f'<div style="background:var(--bg-card);border:1px solid var(--border);'
-                f'border-radius:8px;padding:12px;text-align:center;">'
-                f"<small>{t('overview_schema_status')}</small><br>"
-                f'<strong style="font-size:1.2rem;">{schema_text}</strong></div>',
-                unsafe_allow_html=True,
-            )
-        with q4:
-            st.markdown(
-                f'<div style="background:var(--bg-card);border:1px solid var(--border);'
-                f'border-radius:8px;padding:12px;text-align:center;">'
-                f"<small>{t('overview_output_integrity')}</small><br>"
-                f'<strong style="font-size:1.2rem;">{output_int}</strong></div>',
-                unsafe_allow_html=True,
-            )
+        kpi_grid([
+            (t("overview_missing_values"), missing_text, None),
+            (t("overview_duplicate_records"), dup_text, None),
+            (t("overview_schema_status"), schema_text, None),
+            (t("overview_output_integrity"), output_int, None),
+        ])
 
-        st.info(f"**{t('overview_insight_what')}** {t('overview_insight_what_text')}")
-        st.info(f"**{t('overview_insight_why')}** {t('overview_insight_why_text')}")
-        st.info(f"**{t('overview_insight_limitation')}** {t('overview_insight_limitation_text')}")
+        information_panel(t("overview_insight_what"), t("overview_insight_what_text"))
+        information_panel(t("overview_insight_why"), t("overview_insight_why_text"))
+        information_panel(t("overview_insight_limitation"), t("overview_insight_limitation_text"))
 
     with tabs[1]:
         inventory = midterm.get("inventory")
@@ -403,7 +366,7 @@ def render() -> None:
             type_map = {".csv": t("manifest_csv"), ".json": t("manifest_json"), ".md": t("manifest_md")}
             ftype = type_map.get(ext, ext.upper())
             fpath = PROFILE_DIR / "outputs" / expected
-            fsize = f"{fpath.stat().st_size / 1024:.1f} KB" if fpath.is_file() else "—"
+            fsize = f"{fpath.stat().st_size / 1024:.1f} {t('kb_unit')}" if fpath.is_file() else "—"
             status = t("manifest_present") if exists else t("manifest_missing")
             manifest_rows.append({
                 t("manifest_filename"): expected,

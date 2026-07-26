@@ -43,6 +43,9 @@ __pycache__/
 *.tmp
 *.temp
 
+# Browser test screenshots (generated artifacts)
+01-machine-learning/validation_screenshots/
+
 # Data Science competition datasets (local only; redistribution not verified)
 02-data-science/**/data/*
 !02-data-science/**/data/.gitkeep
