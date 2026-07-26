@@ -65,7 +65,7 @@ def render() -> None:
         pool = st.selectbox(t("candidate_pool_label"), [20, 50, 100], index=0)
 
     if st.button(t("run_inference"), type="primary"):
-        section_heading("Results")
+        section_heading(t("search_results"))
         if mode == "Relevance Classification (V1)":
             st.info(
                 f"Classification mode selected. Query: **{query}**. "
@@ -102,18 +102,18 @@ def render() -> None:
             )
 
     if v5_results:
-        section_heading("Verified V5 Holdout Results")
+        section_heading(t("search_verified_v5_holdout"))
         kpi_grid([
-            ("Hybrid RRF NDCG@10",
+            (t("search_demo_hybrid_ndcg"),
              format_ranking_metric(v5_results.get('holdout_hybrid_rrf_ndcg@10')),
-             "Baseline"),
-            ("Cross-Encoder NDCG@10",
+             t("search_demo_baseline_desc")),
+            (t("search_demo_ce_ndcg"),
              format_ranking_metric(v5_results.get('holdout_blended_ndcg@10')),
-             "Selected policy"),
-            ("Absolute Gain",
+             t("search_demo_selected_policy_desc")),
+            (t("search_demo_absolute_gain"),
              format_delta(v5_results.get('holdout_ndcg_absolute_delta')),
-             "Holdout 150 queries"),
-            ("Warm Latency p95",
+             t("search_demo_holdout_desc")),
+            (t("search_demo_warm_latency"),
              format_latency_ms(v5_results.get('pool20_warm_latency_p95_ms')),
-             "CPU, pool 20"),
+             t("search_demo_warm_latency_desc")),
         ])

@@ -417,3 +417,170 @@ def test_sentiment_model_inference() -> None:
         assert pred == expected, f"Expected {expected}, got {pred} for: {text[:50]}"
         proba = model.predict_proba(prepared).max(axis=1)[0]
         assert 0.0 <= proba <= 1.0, f"Probas should be in [0,1], got {proba}"
+
+
+# ---- Test 22: Sidebar routes map to unique module files ----
+def test_sidebar_routes_map_to_unique_modules() -> None:
+    """Every navigation route points to a distinct module file (except shared search_demo)."""
+    from portfolio_app import PAGE_MODULE_MAP
+
+    expected: dict[str, str] = {
+        "nav_search_intelligence": "search_demo",
+        "nav_hybrid_retrieval": "search_demo",
+        "nav_cross_encoder": "trendyol_v5",
+        "nav_policy_comparison": "policy_comparison",
+        "nav_live_inference": "live_inference",
+        "nav_runtime_diagnostics": "runtime_diagnostics",
+        "nav_model_governance": "model_governance",
+        "nav_deployment": "deployment",
+        "nav_enterprise_readiness": "enterprise_readiness",
+    }
+    for nav_key, expected_module in expected.items():
+        actual_module = PAGE_MODULE_MAP.get(nav_key)
+        assert actual_module == expected_module, (
+            f"PAGE_MODULE_MAP[{nav_key!r}] = {actual_module!r}, "
+            f"expected {expected_module!r}"
+        )
+
+    modules = [expected[k] for k in expected if k != "nav_hybrid_retrieval"]
+    assert len(set(modules)) == len(modules), (
+        f"Routes must map to unique modules, got: {modules}"
+    )
+
+
+# ---- Test 23: No raw i18n keys in page UI function calls ----
+def test_no_raw_keys_visible() -> None:
+    """UI-text functions must use t(), not hardcoded English/Turkish strings."""
+    import ast
+
+    CHECKED_FUNCS: set[str] = {"hero_panel", "section_heading", "information_panel"}
+    SKIP_FUNCS: set[str] = {"evidence_strip"}
+
+    def _call_name(node: ast.Call) -> str | None:
+        if isinstance(node.func, ast.Name):
+            return node.func.id
+        if isinstance(node.func, ast.Attribute):
+            if isinstance(node.func.value, ast.Name) and node.func.value.id == "st":
+                return f"st.{node.func.attr}"
+            return node.func.attr
+        return None
+
+    def _has_raw_strings(nodes: list[ast.expr]) -> list[str]:
+        found: list[str] = []
+        for arg in nodes:
+            if isinstance(arg, ast.Constant) and isinstance(arg.value, str):
+                if len(arg.value) > 2 and not arg.value.startswith(("<", "<!--", "{")):
+                    found.append(arg.value[:60])
+            elif isinstance(arg, ast.Call) and _call_name(arg) in SKIP_FUNCS:
+                continue
+            elif isinstance(arg, (ast.List, ast.Tuple)):
+                found.extend(_has_raw_strings(list(arg.elts)))
+        return found
+
+    KPI_LIKE = {"kpi_grid", "kpi_grid_mixed"}
+    issues: list[str] = []
+    for fname in sorted(Path(PAGES_DIR).glob("*.py")):
+        if fname.name.startswith("_"):
+            continue
+        source = fname.read_text(encoding="utf-8")
+        try:
+            tree = ast.parse(source)
+        except SyntaxError:
+            continue
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Call):
+                continue
+            name = _call_name(node)
+            if name is None:
+                continue
+            if name in SKIP_FUNCS or (name and name.startswith("format_")):
+                continue
+            if name in CHECKED_FUNCS:
+                raw = _has_raw_strings(node.args)
+                for r in raw:
+                    issues.append(f"{fname.stem}:{node.lineno}: {name}() has literal {r!r}")
+                for kw in node.keywords:
+                    raw = _has_raw_strings([kw.value])
+                    for r in raw:
+                        issues.append(
+                            f"{fname.stem}:{node.lineno}: {name}({kw.arg}=) has literal {r!r}"
+                        )
+            elif name == "st.metric":
+                for i, arg in enumerate(node.args):
+                    if isinstance(arg, ast.Constant) and isinstance(arg.value, str) and len(arg.value) > 2:
+                        issues.append(f"{fname.stem}:{node.lineno}: st.metric() arg {i} literal {arg.value[:60]!r}")
+            elif name in KPI_LIKE:
+                for arg in node.args:
+                    raw = _has_raw_strings([arg])
+                    for r in raw:
+                        issues.append(f"{fname.stem}:{node.lineno}: {name}() has literal {r!r}")
+
+    if issues:
+        pytest.fail("Hardcoded text found (use t() instead):\n" + "\n".join(issues[:30]))
+
+
+# ---- Test 24: Notebook status has no contradictory output counts ----
+def test_no_contradictory_output_counts() -> None:
+    """Notebook_status must use the same dynamic count, not hardcoded numbers."""
+    source = (PAGES_DIR / "notebook_status.py").read_text(encoding="utf-8")
+    hardcoded = re.findall(r'"\d+/\d+"', source)
+    assert not hardcoded, (
+        f"Hardcoded output count in notebook_status.py: {hardcoded}. "
+        "Use profile_count variable instead."
+    )
+    # Ensure profile_count is used consistently
+    profile_count_uses = [(i, line) for i, line in enumerate(source.split("\n"), 1)
+                           if "profile_count" in line]
+    assert len(profile_count_uses) >= 2, (
+        "Expected profile_count to appear at least twice, found "
+        f"{len(profile_count_uses)} times"
+    )
+
+
+# ---- Test 25: st.expander calls contain meaningful content ----
+def test_technical_detail_expanders_have_content() -> None:
+    """Every st.expander() must contain meaningful body content."""
+    import ast
+
+    issues: list[str] = []
+    for fname in sorted(Path(PAGES_DIR).glob("*.py")):
+        if fname.name.startswith("_"):
+            continue
+        source = fname.read_text(encoding="utf-8")
+        try:
+            tree = ast.parse(source)
+        except SyntaxError:
+            continue
+        expander_calls = 0
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Call):
+                continue
+            if isinstance(node.func, ast.Attribute) and isinstance(node.func.value, ast.Name):
+                if node.func.value.id == "st" and node.func.attr == "expander":
+                    expander_calls += 1
+                    # Use source line heuristics: lines between expander and next dedent
+                    line_idx = node.lineno - 1
+                    # Check that there are non-empty, non-comment lines within the with block
+                    lines = source.split("\n")
+                    depth = None
+                    has_content = False
+                    for j in range(line_idx + 1, min(line_idx + 30, len(lines))):
+                        stripped = lines[j].strip()
+                        if not stripped or stripped.startswith("#"):
+                            continue
+                        curr_depth = len(lines[j]) - len(lines[j].lstrip())
+                        if depth is None:
+                            depth = curr_depth
+                        if curr_depth < depth:
+                            break
+                        if not stripped.startswith("pass"):
+                            has_content = True
+                            break
+                    if not has_content:
+                        issues.append(
+                            f"{fname.stem}:{node.lineno}: st.expander() has no meaningful content"
+                        )
+        if expander_calls == 0:
+            pass  # No expanders is fine
+    if issues:
+        pytest.fail("\n".join(issues))

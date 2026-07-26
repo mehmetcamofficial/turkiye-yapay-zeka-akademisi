@@ -65,11 +65,11 @@ def render() -> None:
             core_healthy += 1
 
     kpi_grid([
-        ("Core Required", str(core_required), "Projects needed for portfolio"),
-        ("Core Healthy", str(core_healthy), "Artifacts verified"),
-        ("Optional Missing", str(optional_missing), "Historical/local artifacts"),
-        ("Cloud Excluded", str(cloud_excluded), "Local-only/cache assets"),
-        ("Historical", str(historical), "Past research candidates"),
+        (t("artifact_core_required"), str(core_required), t("artifact_core_required_desc")),
+        (t("artifact_core_healthy"), str(core_healthy), t("artifact_core_healthy_desc")),
+        (t("artifact_optional_missing"), str(optional_missing), t("artifact_optional_missing_desc")),
+        (t("artifact_cloud_excluded_label"), str(cloud_excluded), t("artifact_cloud_excluded_desc")),
+        (t("artifact_historical_label"), str(historical), t("artifact_historical_desc")),
     ])
 
     rows = []

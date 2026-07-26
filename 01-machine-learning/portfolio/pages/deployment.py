@@ -39,24 +39,24 @@ def render() -> None:
         summary_items = [t("test_outdated")]
 
     kpi_grid([
-        ("Streamlit Deployment", "Available" if streamlit_available else "Unavailable",
-         "Community Cloud ready"),
-        ("Python 3.12", "Verified" if python_verified else "Unverified",
-         "runtime.txt configured"),
-        ("Portfolio Entry", "Available" if portfolio_entry else "Unavailable",
-         "portfolio_app.py"),
-        ("Test Suite", "Available" if test_suite else "Unavailable",
+        (t("deploy_streamlit_deployment"), "Available" if streamlit_available else "Unavailable",
+         t("deploy_streamlit_deployment_desc")),
+        (t("deploy_python_312"), "Verified" if python_verified else "Unverified",
+         t("deploy_python_312_desc")),
+        (t("deploy_portfolio_entry"), "Available" if portfolio_entry else "Unavailable",
+         t("deploy_portfolio_entry_desc")),
+        (t("deploy_test_suite"), "Available" if test_suite else "Unavailable",
          test_label),
     ])
 
     kpi_grid_mixed([
-        ("Production API", status_badge("roadmap"), "No REST endpoint deployed"),
-        ("Authentication", status_badge("roadmap"), "Not configured"),
-        ("Monitoring", status_badge("roadmap"), "Not implemented"),
-        ("A/B Testing", status_badge("roadmap"), "Not implemented"),
+        (t("deploy_production_api"), status_badge("roadmap"), t("deploy_production_api_desc")),
+        (t("deploy_authentication"), status_badge("roadmap"), t("deploy_not_configured")),
+        (t("deploy_monitoring"), status_badge("roadmap"), t("deploy_not_implemented")),
+        (t("dsf_deploy_ab_testing"), status_badge("roadmap"), t("deploy_not_implemented")),
     ])
 
-    section_heading("Deployment Readiness Summary")
+    section_heading(t("deploy_deployment_readiness_summary"))
     summary_lines = "".join(f"<li>{item}</li>" for item in summary_items)
     st.markdown(
         f"""

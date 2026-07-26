@@ -2,15 +2,24 @@ from __future__ import annotations
 
 import streamlit as st
 
-import matplotlib.pyplot as plt
-
 from portfolio.i18n import t
-from portfolio.loaders import load_json_safe
-from portfolio.project_registry import get_project_registry, portfolio_counts
-from portfolio.ui_components import (card_grid, hero_panel, kpi_grid,
-                                     kpi_grid_mixed, section_heading,
-                                     status_badge, format_ranking_metric,
-                                     format_delta)
+from portfolio.ui_components import hero_panel, section_heading, status_badge
+
+NAV_TARGETS: dict[str, tuple[str, str]] = {
+    "search_demo": ("nav_search_intelligence", "section_search"),
+    "live_inference": ("nav_live_inference", "section_search"),
+    "churn": ("nav_churn", "section_ml"),
+    "regression": ("nav_housing", "section_ml"),
+    "nlp": ("nav_sentiment", "section_ml"),
+    "data_science_overview": ("nav_data_workspace", "section_data_science"),
+    "model_registry": ("nav_registry", "section_model_ops"),
+}
+
+
+def _navigate_to(page_key: str) -> None:
+    nav_key, section = NAV_TARGETS[page_key]
+    st.session_state["nav_section"] = section
+    st.session_state[f"nav_page_{section}"] = nav_key
 
 
 def render() -> None:
@@ -19,159 +28,177 @@ def render() -> None:
         subtitle=t("product_positioning_hero"),
     )
 
-    counts = portfolio_counts()
-    kpi_grid([
-        (t("sidebar_completed"), str(counts["completed_projects"]),
-         f'{t("sidebar_pipelines")}: {counts["completed_pipelines"]}'),
-        (t("sidebar_models"), str(counts["models_compared"]), "Across all products"),
-    ])
+    # ---- System Status ----
+    section_heading(t("system_status"), t("system_status_desc"))
+    sys_items = [
+        (t("capability_real_data"), "available"),
+        (t("capability_trained_models"), "available"),
+        (t("capability_live_inference"), "available"),
+        (t("capability_hybrid_search"), "available"),
+        (t("capability_cross_encoder"), "available"),
+        (t("capability_model_registry"), "available"),
+    ]
+    sys_cols = st.columns(6)
+    for col, (label, status) in zip(sys_cols, sys_items):
+        with col:
+            st.markdown(
+                f"<div style='text-align:center'><strong>{label}</strong>"
+                f"<br>{status_badge(status)}</div>",
+                unsafe_allow_html=True,
+            )
 
-    section_heading(
-        t("product_mission"),
-        t("product_mission_desc"),
+    # ---- Latest Validated Metrics ----
+    section_heading(t("validated_results_title"), "")
+    metric_data = [
+        (t("metric_v1_f1"), "0.6260", None),
+        (t("metric_v4_ndcg10"), "0.6191", None),
+        (t("metric_v5_ndcg10"), "0.6785", "+10.8%"),
+        (t("metric_ci95"), "[0.0368, 0.0960]", None),
+        (t("metric_mrr"), "0.7720", None),
+    ]
+    m_cols = st.columns(5)
+    for col, (label, value_str, delta) in zip(m_cols, metric_data):
+        with col:
+            st.metric(label, value_str, delta=delta)
+
+    # ---- V1–V5 Evolution ----
+    section_heading(t("v1_v5_evolution"), t("v1_v5_evolution_desc"))
+    v_cols = st.columns(5)
+    versions = [
+        ("V1", "TF-IDF + Logistic Regression", "F1 0.6260", "verified"),
+        ("V2", "RF / XGBRanker Challenger", "Offline eval", "experimental"),
+        ("V3", "Semantic Retrieval", "Recall@50 0.83+", "experimental"),
+        ("V4", "Hybrid RRF Pipeline", "NDCG@10 0.6191", "experimental"),
+        ("V5", "Cross-Encoder Reranking", "NDCG@10 0.6785", "experimental"),
+    ]
+    for col, (ver, algo, metric, badge) in zip(v_cols, versions):
+        with col:
+            st.markdown(
+                f'<div class="card" style="text-align:center">'
+                f"{status_badge(badge)}"
+                f"<h3>{ver}</h3>"
+                f"<p>{algo}<br><strong>{metric}</strong></p></div>",
+                unsafe_allow_html=True,
+            )
+
+    # ---- Search Pipeline Architecture ----
+    st.divider()
+    section_heading(t("architecture_title"), t("architecture_desc"))
+    st.info(
+        "Two-stage retrieval → Hybrid RRF k=20 → "
+        "Cross-encoder rerank (α=1.0) · "
+        "Deterministic tie-breaking by item_id · "
+        "Explicit retrieval-only fallback on reranker failure · "
+        "Revision-pinned HuggingFace models"
     )
 
-    projects = get_project_registry()
-    by_id = {p["id"]: p for p in projects}
-    v5 = by_id.get("trendyol_v5_reranker", {})
-    v4 = by_id.get("trendyol_v4_pipeline", {})
-    v1 = by_id.get("trendyol_relevance", {})
+    # ---- Runtime Readiness ----
+    section_heading(t("runtime_readiness"), t("runtime_readiness_desc"))
+    r_cols = st.columns(3)
+    runtime_cards = [
+        (t("runtime_cold_start"), "~2s model load · cached after first inference"),
+        (t("runtime_warm_latency"), "~200ms at pool=20"),
+        (t("runtime_fallback"), "Retrieval-only on reranker failure"),
+    ]
+    for col, (title, desc) in zip(r_cols, runtime_cards):
+        with col:
+            st.markdown(
+                f"<div class='card'><h3>{title}</h3>"
+                f"<p>{desc}<br>"
+                f"{status_badge('available')}</p></div>",
+                unsafe_allow_html=True,
+            )
 
-    kpi_grid_mixed([
-        ("V1 Champion", status_badge(v1.get("status", "experimental")), None),
-        ("V4 Pipeline", status_badge(v4.get("status", "experimental")), None),
-        ("V5 Reranker", status_badge(v5.get("status", "experimental")), None),
-        ("Governance", "Not Production Promoted", "Best Reranking Research Candidate"),
-    ])
+    # ---- Dataset Footprint ----
+    section_heading(t("dataset_footprint"), t("dataset_footprint_desc"))
+    d_cols = st.columns(4)
+    d_items = [
+        (t("footprint_tables"), "7", "Trendyol e-commerce"),
+        (t("footprint_products"), "962K+", "Catalogue-wide"),
+        (t("footprint_queries"), "1,000", "Evaluation set"),
+        (t("footprint_demo"), "5,000", "Bounded catalogue"),
+    ]
+    for col, (label, value, note) in zip(d_cols, d_items):
+        with col:
+            st.markdown(
+                f"<div class='metric-card'><small>{label}</small>"
+                f"<strong>{value}</strong><span>{note}</span></div>",
+                unsafe_allow_html=True,
+            )
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 3.5))
-    categories = {}
-    for p in projects:
-        cat = p.get("category", "Other")
-        categories[cat] = categories.get(cat, 0) + 1
-    cats, vals = zip(*sorted(categories.items(), key=lambda x: -x[1]))
-    ax1.barh(cats, vals, color="#4f46e5", height=0.6)
-    ax1.set_xlabel(t("project_count"))
-    ax1.set_title(t("project_distribution"), fontsize=10)
-    statuses = {"available": 0, "experimental": 0, "roadmap": 0, "verified": 0}
-    for p in projects:
-        s = p.get("status", "roadmap")
-        statuses[s] = statuses.get(s, 0) + 1
-    labels, svals = zip(*statuses.items())
-    colors = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"]
-    ax2.bar(labels, svals, color=colors, width=0.5)
-    ax2.set_title(t("status_distribution"), fontsize=10)
-    ax2.tick_params(axis="x", rotation=45)
-    for i, v in enumerate(svals):
-        ax2.text(i, v + 0.1, str(v), ha="center", fontsize=9)
-    fig.tight_layout()
-    st.pyplot(fig)
+    # ---- Capability Maturity ----
+    section_heading(t("capability_maturity"), t("capability_maturity_desc"))
+    caps = [
+        ("Real Dataset", "available"),
+        ("Trained Models", "available"),
+        ("Live Inference", "available"),
+        ("Hybrid Search", "available"),
+        ("Cross-Encoder", "available"),
+        ("Model Registry", "available"),
+        ("Artifact Health", "available"),
+        ("Cloud Deployment", "available"),
+        ("Production API", "roadmap"),
+        ("Auth / SSO", "roadmap"),
+        ("Observability", "roadmap"),
+        ("Horizontal Scaling", "roadmap"),
+    ]
+    cap_cols = st.columns(4)
+    for i, (cap, cap_status) in enumerate(caps):
+        with cap_cols[i % 4]:
+            st.markdown(
+                f"<strong>{cap}</strong><br>{status_badge(cap_status)}",
+                unsafe_allow_html=True,
+            )
 
-    section_heading(t("enterprise_snapshot"))
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.markdown(f"**{t('status_operational')}**  \n{t('capability_real_data')}")
-        st.markdown(f"**{t('status_operational')}**  \n{t('capability_trained_models')}")
-        st.markdown(f"**{t('status_operational')}**  \n{t('capability_live_inference')}")
-        st.markdown(f"**{t('status_operational')}**  \n{t('capability_hybrid_search')}")
-        st.markdown(f"**{t('status_operational')}**  \n{t('capability_cross_encoder')}")
-        st.markdown(f"**{t('status_operational')}**  \n{t('capability_model_registry')}")
-    with col2:
-        st.markdown(f"**{t('status_operational')}**  \n{t('capability_artifact_health')}")
-        st.markdown(f"**{t('status_operational')}**  \n{t('capability_cloud_deployment')}")
-        st.markdown(f"**{t('status_validated')}**  \n{t('capability_production_api')}")
-        st.markdown(f"**{t('status_roadmap')}**  \n{t('capability_auth_sso')}")
-        st.markdown(f"**{t('status_roadmap')}**  \n{t('capability_observability')}")
-        st.markdown(f"**{t('status_roadmap')}**  \n{t('capability_horizontal_scaling')}")
-    with col3:
-        st.markdown(f"**{t('status_roadmap')}**  \n{t('capability_online_ab')}")
-
+    # ---- Project Cards with CTAs ----
     st.divider()
+    section_heading(t("product_modules"), t("product_modules_desc"))
 
-    section_heading(t("search_intelligence_title"), t("search_intelligence_desc"))
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown(f"**{t('nav_relevance_classification')}**  \nV1 TF-IDF + Logistic Regression · F1 0.6260")
-        st.markdown(f"**{t('nav_hybrid_retrieval')}**  \nV4 Hybrid RRF k=20 · NDCG@10 0.6191")
-        st.markdown(f"**{t('nav_cross_encoder')}**  \nV5 mmarco-mMiniLMv2 · NDCG@10 0.6785 (+10.8%)")
-    with col2:
-        st.markdown(f"**{t('nav_policy_comparison')}**  \nBaseline vs reranked · paired bootstrap CI")
-        st.markdown(f"**{t('nav_live_inference')}**  \n5,000-product demo · cold ~3–5s · warm p95 ~200ms")
-        st.markdown(f"**{t('nav_runtime_diagnostics')}**  \nModel load count · tokenizer load · fallback state")
+    cta_sections = [
+        [
+            ("search_demo", t("nav_search_intelligence"),
+             "Interactive V5 cross-encoder reranking on 5K products"),
+            ("live_inference", t("nav_live_inference"),
+             "5,000-product demo · cold ~3-5s · warm p95 ~200ms"),
+        ],
+        [
+            ("churn", t("nav_churn"),
+             "Logistic Regression · ROC AUC 0.844 · Recall 0.652"),
+            ("regression", t("nav_housing"),
+             "Linear Regression · R² 0.80 · RMSE 0.47"),
+            ("nlp", t("nav_sentiment"),
+             "TF-IDF + LR · F1 0.80 · Accuracy 0.81"),
+        ],
+        [
+            ("data_science_overview", t("nav_data_workspace"),
+             "7 Trendyol tables · 962K+ products · Schema & quality"),
+            ("model_registry", t("nav_registry"),
+             "Active models · governance · artifact health"),
+        ],
+    ]
 
-    st.divider()
+    cta_keys = {
+        "search_demo": "cta_search_intelligence",
+        "live_inference": "cta_live_inference",
+        "churn": "cta_churn",
+        "regression": "cta_housing",
+        "nlp": "cta_sentiment",
+        "data_science_overview": "cta_data_intelligence",
+        "model_registry": "cta_model_ops",
+    }
 
-    section_heading(t("ml_capabilities_title"), t("ml_capabilities_desc"))
-    c1, c2, c3 = st.columns(3)
-    with c1:
-        st.markdown(f"### {t('nav_churn')}")
-        st.caption("Logistic Regression · predict_proba · risk bands")
-        st.caption(f"Test ROC AUC 0.844 · Recall 0.652")
-    with c2:
-        st.markdown(f"### {t('nav_housing')}")
-        st.caption("Linear Regression · deterministic · $ output")
-        st.caption(f"Test R² 0.80 · RMSE 0.47")
-    with c3:
-        st.markdown(f"### {t('nav_sentiment')}")
-        st.caption("TF-IDF + Logistic Regression · binary")
-        st.caption(f"Test F1 0.80 · Accuracy 0.81")
-
-    st.divider()
-
-    section_heading(t("data_intelligence_title"), t("data_intelligence_desc"))
-    d1, d2, d3 = st.columns(3)
-    with d1:
-        st.markdown(f"**{t('nav_inventory')}**  \n7 Trendyol tables · 962K+ products")
-    with d2:
-        st.markdown(f"**{t('nav_quality')}**  \nSampled 20K/table · duplicates · nulls")
-    with d3:
-        st.markdown(f"**{t('nav_schema')}**  \n11 required fields · 7 supported questions")
-
-    st.divider()
-
-    section_heading(t("model_ops_title"), t("model_ops_desc"))
-    o1, o2, o3 = st.columns(3)
-    with o1:
-        st.markdown(f"**{t('nav_registry')}**  \nActive models · version · decision · metric")
-    with o2:
-        st.markdown(f"**{t('nav_artifact_health')}**  \nCore · optional · local · cloud-excluded")
-    with o3:
-        st.markdown(f"**{t('nav_deployment')}**  \nCloud-ready · pinned deps · lazy load")
-
-    st.divider()
-
-    section_heading(t("enterprise_readiness_title"), t("enterprise_readiness_desc"))
-    e1, e2, e3 = st.columns(3)
-    with e1:
-        st.markdown(f"**{t('capability_production_api')}**  \n{t('status_roadmap')}")
-    with e2:
-        st.markdown(f"**{t('capability_auth_sso')}**  \n{t('status_roadmap')}")
-    with e3:
-        st.markdown(f"**{t('capability_observability')}**  \n{t('status_roadmap')}")
-
-    st.divider()
-
-    section_heading(t("validated_results_title"), t("validated_results_desc"))
-    st.markdown(f"**V1 F1:** 0.6260  ·  **V4 NDCG@10:** 0.6191  ·  **V5 NDCG@10:** 0.6785  ·  **Gain:** +10.8%  ·  **95% CI:** [0.0368, 0.0960]")
-
-    st.divider()
-
-    section_heading(t("architecture_title"), t("architecture_desc"))
-    st.markdown("Two-stage retrieval → Hybrid RRF k=20 → Cross-encoder rerank (α=1.0) · Deterministic tie-breaking by item_id · Explicit retrieval-only fallback on reranker failure · Revision-pinned HuggingFace models")
-
-    st.divider()
-
-    section_heading(t("explore_first"), "")
-    st.markdown(f"1. **{t('explore_search')}** — Interactive V5 cross-encoder reranking on 5K products")
-    st.markdown(f"2. **{t('explore_data')}** — Schema health, category/brand structure, text quality")
-    st.markdown(f"3. **{t('explore_ml')}** — Churn probability + risk band for single customer")
-    st.markdown(f"4. **{t('explore_registry')}** — Active models, governance decisions, artifact paths")
-
-    st.divider()
-
-    section_heading(t("current_limitations"))
-    st.markdown(f"• {t('limitation_no_production')}")
-    st.markdown(f"• {t('limitation_cloud_excluded')}")
-    st.markdown(f"• {t('limitation_bounded')}")
-    st.markdown(f"• {t('limitation_no_auth')}")
-    st.markdown(f"• {t('limitation_no_scaling')}")
+    for row in cta_sections:
+        cols = st.columns(len(row))
+        for col, (page_key, title_text, desc_text) in zip(cols, row):
+            with col:
+                st.markdown(
+                    f'<div class="card"><h3>{title_text}</h3>'
+                    f"<p>{desc_text}</p></div>",
+                    unsafe_allow_html=True,
+                )
+                st.button(
+                    t(cta_keys[page_key]),
+                    on_click=_navigate_to,
+                    args=(page_key,),
+                    use_container_width=True,
+                )

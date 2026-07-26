@@ -85,8 +85,83 @@ section[data-testid="stSidebar"] div[role="radiogroup"] label { padding: 0.15rem
 section[data-testid="stSidebar"] [data-testid="stSelectbox"] { margin-bottom: 0.3rem; }
 section[data-testid="stSidebar"] [data-testid="stRadio"] > label { color: var(--muted); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
 
-div.stButton > button { border-radius: var(--radius-sm); border-color: var(--accent); color: var(--accent); font-weight: 600; width: 100%; transition: background 150ms ease, border-color 150ms ease, color 150ms ease; }
-div.stButton > button:hover { border-color: var(--accent-hover); color: var(--accent-hover); background: var(--accent-soft); }
+/* Primary buttons - filled professional indigo */
+div.stButton > button {
+  background: var(--accent);
+  color: #ffffff;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, box-shadow 150ms ease, opacity 150ms ease;
+}
+div.stButton > button:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+div.stButton > button:active {
+  background: #3730a3;
+  border-color: #3730a3;
+}
+div.stButton > button:disabled {
+  background: #94a3b8;
+  border-color: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+div.stButton > button[aria-busy="true"] {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+/* Secondary buttons - muted outline */
+div.stButton > button[kind="secondary"],
+div.stButton > button[kind="tertiary"] {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+div.stButton > button[kind="secondary"]:hover,
+div.stButton > button[kind="tertiary"]:hover {
+  color: var(--text);
+  border-color: var(--muted);
+  background: var(--alt);
+  box-shadow: none;
+}
+div.stButton > button[kind="secondary"]:active,
+div.stButton > button[kind="tertiary"]:active {
+  background: var(--border);
+}
+
+/* Destructive buttons - red reserved for errors */
+div.stButton > button[kind="destructive"],
+div.stButton > button[data-testid="baseButton-destructive"] {
+  background: var(--danger);
+  color: #ffffff;
+  border: 1px solid var(--danger);
+}
+div.stButton > button[kind="destructive"]:hover,
+div.stButton > button[data-testid="baseButton-destructive"]:hover {
+  background: #991b1b;
+  border-color: #991b1b;
+  box-shadow: 0 2px 8px rgba(185, 28, 28, 0.3);
+}
+
+/* Download buttons match primary */
+div.stDownloadButton > button {
+  background: var(--accent);
+  color: #ffffff;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+div.stDownloadButton > button:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
 
 @media (max-width: 700px) {
   .hero { padding: 1.25rem; }
@@ -106,6 +181,9 @@ div.stButton > button:hover { border-color: var(--accent-hover); color: var(--ac
   }
   section[data-testid="stSidebar"] > div { background: var(--surface); }
   .callout { background: var(--accent-soft); border-color: #2e3a6e; }
+  div.stButton > button:disabled { background: #4a5568; border-color: #4a5568; }
+  div.stDownloadButton > button { background: var(--accent); border-color: var(--accent); }
+  div.stDownloadButton > button:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
 }
 </style>
 """

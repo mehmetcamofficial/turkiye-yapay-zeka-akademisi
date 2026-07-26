@@ -3,6 +3,7 @@
 import pandas as pd
 import streamlit as st
 
+from portfolio.i18n import t
 from portfolio.loaders import load_csv_safe, load_json_safe
 from portfolio.project_registry import get_project_registry
 from portfolio.ui_components import hero_panel, metric_table, section_heading
@@ -20,14 +21,14 @@ def _row(project, metric_names):
 
 
 def render() -> None:
-    hero_panel("Model Performansı", "Farklı problem tiplerinin metrikleri ayrı bağlamlarda, kaydedilmiş test artifact'larından gösterilir.", "CROSS-PROJECT REVIEW")
+    hero_panel(t("performance_title"), t("performance_subtitle"), t("perf_kicker"))
     projects = {project["id"]: project for project in get_project_registry()}
-    section_heading("Customer Churn · Sınıflandırma", "ROC AUC, Accuracy, Recall ve F1 aynı ikili sınıflandırma bağlamındadır.")
+    section_heading(t("perf_churn"), t("perf_churn_desc"))
     metric_table(pd.DataFrame([_row(projects["churn"], ["ROC AUC", "Accuracy", "Recall", "F1 Score"])]))
-    st.caption("Sınırlamalar: " + "; ".join(projects["churn"]["limitations"]))
-    section_heading("California Housing · Regresyon", "RMSE/MAE hata büyüklüğünü, R² açıklanan varyansı ifade eder.")
+    st.caption(t("limitations") + ": " + "; ".join(projects["churn"]["limitations"]))
+    section_heading(t("perf_housing"), t("perf_housing_desc"))
     metric_table(pd.DataFrame([_row(projects["regression"], ["RMSE", "MAE", "R2"])]))
-    st.caption("Sınırlamalar: " + "; ".join(projects["regression"]["limitations"]))
-    section_heading("UCI Sentiment · NLP Sınıflandırma", "Accuracy, Precision, Recall ve F1 metin sınıflandırma test setine aittir.")
+    st.caption(t("limitations") + ": " + "; ".join(projects["regression"]["limitations"]))
+    section_heading(t("perf_nlp"), t("perf_nlp_desc"))
     metric_table(pd.DataFrame([_row(projects["nlp"], ["Accuracy", "Precision", "Recall", "F1"])]))
-    st.caption("Sınırlamalar: " + "; ".join(projects["nlp"]["limitations"]))
+    st.caption(t("limitations") + ": " + "; ".join(projects["nlp"]["limitations"]))

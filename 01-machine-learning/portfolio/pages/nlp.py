@@ -1,4 +1,5 @@
 from __future__ import annotations
+from html import escape
 
 import re
 
@@ -86,7 +87,14 @@ def _single() -> None:
             detail = t("nlp_binary_note")
             if scores is not None:
                 detail += " " + t("nlp_score", score=float(scores[0]))
-            prediction_result_card(t("nlp_predicted"), t("nlp_positive") if label == 1 else t("nlp_negative"), detail)
+            st.markdown(
+                f'<div class="prediction-card">'
+                f"<strong>{escape(t('nlp_predicted'))}</strong>"
+                f"<span>{escape(t('nlp_positive') if label == 1 else t('nlp_negative'))}</span>"
+                f"<small>{escape(detail)}</small>"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
             if scores is not None:
                 _confidence_gauge(float(scores[0]))
             terms = load_csv_safe(str(NLP_DIR / "outputs/top_terms.csv"))
@@ -172,7 +180,7 @@ def render() -> None:
             column.metric(name, "—" if value is None else f"{value:.4f}")
         information_panel(t("purpose"), project["description"])
         information_panel(t("data_model"), f"{project['dataset']} ({project['dataset_size']}) · {project['final_model']}")
-        information_panel(t("workflow"), "Yerel UCI CSV → deterministik temizlik → TF-IDF → stratified CV → tuning → dokunulmamış test")
+        information_panel(t("workflow"), t("nlp_workflow_desc"))
         information_panel(t("limitations"), "; ".join(project["limitations"]))
         with st.expander(t("tab_technical"), expanded=False):
             artifact_checklist(project)

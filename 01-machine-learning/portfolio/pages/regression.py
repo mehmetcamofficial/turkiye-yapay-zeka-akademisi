@@ -26,6 +26,7 @@ PRESETS = {
 def _prepare(frame: pd.DataFrame) -> pd.DataFrame:
     result = frame.copy()
     for column in RAW_COLUMNS:
+        result[column] = result[column].astype(str).str.replace(",", ".", regex=False)
         result[column] = pd.to_numeric(result[column], errors="coerce")
     result["RoomsPerBedroom"] = result["AveRooms"] / result["AveBedrms"].replace(0, np.nan)
     result["BedroomsPerOccupant"] = result["AveBedrms"] / result["AveOccup"].replace(0, np.nan)
@@ -62,9 +63,8 @@ def _single_prediction() -> None:
             prepared = _prepare(pd.DataFrame([values]))
             prediction = float(model.predict(prepared)[0])
             usd_value = prediction * 100_000
-            prediction_result_card(t("regression_pred_value"),
-                                   f"${usd_value:,.0f}",
-                                   t("regression_pred_desc", pred=prediction))
+            st.metric(t("regression_pred_value"), f"${usd_value:,.0f}",
+                      help=t("regression_pred_desc", pred=prediction))
 
             metrics = load_csv_safe(str(REGRESSION_DIR / "outputs/test_metrics.csv"))
             if not metrics.empty:
@@ -187,7 +187,7 @@ def render() -> None:
             column.metric(name, "—" if value is None else f"{value:.4f}")
         information_panel(t("purpose"), project["description"])
         information_panel(t("data_model"), f"{project['dataset']} ({project['dataset_size']}) · {project['final_model']}")
-        information_panel(t("workflow"), "Yerel veri → EDA → hedef-bağımsız oranlar → preprocessing → SelectKBest → 5-fold CV → tuning → test")
+        information_panel(t("workflow"), t("regression_workflow_desc"))
         information_panel(t("limitations"), "; ".join(project["limitations"]))
         with st.expander(t("tab_technical"), expanded=False):
             artifact_checklist(project)

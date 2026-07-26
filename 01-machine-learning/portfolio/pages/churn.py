@@ -1,4 +1,5 @@
 from __future__ import annotations
+from html import escape
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -96,8 +97,14 @@ def _single_prediction() -> None:
             prediction = int(model_result.model.predict(prepared)[0])
             probability = float(model_result.model.predict_proba(prepared)[0, 1])
             risk = t("churn_risk_high") if probability >= .7 else (t("churn_risk_medium") if probability >= .4 else t("churn_risk_low"))
-            prediction_result_card(t("churn_prediction"), t("churn_risk_high") if prediction else t("churn_risk_low"),
-                                   t("churn_prob", prob=probability, risk=risk))
+            st.markdown(
+                f'<div class="prediction-card">'
+                f"<strong>{escape(t('churn_prediction'))}</strong>"
+                f"<span>{escape(t('churn_risk_high') if prediction else t('churn_risk_low'))}</span>"
+                f"<small>{escape(t('churn_prob', prob=probability, risk=risk))}</small>"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
             fig, ax = plt.subplots(figsize=(6, 0.6))
             ax.barh([""], [probability], color="#ef4444" if probability >= 0.7 else ("#f59e0b" if probability >= 0.4 else "#22c55e"), height=0.4)
             ax.set_xlim(0, 1)
@@ -214,7 +221,7 @@ def render() -> None:
             column.metric(name, "—" if value is None else f"{value:.4f}")
         information_panel(t("purpose"), project["description"])
         information_panel(t("data_model"), f"{project['dataset']} ({project['dataset_size']}) · {project['final_model']}")
-        information_panel(t("workflow"), "Kaggle verisi → EDA → preprocessing pipeline → SelectFromModel → 5-fold stratified CV → tuning → test")
+        information_panel(t("workflow"), t("churn_workflow_desc"))
         information_panel(t("limitations"), "; ".join(project["limitations"]))
         with st.expander(t("tab_technical"), expanded=False):
             artifact_checklist(project)

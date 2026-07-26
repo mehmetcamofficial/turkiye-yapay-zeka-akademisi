@@ -43,7 +43,7 @@ PAGE_MODULE_MAP = {
     "nav_registry": "model_registry",
     "nav_artifact_health": "artifact_health",
     "nav_deployment": "deployment",
-    "nav_enterprise_readiness": "deployment",
+    "nav_enterprise_readiness": "enterprise_readiness",
     "nav_projects": "projects",
     "nav_docs": "documentation",
     "nav_about": "about",

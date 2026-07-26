@@ -19,7 +19,7 @@ def render() -> None:
     tabs = st.tabs(tab_labels)
 
     with tabs[0]:
-        section_heading("V2.1 Classification Repeated Seed")
+        section_heading(t("eval_v21_classification"))
         v21 = load_csv_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs/v2_1/classification_repeated_seed_ci.csv"))
         if not v21.empty:
             render_safe_table(v21, download_name="v21_classification_ci.csv")
@@ -27,7 +27,7 @@ def render() -> None:
             st.info("V2.1 classification CI data not available.")
 
     with tabs[1]:
-        section_heading("V3 Retrieval Metrics by Seed")
+        section_heading(t("eval_v3_retrieval"))
         v3 = load_csv_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs/v3/retrieval_metrics_by_seed.csv"))
         if not v3.empty:
             render_safe_table(v3, download_name="v3_retrieval_metrics.csv")
@@ -35,7 +35,7 @@ def render() -> None:
             st.info("V3 retrieval metrics not available.")
 
     with tabs[2]:
-        section_heading("V4 Repeated Seed CI")
+        section_heading(t("eval_v4_repeated_seed_ci"))
         v4 = load_csv_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs/v4/v4_repeated_seed_ci.csv"))
         if not v4.empty:
             render_safe_table(v4, download_name="v4_repeated_seed_ci.csv")
@@ -43,14 +43,14 @@ def render() -> None:
             st.info("V4 CI data not available.")
 
     with tabs[3]:
-        section_heading("V5 Alpha Grid")
+        section_heading(t("eval_v5_alpha_grid"))
         v5_alpha = load_csv_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs/v5/v5_alpha_grid.csv"))
         if not v5_alpha.empty:
             render_safe_table(v5_alpha, download_name="v5_alpha_grid.csv")
         else:
             st.info("V5 alpha grid not available.")
 
-        section_heading("V5 Holdout Summary")
+        section_heading(t("eval_v5_holdout_summary"))
         v5_holdout = load_csv_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs/v5/v5_holdout_summary.csv"))
         if not v5_holdout.empty:
             render_safe_table(v5_holdout, download_name="v5_holdout_summary.csv")

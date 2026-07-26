@@ -118,7 +118,7 @@ def render() -> None:
 
     cols = st.columns(3)
     with cols[0]:
-        st.metric("Total Queries", str(results.get("holdout_query_count", "—")))
+        st.metric(t("total_queries"), str(results.get("holdout_query_count", "—")))
     with cols[1]:
         ndcg_ci = results.get("holdout_ndcg_ci95", [])
         if ndcg_ci:
