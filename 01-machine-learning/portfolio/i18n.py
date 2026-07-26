@@ -733,6 +733,21 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
         "en": "English-biased · No domain adaptation · Sarcasm/irony not detected · No neutral class"},
     "sentiment_use_case": {"tr": "Ürün inceleme moderasyonu; müşteri sesi (VoC) panoları için toplu duygu skorlama",
         "en": "Product review moderation; batch sentiment scoring for Voice of Customer dashboards"},
+
+    "demo_section_desc": {"tr": "Sınırlı 5.000 ürünlü önizleme katalogunda cross-encoder yeniden sıralama.", "en": "Cross-encoder reranking on a bounded 5,000-product preview catalogue."},
+    "cold_start_warning": {"tr": "İlk çıkarımda model soğuk yüklemesi birkaç saniye sürebilir. Model/tokenizer yüklendikten sonra önbelleğe alınır.", "en": "Cold model load may take several seconds on first inference. Model/tokenizer are cached after loading."},
+    "policy_label": {"tr": "Politika", "en": "Policy"},
+    "alpha_label": {"tr": "Alpha", "en": "Alpha"},
+    "document_variant_label": {"tr": "Belge Varyantı", "en": "Document Variant"},
+    "candidate_pool_label": {"tr": "Aday Havuzu", "en": "Candidate Pool"},
+    "batch_size_label": {"tr": "Toplu Boyutu", "en": "Batch Size"},
+    "preset_query": {"tr": "Örnek Sorgu", "en": "Preset Query"},
+    "query_label": {"tr": "Sorgu", "en": "Query"},
+    "run_inference": {"tr": "Çıkarımı Çalıştır", "en": "Run Inference"},
+    "pipeline_unavailable": {"tr": "Pipeline kullanılamıyor.", "en": "Pipeline unavailable."},
+    "model_load_count_label": {"tr": "Model Yükleme Sayısı", "en": "Model Load Count"},
+    "tokenizer_load_count_label": {"tr": "Tokenizer Yükleme Sayısı", "en": "Tokenizer Load Count"},
+    "model_loaded_label": {"tr": "Model Yüklendi", "en": "Model Loaded"},
 }
 
 TECHNICAL_TERMS = {
