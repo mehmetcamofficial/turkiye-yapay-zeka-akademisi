@@ -18,34 +18,34 @@ def render() -> None:
 
     section_heading(t("section_heading_system_arch"))
     architecture_flow([
-        ("Data Sources", "current"),
-        ("Validation", "current"),
-        ("Features", "current"),
-        ("Training", "current"),
-        ("Evaluation", "current"),
-        ("Registry", "current"),
-        ("Inference", "current"),
-        ("Monitoring", "planned"),
+        (t("docs_arch_sources"), "current"),
+        (t("docs_arch_validation"), "current"),
+        (t("docs_arch_features"), "current"),
+        (t("docs_arch_training"), "current"),
+        (t("docs_arch_evaluation"), "current"),
+        (t("docs_arch_registry"), "current"),
+        (t("docs_arch_inference"), "current"),
+        (t("docs_arch_monitoring"), "planned"),
     ])
 
     section_heading(t("section_heading_trendyol_arch"))
     architecture_flow([
-        ("Query", "current"),
-        ("Candidate Sample", "current"),
-        ("Lexical Scoring", "current"),
-        ("V1 Probability", "current"),
-        ("V2 Ranker", "experimental"),
-        ("Results", "experimental"),
+        (t("docs_search_query"), "current"),
+        (t("docs_search_candidate"), "current"),
+        (t("docs_search_lexical"), "current"),
+        (t("docs_search_v1"), "current"),
+        (t("docs_search_v2"), "experimental"),
+        (t("docs_search_results"), "experimental"),
     ])
 
     section_heading(t("section_heading_governance"))
     architecture_flow([
-        ("Baseline", "current"),
-        ("Experiment", "experimental"),
-        ("Holdout", "current"),
-        ("Confidence Interval", "current"),
-        ("Decision", "current"),
-        ("Retain / Promote", "current"),
+        (t("docs_eval_baseline"), "current"),
+        (t("docs_eval_experiment"), "experimental"),
+        (t("docs_eval_holdout"), "current"),
+        (t("docs_eval_ci"), "current"),
+        (t("docs_eval_decision"), "current"),
+        (t("docs_eval_retain"), "current"),
     ])
 
     readme_tab, portfolio_tab = st.tabs([t("tab_platform_readme"), t("tab_portfolio_evidence")])

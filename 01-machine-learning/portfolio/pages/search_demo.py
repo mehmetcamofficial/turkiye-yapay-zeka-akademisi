@@ -10,7 +10,7 @@ from portfolio.loaders import load_json_safe
 from portfolio.sample_queries import get_sample_by_label, get_sample_labels
 from portfolio.trendyol_pipeline_service import pipeline_search
 from portfolio.trendyol_v5_pipeline_service import v5_search
-from portfolio.ui_components import (hero_panel, kpi_grid,
+from portfolio.ui_components import (hero_panel, kpi_grid, log_activity,
                                      section_heading, format_ranking_metric,
                                      format_delta, format_latency_ms,
                                      render_safe_table)
@@ -223,6 +223,7 @@ def render() -> None:
                 )
             if response.get("success"):
                 st.session_state["search_response"] = response
+                log_activity(t("nav_search_ranking"), t("activity_search_completed"))
             else:
                 err = response.get("error", {})
                 st.session_state["search_error"] = err.get("message", "pipeline_unavailable")

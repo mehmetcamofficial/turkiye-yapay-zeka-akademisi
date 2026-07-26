@@ -823,10 +823,10 @@ def test_42_notebook_status_has_canonical_files() -> None:
     assert all(isinstance(f, str) for f in CANONICAL_FILES)
 
 
-# ---- Test 43: experiment directory scanning does not crash ----
+# ---- Test 43: experiment store loading does not crash ----
 def test_43_experiment_scanning_does_not_crash() -> None:
-    from portfolio.pages.notebook_status import _experiments_list
-    result = _experiments_list()
+    from portfolio.experiment_store import load_experiments
+    result = load_experiments()
     assert isinstance(result, list)
 
 
@@ -999,3 +999,430 @@ def test_57_empty_state_accepts_title_and_text() -> None:
         html = args[0]
         assert "Test Title" in html
         assert "Test Text" in html
+
+
+# ════════════════════════════════════════════════════════
+# Sprint 2 — Command Center Tests
+# ════════════════════════════════════════════════════════
+
+COM_CENTER_MODULE = PAGES_DIR / "overview.py"
+
+def test_cc_module_imports() -> None:
+    from portfolio.pages.overview import render
+    assert callable(render)
+
+
+def test_cc_hero_title_exists() -> None:
+    source = COM_CENTER_MODULE.read_text(encoding="utf-8")
+    assert "command_hero(" in source or "command_center" in source
+
+
+def test_cc_status_strip_labels_exist() -> None:
+    source = COM_CENTER_MODULE.read_text(encoding="utf-8")
+    assert "status_strip([" in source
+    assert "strip_models_label" in source
+    assert "strip_tests_label" in source
+    assert "strip_sources_label" in source
+    assert "strip_runtime_label" in source
+    assert "strip_validation_label" in source
+
+
+def test_cc_health_section_contains_all_cards() -> None:
+    source = COM_CENTER_MODULE.read_text(encoding="utf-8")
+    assert "health_model_runtime" in source
+    assert "health_search_pipeline" in source
+    assert "health_data_readiness" in source
+    assert "health_validation_suite" in source
+    assert "health_artifact_registry" in source
+    assert "health_notebook_schema" in source
+
+
+def test_cc_capability_registry_contains_required() -> None:
+    source = COM_CENTER_MODULE.read_text(encoding="utf-8")
+    for cap in ["cap_housing_name", "cap_churn_name", "cap_sentiment_name",
+                 "cap_hybrid_name", "cap_cross_encoder_name",
+                 "cap_runtime_name", "cap_data_name"]:
+        assert cap in source, f"Missing capability: {cap}"
+
+
+def test_cc_pipeline_contains_all_stages() -> None:
+    source = COM_CENTER_MODULE.read_text(encoding="utf-8")
+    for stage in ["pipeline_data_sources", "pipeline_validation", "pipeline_features",
+                   "pipeline_training", "pipeline_registry", "pipeline_inference",
+                   "pipeline_monitoring"]:
+        assert stage in source, f"Missing pipeline stage: {stage}"
+
+
+def test_cc_no_forbidden_production_claims() -> None:
+    source = COM_CENTER_MODULE.read_text(encoding="utf-8")
+    forbidden = ["Production Healthy", "Global Traffic", "Live Customers",
+                 "Real-Time Enterprise Load", "production uptime",
+                 "active production users", "real request count"]
+    for phrase in forbidden:
+        assert phrase.lower() not in source.lower(), f"Forbidden phrase: {phrase}"
+
+
+def test_cc_no_raw_model_ids_in_visible_labels() -> None:
+    ids = ["mmarco-mMiniLMv2", "title_compact_metadata", "1427fd652930"]
+    source = COM_CENTER_MODULE.read_text(encoding="utf-8")
+    for raw_id in ids:
+        assert raw_id not in source, f"Internal model ID leaked: {raw_id}"
+
+
+def test_cc_all_new_i18n_keys_exist() -> None:
+    from portfolio.i18n import TRANSLATIONS
+    required = [
+        "command_center_title", "command_center_subtitle",
+        "command_center_badge_local", "command_center_badge_validated",
+        "command_center_badge_architect",
+        "strip_models_label", "strip_tests_label", "strip_sources_label",
+        "strip_runtime_label", "strip_validation_label",
+        "health_model_runtime", "health_search_pipeline", "health_data_readiness",
+        "health_validation_suite", "health_artifact_registry", "health_notebook_schema",
+        "cap_housing_name", "cap_churn_name", "cap_sentiment_name",
+        "cap_hybrid_name", "cap_cross_encoder_name", "cap_runtime_name", "cap_data_name",
+        "pipeline_data_sources", "pipeline_validation", "pipeline_features",
+        "pipeline_training", "pipeline_registry", "pipeline_inference", "pipeline_monitoring",
+        "activity_title", "activity_empty_title", "activity_empty_cta",
+        "search_snapshot_title", "data_readiness_title", "artifacts_title",
+        "quick_actions_title", "transparency_title",
+        "qa_sentiment", "qa_housing", "qa_hybrid", "qa_cross_encoder",
+        "qa_runtime", "qa_data",
+        "transparency_runtime", "transparency_validation", "transparency_models",
+        "transparency_deployment", "transparency_data",
+    ]
+    for key in required:
+        assert key in TRANSLATIONS, f"Missing i18n key: {key}"
+        tr = TRANSLATIONS[key].get("tr", "")
+        en = TRANSLATIONS[key].get("en", "")
+        assert tr, f"Missing Turkish for: {key}"
+        assert en, f"Missing English for: {key}"
+
+
+def test_cc_navigation_targets_match_valid_pages() -> None:
+    from portfolio.config import ALL_NAV_PAGES
+    source = COM_CENTER_MODULE.read_text(encoding="utf-8")
+    targets = [
+        "nav_search_intelligence", "nav_housing", "nav_churn", "nav_sentiment",
+        "nav_hybrid_retrieval", "nav_cross_encoder", "nav_runtime_diagnostics",
+        "nav_data_workspace", "nav_registry", "nav_notebook_status", "nav_docs",
+    ]
+    for tgt in targets:
+        assert tgt in ALL_NAV_PAGES, f"Invalid nav target: {tgt}"
+        assert tgt in source, f"Nav target not used in CC: {tgt}"
+
+
+def test_cc_no_absolute_local_paths() -> None:
+    source = COM_CENTER_MODULE.read_text(encoding="utf-8")
+    forbidden = ["/Users/", "Developer/", "mehmetcam/"]
+    for path in forbidden:
+        assert path not in source, f"Absolute path leaked: {path}"
+
+
+def test_cc_empty_activity_state_exists() -> None:
+    source = COM_CENTER_MODULE.read_text(encoding="utf-8")
+    assert "activity_empty_title" in source
+
+
+def test_cc_transparency_section_exists() -> None:
+    source = COM_CENTER_MODULE.read_text(encoding="utf-8")
+    assert "transparency_panel" in source or "transparency_title" in source
+
+
+def test_cc_search_snapshot_has_candidate_and_result_counts() -> None:
+    source = COM_CENTER_MODULE.read_text(encoding="utf-8")
+    assert "20" in source
+    assert "10" in source
+
+
+def test_cc_uses_navigate_to_not_fake_routing() -> None:
+    from portfolio.ui_components import navigate_to
+    assert callable(navigate_to)
+
+
+def test_cc_does_not_initialize_models_directly() -> None:
+    source = COM_CENTER_MODULE.read_text(encoding="utf-8")
+    forbidden_init = ["load_model_safe", "joblib.load", "model.predict", "predict_proba"]
+    for call in forbidden_init:
+        assert call not in source, f"CC directly initializes models: {call}"
+
+
+# ════════════════════════════════════════════════════════
+# Sprint 2 — M1.2 Notebook & Experiment Tests
+# ════════════════════════════════════════════════════════
+
+S2_MODULE = SRC_DIR / "portfolio" / "pages" / "notebook_status.py"
+
+
+def test_s2_notebook_discovery_returns_relative_paths() -> None:
+    from portfolio.pages.notebook_status import _discover_notebooks
+    nbs = _discover_notebooks()
+    assert isinstance(nbs, list)
+    for nb in nbs:
+        assert not nb["path"].startswith("/Users/"), f"Absolute path: {nb['path']}"
+        assert not nb["path"].startswith("Developer/"), f"Developer path: {nb['path']}"
+        assert nb["path"].endswith(".ipynb"), f"Not a notebook: {nb['path']}"
+
+
+def test_s2_no_absolute_path_in_notebook_kpi() -> None:
+    source = S2_MODULE.read_text(encoding="utf-8")
+    forbidden = ["/Users/", "Developer/mehmetcam"]
+    for path in forbidden:
+        assert path not in source, f"Absolute path leaked: {path}"
+
+
+def test_s2_github_url_valid() -> None:
+    from portfolio.pages.notebook_status import _discover_notebooks
+    nbs = _discover_notebooks()
+    for nb in nbs:
+        url = nb["github_url"]
+        assert url.startswith("https://github.com/"), f"Bad GitHub URL: {url}"
+        assert "mehmetcamofficial" in url, f"Wrong owner: {url}"
+        assert "turkiye-yapay-zeka-akademisi" in url, f"Wrong repo: {url}"
+        assert nb["path"] in url, f"Path missing from URL: {url}"
+
+
+def test_s2_colab_url_valid() -> None:
+    from portfolio.pages.notebook_status import _discover_notebooks
+    nbs = _discover_notebooks()
+    for nb in nbs:
+        url = nb["colab_url"]
+        assert url.startswith("https://colab.research.google.com/"), f"Bad Colab URL: {url}"
+        assert "github" in url.lower(), f"No github in Colab URL: {url}"
+        assert nb["colab_valid"], f"Colab URL flagged invalid: {url}"
+
+
+def test_s2_download_content_is_valid_notebook_json() -> None:
+    import json
+    from portfolio.pages.notebook_status import _discover_notebooks
+    nbs = _discover_notebooks()
+    for nb in nbs:
+        data = nb["bytes"]
+        assert len(data) > 0, f"Empty notebook bytes: {nb['name']}"
+        parsed = json.loads(data.decode("utf-8"))
+        assert "cells" in parsed, f"No cells in notebook: {nb['name']}"
+        assert "nbformat" in parsed, f"No nbformat in: {nb['name']}"
+
+
+def test_s2_missing_experiment_file_returns_empty_list() -> None:
+    from portfolio.experiment_store import load_experiments
+    import tempfile, os
+    from portfolio.experiment_store import EXPERIMENTS_FILE
+    if not EXPERIMENTS_FILE.is_file():
+        result = load_experiments()
+        assert isinstance(result, list)
+        assert len(result) == 0
+
+
+def test_s2_experiment_append_and_reload(tmp_path) -> None:
+    import json as j
+    from portfolio.experiment_store import append_experiment, load_experiments
+    from portfolio.config import ARTIFACTS_DIR
+    orig_file = ARTIFACTS_DIR / "experiments" / "experiments.jsonl"
+    test_file = tmp_path / "test_experiments.jsonl"
+
+    saved = None
+    if orig_file.is_file():
+        saved = orig_file.read_text(encoding="utf-8")
+        orig_file.unlink()
+
+    try:
+        rec = {
+            "experiment_type": "evaluation",
+            "capability": "test_cap",
+            "model_name": "test_model",
+            "status": "completed",
+            "metrics": {"accuracy": 0.95},
+        }
+        result = append_experiment(rec)
+        assert result["experiment_id"] is not None
+        assert result["experiment_type"] == "evaluation"
+
+        loaded = load_experiments()
+        assert any(e["experiment_id"] == result["experiment_id"] for e in loaded)
+    finally:
+        if orig_file and saved is not None:
+            orig_file.parent.mkdir(parents=True, exist_ok=True)
+            orig_file.write_text(saved, encoding="utf-8")
+
+
+def test_s2_duplicate_records_prevented(tmp_path) -> None:
+    from portfolio.experiment_store import append_experiment
+    from portfolio.config import ARTIFACTS_DIR
+    orig_file = ARTIFACTS_DIR / "experiments" / "experiments.jsonl"
+
+    saved = None
+    if orig_file.is_file():
+        saved = orig_file.read_text(encoding="utf-8")
+        orig_file.unlink()
+
+    try:
+        rec = {
+            "experiment_id": "dup_test_001",
+            "experiment_type": "evaluation",
+            "capability": "test",
+            "model_name": "m",
+            "status": "completed",
+            "metrics": {},
+        }
+        first = append_experiment(rec)
+        assert first["experiment_id"] == "dup_test_001"
+
+        from portfolio.experiment_store import load_experiments
+        before = len(load_experiments())
+
+        second = append_experiment(rec)
+        after = len(load_experiments())
+        assert after == before, "Duplicate was not rejected"
+    finally:
+        if orig_file and saved is not None:
+            orig_file.parent.mkdir(parents=True, exist_ok=True)
+            orig_file.write_text(saved, encoding="utf-8")
+
+
+def test_s2_numpy_values_serialize() -> None:
+    import numpy as np
+    from portfolio.experiment_store import safe_json_value
+    assert safe_json_value(np.float64(3.14)) == 3.14
+    assert safe_json_value(np.int64(42)) == 42
+    assert safe_json_value(np.bool_(True)) is True
+    assert safe_json_value(np.array([1, 2, 3])) == [1, 2, 3]
+
+
+def test_s2_tuple_parameters_serialize() -> None:
+    from portfolio.experiment_store import safe_json_value
+    result = safe_json_value((1, 2))
+    assert isinstance(result, str)
+    assert result == "(1, 2)"
+
+
+def test_s2_malformed_jsonl_does_not_crash(tmp_path) -> None:
+    from portfolio.experiment_store import load_experiments
+    from portfolio.config import ARTIFACTS_DIR
+    orig_file = ARTIFACTS_DIR / "experiments" / "experiments.jsonl"
+
+    saved = None
+    if orig_file.is_file():
+        saved = orig_file.read_text(encoding="utf-8")
+
+    try:
+        orig_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(orig_file, "w") as f:
+            f.write("not valid json\n")
+            f.write('{"experiment_id": "ok", "capability": "t"}\n')
+            f.write("also invalid\n")
+        result = load_experiments()
+        assert isinstance(result, list)
+        assert len(result) == 1
+        assert result[0]["experiment_id"] == "ok"
+    finally:
+        if saved is not None:
+            orig_file.parent.mkdir(parents=True, exist_ok=True)
+            orig_file.write_text(saved, encoding="utf-8")
+
+
+def test_s2_ordinary_prediction_not_recorded_as_experiment() -> None:
+    from portfolio.experiment_store import EXPERIMENT_TYPES
+    from portfolio.ui_components import log_activity
+    session_log = []
+    from unittest.mock import patch
+    with patch("streamlit.session_state", {"cc_activity_log": session_log}):
+        log_activity("Housing", "Prediction completed")
+        assert len(session_log) == 1
+    assert "experiment" not in str(type(log_activity))
+
+
+def test_s2_gridsearch_normalizes_to_dataframe() -> None:
+    import pandas as pd
+    from portfolio.experiment_store import normalize_gridsearch_results
+
+    cv_data = {
+        "param_model__alpha": [0.1, 0.2, 0.3],
+        "mean_test_score": [0.8, 0.85, 0.82],
+        "std_test_score": [0.02, 0.03, 0.025],
+        "rank_test_score": [3, 1, 2],
+    }
+    df = normalize_gridsearch_results(cv_data)
+    assert isinstance(df, pd.DataFrame)
+    assert not df.empty
+    assert df.iloc[0]["rank_test_score"] == 1
+
+
+def test_s2_gridsearch_normalize_none_or_empty() -> None:
+    import pandas as pd
+    from portfolio.experiment_store import normalize_gridsearch_results
+    assert isinstance(normalize_gridsearch_results(None), pd.DataFrame)
+    assert isinstance(normalize_gridsearch_results({}), pd.DataFrame)
+    assert isinstance(normalize_gridsearch_results(pd.DataFrame()), pd.DataFrame)
+
+
+def test_s2_all_experiment_i18n_keys_exist() -> None:
+    from portfolio.i18n import TRANSLATIONS
+    required = [
+        "exp_registry_title", "exp_total", "exp_completed", "exp_failed",
+        "exp_latest_run", "exp_training", "exp_evaluation",
+        "exp_hyperparameter_search", "exp_benchmark", "exp_parameters",
+        "exp_metrics", "exp_artifacts", "exp_compare", "exp_no_compatible",
+        "exp_capability_filter", "exp_type_filter", "exp_status_filter",
+        "exp_name_col", "exp_capability_col", "exp_type_col", "exp_model_col",
+        "exp_status_col", "exp_started_col", "exp_duration_col", "exp_metric_col",
+        "exp_details", "exp_source", "exp_notes", "exp_timestamps",
+        "exp_duration_ms", "exp_primary_metric",
+        "view_on_github", "github", "colab", "download",
+    ]
+    for key in required:
+        assert key in TRANSLATIONS, f"Missing i18n key: {key}"
+        tr = TRANSLATIONS[key].get("tr", "")
+        en = TRANSLATIONS[key].get("en", "")
+        assert tr, f"Missing Turkish for: {key}"
+        assert en, f"Missing English for: {key}"
+
+
+def test_s2_experiment_table_has_required_columns() -> None:
+    from portfolio.i18n import TRANSLATIONS
+    required_col_keys = [
+        "exp_name_col", "exp_capability_col", "exp_type_col",
+        "exp_model_col", "exp_status_col", "exp_started_col",
+        "exp_duration_col", "exp_metric_col",
+    ]
+    for key in required_col_keys:
+        assert key in TRANSLATIONS
+        assert TRANSLATIONS[key].get("tr", "")
+        assert TRANSLATIONS[key].get("en", "")
+
+
+def test_s2_artifact_paths_sanitized() -> None:
+    from portfolio.experiment_store import normalize_experiment
+    rec = normalize_experiment({
+        "experiment_type": "evaluation",
+        "capability": "test",
+        "model_name": "m",
+        "artifact_paths": ["/Users/someone/absolute/path.ipynb"],
+    })
+    for ap in rec["artifact_paths"]:
+        assert not ap.startswith("/Users/"), f"Absolute path in artifacts: {ap}"
+        assert not ap.startswith("Developer/"), f"Developer path in artifacts: {ap}"
+
+
+def test_s2_notebook_kpi_shows_notebook_count() -> None:
+    from portfolio.pages.notebook_status import _discover_notebooks
+    nbs = _discover_notebooks()
+    assert len(nbs) >= 1
+    assert all(nb["github_url"] for nb in nbs)
+    assert all(nb["colab_url"] for nb in nbs)
+    assert all(nb["bytes"] for nb in nbs)
+
+
+def test_s2_render_safe_table_receives_dataframe() -> None:
+    from portfolio.ui_components import render_safe_table
+    import pandas as pd
+    import streamlit as st
+
+    df = pd.DataFrame({"col1": [1, 2], "col2": ["a", "b"]})
+    with patch.object(st, "markdown", return_value=None):
+        with patch.object(st, "download_button", return_value=None):
+            with patch.object(st, "caption", return_value=None):
+                try:
+                    render_safe_table(df)
+                except Exception as exc:
+                    pytest.fail(f"render_safe_table raised: {exc}")

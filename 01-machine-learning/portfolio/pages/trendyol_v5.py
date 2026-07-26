@@ -22,6 +22,7 @@ from portfolio.ui_components import (
     format_latency_ms,
     format_ranking_metric,
     information_panel,
+    log_activity,
     metric_table,
     page_header,
     prediction_result_card,
@@ -93,6 +94,7 @@ def demo_section():
         total_ms = (time.perf_counter() - started) * 1000.0
         if response.get("success"):
             results = response.get("results", [])
+            log_activity(t("nav_cross_encoder"), t("activity_search_completed"))
             stage = response.get("stage_metrics", {})
             xs = stage.get("cross_encoder_ms")
             c1, c2, c3, c4 = st.columns(4)

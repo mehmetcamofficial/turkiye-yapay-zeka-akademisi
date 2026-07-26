@@ -45,6 +45,12 @@ __pycache__/
 
 # Browser test screenshots (generated artifacts)
 01-machine-learning/validation_screenshots/
+01-machine-learning/acceptance_sprint2_*/
+01-machine-learning/artifacts/experiments/*.jsonl
+!01-machine-learning/artifacts/experiments/.gitkeep
+
+# Experiment store (local only)
+01-machine-learning/artifacts/experiments/experiments.jsonl
 
 # Data Science competition datasets (local only; redistribution not verified)
 02-data-science/**/data/*

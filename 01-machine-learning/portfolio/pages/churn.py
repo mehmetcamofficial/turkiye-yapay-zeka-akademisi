@@ -15,6 +15,7 @@ from portfolio.churn_service import (
     predict_batch,
 )
 from portfolio.config import CHURN_DIR, CHURN_MODEL_PATH
+from portfolio.experiment_store import normalize_gridsearch_results, record_gridsearch_experiment
 from portfolio.i18n import t
 from portfolio.loaders import (
     load_csv_safe,
@@ -30,6 +31,7 @@ from portfolio.ui_components import (
     empty_state_panel,
     hero_panel,
     information_panel,
+    log_activity,
     metric_table,
     prediction_result_card,
     render_safe_table,
@@ -116,6 +118,7 @@ def _single_prediction() -> None:
             fig.tight_layout()
             st.pyplot(fig)
             st.caption(t("churn_prob_scale"))
+            log_activity(t("ml_section_churn"), t("activity_prediction_completed"))
         except Exception:
             st.error(t("churn_pred_failed"))
 
@@ -189,7 +192,18 @@ def _coefficients() -> None:
     payload = load_json_safe(str(CHURN_DIR / "outputs/best_hyperparameters.json"))
     st.json(payload) if payload else empty_state_panel(t("churn_json_missing"), t("churn_json_missing"))
     with st.expander(t("churn_gridsearch"), expanded=False):
-        metric_table(load_csv_safe(str(CHURN_DIR / "outputs/hyperparameter_search_results.csv")))
+        gs_raw = load_csv_safe(str(CHURN_DIR / "outputs/hyperparameter_search_results.csv"))
+        gs_df = normalize_gridsearch_results(gs_raw) if not gs_raw.empty else gs_raw
+        if not gs_df.empty:
+            render_safe_table(gs_df)
+            record_gridsearch_experiment(
+                capability=t("ml_section_churn"),
+                model_name="LogisticRegression",
+                source_dir=str(CHURN_DIR / "outputs/hyperparameter_search_results.csv"),
+                notes="Churn GridSearchCV results viewed",
+            )
+        else:
+            empty_state_panel(t("churn_gridsearch"), t("churn_json_missing"))
     section_heading(t("churn_preprocessing"), t("churn_preprocessing_desc"))
     section_heading(t("churn_model_selection"), t("churn_model_selection_desc"))
 
@@ -218,7 +232,7 @@ def render() -> None:
         columns = st.columns(4)
         for column, name in zip(columns, ["Accuracy", "Recall", "F1", "ROC AUC"]):
             value = float(metrics.iloc[0][name]) if not metrics.empty and name in metrics else None
-            column.metric(name, "—" if value is None else f"{value:.4f}")
+            column.metric(name, t("metric_not_calculated") if value is None else f"{value:.4f}")
         information_panel(t("purpose"), project["description"])
         information_panel(t("data_model"), f"{project['dataset']} ({project['dataset_size']}) · {project['final_model']}")
         information_panel(t("workflow"), t("churn_workflow_desc"))

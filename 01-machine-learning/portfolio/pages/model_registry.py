@@ -17,7 +17,7 @@ def _rel_path(p: Path | None) -> str:
     try:
         return str(p.relative_to(ML_ROOT))
     except ValueError:
-        return str(p)
+        return p.name
 
 
 def _evidence_status(project: dict) -> str:

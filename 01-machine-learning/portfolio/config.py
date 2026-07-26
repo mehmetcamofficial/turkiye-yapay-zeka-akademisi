@@ -17,7 +17,12 @@ REGRESSION_MODEL_PATH = REGRESSION_DIR / "models" / "regression_model.pkl"
 NLP_MODEL_PATH = NLP_DIR / "models" / "nlp_pipeline.pkl"
 TRENDYOL_RELEVANCE_MODEL_PATH = TRENDYOL_RELEVANCE_DIR / "models" / "trendyol_relevance_pipeline.pkl"
 TEST_METADATA_PATH = ML_ROOT / "test_metadata.json"
+ARTIFACTS_DIR = ML_ROOT / "artifacts"
+GITHUB_OWNER = "mehmetcamofficial"
+GITHUB_REPO = "turkiye-yapay-zeka-akademisi"
+GITHUB_BRANCH = "fix/cloud-runtime-visual-storytelling-v3"
 PORTFOLIO_VERSION = "1.0.0"
+TEST_COUNT = 107
 
 NAVIGATION_GROUPS = {
     "section_overview": ["nav_overview"],

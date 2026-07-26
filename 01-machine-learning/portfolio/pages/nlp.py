@@ -9,13 +9,14 @@ import pandas as pd
 import streamlit as st
 
 from portfolio.config import NLP_DIR, NLP_MODEL_PATH
+from portfolio.experiment_store import normalize_gridsearch_results, record_gridsearch_experiment
 from portfolio.i18n import t
 from portfolio.loaders import (load_csv_safe, load_image_path_safe,
                                load_json_safe, load_model_safe, load_text_safe)
 from portfolio.project_registry import project_by_id
 from portfolio.ui_components import (artifact_checklist, classification_report_frame, empty_state_panel,
-                                     hero_panel, information_panel, metric_table,
-                                     prediction_result_card, render_safe_table, section_heading)
+                                     hero_panel, information_panel, log_activity,
+                                     metric_table, prediction_result_card, render_safe_table, section_heading)
 
 
 def _clean_text(text: str) -> str:
@@ -118,6 +119,7 @@ def _single() -> None:
             if not terms.empty:
                 _term_influence(text, terms)
                 st.caption(t("nlp_term_influence_note"))
+            log_activity(t("ml_section_nlp"), t("activity_prediction_completed"))
         except Exception:
             st.error(t("nlp_analysis_failed"))
 
@@ -162,7 +164,18 @@ def _performance() -> None:
     payload = load_json_safe(str(NLP_DIR / "outputs/best_hyperparameters.json"))
     st.json(payload) if payload else empty_state_panel(t("nlp_json_missing"), t("nlp_tuning_missing"))
     with st.expander(t("nlp_gridsearch"), expanded=False):
-        metric_table(load_csv_safe(str(NLP_DIR / "outputs/hyperparameter_search_results.csv")))
+        gs_raw = load_csv_safe(str(NLP_DIR / "outputs/hyperparameter_search_results.csv"))
+        gs_df = normalize_gridsearch_results(gs_raw) if not gs_raw.empty else gs_raw
+        if not gs_df.empty:
+            render_safe_table(gs_df)
+            record_gridsearch_experiment(
+                capability=t("ml_section_nlp"),
+                model_name="MultinomialNB",
+                source_dir=str(NLP_DIR / "outputs/hyperparameter_search_results.csv"),
+                notes="NLP GridSearchCV results viewed",
+            )
+        else:
+            empty_state_panel(t("nlp_gridsearch"), t("nlp_tuning_missing"))
     report = load_text_safe(str(NLP_DIR / "outputs/classification_report.txt"))
     if report: metric_table(classification_report_frame(report))
     image = load_image_path_safe(str(NLP_DIR / "outputs/confusion_matrix.png"))
@@ -195,7 +208,7 @@ def render() -> None:
         columns = st.columns(4)
         for column, name in zip(columns, ["Accuracy", "Precision", "Recall", "F1"]):
             value = float(metrics.iloc[0][name]) if not metrics.empty and name in metrics else None
-            column.metric(name, "—" if value is None else f"{value:.4f}")
+            column.metric(name, t("metric_not_calculated") if value is None else f"{value:.4f}")
         information_panel(t("purpose"), project["description"])
         information_panel(t("data_model"), f"{project['dataset']} ({project['dataset_size']}) · {project['final_model']}")
         information_panel(t("workflow"), t("nlp_workflow_desc"))

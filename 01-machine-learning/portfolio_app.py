@@ -67,13 +67,22 @@ def render_sidebar() -> str:
             f'<span>{t("sidebar_subtitle")}</span></div>',
             unsafe_allow_html=True,
         )
-        st.selectbox(
+        # Language selector with explicit apply button for reliable rerun
+        lang_options = list(LANGUAGES)
+        lang_display = [LANGUAGES[k] for k in lang_options]
+        current_idx = lang_options.index(st.session_state["portfolio_language"])
+        
+        selected_idx = st.radio(
             t("sidebar_language"),
-            options=list(LANGUAGES),
-            format_func=lambda k: LANGUAGES[k],
-            key="portfolio_language",
+            range(len(lang_options)),
+            index=current_idx,
+            format_func=lambda i: lang_display[i],
+            key="portfolio_language_radio",
             label_visibility="collapsed",
         )
+        if st.button(t("sidebar_apply"), use_container_width=True):
+            st.session_state["portfolio_language"] = lang_options[selected_idx]
+            st.rerun()
         selected_section = st.selectbox(
             t("sidebar_summary"),
             sections,

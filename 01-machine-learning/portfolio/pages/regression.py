@@ -6,13 +6,14 @@ import pandas as pd
 import streamlit as st
 
 from portfolio.config import REGRESSION_DIR, REGRESSION_MODEL_PATH
+from portfolio.experiment_store import normalize_gridsearch_results, record_gridsearch_experiment
 from portfolio.i18n import t
 from portfolio.loaders import (load_csv_safe, load_image_path_safe,
                                load_json_safe, load_model_safe, load_text_safe)
 from portfolio.project_registry import project_by_id
 from portfolio.ui_components import (artifact_checklist, empty_state_panel,
-                                     hero_panel, information_panel, metric_table,
-                                     render_safe_table, section_heading)
+                                     hero_panel, information_panel, log_activity,
+                                     metric_table, render_safe_table, section_heading)
 
 RAW_COLUMNS = ["MedInc", "HouseAge", "AveRooms", "AveBedrms", "Population", "AveOccup", "Latitude", "Longitude"]
 DEFAULTS = [3.87, 28.6, 5.43, 1.10, 1425.0, 3.07, 35.63, -119.57]
@@ -69,6 +70,7 @@ def _single_prediction() -> None:
             usd_value = prediction * 100_000
             st.session_state["regression_prediction"] = prediction
             st.session_state["regression_usd"] = usd_value
+            log_activity(t("ml_section_housing"), t("activity_prediction_completed"))
         except Exception:
             st.session_state["regression_error"] = t("regression_pred_failed")
 
@@ -148,7 +150,18 @@ def _performance() -> None:
     payload = load_json_safe(str(REGRESSION_DIR / "outputs/best_hyperparameters.json"))
     st.json(payload) if payload else empty_state_panel(t("regression_json_missing"), t("regression_hparam_missing"))
     with st.expander(t("regression_gridsearch"), expanded=False):
-        metric_table(load_csv_safe(str(REGRESSION_DIR / "outputs/hyperparameter_search_results.csv")))
+        gs_raw = load_csv_safe(str(REGRESSION_DIR / "outputs/hyperparameter_search_results.csv"))
+        gs_df = normalize_gridsearch_results(gs_raw) if not gs_raw.empty else gs_raw
+        if not gs_df.empty:
+            render_safe_table(gs_df)
+            record_gridsearch_experiment(
+                capability=t("ml_section_housing"),
+                model_name="RandomForestRegressor",
+                source_dir=str(REGRESSION_DIR / "outputs/hyperparameter_search_results.csv"),
+                notes="Housing GridSearchCV results viewed",
+            )
+        else:
+            empty_state_panel(t("regression_gridsearch"), t("regression_hparam_missing"))
     section_heading(t("regression_feature_imp"))
     metric_table(load_csv_safe(str(REGRESSION_DIR / "outputs/feature_importance.csv")))
 
@@ -203,7 +216,7 @@ def render() -> None:
         columns = st.columns(3)
         for column, name in zip(columns, ["RMSE", "MAE", "R2"]):
             value = float(metrics.iloc[0][name]) if not metrics.empty and name in metrics else None
-            column.metric(name, "—" if value is None else f"{value:.4f}")
+            column.metric(name, t("metric_not_calculated") if value is None else f"{value:.4f}")
         information_panel(t("purpose"), project["description"])
         information_panel(t("data_model"), f"{project['dataset']} ({project['dataset_size']}) · {project['final_model']}")
         information_panel(t("workflow"), t("regression_workflow_desc"))
