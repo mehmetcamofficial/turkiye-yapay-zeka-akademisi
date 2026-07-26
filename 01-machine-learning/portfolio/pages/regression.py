@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -97,14 +98,40 @@ def _performance() -> None:
 
 
 def _residuals() -> None:
+    section_heading(t("regression_pred_vs_actual"), t("regression_pred_actual_desc"))
+    model_result = _model()
+    if model_result.ok:
+        try:
+            import sklearn.datasets
+            housing = sklearn.datasets.fetch_california_housing()
+            X = pd.DataFrame(housing.data, columns=housing.feature_names)
+            X.columns = RAW_COLUMNS
+            y_true = housing.target
+            y_pred = model_result.model.predict(_prepare(X))
+            residuals = y_true - y_pred
+            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 3.5))
+            ax1.scatter(y_true, y_pred, alpha=0.3, s=8, color="#6366f1")
+            min_val = min(y_true.min(), y_pred.min())
+            max_val = max(y_true.max(), y_pred.max())
+            ax1.plot([min_val, max_val], [min_val, max_val], "r--", linewidth=0.8)
+            ax1.set_xlabel(t("actual_values"))
+            ax1.set_ylabel(t("predicted_values"))
+            ax1.set_title(t("pred_vs_actual"), fontsize=10)
+            ax2.hist(residuals, bins=40, color="#6366f1", edgecolor="white")
+            ax2.axvline(0, color="#ef4444", linestyle="--", linewidth=0.8)
+            ax2.set_xlabel(t("residual"))
+            ax2.set_ylabel(t("frequency"))
+            ax2.set_title(t("residual_distribution"), fontsize=10)
+            fig.tight_layout()
+            st.pyplot(fig)
+        except Exception:
+            pass
     columns = st.columns(2)
     for column, filename, title in [(columns[0], "residual_plot.png", t("regression_residuals")),
                                      (columns[1], "prediction_vs_actual.png", t("regression_pred_vs_actual"))]:
         with column:
-            section_heading(title)
             image = load_image_path_safe(str(REGRESSION_DIR / "outputs" / filename))
             if image: st.image(image, use_column_width=True)
-            else: empty_state_panel(t("regression_visual_missing"), filename)
 
 
 def render() -> None:

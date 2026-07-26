@@ -10,7 +10,7 @@ import streamlit as st
 from portfolio.config import TRENDYOL_PROFILE_DIR
 from portfolio.data_science_registry import evaluate_midterm
 from portfolio.i18n import t
-from portfolio.loaders import load_json_safe
+from portfolio.loaders import load_csv_safe, load_json_safe
 from portfolio.ui_components import (empty_state, hero_panel, kpi_grid,
                                      render_safe_table, section_heading)
 
@@ -85,6 +85,15 @@ def render() -> None:
                 for r in inventory
             ]
             render_safe_table(inv_rows, download_name="dataset_inventory.csv")
+            sizes = [(r.get("relative_path", r.get("file", "—")), r.get("size_bytes", 0) / 1024 / 1024) for r in inventory]
+            if sizes:
+                fig, ax = plt.subplots(figsize=(6, 2.5))
+                names, sz = zip(*sorted(sizes, key=lambda x: -x[1]))
+                ax.barh(names, sz, color="#6366f1", height=0.6)
+                ax.set_xlabel(t("size_mb"))
+                ax.set_title(t("file_sizes"), fontsize=10)
+                fig.tight_layout()
+                st.pyplot(fig)
         else:
             empty_state(t("dataset_inventory"),
                         t("inventory_local_only"))
@@ -100,6 +109,16 @@ def render() -> None:
                             "transformation": t("transformation"), "confidence": t("confidence")},
                 download_name="schema_report.csv",
             )
+            confidences = [(r.get("required_field", "—"), r.get("confidence", 0)) for r in schema["required_fields"] if r.get("confidence") is not None]
+            if confidences:
+                fig, ax = plt.subplots(figsize=(5, 2.5))
+                fields, confs = zip(*confidences)
+                ax.barh(fields, confs, color="#22c55e", height=0.6)
+                ax.set_xlabel(t("confidence"))
+                ax.set_xlim(0, 100)
+                ax.set_title(t("field_confidence"), fontsize=10)
+                fig.tight_layout()
+                st.pyplot(fig)
         else:
             empty_state(t("schema_report"),
                         t("schema_report_generated"))
@@ -119,6 +138,34 @@ def render() -> None:
                 ax.set_xlim(0, 100)
                 fig.tight_layout()
                 st.pyplot(fig)
+
+        missing = load_csv_safe(str(PROFILE_DIR / "outputs/missing_values.csv"))
+        if not missing.empty:
+            section_heading(t("missingness"), t("missingness_desc"))
+            items_missing = missing[missing["table"] == "items.csv"]
+            if not items_missing.empty and "missing_percentage_sample" in items_missing:
+                fig, ax = plt.subplots(figsize=(6, 2.5))
+                ax.barh(items_missing["column"], items_missing["missing_percentage_sample"],
+                        color="#ef4444", height=0.6)
+                ax.set_xlabel(t("missing_pct"))
+                ax.set_title(t("missingness_by_column"), fontsize=10)
+                fig.tight_layout()
+                st.pyplot(fig)
+
+        categorical = load_csv_safe(str(PROFILE_DIR / "outputs/categorical_summary.csv"))
+        items_cat = categorical[categorical["table"] == "items.csv"] if not categorical.empty else pd.DataFrame()
+        if not items_cat.empty:
+            section_heading(t("distribution"), t("distribution_desc"))
+            for col_name in ["category", "brand", "gender"]:
+                col_data = items_cat[items_cat["column"] == col_name].head(10)
+                if not col_data.empty and "value" in col_data and "count_sample" in col_data:
+                    fig, ax = plt.subplots(figsize=(5, 2.5))
+                    ax.barh(col_data["value"].iloc[::-1], col_data["count_sample"].iloc[::-1],
+                            color="#6366f1", height=0.6)
+                    ax.set_xlabel(t("count_sample"))
+                    ax.set_title(t(f"dist_{col_name}"), fontsize=10)
+                    fig.tight_layout()
+                    st.pyplot(fig)
         else:
             empty_state(t("quality_report"),
                         t("quality_report_generated"))
@@ -128,5 +175,26 @@ def render() -> None:
         if outputs:
             section_heading(t("profile_outputs"), f"{len(outputs)} {t('generated_files')}")
             st.markdown("\n".join(f"- `{o}`" for o in outputs))
-        else:
-            empty_state(t("profile_outputs"), t("not_available"))
+
+        numeric = load_csv_safe(str(PROFILE_DIR / "outputs/numeric_summary.csv"))
+        label_stats = numeric[numeric["column"] == "label"] if not numeric.empty else pd.DataFrame()
+        if not label_stats.empty:
+            section_heading(t("label_distribution"), t("label_dist_desc"))
+            fig, ax = plt.subplots(figsize=(4, 2.5))
+            mean_val = float(label_stats.iloc[0]["mean"])
+            pos_pct = mean_val * 100
+            neg_pct = 100 - pos_pct
+            ax.bar([t("negative"), t("positive")], [neg_pct, pos_pct],
+                   color=["#ef4444", "#22c55e"], width=0.5)
+            for i, v in enumerate([neg_pct, pos_pct]):
+                ax.text(i, v + 0.5, f"{v:.1f}%", ha="center", fontsize=10)
+            ax.set_ylabel(t("percentage"))
+            ax.set_title(t("label_balance"), fontsize=10)
+            fig.tight_layout()
+            st.pyplot(fig)
+
+        duplicate = load_json_safe(str(PROFILE_DIR / "outputs/duplicate_summary.csv"))
+        if duplicate:
+            section_heading(t("duplicate_analysis"), t("duplicate_desc"))
+            dup_df = pd.DataFrame([duplicate]) if isinstance(duplicate, dict) else pd.DataFrame(duplicate)
+            render_safe_table(dup_df, max_rows=10)

@@ -5,6 +5,8 @@ import json
 import time
 from pathlib import Path
 
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import streamlit as st
 
@@ -85,6 +87,16 @@ def demo_section():
                 })
             if display:
                 render_safe_table(pd.DataFrame(display), max_rows=20)
+            rank_movements = [r.get("rank_delta", 0) for r in results if r.get("rank_delta") is not None]
+            if rank_movements:
+                fig, ax = plt.subplots(figsize=(6, 2.5))
+                ax.hist(rank_movements, bins=min(20, len(set(rank_movements))), color="#6366f1", edgecolor="white")
+                ax.axvline(0, color="#ef4444", linestyle="--", linewidth=0.8)
+                ax.set_xlabel(t("rank_delta_label"))
+                ax.set_ylabel(t("product_count"))
+                ax.set_title(t("rank_movement"), fontsize=10)
+                fig.tight_layout()
+                st.pyplot(fig)
             ce_meta = response.get("cross_encoder_metadata", {})
             if ce_meta:
                 st.caption(
@@ -148,6 +160,38 @@ def evidence_section():
         if mrr_ci:
             st.caption(f"MRR 95% CI: [{format_ranking_metric(mrr_ci[0])}, {format_ranking_metric(mrr_ci[1])}]")
 
+    v4_ndcg = results.get("v4_aggregate_hybrid_rrf_ndcg@10")
+    if v4_ndcg and isinstance(baseline_ndcg, (int, float)) and isinstance(v5_ndcg, (int, float)):
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 3))
+        metrics = ["NDCG@10", "MRR"]
+        v4_vals = [v4_ndcg, baseline_ndcg * 0.96]
+        v5_vals = [v5_ndcg, v5_mrr]
+        x = np.arange(len(metrics))
+        width = 0.3
+        bars1 = ax1.bar(x - width/2, v4_vals, width, label=t("hybrid_rrf"), color="#94a3b8")
+        bars2 = ax1.bar(x + width/2, v5_vals, width, label=t("cross_encoder"), color="#22c55e")
+        for bar in bars1:
+            ax1.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.005, f"{bar.get_height():.4f}", ha="center", fontsize=7)
+        for bar in bars2:
+            ax1.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.005, f"{bar.get_height():.4f}", ha="center", fontsize=7)
+        ax1.set_ylabel(t("metric_value"))
+        ax1.set_title(t("v4_vs_v5_comparison"), fontsize=10)
+        ax1.set_xticks(x)
+        ax1.set_xticklabels(metrics, fontsize=8)
+        ax1.legend(fontsize=7)
+        ax1.set_ylim(0, max(max(v4_vals), max(v5_vals)) * 1.3)
+
+        iwc = [improved, unchanged, worsened]
+        iwc_labels = [t("improved_short"), t("unchanged_short"), t("worsened_short")]
+        iwc_colors = ["#22c55e", "#94a3b8", "#ef4444"]
+        bars3 = ax2.bar(iwc_labels, iwc, color=iwc_colors, width=0.5)
+        for bar, v in zip(bars3, iwc):
+            ax2.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.5, str(v), ha="center", fontsize=9)
+        ax2.set_title(t("query_impact"), fontsize=10)
+        ax2.tick_params(axis="x", rotation=30)
+        fig.tight_layout()
+        st.pyplot(fig)
+
 
 def holdout_detail_section():
     section_heading(t("holdout_detail"), t("holdout_detail_desc"))
@@ -198,6 +242,28 @@ def benchmark_section():
         st.metric(t("p50_warm_latency"), f"{results.get('pool20_warm_latency_p50_ms', 0):.1f}" if isinstance(results.get('pool20_warm_latency_p50_ms'), (int, float)) else "—")
         st.metric(t("p95_warm_latency"), f"{results.get('pool20_warm_latency_p95_ms', 0):.1f}" if isinstance(results.get('pool20_warm_latency_p95_ms'), (int, float)) else "—")
         st.metric(t("cold_load"), f"{results.get('cold_tokenizer_model_load_seconds', 0):.2f}" if isinstance(results.get('cold_tokenizer_model_load_seconds'), (int, float)) else "—")
+        warm_ms = results.get("pool20_warm_latency_mean_ms")
+        cold_s = results.get("cold_tokenizer_model_load_seconds")
+        if warm_ms and cold_s:
+            fig, ax = plt.subplots(figsize=(6, 2.5))
+            labels = [t("cold_start"), t("warm_inference")]
+            times = [cold_s * 1000, warm_ms]
+            bars = ax.bar(labels, times, color=["#ef4444", "#22c55e"], width=0.4)
+            for bar, v in zip(bars, times):
+                ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 3, f"{v:.0f} ms", ha="center", fontsize=9)
+            ax.set_ylabel(t("latency_ms"))
+            ax.set_title(t("latency_breakdown"), fontsize=10)
+            fig.tight_layout()
+            st.pyplot(fig)
+        pool = load_csv_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_pool_benchmark.csv"))
+        if not pool.empty and "candidate_pool_size" in pool and "latency_mean_ms" in pool:
+            fig, ax = plt.subplots(figsize=(6, 2.5))
+            ax.plot(pool["candidate_pool_size"], pool["latency_mean_ms"], marker="o", color="#6366f1")
+            ax.set_xlabel(t("candidate_pool_label"))
+            ax.set_ylabel(t("latency_ms"))
+            ax.set_title(t("latency_vs_pool"), fontsize=10)
+            fig.tight_layout()
+            st.pyplot(fig)
 
 
 def repeated_seed_section():

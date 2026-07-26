@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -102,6 +103,19 @@ def _performance() -> None:
     if report: metric_table(classification_report_frame(report))
     image = load_image_path_safe(str(NLP_DIR / "outputs/confusion_matrix.png"))
     if image: st.image(image, use_column_width=True)
+    terms = load_csv_safe(str(NLP_DIR / "outputs/top_terms.csv"))
+    if not terms.empty and "sentiment" in terms and "weight" in terms:
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 3.5))
+        pos = terms[terms["sentiment"] == "positive"].head(10)
+        neg = terms[terms["sentiment"] == "negative"].head(10)
+        ax1.barh(pos["term"].iloc[::-1], pos["weight"].iloc[::-1], color="#22c55e", height=0.6)
+        ax1.set_title(t("nlp_top_positive"), fontsize=10)
+        ax1.set_xlabel(t("weight"))
+        ax2.barh(neg["term"].iloc[::-1], neg["weight"].iloc[::-1], color="#ef4444", height=0.6)
+        ax2.set_title(t("nlp_top_negative"), fontsize=10)
+        ax2.set_xlabel(t("weight"))
+        fig.tight_layout()
+        st.pyplot(fig)
 
 
 def render() -> None:
