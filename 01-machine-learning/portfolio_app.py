@@ -129,7 +129,8 @@ def _render_developer_diagnostics() -> None:
     
     # Python executable
     python_exe = sys.executable
-    st.code(f"Python: {python_exe}")
+    python_ver = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+    st.code(f"Python: {python_exe} ({python_ver})")
     
     # Repository root
     st.code(f"Repository Root: {REPOSITORY_ROOT}")
@@ -159,6 +160,19 @@ def _render_developer_diagnostics() -> None:
             st.code(f"{status}{proba} {name}")
         else:
             st.code(f"⚠️ Missing {name}")
+    
+    # V5 Cross-Encoder cache status
+    st.markdown("**V5 Cross-Encoder**")
+    try:
+        from portfolio.trendyol_v5_pipeline_service import v5_load_counters
+        counters = v5_load_counters()
+        st.code(f"Model loaded: {counters.get('model_loaded', False)}")
+        st.code(f"Model load count: {counters.get('model_load_count', 0)}")
+        st.code(f"Tokenizer load count: {counters.get('tokenizer_load_count', 0)}")
+        st.code(f"Model ID: {counters.get('model_id', 'N/A')}")
+        st.code(f"Revision: {counters.get('revision', 'N/A')}")
+    except Exception as e:
+        st.code(f"V5 status error: {e}")
     
     # Dependency versions
     st.markdown("**Key Dependencies**")
