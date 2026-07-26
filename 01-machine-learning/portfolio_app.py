@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib
 import logging
 import sys
+import subprocess
 from pathlib import Path
 
 import streamlit as st
@@ -15,9 +16,13 @@ st.set_page_config(
 )
 
 from portfolio import __version__
-from portfolio.config import NAVIGATION_GROUPS
+from portfolio.config import (NAVIGATION_GROUPS, CHURN_MODEL_PATH,
+                              REGRESSION_MODEL_PATH, NLP_MODEL_PATH,
+                              TRENDYOL_RELEVANCE_MODEL_PATH,
+                              TRENDYOL_RELEVANCE_DIR, ML_ROOT, REPOSITORY_ROOT)
 from portfolio.data_science_registry import data_science_counts
 from portfolio.i18n import LANGUAGES, t
+from portfolio.loaders import load_model_safe
 from portfolio.project_registry import portfolio_counts
 from portfolio.styles import apply_styles
 
@@ -110,7 +115,78 @@ def render_sidebar() -> str:
         )
         st.success(t("sidebar_verified"))
         st.caption(f"Platform v{__version__}")
+
+        # Developer Diagnostics (hidden in expander)
+        with st.expander("🔧 Developer Diagnostics", expanded=False):
+            _render_developer_diagnostics()
+
     return selected
+
+
+def _render_developer_diagnostics() -> None:
+    """Render developer-only diagnostics for runtime troubleshooting."""
+    st.markdown("**Runtime Environment**")
+    
+    # Python executable
+    python_exe = sys.executable
+    st.code(f"Python: {python_exe}")
+    
+    # Repository root
+    st.code(f"Repository Root: {REPOSITORY_ROOT}")
+    st.code(f"ML Root: {ML_ROOT}")
+    st.code(f"Trendyol Relevance Dir: {TRENDYOL_RELEVANCE_DIR}")
+    
+    # Model artifact existence
+    st.markdown("**Model Artifacts**")
+    models = {
+        "Churn": CHURN_MODEL_PATH,
+        "Housing": REGRESSION_MODEL_PATH,
+        "NLP": NLP_MODEL_PATH,
+        "Trendyol V1": TRENDYOL_RELEVANCE_MODEL_PATH,
+    }
+    for name, path in models.items():
+        exists = path.exists()
+        status = "✅" if exists else "❌"
+        st.code(f"{status} {name}: {path}")
+    
+    # Model load results
+    st.markdown("**Model Load Results**")
+    for name, path in models.items():
+        if path.exists():
+            result = load_model_safe(path)
+            status = "✅ OK" if result.ok else f"❌ {result.error_code}"
+            proba = " +proba" if result.supports_predict_proba else ""
+            st.code(f"{status}{proba} {name}")
+        else:
+            st.code(f"⚠️ Missing {name}")
+    
+    # Dependency versions
+    st.markdown("**Key Dependencies**")
+    key_packages = [
+        "streamlit", "numpy", "pandas", "scikit-learn", "joblib",
+        "torch", "transformers", "sentence-transformers"
+    ]
+    for pkg in key_packages:
+        try:
+            mod = __import__(pkg)
+            version = getattr(mod, "__version__", "unknown")
+            st.code(f"{pkg}: {version}")
+        except ImportError:
+            st.code(f"{pkg}: NOT INSTALLED")
+    
+    # Git info
+    try:
+        git_hash = subprocess.check_output(
+            ["git", "rev-parse", "--short", "HEAD"],
+            cwd=REPOSITORY_ROOT, text=True
+        ).strip()
+        git_branch = subprocess.check_output(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+            cwd=REPOSITORY_ROOT, text=True
+        ).strip()
+        st.code(f"Git: {git_branch} @ {git_hash}")
+    except Exception:
+        st.code("Git: unavailable")
 
 
 def main() -> None:
