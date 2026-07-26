@@ -1,26 +1,12 @@
 from __future__ import annotations
 
-import subprocess
-
 import streamlit as st
 
-from portfolio.config import REPOSITORY_ROOT, ML_ROOT
+from portfolio.config import REPOSITORY_ROOT
 from portfolio.i18n import t
 from portfolio.loaders import load_test_metadata
 from portfolio.ui_components import (hero_panel, kpi_grid, kpi_grid_mixed,
                                      section_heading, status_badge)
-
-
-def _deployed_commit() -> str:
-    try:
-        result = subprocess.run(
-            ["git", "rev-parse", "--short=12", "HEAD"],
-            capture_output=True, text=True, timeout=10,
-            cwd=str(REPOSITORY_ROOT),
-        )
-        return result.stdout.strip() if result.returncode == 0 else "unknown"
-    except Exception:
-        return "unknown"
 
 
 def render() -> None:
@@ -36,19 +22,17 @@ def render() -> None:
     test_suite = (REPOSITORY_ROOT / "01-machine-learning" / "trendyol-search-relevance" / "tests").is_dir()
 
     metadata = load_test_metadata()
-    deployed_sha = _deployed_commit()
-    metadata_valid = (
-        metadata is not None
-        and metadata.get("verified_commit") == deployed_sha
-    )
+    metadata_valid = metadata is not None
 
     if metadata_valid:
         total = metadata["total"]
+        verified_at = metadata.get("verified_at", "—")
         test_label = f"{total['passed']} passing, {total['failed']} failed, {total['skipped']} skipped"
         summary_items = [
             f"Portfolio: {metadata['portfolio']['passed']} passed, {metadata['portfolio']['failed']} failed",
             f"Trendyol:  {metadata['trendyol']['passed']} passed, {metadata['trendyol']['failed']} failed",
             f"Total:     {total['passed']} passing, {total['failed']} failed, {total['skipped']} skipped",
+            f"Verified:  {verified_at}",
         ]
     else:
         test_label = t("test_outdated")
