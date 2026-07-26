@@ -3,6 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+import matplotlib.pyplot as plt
+import pandas as pd
 import streamlit as st
 
 from portfolio.config import TRENDYOL_PROFILE_DIR
@@ -107,6 +109,16 @@ def render() -> None:
         if quality:
             section_heading(t("data_quality"), t("quality_metrics_from_profile"))
             render_safe_table(quality, download_name="data_quality.csv")
+            quality_df = pd.DataFrame(quality)
+            if all(c in quality_df.columns for c in ["table", "completeness"]):
+                fig, ax = plt.subplots(figsize=(6, 2.5))
+                ax.barh(quality_df["table"], quality_df["completeness"],
+                        color="#22c55e", height=0.6)
+                ax.set_xlabel(t("completeness_pct"))
+                ax.set_title(t("table_completeness"), fontsize=10)
+                ax.set_xlim(0, 100)
+                fig.tight_layout()
+                st.pyplot(fig)
         else:
             empty_state(t("quality_report"),
                         t("quality_report_generated"))

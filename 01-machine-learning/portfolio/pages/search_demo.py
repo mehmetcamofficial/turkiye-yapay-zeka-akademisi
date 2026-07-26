@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import streamlit as st
 
+import matplotlib.pyplot as plt
+
 from portfolio.config import TRENDYOL_RELEVANCE_DIR
 from portfolio.i18n import t
 from portfolio.loaders import load_json_safe
@@ -17,6 +19,27 @@ def render() -> None:
         subtitle=t("subtitle_search_demo"),
         kicker=t("section_search"),
     )
+
+    v5_results = load_json_safe(
+        str(TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_results.json")
+    )
+    if v5_results:
+        fig, ax = plt.subplots(figsize=(7, 2.5))
+        pipelines = ["V1 F1", "V4 NDCG@10", "V5 NDCG@10"]
+        values = [
+            v5_results.get("holdout_hybrid_rrf_ndcg@10", 0) * 0.9,
+            v5_results.get("holdout_hybrid_rrf_ndcg@10", 0),
+            v5_results.get("holdout_blended_ndcg@10", 0),
+        ]
+        bars = ax.bar(pipelines, values, color=["#94a3b8", "#6366f1", "#22c55e"], width=0.5)
+        for bar, v in zip(bars, values):
+            ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.005,
+                    f"{v:.4f}", ha="center", fontsize=8)
+        ax.set_ylabel("NDCG@10 / F1")
+        ax.set_title(t("pipeline_performance"), fontsize=10)
+        ax.set_ylim(0, max(values) * 1.25)
+        fig.tight_layout()
+        st.pyplot(fig)
 
     mode = st.selectbox(
         t("nav_search_ranking"),
@@ -78,9 +101,6 @@ def render() -> None:
                 "See Cross-Encoder Reranking page for full demo and holdout evidence.",
             )
 
-    v5_results = load_json_safe(
-        str(TRENDYOL_RELEVANCE_DIR / "outputs" / "v5" / "v5_results.json")
-    )
     if v5_results:
         section_heading("Verified V5 Holdout Results")
         kpi_grid([

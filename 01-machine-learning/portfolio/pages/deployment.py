@@ -4,6 +4,7 @@ import streamlit as st
 
 from portfolio.config import REPOSITORY_ROOT
 from portfolio.i18n import t
+from portfolio.loaders import get_trendyol_test_results
 from portfolio.ui_components import (hero_panel, kpi_grid, kpi_grid_mixed,
                                      section_heading, status_badge)
 
@@ -20,6 +21,9 @@ def render() -> None:
     portfolio_entry = (REPOSITORY_ROOT / "01-machine-learning" / "portfolio_app.py").is_file()
     test_suite = (REPOSITORY_ROOT / "01-machine-learning" / "trendyol-search-relevance" / "tests").is_dir()
 
+    test_results = get_trendyol_test_results()
+    test_label = f"{test_results['passed']} passing, {test_results['failed']} failed" if test_results["total"] else "Not available"
+
     kpi_grid([
         ("Streamlit Deployment", "Available" if streamlit_available else "Unavailable",
          "Community Cloud ready"),
@@ -28,7 +32,7 @@ def render() -> None:
         ("Portfolio Entry", "Available" if portfolio_entry else "Unavailable",
          "portfolio_app.py"),
         ("Test Suite", "Available" if test_suite else "Unavailable",
-         "51 passing tests"),
+         test_label),
     ])
 
     kpi_grid_mixed([
@@ -52,7 +56,7 @@ The Streamlit Community Cloud deployment is operational with:
 <li>Lazy-loaded ML models (no startup download)</li>
 <li>Bounded data loading (no full catalogue scan)</li>
 <li>Graceful fallback for missing artifacts</li>
-<li>51 passing Trendyol test suite</li>
+<li>{test_results['passed']} passing Trendyol test suite</li>
 </ul>
 <p style="margin-top:0.5rem;color:var(--muted)">
 Production capabilities (API, auth, monitoring, horizontal scaling, online A/B testing)

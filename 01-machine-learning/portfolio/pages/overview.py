@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import streamlit as st
 
+import matplotlib.pyplot as plt
+
 from portfolio.i18n import t
 from portfolio.loaders import load_json_safe
 from portfolio.project_registry import get_project_registry, portfolio_counts
@@ -41,6 +43,29 @@ def render() -> None:
         ("V5 Reranker", status_badge(v5.get("status", "experimental")), None),
         ("Governance", "Not Production Promoted", "Best Reranking Research Candidate"),
     ])
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 3.5))
+    categories = {}
+    for p in projects:
+        cat = p.get("category", "Other")
+        categories[cat] = categories.get(cat, 0) + 1
+    cats, vals = zip(*sorted(categories.items(), key=lambda x: -x[1]))
+    ax1.barh(cats, vals, color="#4f46e5", height=0.6)
+    ax1.set_xlabel(t("project_count"))
+    ax1.set_title(t("project_distribution"), fontsize=10)
+    statuses = {"available": 0, "experimental": 0, "roadmap": 0, "verified": 0}
+    for p in projects:
+        s = p.get("status", "roadmap")
+        statuses[s] = statuses.get(s, 0) + 1
+    labels, svals = zip(*statuses.items())
+    colors = ["#22c55e", "#eab308", "#ef4444", "#3b82f6"]
+    ax2.bar(labels, svals, color=colors, width=0.5)
+    ax2.set_title(t("status_distribution"), fontsize=10)
+    ax2.tick_params(axis="x", rotation=45)
+    for i, v in enumerate(svals):
+        ax2.text(i, v + 0.1, str(v), ha="center", fontsize=9)
+    fig.tight_layout()
+    st.pyplot(fig)
 
     section_heading(t("enterprise_snapshot"))
     col1, col2, col3 = st.columns(3)

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
 
@@ -116,6 +117,18 @@ def _batch_prediction() -> None:
         with col2:
             st.download_button(t("churn_download_high"), high_risk.to_csv(index=False).encode("utf-8"), "high_risk_customers.csv", "text/csv")
         st.caption(t("churn_high_risk", count=len(high_risk)))
+        if "Risk Band" in result.columns:
+            fig, ax = plt.subplots(figsize=(5, 2))
+            risk_counts = result["Risk Band"].value_counts()
+            colors = {"Yüksek Risk": "#ef4444", "Orta Risk": "#eab308", "Düşük Risk": "#22c55e"}
+            bar_colors = [colors.get(r, "#94a3b8") for r in risk_counts.index]
+            ax.bar(risk_counts.index, risk_counts.values, color=bar_colors, width=0.5)
+            for i, v in enumerate(risk_counts.values):
+                ax.text(i, v + 0.1, str(v), ha="center", fontsize=9)
+            ax.set_title(t("risk_distribution"), fontsize=10)
+            ax.tick_params(axis="x", rotation=30)
+            fig.tight_layout()
+            st.pyplot(fig)
 
 
 def _performance() -> None:
@@ -162,6 +175,18 @@ def render() -> None:
         for column, name in zip(columns, ["Accuracy", "Recall", "F1 Score", "ROC AUC"]):
             value = float(metrics.iloc[0][name]) if not metrics.empty and name in metrics else None
             column.metric(name, "—" if value is None else f"{value:.4f}")
+        fig, ax = plt.subplots(figsize=(5, 2))
+        names = ["Accuracy", "Recall", "F1 Score", "ROC AUC"]
+        vals = [float(metrics.iloc[0][n]) if not metrics.empty and n in metrics else 0 for n in names]
+        bars = ax.bar(names, vals, color=["#6366f1", "#22c55e", "#eab308", "#ef4444"], width=0.5)
+        for bar, v in zip(bars, vals):
+            ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.01,
+                    f"{v:.4f}", ha="center", fontsize=8)
+        ax.set_ylim(0, 1.0)
+        ax.set_title(t("model_performance"), fontsize=10)
+        ax.tick_params(axis="x", rotation=30)
+        fig.tight_layout()
+        st.pyplot(fig)
         information_panel(t("purpose"), project["description"])
         information_panel(t("data_model"), f"{project['dataset']} ({project['dataset_size']}) · {project['final_model']}")
         information_panel(t("workflow"), "EDA → feature engineering → preprocessing → feature selection → 5-fold CV → tuning → untouched test")

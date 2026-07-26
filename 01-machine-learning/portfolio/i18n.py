@@ -748,6 +748,14 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
     "model_load_count_label": {"tr": "Model Yükleme Sayısı", "en": "Model Load Count"},
     "tokenizer_load_count_label": {"tr": "Tokenizer Yükleme Sayısı", "en": "Tokenizer Load Count"},
     "model_loaded_label": {"tr": "Model Yüklendi", "en": "Model Loaded"},
+    "project_count": {"tr": "Proje Sayısı", "en": "Project Count"},
+    "project_distribution": {"tr": "Proje Dağılımı", "en": "Project Distribution"},
+    "status_distribution": {"tr": "Durum Dağılımı", "en": "Status Distribution"},
+    "pipeline_performance": {"tr": "Pipeline Performans Karşılaştırması", "en": "Pipeline Performance Comparison"},
+    "model_performance": {"tr": "Model Performansı", "en": "Model Performance"},
+    "risk_distribution": {"tr": "Risk Dağılımı", "en": "Risk Distribution"},
+    "completeness_pct": {"tr": "Tamamlama Yüzdesi", "en": "Completeness %"},
+    "table_completeness": {"tr": "Tablo Tamamlama", "en": "Table Completeness"},
 }
 
 TECHNICAL_TERMS = {
