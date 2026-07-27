@@ -241,6 +241,71 @@ def callout(title: str, text: str) -> None:
     )
 
 
+from dataclasses import dataclass
+
+
+@dataclass
+class SuggestedQuery:
+    query: str
+    icon: str = "🔍"
+    description_key: str = ""
+    category: str = ""
+
+
+SUGGESTED_QUERIES: list[SuggestedQuery] = [
+    SuggestedQuery("sentiment", icon="📝", description_key="sq_desc_sentiment", category="nlp"),
+    SuggestedQuery("duygu analizi", icon="🔤", description_key="sq_desc_duygu", category="nlp"),
+    SuggestedQuery("churn", icon="📊", description_key="sq_desc_churn", category="ml"),
+    SuggestedQuery("müşteri kaybı", icon="🔮", description_key="sq_desc_musteri", category="ml"),
+    SuggestedQuery("housing", icon="🏠", description_key="sq_desc_housing", category="ml"),
+    SuggestedQuery("konut tahmini", icon="📈", description_key="sq_desc_konut", category="ml"),
+    SuggestedQuery("random forest", icon="🌲", description_key="sq_desc_rf", category="ml"),
+    SuggestedQuery("grid search", icon="⚙️", description_key="sq_desc_grid", category="ml"),
+    SuggestedQuery("notebook", icon="📓", description_key="sq_desc_notebook", category="tooling"),
+    SuggestedQuery("architecture", icon="🏛️", description_key="sq_desc_arch", category="design"),
+]
+
+
+def render_suggested_queries(
+    queries: list[str] | None = None,
+    compact: bool = False,
+    query_objs: list[SuggestedQuery] | None = None,
+) -> None:
+    """Render a card grid of suggested queries using native ``st.button``.
+
+    Each card shows an icon and query title styled as a compact product card.
+    Clicking sets ``_search_pending_query`` in session state and triggers a rerun.
+
+    Parameters
+    ----------
+    queries : list[str] | None
+        Legacy list of query strings (ignored if *query_objs* given).
+    compact : bool
+        If True, use smaller 3-per-row layout for results-state display.
+    query_objs : list[SuggestedQuery] | None
+        Structured query definitions with icon/description/category.
+    """
+    sqs = query_objs or SUGGESTED_QUERIES
+    if queries and not query_objs:
+        sqs = [SuggestedQuery(q) for q in queries]
+
+    ncols = 3 if compact else 5
+
+    for row_start in range(0, len(sqs), ncols):
+        row_items = sqs[row_start:row_start + ncols]
+        cols = st.columns(ncols)
+        for i, sq in enumerate(row_items):
+            with cols[i]:
+                label = f"{sq.icon} {sq.query}"
+                if st.button(
+                    label,
+                    key=f"sug_{row_start + i}",
+                    use_container_width=True,
+                ):
+                    st.session_state["_search_pending_query"] = sq.query
+                    st.rerun()
+
+
 def empty_state(title: str, text: str = "") -> None:
     st.markdown(
         f'<div class="empty-state"><strong>{escape(title)}</strong>'

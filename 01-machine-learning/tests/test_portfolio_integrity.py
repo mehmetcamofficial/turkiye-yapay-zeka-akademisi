@@ -30,7 +30,7 @@ PAGES_DIR = SRC_DIR / "portfolio" / "pages"
 NAV_ROUTES: dict[str, str] = {
     "nav_overview": "overview",
     "nav_search_workspace": "search",
-    "nav_search_intelligence": "search_demo",
+    "nav_search_intelligence": "search_intelligence",
     "nav_relevance_classification": "trendyol_relevance",
     "nav_hybrid_retrieval": "search_demo",
     "nav_cross_encoder": "trendyol_v5",
@@ -426,7 +426,7 @@ def test_sidebar_routes_map_to_unique_modules() -> None:
     from portfolio_app import PAGE_MODULE_MAP
 
     expected: dict[str, str] = {
-        "nav_search_intelligence": "search_demo",
+    "nav_search_intelligence": "search_intelligence",
         "nav_hybrid_retrieval": "search_demo",
         "nav_cross_encoder": "trendyol_v5",
         "nav_policy_comparison": "policy_comparison",

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import time
+from html import escape
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -32,16 +33,34 @@ def render() -> None:
     )
 
     frozen = load_frozen_policy()
-    st.warning(t("cold_start_warning"))
-    left, right = st.columns(2)
-    with left:
-        st.metric(t("policy_label"), frozen.get("policy", "cross_encoder"))
-        st.metric(t("alpha_label"), f"{frozen.get('alpha', 1.0):.2f}")
-        st.metric(t("document_variant_label"), frozen.get("document_variant", "title_compact_metadata"))
-    with right:
-        st.metric(t("candidate_pool_label"), str(frozen.get("candidate_pool", 20)))
-        st.metric(t("batch_size_label"), str(frozen.get("batch_size", 8)))
-        st.metric(t("model_label"), frozen.get("model_id", "—").split("/")[-1])
+
+    def _hc(title_key: str, value: str, detail: str = "") -> str:
+        return (
+            f'<div class="health-card" tabindex="0">'
+            f'<div class="health-card-header">'
+            f'<span class="health-dot health-dot-ready"></span>'
+            f'<span class="health-card-title">{escape(t(title_key))}</span>'
+            f'</div>'
+            f'<div class="health-card-status" {"style=word-break:break-all" if title_key in ("model_label", "document_variant_label") else ""}>{escape(value)}</div>'
+            f'{f"<div class=health-card-detail>{escape(detail)}</div>" if detail else ""}'
+            f'</div>'
+        )
+
+    st.markdown(
+        f'<div class="health-grid">'
+        + "".join([
+            _hc("policy_label", frozen.get("policy", "cross_encoder")),
+            _hc("model_label", frozen.get("model_id", "—").split("/")[-1]),
+            _hc("alpha_label", f"{frozen.get('alpha', 1.0):.2f}"),
+            _hc("candidate_pool_label", str(frozen.get("candidate_pool", 20))),
+            _hc("batch_size_label", str(frozen.get("batch_size", 8))),
+            _hc("document_variant_label", frozen.get("document_variant", "title_compact_metadata")),
+        ])
+        + '</div>',
+        unsafe_allow_html=True,
+    )
+
+    information_panel(t("cold_start_title"), t("cold_start_warning"))
 
     preset = st.selectbox(t("preset_query"), PRESETS, key="live_preset")
     query = st.text_input(t("query_label"), preset, key="live_query")
@@ -51,7 +70,13 @@ def render() -> None:
         total_ms = (time.perf_counter() - started) * 1000.0
         if response.get("success"):
             results = response.get("results", [])
-            st.success(f"{len(results)} sonuç · {total_ms:.0f} ms total")
+            st.markdown(
+                f'<div style="display:flex;gap:1rem;align-items:center;margin:0.5rem 0">'
+                f'<span class="badge badge-available">{escape(str(len(results)))} products</span>'
+                f'<span style="color:var(--muted);font-size:0.82rem">{escape(f"{total_ms:.0f}")} ms total</span>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
             stage = response.get("stage_metrics", {})
             xs = stage.get("cross_encoder_ms")
             if xs is not None:
@@ -61,6 +86,8 @@ def render() -> None:
                 display.append({
                     t("rank_label"): r.get("final_rank", r.get("cross_encoder_rank", "—")),
                     t("product_label"): r.get("title", "—"),
+                    t("category"): r.get("category", "—"),
+                    t("brand"): r.get("brand", "—"),
                     t("cross_encoder_score_label"): format_ranking_metric(r.get("cross_encoder_score")),
                     t("rank_delta_label"): r.get("rank_delta", "—"),
                     t("pre_rerank_rank_label"): r.get("pre_rerank_rank", "—"),

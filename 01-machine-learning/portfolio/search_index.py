@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 import hashlib
+import logging
 import pickle
 import os
 from pathlib import Path
@@ -14,6 +15,8 @@ from datetime import datetime
 from collections import defaultdict
 
 import numpy as np
+
+LOGGER = logging.getLogger(__name__)
 
 try:
     from rank_bm25 import BM25Okapi
@@ -26,6 +29,20 @@ from portfolio.experiment_store import load_experiments
 from portfolio.project_registry import get_project_registry
 from portfolio.data_science_registry import evaluate_midterm, evaluate_final_project
 from portfolio.pages.notebook_status import _discover_notebooks
+
+_INDEX_COUNTERS: dict[str, int] = {}
+
+
+def _inc_counter(label: str) -> None:
+    _INDEX_COUNTERS[label] = _INDEX_COUNTERS.get(label, 0) + 1
+
+
+def _get_counter(label: str) -> int:
+    return _INDEX_COUNTERS.get(label, 0)
+
+
+def _get_all_counters() -> dict[str, int]:
+    return dict(_INDEX_COUNTERS)
 
 
 RESOURCE_TYPES = [
@@ -94,6 +111,7 @@ class SearchIndex:
 
     def _compute_fingerprint(self) -> str:
         """Compute repository fingerprint for cache invalidation."""
+        _inc_counter("fingerprint_scans")
         hasher = hashlib.sha256()
         
         file_patterns = ['*.md', '*.py', '*.ipynb', '*.json', '*.yaml', '*.yml', '*.toml']
@@ -447,7 +465,7 @@ class SearchIndex:
                         )
                         documents.append(doc)
                     except Exception as e:
-                        print(f"Error indexing {file_path}: {e}")
+                        LOGGER.warning("Error indexing %s: %s", file_path, e)
         
         return documents
 
@@ -456,9 +474,10 @@ class SearchIndex:
         if not force_rebuild and self.load_index():
             return len(self.documents)
 
-        print("Building search index...")
+        _inc_counter("index_builds")
+        LOGGER.info("Building search index...")
         self.documents = self._discover_all_resources()
-        print(f"Discovered {len(self.documents)} resources")
+        LOGGER.info("Discovered %d resources", len(self.documents))
 
         self.tokenized_docs = [self._tokenize(doc.content) for doc in self.documents]
 
@@ -501,7 +520,7 @@ class SearchIndex:
                 saved_fp = f.read().strip()
             current_fp = self._compute_fingerprint()
             if saved_fp != current_fp:
-                print(f"Fingerprint mismatch: saved={saved_fp} current={current_fp}")
+                LOGGER.info("Fingerprint mismatch: saved=%s current=%s", saved_fp, current_fp)
                 return False
 
             with open(self.INDEX_FILE, 'rb') as f:
@@ -518,10 +537,10 @@ class SearchIndex:
 
             self._ready = True
             self._update_stats()
-            print(f"Loaded index with {len(self.documents)} documents (fingerprint: {self._fingerprint})")
+            LOGGER.info("Loaded index with %d documents (fingerprint: %s)", len(self.documents), self._fingerprint)
             return True
         except Exception as e:
-            print(f"Error loading index: {e}")
+            LOGGER.warning("Error loading index: %s", e)
             return False
 
     def ensure_ready(self) -> None:
@@ -797,11 +816,22 @@ _search_index: SearchIndex | None = None
 
 
 def get_search_index() -> SearchIndex:
-    """Get or create global search index."""
-    global _search_index
-    if _search_index is None:
-        _search_index = SearchIndex()
-    return _search_index
+    """Get or create global search index, cached across reruns."""
+    import streamlit as st
+
+    @st.cache_resource(show_spinner=False)
+    def _build_or_load() -> SearchIndex:
+        idx = SearchIndex()
+        idx.ensure_ready()
+        return idx
+
+    try:
+        return _build_or_load()
+    except Exception:
+        global _search_index
+        if _search_index is None:
+            _search_index = SearchIndex()
+        return _search_index
 
 
 def reset_search_index() -> None:

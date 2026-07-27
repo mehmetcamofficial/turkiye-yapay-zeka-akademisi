@@ -26,7 +26,7 @@ LOGGER = logging.getLogger(__name__)
 PAGE_MODULE_MAP = {
     "nav_overview": "overview",
     "nav_search_workspace": "search",
-    "nav_search_intelligence": "search_demo",
+    "nav_search_intelligence": "search_intelligence",
     "nav_relevance_classification": "trendyol_relevance",
     "nav_hybrid_retrieval": "search_demo",
     "nav_cross_encoder": "trendyol_v5",

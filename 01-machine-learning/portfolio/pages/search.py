@@ -3,15 +3,16 @@
 from __future__ import annotations
 
 from html import escape
+from time import perf_counter
 
 import streamlit as st
 
 from portfolio.config import GITHUB_BRANCH, GITHUB_OWNER, GITHUB_REPO, REPOSITORY_ROOT
 from portfolio.i18n import t
-from portfolio.search_index import SearchDocument, get_search_index
+from portfolio.search_index import SearchDocument, get_search_index, _get_all_counters, _get_counter
 from portfolio.experiment_store import repository_relative_path
 from portfolio.search_service import SearchService, get_search_service
-from portfolio.ui_components import hero_panel, section_heading
+from portfolio.ui_components import hero_panel, render_suggested_queries, section_heading
 
 
 RESOURCE_TYPES = [
@@ -24,6 +25,49 @@ RESOURCE_TYPES = [
     "configuration",
 ]
 
+PERF = {}
+
+
+def _count(label: str) -> None:
+    from portfolio.search_index import _inc_counter
+    _inc_counter(label)
+
+
+def _get_count(label: str) -> int:
+    from portfolio.search_index import _get_counter
+    return _get_counter(label)
+
+
+def _perf(label: str) -> None:
+    PERF[label] = perf_counter()
+
+
+def _perf_elapsed(label: str) -> float | None:
+    if label in PERF:
+        return perf_counter() - PERF[label]
+    return None
+
+
+def _print_perf() -> None:
+    if not PERF:
+        return
+    import logging
+    parts = []
+    prev_label = None
+    prev_time = None
+    for label, ts in sorted(PERF.items(), key=lambda x: x[1]):
+        if prev_time is not None:
+            delta = (ts - prev_time) * 1000
+            parts.append(f"{label}: {delta:.1f}ms")
+        else:
+            parts.append(f"{label}: start")
+        prev_label = label
+        prev_time = ts
+    cnt_parts = [f"{k}={_get_count(k)}" for k in sorted(["index_builds", "fingerprint_scans"]) if _get_count(k) > 0]
+    if cnt_parts:
+        parts.append("counts: " + ", ".join(cnt_parts))
+    logging.getLogger("perf").info(" | ".join(parts))
+
 
 def _ensure_session() -> None:
     st.session_state.setdefault("search_query", "")
@@ -33,7 +77,6 @@ def _ensure_session() -> None:
 
 
 def _navigate_to(doc: SearchDocument) -> None:
-    """Route Open actions to real application pages with a stable resource id."""
     meta = doc.metadata or {}
     nav_target = meta.get("nav_target")
     nav_section = meta.get("nav_section")
@@ -126,7 +169,6 @@ def _render_index_status(service) -> None:
 
 
 def _render_search_bar() -> tuple[str, bool, bool]:
-    """Return (query, search_clicked, clear_clicked)."""
     if st.session_state.get("_search_pending_query") is not None:
         st.session_state["search_input"] = st.session_state.pop("_search_pending_query")
         st.session_state["search_query"] = st.session_state["search_input"]
@@ -179,34 +221,47 @@ def _render_recent_searches() -> None:
                 st.rerun()
 
 
-def _render_suggested_queries() -> None:
-    st.caption(t("suggested_queries"))
-    cols = st.columns(2)
-    for i, query in enumerate([
-        "sentiment", "duygu analizi", "churn", "müşteri kaybı",
-        "housing", "konut tahmini", "random forest", "grid search",
-        "notebook", "architecture",
-    ]):
-        with cols[i % 2]:
-            if st.button(query, key=f"suggest_{i}", use_container_width=True):
-                st.session_state["_search_pending_query"] = query
-                st.rerun()
+def _render_suggested_queries(compact: bool = False) -> None:
+    st.markdown(
+        f'<div style="font-size:0.85rem;font-weight:600;color:var(--muted);'
+        f'margin-bottom:4px;">{t("suggested_queries")}</div>',
+        unsafe_allow_html=True,
+    )
+    render_suggested_queries(
+        [
+            "sentiment", "duygu analizi", "churn", "müşteri kaybı",
+            "housing", "konut tahmini", "random forest", "grid search",
+            "notebook", "architecture",
+        ],
+        compact=compact,
+    )
 
 
-def _render_results(results: list, query: str) -> None:
+
+def _render_results(results: list, query: str, elapsed_ms: float | None = None) -> None:
     if not results:
         st.markdown(
-            f'<div class="empty-state"><strong>{escape(t("no_results"))}</strong>'
+            f'<div class="empty-state"><div class="empty-icon">🔍</div>'
+            f'<strong>{escape(t("no_results"))}</strong>'
             f'<p>{escape(t("no_results_desc", query=query))}</p></div>',
             unsafe_allow_html=True,
         )
         return
 
-    st.caption(t("results_found", count=len(results)))
     from collections import Counter
 
     counts = Counter(r.document.resource_type for r in results)
-    st.caption(" · ".join(f"{_type_label(k)}: {v}" for k, v in counts.items()))
+    timing_html = ""
+    if elapsed_ms is not None:
+        timing_html = f'<span class="search-timing">{elapsed_ms:.0f} ms</span>'
+    st.markdown(
+        f'<div style="display:flex;gap:var(--space-3);align-items:center;margin-bottom:var(--space-3);">'
+        f'<span style="font-size:var(--font-small);color:var(--muted);">{escape(t("results_found", count=len(results)))}</span>'
+        f'{timing_html}'
+        f'<span style="font-size:var(--font-xs);color:var(--muted);">{" · ".join(f"{_type_label(k)}: {v}" for k, v in counts.items())}</span>'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
 
     for rank, result in enumerate(results, start=1):
         doc = result.document
@@ -218,19 +273,18 @@ def _render_results(results: list, query: str) -> None:
         type_label = escape(_type_label(doc.resource_type))
 
         st.markdown(
-            f'<div class="card search-result-card" style="padding:1rem;margin-bottom:0.85rem;overflow-wrap:anywhere;">'
-            f'<div style="display:flex;gap:0.75rem;align-items:flex-start;">'
-            f'<div style="font-size:1.4rem;">{_type_icon(doc.resource_type)}</div>'
+            f'<div class="card search-result-card" tabindex="0" style="padding:1rem;margin-bottom:0.85rem;overflow-wrap:anywhere;border-left:3px solid var(--accent-soft);">'
+            f'<div style="display:flex;gap:var(--space-3);align-items:flex-start;">'
+            f'<div style="font-size:1.4rem;width:32px;text-align:center;flex-shrink:0;">{_type_icon(doc.resource_type)}</div>'
             f'<div style="flex:1;min-width:0;">'
-            f'<div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:baseline;">'
-            f"<strong>{rank}. {title}</strong>"
+            f'<div style="display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:baseline;margin-bottom:var(--space-1);">'
+            f"<strong style=\"font-size:var(--font-h3);\">{rank}. {title}</strong>"
             f'<span class="badge badge-available">{type_label}</span>'
-            f'<span style="color:var(--muted);font-size:0.8rem;">score {escape(score)}</span>'
+            f'<span style="color:var(--muted);font-size:var(--font-xs);font-weight:600;font-variant-numeric:tabular-nums;">{escape(score)}</span>'
             f"</div>"
-            f'<div style="color:var(--muted);font-size:0.8rem;margin:0.25rem 0;word-break:break-all;">'
-            f"{escape(rel)}</div>"
-            f'<div style="font-size:0.9rem;margin:0.35rem 0;">{snippet}</div>'
-            f'<div style="font-size:0.75rem;color:var(--muted);">{t("match_reason")}: {reason}</div>'
+            f'<div style="color:var(--muted);font-size:var(--font-xs);margin:var(--space-1) 0;word-break:break-all;font-family:monospace;">{escape(rel)}</div>'
+            f'<div style="font-size:var(--font-body);margin:var(--space-2) 0;line-height:1.6;color:var(--text);">{snippet}</div>'
+            f'<div style="font-size:var(--font-xs);color:var(--muted);font-style:italic;">{escape(t("match_reason"))}: {reason}</div>'
             f"</div></div></div>",
             unsafe_allow_html=True,
         )
@@ -312,11 +366,14 @@ def _action_buttons(doc: SearchDocument, rank: int) -> None:
 
 
 def render() -> None:
-    """Render the AI Search Workspace page."""
+    _perf("render_start")
     _ensure_session()
-    service = get_search_service()
-    get_search_index().ensure_ready()
 
+    _perf("before_index")
+    service = get_search_service()
+    _perf("after_service")
+
+    _perf("before_hero")
     hero_panel(
         title=t("search_title"),
         subtitle=t("search_subtitle"),
@@ -334,11 +391,11 @@ def render() -> None:
         type_filter = _render_type_filter()
         st.markdown("---")
         _render_recent_searches()
-        st.markdown("---")
-        _render_suggested_queries()
 
     with col_main:
+        _perf("before_search_bar")
         query, search_clicked, clear_clicked = _render_search_bar()
+        _perf("after_search_bar")
 
         if clear_clicked:
             st.session_state["search_query"] = ""
@@ -362,20 +419,48 @@ def render() -> None:
                 active_query,
                 max_items=10,
             )
+            _perf("before_search_exec")
+            search_start = perf_counter()
             results = service.search(
                 active_query,
                 top_k=20,
                 resource_type=type_filter,
                 fuzzy=True,
             )
-            _render_results(results, active_query)
+            search_elapsed = (perf_counter() - search_start) * 1000
+            _perf("after_search_exec")
+            _render_results(results, active_query, elapsed_ms=search_elapsed)
+            st.markdown("---")
+            with st.expander(t("suggested_queries"), expanded=False):
+                _render_suggested_queries(compact=True)
         else:
-            st.info(t("search_empty_hint"))
+            st.markdown(
+                f'<div class="empty-state" style="margin-bottom:var(--space-6);">'
+                f'<div class="empty-icon">🔎</div>'
+                f'<strong>{escape(t("search_empty_hint"))}</strong>'
+                f"<p>{escape(t('search_empty_desc'))}</p></div>",
+                unsafe_allow_html=True,
+            )
+            st.markdown('<div style="margin-top:8px;">', unsafe_allow_html=True)
+            _render_suggested_queries(compact=False)
+            st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
 
+    _perf("before_stats")
     stats = get_search_index().get_stats()
     st.caption(t("index_stats", docs=stats['total_documents'], cats=len(stats['resource_types'])))
+    _perf("render_done")
+
+    _print_perf()
+
+    # Debug counters section (hidden, readable by Playwright tests)
+    st.markdown(
+        f'<div id="perf-counters" style="display:none;" '
+        f'data-builds="{_get_count("index_builds")}" '
+        f'data-scans="{_get_count("fingerprint_scans")}"></div>',
+        unsafe_allow_html=True,
+    )
 
 
 if __name__ == "__main__":
