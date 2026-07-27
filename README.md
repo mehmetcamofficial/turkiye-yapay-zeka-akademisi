@@ -137,6 +137,10 @@ See the [Repository Guide](01-machine-learning/REPOSITORY_GUIDE.md) for full str
 
 The Streamlit experience is a portfolio application, not evidence of commercial production traffic. Trendyol results use a public competition snapshot and bounded candidates; they do not establish online search impact, fairness, causal business value, or catalogue-wide retrieval quality. Every experimental candidate is labeled with its research role and a "Not Production Promoted" decision.
 
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
 ## Author
 
 [Mehmet Cam](https://www.linkedin.com/in/mehmet-cam09/) — AI engineer focused on search relevance, ranking systems, and reproducible ML evaluation.
