@@ -29,6 +29,7 @@ PAGES_DIR = SRC_DIR / "portfolio" / "pages"
 # All navigation i18n keys and their expected modules
 NAV_ROUTES: dict[str, str] = {
     "nav_overview": "overview",
+    "nav_search_workspace": "search",
     "nav_search_intelligence": "search_demo",
     "nav_relevance_classification": "trendyol_relevance",
     "nav_hybrid_retrieval": "search_demo",
@@ -1426,3 +1427,118 @@ def test_s2_render_safe_table_receives_dataframe() -> None:
                     render_safe_table(df)
                 except Exception as exc:
                     pytest.fail(f"render_safe_table raised: {exc}")
+
+
+# ── Sprint 3 M3.1 tests ────────────────────────────────────────────────
+
+def test_s3_resource_type_counts_are_dynamic() -> None:
+    from portfolio.search_index import get_search_index, reset_search_index
+    reset_search_index()
+    idx = get_search_index()
+    idx.ensure_ready()
+    stats = idx.get_stats()
+    types = stats.get("resource_types", {})
+    assert isinstance(types, dict)
+    assert len(types) >= 1
+    total = sum(types.values())
+    assert total == stats["total_documents"]
+    assert total >= 200
+
+
+def test_s3_index_total_is_consistent() -> None:
+    from portfolio.search_index import get_search_index, reset_search_index
+    reset_search_index()
+    idx = get_search_index()
+    idx.ensure_ready()
+    stats = idx.get_stats()
+    assert stats["total_documents"] >= 260
+
+
+def test_s3_title_match_outranks_tag_match() -> None:
+    from portfolio.search_index import get_search_index, reset_search_index
+    reset_search_index()
+    idx = get_search_index()
+    idx.ensure_ready()
+    results = idx.search("housing", top_k=20)
+    title_scores = [r.score for r in results if r.match_reason == "title:housing"]
+    tag_scores = [r.score for r in results if r.match_reason == "tag:housing"]
+    if title_scores and tag_scores:
+        assert max(title_scores) > max(tag_scores), \
+            f"Title match ({max(title_scores):.1f}) should outrank tag match ({max(tag_scores):.1f})"
+
+
+def test_s3_tag_match_outranks_content_match() -> None:
+    from portfolio.search_index import get_search_index, reset_search_index
+    reset_search_index()
+    idx = get_search_index()
+    idx.ensure_ready()
+    results = idx.search("churn", top_k=20)
+    tag_scores = [r.score for r in results if r.match_reason == "tag:churn"]
+    content_scores = [r.score for r in results if r.match_reason.startswith("content:")]
+    if tag_scores and content_scores:
+        assert max(tag_scores) > max(content_scores), \
+            f"Tag match ({max(tag_scores):.1f}) should outrank content match ({max(content_scores):.1f})"
+
+
+def test_s3_search_i18n_keys_exist() -> None:
+    from portfolio.i18n import TRANSLATIONS
+    required = ["search_title", "search_placeholder", "search_btn",
+                "suggested_queries", "no_results", "no_results_desc",
+                "results_found", "index_stats", "recent_searches",
+                "search_empty_hint", "filters", "reset_filters"]
+    for key in required:
+        assert key in TRANSLATIONS, f"Missing i18n key: {key}"
+        assert "tr" in TRANSLATIONS[key], f"Missing tr for {key}"
+        assert "en" in TRANSLATIONS[key], f"Missing en for {key}"
+
+
+def test_s3_search_service_has_no_f1_suggestion() -> None:
+    from portfolio.search_service import DEFAULT_SUGGESTIONS
+    assert "f1 > 0.8" not in DEFAULT_SUGGESTIONS
+
+
+def test_s3_search_page_has_no_f1_suggestion() -> None:
+    from portfolio.pages.search import _render_suggested_queries
+    import inspect
+    src = inspect.getsource(_render_suggested_queries)
+    assert "f1 > 0.8" not in src
+
+
+def test_s3_extract_title_no_comma() -> None:
+    from portfolio.search_index import SearchIndex
+    from pathlib import Path
+    import tempfile
+    idx = SearchIndex()
+    with tempfile.NamedTemporaryFile(suffix=".py", mode="w", delete=False) as f:
+        f.write('from __future__ import annotations\n\n"""Valid docstring."""\n')
+        fname = f.name
+    result = idx._extract_title(Path(fname), '"""Valid docstring."""', "source_code")
+    os.unlink(fname)
+    assert result == "Valid docstring."
+
+
+def test_s3_extract_title_fstring_ignored() -> None:
+    from portfolio.search_index import SearchIndex
+    from pathlib import Path
+    import tempfile
+    idx = SearchIndex()
+    with tempfile.NamedTemporaryFile(suffix=".py", mode="w", delete=False) as f:
+        f.write('f"""not a docstring"""\n')
+        fname = f.name
+    result = idx._extract_title(Path(fname), 'f"""not a docstring"""', "source_code")
+    os.unlink(fname)
+    assert result != "not a docstring"  # Falls back to path stem
+
+
+def test_s3_extract_title_closing_comma_ignored() -> None:
+    from portfolio.search_index import SearchIndex
+    from pathlib import Path
+    import tempfile
+    idx = SearchIndex()
+    with tempfile.NamedTemporaryFile(suffix=".py", mode="w", delete=False) as f:
+        f.write('x = """\n"""\n')
+        fname = f.name
+    content = 'x = """\n"""\n'
+    result = idx._extract_title(Path(fname), content, "source_code")
+    os.unlink(fname)
+    assert result not in (",", "")  # Should not return comma or empty

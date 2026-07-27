@@ -27,6 +27,7 @@ TEST_COUNT = 107
 NAVIGATION_GROUPS = {
     "section_overview": ["nav_overview"],
     "section_search": [
+        "nav_search_workspace",
         "nav_search_intelligence",
         "nav_relevance_classification",
         "nav_hybrid_retrieval",

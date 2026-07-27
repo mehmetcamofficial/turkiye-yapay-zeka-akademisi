@@ -75,6 +75,13 @@ section[data-testid="stSidebar"] > div { background: var(--surface); border-righ
 .empty-state { background: var(--alt); border: 1px dashed var(--border); border-radius: var(--radius); padding: 2rem; text-align: center; margin: 0.75rem 0; }
 .empty-state strong { color: var(--muted); display: block; margin-bottom: 0.3rem; }
 .empty-state p { color: var(--muted); font-size: 0.85rem; margin: 0; }
+.search-page .search-result-card { overflow-wrap: anywhere; word-break: break-word; }
+.search-page input:focus, .search-page textarea:focus, .search-page button:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+@media (max-width: 768px) {
+  .search-page .search-result-card { padding: 0.85rem !important; }
+}
 
 .activity-feed { display: flex; flex-direction: column; gap: 0.4rem; margin: 0.75rem 0; }
 .activity-entry { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.75rem; background: var(--alt); border-radius: var(--radius); font-size: 0.85rem; }

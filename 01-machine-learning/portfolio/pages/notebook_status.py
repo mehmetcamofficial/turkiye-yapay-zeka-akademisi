@@ -263,8 +263,15 @@ def _render_experiments_tab() -> None:
 
     st.divider()
     section_heading(t("exp_details"))
+    selected_eid = st.session_state.get("selected_experiment_id")
     for e in filtered:
-        with st.expander(f"{e.get('model_name', e.get('experiment_id', ''))} — {e.get('status', '')}"):
+        is_selected = bool(selected_eid and e.get("experiment_id") == selected_eid)
+        with st.expander(
+            f"{e.get('model_name', e.get('experiment_id', ''))} — {e.get('status', '')}",
+            expanded=is_selected,
+        ):
+            if is_selected:
+                st.success(t("exp_details"))
             c1, c2 = st.columns(2)
             with c1:
                 st.markdown(f"**{t('exp_metrics')}**")
@@ -425,7 +432,12 @@ def render() -> None:
          f"{len(midterm['available_columns'])}/{len(midterm['required_columns'])} {t('schema_fields')}"),
     ])
 
-    tabs = st.tabs([t("tab_notebook"), t("tab_experiments"), t("tab_artifacts"), t("tab_metadata")])
+    # Deep-link from Search Workspace may request the experiments tab.
+    requested_tab = st.session_state.pop("notebook_status_tab", None)
+    tab_labels = [t("tab_notebook"), t("tab_experiments"), t("tab_artifacts"), t("tab_metadata")]
+    tabs = st.tabs(tab_labels)
+    if requested_tab == "experiments":
+        st.caption(t("exp_registry_title"))
 
     with tabs[0]:
         _render_notebook_tab(midterm)

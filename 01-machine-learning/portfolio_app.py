@@ -25,6 +25,7 @@ LOGGER = logging.getLogger(__name__)
 
 PAGE_MODULE_MAP = {
     "nav_overview": "overview",
+    "nav_search_workspace": "search",
     "nav_search_intelligence": "search_demo",
     "nav_relevance_classification": "trendyol_relevance",
     "nav_hybrid_retrieval": "search_demo",
@@ -98,7 +99,7 @@ def render_sidebar() -> str:
             selected = page_keys[0]
         else:
             selected = st.radio(
-                "",
+                t("sidebar_page"),
                 page_keys,
                 key=page_key_name,
                 format_func=lambda k: t(k),
