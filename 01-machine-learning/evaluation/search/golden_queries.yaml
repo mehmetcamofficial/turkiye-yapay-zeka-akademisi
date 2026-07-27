@@ -1,0 +1,891 @@
+meta:
+  version: '1.0'
+  description: 'Golden query set for product-resource BM25 search evaluation. Covers Turkish (tr), English (en), and mixed-language
+    queries across all resource types: experiment, model, notebook, dataset, document, source_code, configuration.
+
+    '
+  total_queries: 67
+  intents:
+  - capability_lookup
+  - resource_discovery
+  - technical_reference
+  - project_overview
+  - code_search
+  evaluation_categories:
+  - navigational
+  - conceptual
+  - category
+  - negative
+  - ambiguous
+  - typo
+queries:
+- query: sentiment
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:nlp
+  - experiment:experiment_sentiment_logistic
+  - experiment:experiment_sentiment_nb
+  - dataset:midterm
+  relevance_grades:
+    model:nlp: 3
+    experiment:experiment_sentiment_logistic: 2
+    experiment:experiment_sentiment_nb: 2
+    dataset:midterm: 1
+  must_include:
+  - model:nlp
+  categories:
+  - model
+  - experiment
+  languages:
+  - en
+  notes: English query for sentiment analysis capability
+  evaluation_category: navigational
+  protected_targets:
+  - model:nlp
+- query: duygu analizi
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:nlp
+  - experiment:experiment_sentiment_logistic
+  - experiment:experiment_sentiment_nb
+  - dataset:midterm
+  relevance_grades:
+    model:nlp: 3
+    experiment:experiment_sentiment_logistic: 3
+    experiment:experiment_sentiment_nb: 2
+    dataset:midterm: 1
+  must_include:
+  - model:nlp
+  categories:
+  - model
+  - experiment
+  languages:
+  - tr
+  notes: Turkish query for sentiment analysis capability
+  evaluation_category: navigational
+  protected_targets:
+  - model:nlp
+- query: churn
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:churn
+  - experiment:experiment_churn_logistic
+  - experiment:experiment_churn_rf
+  relevance_grades:
+    model:churn: 3
+    experiment:experiment_churn_logistic: 2
+    experiment:experiment_churn_rf: 2
+  must_include:
+  - model:churn
+  categories:
+  - model
+  - experiment
+  languages:
+  - en
+  notes: English query for churn prediction
+  evaluation_category: navigational
+  protected_targets:
+  - model:churn
+- query: müşteri kaybı
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:churn
+  - experiment:experiment_churn_logistic
+  - experiment:experiment_churn_rf
+  relevance_grades:
+    model:churn: 3
+    experiment:experiment_churn_logistic: 3
+    experiment:experiment_churn_rf: 2
+  must_include:
+  - model:churn
+  categories:
+  - model
+  - experiment
+  languages:
+  - tr
+  notes: Turkish query for churn prediction
+  evaluation_category: navigational
+  protected_targets:
+  - model:churn
+- query: housing
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:regression
+  - experiment:experiment_housing_linear
+  - experiment:experiment_housing_rf
+  relevance_grades:
+    model:regression: 3
+    experiment:experiment_housing_linear: 2
+    experiment:experiment_housing_rf: 2
+  must_include:
+  - model:regression
+  categories:
+  - model
+  - experiment
+  languages:
+  - en
+  notes: English query for housing prediction
+  evaluation_category: navigational
+  protected_targets:
+  - model:regression
+- query: konut tahmini
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:regression
+  - experiment:experiment_housing_linear
+  - experiment:experiment_housing_rf
+  relevance_grades:
+    model:regression: 3
+    experiment:experiment_housing_linear: 3
+    experiment:experiment_housing_rf: 2
+  must_include:
+  - model:regression
+  categories:
+  - model
+  - experiment
+  languages:
+  - tr
+  notes: Turkish query for housing prediction
+  evaluation_category: navigational
+  protected_targets:
+  - model:regression
+- query: notebook
+  query_intent: resource_discovery
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - notebook
+  languages:
+  - en
+  - tr
+  notes: Broad notebook search - at least one notebook in top 10. No specific expected IDs because notebooks are dynamically
+    discovered.
+  evaluation_category: category
+- query: random forest
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:churn
+  - experiment:experiment_churn_rf
+  relevance_grades:
+    model:churn: 2
+    experiment:experiment_churn_rf: 3
+  must_include:
+  - experiment:experiment_churn_rf
+  categories:
+  - model
+  - experiment
+  languages:
+  - en
+  notes: English query for random forest capability
+  evaluation_category: navigational
+  protected_targets:
+  - experiment:experiment_churn_rf
+- query: grid search
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - experiment:experiment_churn_grid
+  - experiment:experiment_housing_grid
+  relevance_grades:
+    experiment:experiment_churn_grid: 3
+    experiment:experiment_housing_grid: 3
+  categories:
+  - experiment
+  languages:
+  - en
+  notes: English query for grid search experiments
+  evaluation_category: navigational
+- query: architecture
+  query_intent: technical_reference
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  languages:
+  - en
+  - tr
+  notes: Architecture documentation search
+  evaluation_category: conceptual
+- query: best score
+  query_intent: capability_lookup
+  expected_resource_ids: []
+  relevance_grades: {}
+  languages:
+  - en
+  notes: Generic metric query - expect experiments with high metrics
+  evaluation_category: navigational
+- query: customer churn
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:churn
+  relevance_grades:
+    model:churn: 3
+  must_include:
+  - model:churn
+  categories:
+  - model
+  languages:
+  - en
+  notes: English synonym for churn prediction
+  evaluation_category: navigational
+  protected_targets:
+  - model:churn
+- query: california housing
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:regression
+  relevance_grades:
+    model:regression: 3
+  must_include:
+  - model:regression
+  categories:
+  - model
+  languages:
+  - en
+  notes: English synonym for housing prediction
+  evaluation_category: navigational
+  protected_targets:
+  - model:regression
+- query: dataset
+  query_intent: resource_discovery
+  expected_resource_ids:
+  - dataset:midterm
+  - dataset:final
+  relevance_grades:
+    dataset:midterm: 2
+    dataset:final: 2
+  categories:
+  - dataset
+  languages:
+  - en
+  - tr
+  notes: Broad dataset search
+  evaluation_category: category
+- query: experiment
+  query_intent: resource_discovery
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - experiment
+  languages:
+  - en
+  - tr
+  notes: Broad experiment search
+  evaluation_category: category
+- query: logistic regression
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:churn
+  - experiment:experiment_churn_logistic
+  - experiment:experiment_sentiment_logistic
+  relevance_grades:
+    model:churn: 2
+    experiment:experiment_churn_logistic: 3
+    experiment:experiment_sentiment_logistic: 3
+  categories:
+  - model
+  - experiment
+  languages:
+  - en
+  notes: English query for logistic regression models
+  evaluation_category: navigational
+- query: search relevance
+  query_intent: technical_reference
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  languages:
+  - en
+  notes: Search relevance documentation
+  evaluation_category: conceptual
+- query: arama
+  query_intent: capability_lookup
+  expected_resource_ids: []
+  relevance_grades: {}
+  languages:
+  - tr
+  notes: Turkish search query - should find search-related resources
+  evaluation_category: navigational
+- query: search_index
+  query_intent: code_search
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - source_code
+  languages:
+  - en
+  notes: Source code search for search_index module
+  evaluation_category: navigational
+- query: pipeline
+  query_intent: technical_reference
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - source_code
+  - document
+  languages:
+  - en
+  - tr
+  notes: Pipeline documentation and code search
+  evaluation_category: conceptual
+- query: model registry
+  query_intent: technical_reference
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  - source_code
+  languages:
+  - en
+  notes: Model registry documentation
+  evaluation_category: conceptual
+- query: artifact health
+  query_intent: technical_reference
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  - source_code
+  languages:
+  - en
+  notes: Artifact health documentation
+  evaluation_category: conceptual
+- query: config
+  query_intent: technical_reference
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - configuration
+  languages:
+  - en
+  - tr
+  notes: Configuration file search
+  evaluation_category: conceptual
+- query: midterm dataset trendyl
+  query_intent: resource_discovery
+  expected_resource_ids:
+  - dataset:midterm
+  relevance_grades:
+    dataset:midterm: 3
+  must_include:
+  - dataset:midterm
+  categories:
+  - dataset
+  languages:
+  - en
+  - tr
+  notes: Specific dataset query
+  evaluation_category: category
+  protected_targets:
+  - dataset:midterm
+- query: final project
+  query_intent: resource_discovery
+  expected_resource_ids:
+  - dataset:final
+  relevance_grades:
+    dataset:final: 3
+  categories:
+  - dataset
+  - document
+  languages:
+  - en
+  notes: Final project documentation and dataset
+  evaluation_category: category
+- query: churn prediction machine learning
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:churn
+  relevance_grades:
+    model:churn: 3
+  must_include:
+  - model:churn
+  categories:
+  - model
+  - experiment
+  languages:
+  - en
+  notes: Multi-term English query for churn
+  evaluation_category: navigational
+  protected_targets:
+  - model:churn
+- query: duygu sentiment
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:nlp
+  relevance_grades:
+    model:nlp: 3
+  must_include:
+  - model:nlp
+  categories:
+  - model
+  languages:
+  - tr
+  - en
+  notes: Mixed Turkish-English query for sentiment
+  evaluation_category: navigational
+  protected_targets:
+  - model:nlp
+- query: zzzunknownquery
+  query_intent: resource_discovery
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories: []
+  languages:
+  - en
+  notes: 'Edge case: query that should return no relevant results'
+  evaluation_category: category
+- query: a
+  query_intent: resource_discovery
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories: []
+  languages:
+  - en
+  notes: 'Edge case: very short query'
+  evaluation_category: category
+- query: clustering
+  query_intent: capability_lookup
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - model
+  - experiment
+  - notebook
+  languages:
+  - en
+  notes: Clustering capability search
+  evaluation_category: navigational
+- query: kumeleme
+  query_intent: capability_lookup
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - model
+  - experiment
+  - notebook
+  languages:
+  - tr
+  notes: Turkish clustering capability search
+  evaluation_category: navigational
+- query: deployment
+  query_intent: technical_reference
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  - source_code
+  languages:
+  - en
+  - tr
+  notes: Deployment documentation and configuration
+  evaluation_category: conceptual
+- query: model deployment
+  query_intent: technical_reference
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  - source_code
+  - configuration
+  languages:
+  - en
+  notes: Model deployment documentation
+  evaluation_category: conceptual
+- query: sentiment analysis experiment
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - experiment:experiment_sentiment_logistic
+  - experiment:experiment_sentiment_nb
+  relevance_grades:
+    experiment:experiment_sentiment_logistic: 3
+    experiment:experiment_sentiment_nb: 3
+  categories:
+  - experiment
+  languages:
+  - en
+  notes: English specific experiment query
+  evaluation_category: navigational
+- query: churn deneyi
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - experiment:experiment_churn_logistic
+  - experiment:experiment_churn_rf
+  relevance_grades:
+    experiment:experiment_churn_logistic: 3
+    experiment:experiment_churn_rf: 3
+  categories:
+  - experiment
+  languages:
+  - tr
+  notes: Turkish specific experiment query
+  evaluation_category: navigational
+- query: makine öğrenmesi
+  query_intent: project_overview
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  - model
+  - experiment
+  languages:
+  - tr
+  notes: Turkish machine learning overview
+  evaluation_category: conceptual
+- query: deep learning
+  query_intent: capability_lookup
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - model
+  - experiment
+  - document
+  languages:
+  - en
+  notes: English deep learning search
+  evaluation_category: navigational
+- query: notebook experiment
+  query_intent: resource_discovery
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - notebook
+  - experiment
+  languages:
+  - en
+  - tr
+  notes: Cross-type resource discovery
+  evaluation_category: category
+- query: veri bilimi
+  query_intent: project_overview
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  - notebook
+  - dataset
+  languages:
+  - tr
+  notes: Turkish data science discovery
+  evaluation_category: conceptual
+- query: f1 score
+  query_intent: capability_lookup
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - experiment
+  - model
+  languages:
+  - en
+  notes: Metric-specific search for F1 score references
+  evaluation_category: navigational
+- query: roc auc
+  query_intent: capability_lookup
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - experiment
+  - model
+  languages:
+  - en
+  notes: Metric-specific search for ROC AUC references
+  evaluation_category: navigational
+- query: tfidf
+  query_intent: technical_reference
+  expected_resource_ids:
+  - experiment:experiment_sentiment_logistic
+  relevance_grades:
+    experiment:experiment_sentiment_logistic: 2
+  categories:
+  - source_code
+  - experiment
+  languages:
+  - en
+  notes: TF-IDF technical reference
+  evaluation_category: conceptual
+- query: nlp
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:nlp
+  - experiment:experiment_sentiment_logistic
+  - experiment:experiment_sentiment_nb
+  relevance_grades:
+    model:nlp: 3
+    experiment:experiment_sentiment_logistic: 2
+    experiment:experiment_sentiment_nb: 2
+  must_include:
+  - model:nlp
+  categories:
+  - model
+  - experiment
+  languages:
+  - en
+  notes: English NLP capability search
+  evaluation_category: navigational
+  protected_targets:
+  - model:nlp
+- query: engineering knowledge base
+  query_intent: technical_reference
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  languages:
+  - en
+  notes: Engineering knowledge base documentation
+  evaluation_category: conceptual
+- query: engineering loop
+  query_intent: technical_reference
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  languages:
+  - en
+  notes: Engineering loop documentation
+  evaluation_category: conceptual
+- query: classification model
+  query_intent: resource_discovery
+  expected_resource_ids:
+  - model:churn
+  - model:nlp
+  relevance_grades:
+    model:churn: 3
+    model:nlp: 3
+  categories:
+  - model
+  languages:
+  - en
+  notes: Broad model type discovery
+  evaluation_category: category
+- query: veri seti
+  query_intent: resource_discovery
+  expected_resource_ids:
+  - dataset:midterm
+  relevance_grades:
+    dataset:midterm: 3
+  categories:
+  - dataset
+  languages:
+  - tr
+  notes: Turkish dataset discovery query
+  evaluation_category: category
+- query: experiment results
+  query_intent: resource_discovery
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - experiment
+  languages:
+  - en
+  - tr
+  notes: Broad experiment results discovery
+  evaluation_category: category
+- query: configuration file
+  query_intent: resource_discovery
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - configuration
+  languages:
+  - en
+  - tr
+  notes: Configuration file discovery
+  evaluation_category: category
+- query: train_model.py
+  query_intent: code_search
+  expected_resource_ids:
+  - source_code:01-machine-learning/customer-churn-prediction/train_model.py
+  relevance_grades:
+    source_code:01-machine-learning/customer-churn-prediction/train_model.py: 3
+  categories:
+  - source_code
+  languages:
+  - en
+  notes: Source code search for training script
+  evaluation_category: navigational
+- query: app.py
+  query_intent: code_search
+  expected_resource_ids:
+  - source_code:01-machine-learning/customer-churn-prediction/app.py
+  relevance_grades:
+    source_code:01-machine-learning/customer-churn-prediction/app.py: 3
+  categories:
+  - source_code
+  languages:
+  - en
+  notes: Source code search for application script
+  evaluation_category: navigational
+- query: cli.py
+  query_intent: code_search
+  expected_resource_ids:
+  - source_code:01-machine-learning/evaluation/search/cli.py
+  relevance_grades:
+    source_code:01-machine-learning/evaluation/search/cli.py: 3
+  categories:
+  - source_code
+  languages:
+  - en
+  notes: Source code search for CLI module
+  evaluation_category: navigational
+- query: machine learning portfolio
+  query_intent: project_overview
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  languages:
+  - en
+  notes: Portfolio overview documentation
+  evaluation_category: conceptual
+- query: calisma alani
+  query_intent: project_overview
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  languages:
+  - tr
+  notes: Turkish workspace overview query
+  evaluation_category: conceptual
+- query: api documentation
+  query_intent: technical_reference
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  - source_code
+  languages:
+  - en
+  - tr
+  notes: API documentation reference
+  evaluation_category: conceptual
+- query: deployment model
+  query_intent: resource_discovery
+  expected_resource_ids:
+  - model:deployment
+  relevance_grades:
+    model:deployment: 3
+  categories:
+  - model
+  languages:
+  - en
+  notes: Deployment model discovery
+  evaluation_category: category
+- query: dagitim modeli
+  query_intent: resource_discovery
+  expected_resource_ids:
+  - model:deployment
+  relevance_grades:
+    model:deployment: 3
+  categories:
+  - model
+  languages:
+  - tr
+  notes: Turkish deployment model discovery
+  evaluation_category: category
+- query: readme
+  query_intent: project_overview
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - document
+  languages:
+  - en
+  - tr
+  notes: Project README discovery
+  evaluation_category: conceptual
+
+- query: face recognition
+  query_intent: capability_lookup
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories: []
+  languages:
+  - en
+  notes: Negative query - no face recognition capability exists in this workspace
+  evaluation_category: negative
+- query: computer vision
+  query_intent: capability_lookup
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories: []
+  languages:
+  - en
+  notes: Negative query - no computer vision capability exists
+  evaluation_category: negative
+- query: recommendation system
+  query_intent: capability_lookup
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories: []
+  languages:
+  - en
+  - tr
+  notes: Negative query - no recommendation system capability
+  evaluation_category: negative
+- query: bank
+  query_intent: resource_discovery
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories: []
+  languages:
+  - en
+  notes: Ambiguous query - could refer to financial bank or data bank
+  evaluation_category: ambiguous
+- query: regression
+  query_intent: technical_reference
+  expected_resource_ids:
+  - model:regression
+  relevance_grades:
+    model:regression: 2
+  categories:
+  - model
+  - document
+  languages:
+  - en
+  notes: Ambiguous query - statistical regression or software regression
+  evaluation_category: ambiguous
+- query: classification
+  query_intent: capability_lookup
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - model
+  - experiment
+  languages:
+  - en
+  notes: Ambiguous query - broad ML classification concept
+  evaluation_category: ambiguous
+- query: sentimant
+  query_intent: capability_lookup
+  expected_resource_ids:
+  - model:nlp
+  relevance_grades:
+    model:nlp: 2
+  categories:
+  - model
+  languages:
+  - en
+  notes: Typo query - misspelling of sentiment
+  evaluation_category: typo
+- query: clustring
+  query_intent: capability_lookup
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - model
+  languages:
+  - en
+  notes: Typo query - misspelling of clustering
+  evaluation_category: typo
+- query: modle
+  query_intent: resource_discovery
+  expected_resource_ids: []
+  relevance_grades: {}
+  categories:
+  - model
+  languages:
+  - en
+  - tr
+  notes: Typo query - misspelling of model
+  evaluation_category: typo

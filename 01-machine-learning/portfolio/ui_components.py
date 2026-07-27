@@ -161,10 +161,13 @@ def render_safe_table(
                 download_name,
                 "text/csv",
             )
-    except Exception as exc:
-        st.error(f"Table error: {exc}")
+    except Exception:
+        import logging
+        LOGGER = logging.getLogger(__name__)
+        LOGGER.exception("render_safe_table failed")
+        st.error(_t("table_error_unavailable"))
         with st.expander(_t("error_detail"), expanded=False):
-            st.code(type(exc).__name__)
+            st.markdown(_t("table_error_detail"))
 
 
 def _normalize_header(header: str) -> str:
@@ -236,6 +239,71 @@ def callout(title: str, text: str) -> None:
         f'<div class="callout"><strong>{escape(title)}</strong><p>{escape(text)}</p></div>',
         unsafe_allow_html=True,
     )
+
+
+from dataclasses import dataclass
+
+
+@dataclass
+class SuggestedQuery:
+    query: str
+    icon: str = "🔍"
+    description_key: str = ""
+    category: str = ""
+
+
+SUGGESTED_QUERIES: list[SuggestedQuery] = [
+    SuggestedQuery("sentiment", icon="📝", description_key="sq_desc_sentiment", category="nlp"),
+    SuggestedQuery("duygu analizi", icon="🔤", description_key="sq_desc_duygu", category="nlp"),
+    SuggestedQuery("churn", icon="📊", description_key="sq_desc_churn", category="ml"),
+    SuggestedQuery("müşteri kaybı", icon="🔮", description_key="sq_desc_musteri", category="ml"),
+    SuggestedQuery("housing", icon="🏠", description_key="sq_desc_housing", category="ml"),
+    SuggestedQuery("konut tahmini", icon="📈", description_key="sq_desc_konut", category="ml"),
+    SuggestedQuery("random forest", icon="🌲", description_key="sq_desc_rf", category="ml"),
+    SuggestedQuery("grid search", icon="⚙️", description_key="sq_desc_grid", category="ml"),
+    SuggestedQuery("notebook", icon="📓", description_key="sq_desc_notebook", category="tooling"),
+    SuggestedQuery("architecture", icon="🏛️", description_key="sq_desc_arch", category="design"),
+]
+
+
+def render_suggested_queries(
+    queries: list[str] | None = None,
+    compact: bool = False,
+    query_objs: list[SuggestedQuery] | None = None,
+) -> None:
+    """Render a card grid of suggested queries using native ``st.button``.
+
+    Each card shows an icon and query title styled as a compact product card.
+    Clicking sets ``_search_pending_query`` in session state and triggers a rerun.
+
+    Parameters
+    ----------
+    queries : list[str] | None
+        Legacy list of query strings (ignored if *query_objs* given).
+    compact : bool
+        If True, use smaller 3-per-row layout for results-state display.
+    query_objs : list[SuggestedQuery] | None
+        Structured query definitions with icon/description/category.
+    """
+    sqs = query_objs or SUGGESTED_QUERIES
+    if queries and not query_objs:
+        sqs = [SuggestedQuery(q) for q in queries]
+
+    ncols = 3 if compact else 5
+
+    for row_start in range(0, len(sqs), ncols):
+        row_items = sqs[row_start:row_start + ncols]
+        cols = st.columns(ncols)
+        for i, sq in enumerate(row_items):
+            with cols[i]:
+                label = f"{sq.icon} {sq.query}"
+                if st.button(
+                    label,
+                    key=f"sug_{row_start + i}",
+                    use_container_width=True,
+                ):
+                    st.session_state["_search_pending_query"] = sq.query
+                    st.rerun()
 
 
 def empty_state(title: str, text: str = "") -> None:
@@ -330,11 +398,24 @@ def artifact_checklist(project: dict[str, Any]) -> None:
 
 
 def architecture_flow(stages: list[tuple[str, str]]) -> None:
-    html = '<div class="architecture-flow">'
+    dot_map = {"current": "#22c55e", "experimental": "#f59e0b", "planned": "#94a3b8"}
+    status_map = {"current": "Operational", "experimental": "Experimental", "planned": "Planned"}
+    html = '<div class="arch-cards">'
     for i, (name, stage_status) in enumerate(stages):
-        cls = "stage-current" if stage_status == "current" else "stage-experimental" if stage_status == "experimental" else "stage-planned"
-        arrow = f'<span class="stage-arrow">→</span>' if i > 0 else ""
-        html += f'{arrow}<div class="stage {cls}">{escape(name)}</div>'
+        dot_color = dot_map.get(stage_status, "#94a3b8")
+        status_label = status_map.get(stage_status, stage_status)
+        arrow = ""
+        if i > 0:
+            arrow = '<div class="arch-connector"><span class="arch-connector-arrow">→</span></div>'
+        html += (
+            f'{arrow}'
+            f'<div class="arch-card">'
+            f'<div class="arch-card-dot" style="background:{dot_color};"></div>'
+            f'<div class="arch-card-body">'
+            f'<span class="arch-card-title">{escape(name)}</span>'
+            f'<span class="arch-card-status">{escape(status_label)}</span>'
+            f"</div></div>"
+        )
     html += "</div>"
     st.markdown(html, unsafe_allow_html=True)
 
@@ -368,6 +449,140 @@ def prediction_result_card(
         f"{'<small>True: ' + escape(true_label) + '</small>' if true_label else ''}"
         f"</div>"
     )
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def navigate_to(section: str, page_key: str) -> None:
+    st.session_state["nav_section"] = section
+    st.session_state[f"nav_page_{section}"] = page_key
+
+
+def log_activity(capability: str, summary: str) -> None:
+    from datetime import datetime
+    if "cc_activity_log" not in st.session_state:
+        st.session_state["cc_activity_log"] = []
+    st.session_state["cc_activity_log"].append({
+        "capability": capability,
+        "timestamp": datetime.now(),
+        "summary": summary,
+    })
+
+
+def command_hero(
+    title: str,
+    subtitle: str,
+    badges: list[tuple[str, str]],
+    primary_cta_text: str,
+    primary_cta_key: tuple[str, str],
+    secondary_cta_text: str,
+    secondary_cta_key: tuple[str, str],
+    test_count: int | str,
+    test_label: str,
+) -> None:
+    badges_html = "".join(
+        f'<span class="command-hero-badge command-hero-badge-{css}">{escape(label)}</span>'
+        for label, css in badges
+    )
+    st.markdown(
+        f'<div class="command-hero">'
+        f'<div class="command-hero-main">'
+        f'<div class="command-hero-eyebrow">{escape(_t("command_center_eyebrow"))}</div>'
+        f"<h1>{escape(title)}</h1>"
+        f"<p>{escape(subtitle)}</p>"
+        f'<div class="command-hero-badges">{badges_html}</div>'
+        f'<div class="command-hero-actions">',
+        unsafe_allow_html=True,
+    )
+    p_col1, p_col2 = st.columns([1, 1])
+    with p_col1:
+        st.button(primary_cta_text, type="primary", use_container_width=True,
+                  on_click=navigate_to, args=primary_cta_key)
+    with p_col2:
+        st.button(secondary_cta_text, type="secondary", use_container_width=True,
+                  on_click=navigate_to, args=secondary_cta_key)
+    st.markdown('</div></div>', unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="command-hero-side"><div class="command-hero-testcount">'
+        f"<strong>{escape(str(test_count))}</strong>"
+        f"<small>{escape(test_label)}</small></div></div>",
+        unsafe_allow_html=True,
+    )
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+def status_strip(items: list[tuple[str, str, str]]) -> None:
+    html = "".join(
+        f'<div class="status-strip-item">'
+        f'<span class="status-strip-label">{escape(label)}</span>'
+        f'<span class="status-strip-value">{escape(value)}</span>'
+        f'<span class="status-strip-sub">{escape(sub)}</span></div>'
+        for label, value, sub in items
+    )
+    st.markdown(f'<div class="status-strip">{html}</div>', unsafe_allow_html=True)
+
+
+def health_cards(cards: list[tuple[str, str, str, str]]) -> None:
+    html = ""
+    for title, dot_class, primary, detail in cards:
+        html += (
+            f'<div class="health-card">'
+            f'<div class="health-card-header">'
+            f'<span class="health-dot health-dot-{dot_class}"></span>'
+            f'<span class="health-card-title">{escape(title)}</span>'
+            f'</div>'
+            f'<div class="health-card-status">{escape(primary)}</div>'
+            f'<div class="health-card-detail">{escape(detail)}</div>'
+            f"</div>"
+        )
+    st.markdown(f'<div class="health-grid">{html}</div>', unsafe_allow_html=True)
+
+
+def capability_card(
+    name: str,
+    category: str,
+    status_badge_html: str,
+    description: str,
+    cta_text: str,
+    cta_section: str,
+    cta_key: str,
+) -> None:
+    st.markdown(
+        f'<div class="cap-card">'
+        f'<div class="cap-card-top">'
+        f'<span class="cap-card-name">{escape(name)}</span>'
+        f'<span class="cap-card-cat">{escape(category)}</span>'
+        f"</div>"
+        f'<div class="cap-card-desc">{escape(description)}</div>'
+        f'<div class="cap-card-cta">{status_badge_html}</div>'
+        f"</div>",
+        unsafe_allow_html=True,
+    )
+    st.button(cta_text, key=f"cc_{cta_key}", use_container_width=True,
+              on_click=navigate_to, args=(cta_section, cta_key))
+
+
+def pipeline_flow(stages: list[tuple[str, str]]) -> None:
+    html = '<div class="pipeline-flow">'
+    for i, (label, detail) in enumerate(stages):
+        if i > 0:
+            html += '<span class="pipeline-arrow">→</span>'
+        html += f'<div class="pipeline-stage"><span class="pipeline-stage-label">{escape(label)}</span><span class="pipeline-stage-detail">{escape(detail)}</span></div>'
+    html += "</div>"
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def quick_action_grid(actions: list[tuple[str, str, tuple[str, str]]]) -> None:
+    for label, kind, (section, key) in actions:
+        btn_type = "primary" if kind == "primary" else "secondary"
+        st.button(label, type=btn_type, key=f"qa_{key}", use_container_width=False,
+                  on_click=navigate_to, args=(section, key))
+
+
+def transparency_panel(items: list[tuple[str, str]]) -> None:
+    html = '<div class="transparency-panel"><h3>' + escape(_t("transparency_title")) + '</h3><div class="transparency-grid">'
+    for title, value in items:
+        html += f'<div class="transparency-item"><strong>{escape(title)}:</strong> {escape(value)}</div>'
+    html += "</div></div>"
     st.markdown(html, unsafe_allow_html=True)
 
 

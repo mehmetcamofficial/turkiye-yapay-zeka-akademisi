@@ -3,7 +3,9 @@ from __future__ import annotations
 
 import json
 import sys
+import time
 from pathlib import Path
+from typing import Any, Dict
 
 import streamlit as st
 
@@ -47,23 +49,31 @@ def v5_runtime():
 
     frozen = load_frozen_policy()
     pipeline = SearchPipeline()
-    cross_encoder = CrossEncoderService(
-        model_name=frozen["model_id"],
-        model_revision=frozen["revision"],
-        document_variant=frozen["document_variant"],
-        batch_size=int(frozen["batch_size"]),
-    )
-    return pipeline, cross_encoder, frozen
+    
+    # Try to load cross-encoder with proper error handling for cloud
+    cross_encoder = None
+    ce_error = None
+    try:
+        cross_encoder = CrossEncoderService(
+            model_name=frozen["model_id"],
+            model_revision=frozen["revision"],
+            document_variant=frozen["document_variant"],
+            batch_size=int(frozen["batch_size"]),
+        )
+    except Exception as e:
+        ce_error = str(e)
+    
+    return pipeline, cross_encoder, frozen, ce_error
 
 
-def v5_search(**values):
+def v5_search(**values) -> Dict[str, Any]:
     """Execute a V5 search request with optional cross-encoder reranking."""
     root = str(TRENDYOL_RELEVANCE_DIR)
     if root not in sys.path:
         sys.path.insert(0, root)
     from search_pipeline.contracts import SearchRequest
 
-    pipeline, cross_encoder, frozen = v5_runtime()
+    pipeline, cross_encoder, frozen, ce_error = v5_runtime()
     # Apply frozen defaults unless the caller overrides
     values = {
         "retrieval_mode": "hybrid_rrf",
@@ -80,6 +90,27 @@ def v5_search(**values):
     batch_size = int(values.get("batch_size", frozen.get("batch_size", 8)))
     alpha = float(values.get("blend_alpha", frozen.get("alpha", 0.80)))
     timeout_ms = int(values.get("timeout_budget_ms", 2500))
+
+    # Check if cross-encoder is available
+    if ce_error:
+        response["warnings"] = list(response.get("warnings") or []) + [
+            f"Cross-encoder unavailable: {ce_error}. Hybrid RRF retrieval-only order preserved."
+        ]
+        response["selected_ranking_policy"] = "retrieval_only"
+        response["pipeline_status"] = "degraded"
+        response["cross_encoder_metadata"] = {
+            "model_name": frozen["model_id"],
+            "model_revision": frozen["revision"],
+            "document_variant": document_variant,
+            "batch_size": batch_size,
+            "alpha": alpha if policy == "hybrid_cross_encoder_blend" else None,
+            "score_label": "Cross-encoder score",
+            "model_load_count": 0,
+            "tokenizer_load_count": 0,
+            "governance": frozen.get("governance"),
+            "error": ce_error,
+        }
+        return response
 
     if policy in ("cross_encoder", "hybrid_cross_encoder_blend") and response.get("success"):
         results = response.get("results", [])
@@ -101,8 +132,6 @@ def v5_search(**values):
                 for r in results
             ]
             try:
-                import time
-
                 started = time.perf_counter()
                 ce_results = cross_encoder.score_candidates(
                     query=request.query,
@@ -191,7 +220,17 @@ def v5_search(**values):
 def v5_load_counters() -> dict:
     """Return model/tokenizer load counters without forcing a new load when unloaded."""
     try:
-        _, cross_encoder, frozen = v5_runtime()
+        _, cross_encoder, frozen, ce_error = v5_runtime()
+        if ce_error:
+            return {
+                "model_load_count": 0,
+                "tokenizer_load_count": 0,
+                "model_loaded": False,
+                "frozen_policy": frozen.get("policy"),
+                "model_id": frozen.get("model_id"),
+                "revision": frozen.get("revision"),
+                "error": ce_error,
+            }
         return {
             "model_load_count": int(cross_encoder.model_load_count),
             "tokenizer_load_count": int(cross_encoder.tokenizer_load_count),
@@ -200,7 +239,7 @@ def v5_load_counters() -> dict:
             "model_id": frozen.get("model_id"),
             "revision": frozen.get("revision"),
         }
-    except Exception:
+    except Exception as e:
         return {
             "model_load_count": 0,
             "tokenizer_load_count": 0,
@@ -208,4 +247,5 @@ def v5_load_counters() -> dict:
             "frozen_policy": None,
             "model_id": DEFAULT_FROZEN["model_id"],
             "revision": DEFAULT_FROZEN["revision"],
+            "error": str(e),
         }

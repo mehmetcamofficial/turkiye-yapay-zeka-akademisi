@@ -37,7 +37,7 @@ flowchart LR
         unsafe_allow_html=True,
     )
 
-    section_heading("Design Properties")
+    section_heading(t("arch_design_properties"))
     st.markdown(
         """
 - **Bounded candidate generation** — retrieval produces a fixed-size pool
@@ -50,7 +50,7 @@ flowchart LR
 """
     )
 
-    section_heading("Platform Layers")
+    section_heading(t("arch_platform_layers"))
     st.markdown(
         """
 1. **Portfolio App** — Streamlit entry point with navigation, localization, error handling

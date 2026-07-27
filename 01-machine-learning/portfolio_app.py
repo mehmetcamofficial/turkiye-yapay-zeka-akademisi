@@ -25,14 +25,15 @@ LOGGER = logging.getLogger(__name__)
 
 PAGE_MODULE_MAP = {
     "nav_overview": "overview",
-    "nav_search_intelligence": "search_demo",
+    "nav_search_workspace": "search",
+    "nav_search_intelligence": "search_intelligence",
     "nav_relevance_classification": "trendyol_relevance",
     "nav_hybrid_retrieval": "search_demo",
     "nav_cross_encoder": "trendyol_v5",
-    "nav_policy_comparison": "search_demo",
-    "nav_live_inference": "trendyol_v5",
-    "nav_runtime_diagnostics": "eval_lab",
-    "nav_model_governance": "eval_lab",
+    "nav_policy_comparison": "policy_comparison",
+    "nav_live_inference": "live_inference",
+    "nav_runtime_diagnostics": "runtime_diagnostics",
+    "nav_model_governance": "model_governance",
     "nav_architecture": "architecture",
     "nav_churn": "churn",
     "nav_housing": "regression",
@@ -43,7 +44,7 @@ PAGE_MODULE_MAP = {
     "nav_registry": "model_registry",
     "nav_artifact_health": "artifact_health",
     "nav_deployment": "deployment",
-    "nav_enterprise_readiness": "deployment",
+    "nav_enterprise_readiness": "enterprise_readiness",
     "nav_projects": "projects",
     "nav_docs": "documentation",
     "nav_about": "about",
@@ -67,13 +68,22 @@ def render_sidebar() -> str:
             f'<span>{t("sidebar_subtitle")}</span></div>',
             unsafe_allow_html=True,
         )
-        st.selectbox(
+        # Language selector with explicit apply button for reliable rerun
+        lang_options = list(LANGUAGES)
+        lang_display = [LANGUAGES[k] for k in lang_options]
+        current_idx = lang_options.index(st.session_state["portfolio_language"])
+        
+        selected_idx = st.radio(
             t("sidebar_language"),
-            options=list(LANGUAGES),
-            format_func=lambda k: LANGUAGES[k],
-            key="portfolio_language",
+            range(len(lang_options)),
+            index=current_idx,
+            format_func=lambda i: lang_display[i],
+            key="portfolio_language_radio",
             label_visibility="collapsed",
         )
+        if st.button(t("sidebar_apply"), use_container_width=True):
+            st.session_state["portfolio_language"] = lang_options[selected_idx]
+            st.rerun()
         selected_section = st.selectbox(
             t("sidebar_summary"),
             sections,
@@ -89,7 +99,7 @@ def render_sidebar() -> str:
             selected = page_keys[0]
         else:
             selected = st.radio(
-                "",
+                t("sidebar_page"),
                 page_keys,
                 key=page_key_name,
                 format_func=lambda k: t(k),

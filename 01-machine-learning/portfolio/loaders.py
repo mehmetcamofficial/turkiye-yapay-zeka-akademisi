@@ -90,3 +90,22 @@ def load_model_safe(path: Path) -> ModelLoadResult:
 def load_image_path_safe(path: str) -> str | None:
     file_path = Path(path)
     return str(file_path) if file_path.is_file() else None
+
+
+@st.cache_data(show_spinner=False)
+def load_test_metadata() -> dict | None:
+    """Read the CI-generated test_metadata.json artifact.
+
+    Returns None when the file is missing or unreadable.
+    Never runs pytest — the file must be generated ahead of time via
+    ``scripts/generate_test_metadata.py``.
+    """
+    from portfolio.config import TEST_METADATA_PATH
+    import json
+    try:
+        path = Path(TEST_METADATA_PATH)
+        if not path.is_file():
+            return None
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None

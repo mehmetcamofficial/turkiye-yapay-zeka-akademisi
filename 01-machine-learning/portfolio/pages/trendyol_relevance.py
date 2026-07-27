@@ -14,7 +14,7 @@ from portfolio.ui_components import (comparison_cards, decision_banner,
 
 def render() -> None:
     hero_panel(
-        title="Trendyol Search Intelligence",
+        title=t("trendyol_relevance_hero_title"),
         subtitle=t("subtitle_trendyol_relevance"),
         kicker=t("section_search"),
     )
@@ -22,16 +22,16 @@ def render() -> None:
     projects = {p["id"]: p for p in get_project_registry()}
     metrics = load_json_safe(str(TRENDYOL_RELEVANCE_DIR / "outputs" / "metrics.json"))
 
-    section_heading("Executive Summary")
+    section_heading(t("trendyol_relevance_exec_summary"))
     kpi_grid_mixed([
-        ("V1 Champion", f"F1 {metrics.get('f1', 0):.4f}", status_badge("verified")),
-        ("V3 Hybrid RRF", f"Recall@50 0.8314", status_badge("experimental")),
-        ("V4 Pipeline", f"NDCG@10 0.6191", status_badge("experimental")),
-        ("V5 Reranker", "NDCG@10 0.6785", status_badge("experimental")),
-        ("Governance", "Not Production Promoted", "Best Reranking Research Candidate"),
+        (t("trendyol_relevance_v1_champion"), f"F1 {metrics.get('f1', 0):.4f}", status_badge("verified")),
+        (t("trendyol_relevance_v3_hybrid"), f"Recall@50 0.8314", status_badge("experimental")),
+        (t("trendyol_relevance_v4_pipeline"), f"NDCG@10 0.6191", status_badge("experimental")),
+        (t("trendyol_relevance_v5_reranker"), t("trendyol_relevance_v5_ndcg"), status_badge("experimental")),
+        (t("governance"), t("not_production_promoted"), t("best_reranking_candidate")),
     ])
 
-    section_heading("Version Evolution")
+    section_heading(t("trendyol_relevance_version_evolution"))
     model_stage_timeline([
         ("V0", "Dummy baseline", "Minimum reference", "available"),
         ("V1", "Sparse-text classifier", "Word/character TF-IDF + Logistic Regression", "verified"),
@@ -43,7 +43,7 @@ def render() -> None:
         ("V5", "Cross-encoder reranking", "mmarco-mMiniLMv2 · NDCG +0.0664", "experimental"),
     ])
 
-    section_heading("V1 — Verified Champion")
+    section_heading(t("trendyol_relevance_v1_verified"))
     v1 = projects.get("trendyol_relevance", {})
     comparison_cards([{
         "title": "V1 Verified Champion",
@@ -54,7 +54,7 @@ def render() -> None:
         "note": "Stable live probability inference.",
     }])
 
-    section_heading("V2–V2.1 — Historical Research (Not Promoted)")
+    section_heading(t("trendyol_relevance_v2_historical"))
     comparison_cards([
         {
             "title": "V2 Classification Challenger",
@@ -74,7 +74,7 @@ def render() -> None:
         },
     ])
 
-    section_heading("V3/V3.1 — Retrieval Research")
+    section_heading(t("trendyol_relevance_v3_retrieval"))
     v3_hybrid = projects.get("trendyol_v31_hybrid", {})
     comparison_cards([{
         "title": "V3.1 Best Research Candidate",
@@ -85,7 +85,7 @@ def render() -> None:
         "note": "Bounded Preview · Offline Evaluation · Not Promoted",
     }])
 
-    section_heading("V4 — End-to-End Pipeline")
+    section_heading(t("trendyol_relevance_v4_pipeline_heading"))
     v4 = projects.get("trendyol_v4_pipeline", {})
     comparison_cards([{
         "title": "V4 Pipeline",
@@ -96,7 +96,7 @@ def render() -> None:
         "note": "Not Production Promoted",
     }])
 
-    section_heading("V5 — Cross-Encoder Reranking")
+    section_heading(t("trendyol_relevance_v5_ce_heading"))
     v5 = projects.get("trendyol_v5_reranker", {})
     sec = v5.get("secondary_metrics", {})
     st.markdown(
@@ -119,7 +119,7 @@ def render() -> None:
         "Model: cross-encoder/mmarco-mMiniLMv2-L12-H384-v1 revision 1427fd65.",
     )
 
-    section_heading("Research Roadmap")
+    section_heading(t("trendyol_relevance_research_roadmap"))
     st.markdown(
         """
 <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">

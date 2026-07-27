@@ -1,20 +1,32 @@
-"""Trendyol data-quality and exploratory-analysis midterm workspace."""
-
 from __future__ import annotations
+
+from pathlib import Path
 
 import pandas as pd
 import streamlit as st
 
 from portfolio.config import DATA_SCIENCE_MIDTERM_DIR, TRENDYOL_PROFILE_DIR
 from portfolio.data_science_registry import evaluate_midterm
+from portfolio.i18n import t
 from portfolio.loaders import load_csv_safe, load_json_safe, load_text_safe
-from portfolio.ui_components import hero_panel, information_panel, metric_table, status_badge
+# i18n keys needed: gib_unit, category_profile_not_found, brand_profile_not_found, label_distribution_not_found
 
-SCOPE = [
-    "Veri envanteri", "Şema inceleme", "İlk/son kayıt kontrolü", "Eksik değerler", "Duplicate analizi",
-    "Kategorik benzersizlik", "En sık kategoriler", "En sık markalar", "Başlık uzunluğu", "Attributes kalitesi",
-    "Null-benzeri değerler", "Label dağılımı", "Pozitif/negatif örnekler", "Query-title örtüşmesi", "Temiz analiz örneği",
+from portfolio.ui_components import (empty_state, hero_panel, information_panel,
+                                     kpi_grid, metric_table, status_badge)
+
+CANONICAL_FILES = [
+    "cardinality_summary.csv", "categorical_summary.csv", "column_profile.csv",
+    "data_quality_report.json", "data_type_summary.csv", "duplicate_summary.csv",
+    "missing_values.csv", "numeric_summary.csv", "profile_summary.md",
+    "schema_report.json", "table_summary.csv", "text_length_summary.csv",
 ]
+
+
+def _profile_outputs_count() -> int:
+    outputs_dir = TRENDYOL_PROFILE_DIR / "outputs"
+    if not outputs_dir.is_dir():
+        return 0
+    return sum(1 for f in CANONICAL_FILES if (outputs_dir / f).is_file())
 
 
 def _filter(frame: pd.DataFrame, **criteria: str) -> pd.DataFrame:
@@ -28,72 +40,107 @@ def _filter(frame: pd.DataFrame, **criteria: str) -> pd.DataFrame:
 def render() -> None:
     item = evaluate_midterm()
     outputs = TRENDYOL_PROFILE_DIR / "outputs"
-    hero_panel("Trendyol Veri Kalitesi ve Keşifsel Veri Analizi",
-               "Gerçek ürün kataloğu ve arama alaka düzeyi tablolarının bounded, tekrar üretilebilir incelemesi.", "DATA ANALYTICS")
+    profile_count = _profile_outputs_count()
+
+    hero_panel(
+        title=t("dataset_overview_title"),
+        subtitle=t("dataset_overview_subtitle"),
+        kicker=t("section_data_science"),
+    )
     st.markdown(status_badge(item["status"]), unsafe_allow_html=True)
-    summary = [
-        ("Veri seti", "Hazır" if item["inventory_ready"] else "Eksik"),
-        ("Kaynak dosyalar", str(item["downloaded_file_count"])),
-        ("Toplam boyut", f"{item['downloaded_size_bytes']/1024**3:.2f} GiB"),
-        ("Profil örneği", "20.000 / tablo"),
-        ("Üretilen çıktı", str(len(item["profile_outputs"]))),
-        ("Tamamlanan kapsam", f"{item['completed_questions']}/15"),
-        ("Desteklenen sorular", ", ".join(str(q) for q in item["supported_questions"])),
-        ("Blokeli sorular", ", ".join(str(q) for q in item["blocked_questions"])),
-        ("Notebook", "Hazır" if item["notebook_ready"] else "Eksik"),
-        ("Son doğrulama", (item["last_verified"] or "—").replace("T", " ")),
+
+    status_items = [
+        (t("status_label"), t("status_available") if item["inventory_ready"] else t("not_available"), None),
+        (t("midterm_source_files"), str(item["downloaded_file_count"]), None),
+        (t("midterm_total_size"), f"{item['downloaded_size_bytes']/1024**3:.2f} {t('gib_unit')}", None),
+        (t("profile_outputs"), f"{profile_count}/{len(CANONICAL_FILES)}", None),
+        (t("notebook_label"), t("ready") if item["notebook_ready"] else t("not_available"), None),
+        (t("schema_compatibility"), t("partial_compatibility") if not item["schema_compatible"] else t("compatible"), None),
+        (t("midterm_last_verified"), (item["last_verified"] or "—").replace("T", " "), None),
     ]
-    st.markdown('<div class="kpi-grid">' + "".join(f'<div class="kpi-card"><small>{a}</small><strong>{b}</strong></div>' for a,b in summary) + '</div>', unsafe_allow_html=True)
-    tabs = st.tabs(["Proje Özeti", "Veri Envanteri", "Veri Kalitesi", "Kategori ve Marka", "Metin Analizi",
-                    "Alaka Etiketleri", "Temizlik Sonuçları", "Görselleştirmeler", "Notebook", "Çıktılar", "Teknik Detaylar"])
+    kpi_grid(status_items)
+
+    tabs = st.tabs([
+        t("midterm_tab_overview"),
+        t("midterm_tab_inventory"),
+        t("tab_quality"),
+        t("midterm_tab_category_brand"),
+        t("midterm_tab_text"),
+        t("midterm_tab_labels"),
+        t("tab_outputs"),
+        t("tab_schema"),
+        t("tab_tech_details"),
+    ])
+
     with tabs[0]:
-        information_panel("Amaç", "Ürün kataloğu, sorgu ve relevance tablolarında şema, kalite, kategori, marka ve metin özelliklerini incelemek.")
-        completed = item["completed_questions"]
-        metric_table(pd.DataFrame({"No": range(1, 16), "Uyarlanmış kapsam": SCOPE,
-                                   "Durum": ["Tamamlandı" if i <= completed else "Planlandı" for i in range(1,16)]}))
-        information_panel("Sınırlamalar", "Profil dağılımları tablo başına ilk 20.000 satır örneğine aittir; tam veri performansı olarak yorumlanmamalıdır.")
-        if st.button("Trendyol Arama Alaka Zekâsına geç", key="midterm_to_relevance"):
-            st.session_state["requested_page"] = "Trendyol Arama Alaka Zekâsı"; st.rerun()
+        information_panel(t("purpose"), t("midterm_purpose_desc"))
+        progress_pct = int(profile_count / len(CANONICAL_FILES) * 100)
+        st.progress(progress_pct / 100, text=f"{t('overall_progress')}: {progress_pct}%")
+        kpi_grid([
+            (t("midterm_source_files"), str(item['downloaded_file_count']), None),
+            (t("profile_outputs"), f"{profile_count}/{len(CANONICAL_FILES)}", None),
+            (t("notebook_label"), t("ready") if item['notebook_ready'] else t("not_available"), None),
+            (t("schema_compatibility"), t("compatible") if item['schema_compatible'] else t("partial_compatibility"), None),
+        ])
+        information_panel(t("limitations_panel"), t("limitations_desc_short"))
+        information_panel(t("next_actions_panel"), t("next_actions_desc"))
+
     with tabs[1]:
         inventory = pd.DataFrame(item["inventory"])
         if not inventory.empty:
             inventory["size_mb"] = inventory["size_bytes"] / 1024**2
             metric_table(inventory[["relative_path", "extension", "size_mb", "row_count", "column_count", "readable"]])
+
     with tabs[2]:
         metric_table(load_csv_safe(str(outputs / "missing_values.csv")))
         metric_table(load_csv_safe(str(outputs / "duplicate_summary.csv")))
         metric_table(load_csv_safe(str(outputs / "cardinality_summary.csv")))
+
     with tabs[3]:
         categories = load_csv_safe(str(outputs / "categorical_summary.csv"))
-        metric_table(_filter(categories, column="category"), "Kategori profili bulunamadı.")
-        metric_table(_filter(categories, column="brand"), "Marka profili bulunamadı.")
+        metric_table(_filter(categories, column="category"), t("category_profile_not_found"))
+        metric_table(_filter(categories, column="brand"), t("brand_profile_not_found"))
+
     with tabs[4]:
         lengths = load_csv_safe(str(outputs / "text_length_summary.csv"))
         metric_table(lengths[lengths["column"].isin(["title", "query", "attributes"])] if "column" in lengths else lengths)
-        information_panel("Yorum", "Başlık, sorgu ve attributes uzunlukları sampled profilden gelir; lexical-overlap analizi sonraki bounded çıktıdır.")
+        information_panel(t("midterm_comment"), t("midterm_comment_desc"))
+
     with tabs[5]:
         labels = load_csv_safe(str(outputs / "categorical_summary.csv"))
-        metric_table(_filter(labels, column="label"), "Label dağılımı bulunamadı.")
-        supported = item["supported_questions"]
-        blocked = item["blocked_questions"]
-        st.caption(f"Desteklenen: {', '.join(map(str, supported))} · Blokeli: {', '.join(map(str, blocked))}")
+        metric_table(_filter(labels, column="label"), t("label_distribution_not_found"))
+
     with tabs[6]:
-        metric_table(load_csv_safe(str(outputs / "column_profile.csv")))
-        information_panel("Temizlik", "Kaynak tablolar değiştirilmez. Null normalizasyonu ve metin temizleme kuralları analiz örneğine uygulanacak; ham veri korunacaktır.")
+        files_data = [
+            {t("midterm_output_label"): name, t("table_status"): t("manifest_present")}
+            for name in item["profile_outputs"]
+        ]
+        metric_table(pd.DataFrame(files_data))
+
     with tabs[7]:
-        information_panel("Görselleştirme durumu", "Persist edilmiş sayısal, kategorik ve metin özetleri hazır. Büyük tablolar sayfa açılışında yeniden çizilmez.")
-    with tabs[8]:
-        notebook = item["notebook_path"]
-        information_panel("Notebook", f"35 hücreli notebook {'hazır' if notebook.is_file() else 'eksik'} · Colab {'yapılandırıldı' if item['colab_configured'] else 'henüz yayınlanmadı'}.")
-        if notebook.is_file():
-            st.download_button("Notebook'u indir", notebook.read_bytes(), notebook.name, "application/x-ipynb+json")
-    with tabs[9]:
-        files = [{"Çıktı": name, "Durum": "Hazır"} for name in item["profile_outputs"]]
-        metric_table(pd.DataFrame(files))
-    with tabs[10]:
-        with st.expander("Özgün Ödev Şemasından Uyarlama Notu", expanded=False):
+        schema = load_json_safe(str(outputs / "schema_report.json"))
+        if schema and schema.get("required_fields"):
+            match_type_map = {
+                "Direct Match": t("match_direct"),
+                "Safe Semantic Match": t("match_semantic"),
+                "Semantic Match": t("match_semantic"),
+                "Missing": t("match_unavailable"),
+                "Unavailable": t("match_unavailable"),
+                "Requires Enrichment": t("match_enrichment"),
+            }
+            for field in schema["required_fields"]:
+                raw_type = field.get("match_type", "")
+                field["match_type"] = match_type_map.get(raw_type, raw_type)
+            metric_table(schema["required_fields"])
+            st.caption(t("schema_fields_explanation"))
+        with st.expander(t("midterm_schema_compat_note"), expanded=False):
             st.markdown(load_text_safe(str(DATA_SCIENCE_MIDTERM_DIR / "SCHEMA_COMPATIBILITY.md")))
-            st.info("Özgün ödeme, müşteri, sipariş, fiyat ve teslimat analizlerinin yapıldığı iddia edilmez. İnceleme gerçek Trendyol ürün ve relevance şemasına uyarlanmıştır.")
-        with st.expander("Profil kapsamı ve veri kaynağı", expanded=False):
+            st.info(t("midterm_schema_compat_desc"))
+
+    with tabs[8]:
+        with st.expander(t("midterm_profile_scope"), expanded=False):
             st.markdown(load_text_safe(str(outputs / "profile_summary.md")))
             st.markdown(load_text_safe(str(DATA_SCIENCE_MIDTERM_DIR / "DATA_SOURCE.md")))
+        notebook = item["notebook_path"]
+        if notebook and Path(notebook).is_file():
+            st.download_button(t("midterm_download_notebook"), Path(notebook).read_bytes(), Path(notebook).name, "application/x-ipynb+json")

@@ -1,0 +1,19 @@
+{
+  "verified_commit": "a949a6d9dcf5",
+  "verified_at": "2026-07-26T16:17:38+00:00",
+  "portfolio": {
+    "passed": 71,
+    "failed": 0,
+    "skipped": 0
+  },
+  "trendyol": {
+    "passed": 51,
+    "failed": 0,
+    "skipped": 0
+  },
+  "total": {
+    "passed": 122,
+    "failed": 0,
+    "skipped": 0
+  }
+}

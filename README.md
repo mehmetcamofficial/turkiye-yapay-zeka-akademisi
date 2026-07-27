@@ -1,89 +1,124 @@
-# AI & Search Intelligence Engineering Portfolio
+# Türkiye Yapay Zeka Akademisi — AI & Search Intelligence Engineering Portfolio
 
-End-to-end machine-learning and information-retrieval systems covering classification, semantic retrieval, hybrid search, cross-encoder reranking, statistical evaluation, artifact governance, runtime isolation, and interactive inference.
+> **End-to-end ML & IR systems** built with engineering rigor, reproducible evaluation, and production-grade governance.
 
-[Portfolio](https://mehmetcamofficial.com.tr/) · [LinkedIn](https://www.linkedin.com/in/mehmet-cam09/) · [GitHub](https://github.com/mehmetcamofficial)
-
-`Python 3.12` `Streamlit` `scikit-learn` `PyTorch` `Transformers` `Search / Ranking` `51 Tests` `Research Portfolio`
-
----
-
-### Featured result — Cross-Encoder Reranking
-
-| Metric | Hybrid RRF | V5 Cross-Encoder | Change |
-|---|---:|---:|---:|
-| NDCG@10 | 0.6121 | 0.6785 | +0.0664 (+10.8%) |
-| MRR | 0.7176 | 0.7720 | +0.0544 (+7.6%) |
-
-Frozen 150-query holdout, candidate pool 20, paired NDCG@10 95% CI [0.0368, 0.0960]. 74 queries improved, 42 worsened. CPU local evaluation. **Not Production Promoted.**
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/downloads/release/python-3120/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.45-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.5-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org)
+[![Transformers](https://img.shields.io/badge/🤗_Transformers-4.48-FFD21E?logo=huggingface&logoColor=black)](https://huggingface.co/docs/transformers)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.5-F7931E?logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
 
-## Search system evolution
+## 📖 Overview
 
-| Version | Capability | Decision |
-|---|---|---|
-| V1 | TF-IDF + lexical features + Logistic Regression | Verified classification champion |
-| V2 | Tree models and XGBRanker research | Not promoted |
-| V2.1 | Repeated-seed robust evaluation | Historical research candidate |
-| V3 | Semantic retrieval and Hybrid RRF | Best retrieval research candidate |
-| V4 | End-to-end search pipeline and governance | Hybrid RRF retrieval-only selected |
-| V5 | Cross-encoder reranking | Best reranking research candidate |
+### Key Features
+
+| Component | Technology | Key Result |
+|-----------|------------|-----------|
+| **Customer Churn** | Logistic Regression | ROC AUC **0.8440** |
+| **Housing Forecast** | Random Forest | RMSE **0.5121**, R² **0.8087** |
+| **Sentiment NLP** | MultinomialNB | F1 **0.8212** |
+| **Search Relevance** | V1–V5 Pipeline | NDCG@10 **0.6785** (+10.8% vs Hybrid RRF) |
+
+> Cross-encoder reranking on 150-query holdout, candidate pool 20. 74 queries improved, 42 worsened. CPU local evaluation. **Not Production Promoted.**
+
+### Why This Project Exists
+
+This portfolio demonstrates end-to-end ML engineering: reproducible data pipelines, bounded evaluation with bootstrap confidence intervals, explicit model governance, and production-grade Streamlit applications. Every experiment has a documented decision — champion or rejected — with no fabricated metrics.
 
 ---
 
-## Architecture
+## 🏗️ Architecture
 
 ```mermaid
 flowchart LR
     A[User Query] --> B[Validation & Normalization]
-    B --> C[Lexical Retrieval]
-    B --> D[Semantic Retrieval]
+    B --> C[Lexical Retrieval<br/>BM25]
+    B --> D[Semantic Retrieval<br/>E5-Small Embeddings]
     C --> E[Hybrid RRF Fusion]
     D --> E
     E --> F[Top-20 Candidates]
-    F --> G[Cross-Encoder Reranker]
+    F --> G[Cross-Encoder Reranker<br/>mMARCO MiniLM-L12]
     G --> H[Deterministic Ranking]
     H --> I[Streamlit Results]
     G -. failure .-> J[Retrieval-Only Fallback]
     J --> H
-    K[Artifact Registry] --> C
+    K[Artifact Registry<br/>Models, Experiments, Data] --> C
     K --> D
     K --> G
-    L[Artifact Health] --> K
+    L[Artifact Health<br/>Checksums, Freshness] --> K
 ```
 
-Key design properties: bounded candidate generation, separation of retrieval and reranking, lazy model loading, explicit fallback paths, metadata-first Registry and Artifact Health, and XGBoost worker isolation.
+**Engineering Properties**: Bounded candidates, retrieval/rerank separation, lazy loading, explicit fallback, metadata-first registry, worker isolation.
 
 ---
 
-## Portfolio modules
+## 🔍 Search Pipeline
 
-| Project | Task | Core model | Evidence | Live |
-|---|---|---|---|---|
-| [Customer Churn Intelligence](01-machine-learning/customer-churn-prediction/) | Binary classification | Logistic Regression | ROC AUC 0.8440 | Batch inference |
-| [Housing Value Forecasting](01-machine-learning/regression-project/) | Regression | Random Forest | RMSE 0.5121, R² 0.8087 | Single/batch inference |
-| [Sentiment Intelligence](01-machine-learning/nlp-project/) | English NLP classification | MultinomialNB | Accuracy 0.8191, F1 0.8212 | Single/batch inference |
-| [Trendyol Search Intelligence](01-machine-learning/trendyol-search-relevance/) | Relevance, ranking, retrieval, reranking | V1–V5 research pipeline | NDCG, MRR, Recall, bootstrap CI | Interactive Streamlit demo |
+| Version | Capability | Decision |
+|---------|------------|----------|
+| **V0** | TF-IDF + Logistic Regression | ✅ Verified champion |
+| **V1** | TF-IDF + GridSearch | ✅ Verified champion |
+| **V2** | XGBoost + FastText challengers | ❌ Not promoted |
+| **V2-R** | Pointwise LTR | 🔬 Available |
+| **V2.1** | Robust evaluation + ablation | ✅ Verified |
+| **V3** | Semantic + Hybrid RRF | 🔬 Best retrieval candidate |
+| **V4** | End-to-end pipeline & governance | ✅ Selected retrieval-only |
+| **V5** | Cross-Encoder reranking | 🔬 Best reranking candidate |
+
+### Performance
+
+| Metric | Baseline (Hybrid RRF) | Champion (V5 Cross-Encoder) | Delta |
+|--------|----------------------|----------------------------|-------|
+| NDCG@10 | 0.6121 | 0.6785 | +10.8% |
+| MRR | 0.7176 | 0.7720 | +7.6% |
+
+Frozen 150-query holdout, candidate pool 20, paired bootstrap 95% CI [0.0368, 0.0960]. 74 queries improved, 42 worsened. CPU local evaluation. **Not Production Promoted.**
+
+### Evaluation
+
+- Dataset: 150-query verified holdout with ground-truth relevance judgments
+- Metrics: NDCG@10, MRR, Recall@20, Precision@10
+- Framework: `01-machine-learning/evaluation/search/` (CLI, evaluator, metrics, quality gates)
+- Governance: Every candidate ranked with role, decision, and promotion status
 
 ---
 
-## Engineering principles
+## 📸 Screenshots
 
-- **Deterministic evaluation** — Fixed seeds, pinned model revisions, bounded outputs
-- **Group-safe splitting** — Complete `term_id` groups prevent train/evaluation leakage
-- **Artifact fingerprints** — Registry reads actual paths and metrics; Health caches checksums
-- **Immutable model revisions** — HuggingFace revisions, not mutable `latest` tags
-- **Bounded outputs** — Smoke, medium, and full modes with explicit scope labels
-- **Explicit fallback** — Every component degrades visibly rather than fabricating scores
-- **Lazy model loading** — Models loaded per-page via `st.cache_resource`, not at startup
-- **Worker isolation** — PyTorch and XGBoost runtimes in separate processes
-- **No fabricated metrics** — Registry shows missing artifacts as unavailable, not retrained
-- **Research governance** — Every candidate has a role, a decision, and a "Not Production Promoted" label
+| Search Workspace | Search Health | Version Evolution | Live Inference | Mobile |
+|-----------------|---------------|-------------------|----------------|--------|
+| ![Search Workspace Cold Load](docs/assets/showcase/search-workspace-cold.png) | ![Search Health](docs/assets/showcase/search-health.png) | ![Version Evolution](docs/assets/showcase/version-evolution.png) | ![Live Inference](docs/assets/showcase/live-inference.png) | ![Suggestions](docs/assets/showcase/search-workspace-suggestions.png) |
 
 ---
 
-## Run locally
+## 📦 Projects
+
+| Project | Task | Model | Result |
+|---------|------|-------|--------|
+| [Customer Churn](01-machine-learning/customer-churn-prediction/) | Binary classification | Logistic Regression | ROC AUC 0.8440 |
+| [Housing](01-machine-learning/regression-project/) | Regression | Random Forest | RMSE 0.5121 |
+| [Sentiment](01-machine-learning/nlp-project/) | NLP classification | MultinomialNB | F1 0.8212 |
+| [Trendyol Search](01-machine-learning/trendyol-search-relevance/) | Retrieval → Reranking | V1–V5 pipeline | NDCG@10 0.6785 |
+
+---
+
+## ⚙️ Engineering Principles
+
+- **Deterministic evaluation** — Fixed seeds, pinned revisions, bounded outputs
+- **Group-safe splitting** — No train/eval leakage on `term_id`
+- **Artifact fingerprints** — Registry checksums, Health caching
+- **Immutable models** — HuggingFace revisions, never `latest`
+- **Explicit fallback** — Components degrade visibly
+- **Lazy loading** — Models loaded per-page via `st.cache_resource`
+- **No fabricated metrics** — Missing = unavailable, not regenerated
+- **Research governance** — Every candidate: role + decision + "Not Production Promoted"
+
+---
+
+## 🏃‍♂️ Quick Start
 
 ```bash
 git clone https://github.com/mehmetcamofficial/turkiye-yapay-zeka-akademisi.git
@@ -91,52 +126,83 @@ cd turkiye-yapay-zeka-akademisi
 
 python3.12 -m venv .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r 01-machine-learning/requirements.txt
-```
+pip install -r requirements.txt
 
-Launch the portfolio:
-
-```bash
-./.venv/bin/python -m streamlit run \
+.venv/bin/python -m streamlit run \
   01-machine-learning/portfolio_app.py \
-  --server.fileWatcherType none \
-  --server.headless true
+  --server.fileWatcherType none
 ```
 
-Run tests:
-
-```bash
-./.venv/bin/python -m pytest \
-  01-machine-learning/trendyol-search-relevance/tests
-```
-
-No `PYTHONPATH` manipulation is required — `tests/conftest.py` handles project root resolution automatically.
+> Navigate: **Overview → Search Workspace → Search Intelligence → Live Inference**
 
 ---
 
-## Repository structure
+## 🧪 Tests
+
+Run the full test suite:
+
+```bash
+python -m pytest tests/ -q
+```
+
+Run the standalone 5-query search click test:
+
+```bash
+python -m pytest 01-machine-learning/evaluation/search/ -q -k "click"
+```
+
+Results: 247 tests pass (verified on release candidate branch `fix/cloud-runtime-visual-storytelling-v3`).
+
+---
+
+## 🗺️ Roadmap
+
+See [ROADMAP.md](ROADMAP.md) for the full development timeline. Key completed milestones include the evaluation framework, search experience v2 visual redesign, and MIT license release candidate. Future work includes production promotion of V5 cross-encoder reranking and multi-language expansion.
+
+---
+
+## 📁 Project Structure
 
 ```
 .
 ├── 01-machine-learning/
-│   ├── portfolio/              # Streamlit app, registry, pages
-│   ├── trendyol-search-relevance/  # V1–V5 search research
+│   ├── portfolio/          # Streamlit app + 20+ pages
 │   ├── customer-churn-prediction/
 │   ├── regression-project/
-│   └── nlp-project/
-├── 02-data-science/            # Assignments and profiling
+│   ├── nlp-project/
+│   └── requirements.txt
+├── 02-data-science/        # Assignments & profiling
+├── docs/                   # Engineering methodology
+├── LICENSE                 # MIT
 └── README.md
 ```
 
-See the [Repository Guide](01-machine-learning/REPOSITORY_GUIDE.md) for full structure, reproducibility, and V1–V5 boundaries.
+See [Repository Guide](01-machine-learning/REPOSITORY_GUIDE.md) for full structure.
 
 ---
 
-## Limitations and governance
+## 🤝 Contributing
 
-The Streamlit experience is a portfolio application, not evidence of commercial production traffic. Trendyol results use a public competition snapshot and bounded candidates; they do not establish online search impact, fairness, causal business value, or catalogue-wide retrieval quality. Every experimental candidate is labeled with its research role and a "Not Production Promoted" decision.
+Improvements welcome for:
+- Bug fixes in evaluation metrics
+- Documentation enhancements
+- Accessibility
 
-## Author
+Open an issue before substantial changes.
 
-[Mehmet Cam](https://www.linkedin.com/in/mehmet-cam09/) — AI engineer focused on search relevance, ranking systems, and reproducible ML evaluation.
+---
+
+## 📄 License
+
+**MIT License** — see [LICENSE](LICENSE) for details.
+
+Copyright (c) 2026 Mehmet Cam
+
+---
+
+## 👤 Author
+
+[Mehmet Cam](https://www.linkedin.com/in/mehmet-cam09/) — AI Engineer focused on search relevance and reproducible ML evaluation.
+
+[![Portfolio](https://img.shields.io/badge/Portfolio-mehmetcamofficial.com.tr-3776AB)](https://mehmetcamofficial.com.tr/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-mehmet--cam09-0A66C2?logo=linkedin)](https://www.linkedin.com/in/mehmet-cam09/)

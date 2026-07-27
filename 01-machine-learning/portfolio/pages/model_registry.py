@@ -17,7 +17,7 @@ def _rel_path(p: Path | None) -> str:
     try:
         return str(p.relative_to(ML_ROOT))
     except ValueError:
-        return str(p)
+        return p.name
 
 
 def _evidence_status(project: dict) -> str:
@@ -59,12 +59,17 @@ def render() -> None:
     category = st.selectbox(t("filter_status"), [filter_all_label] + list(catalog))
     filtered = projects if category == filter_all_label else catalog.get(category, [])
 
+    selected_pid = st.session_state.get("selected_project_id")
     for project in filtered:
         governance = _evidence_status(project)
         prim_val = project.get("primary_metric_value")
         prim_str = format_metric(prim_val) if prim_val is not None else "—"
         artifact_path = project.get("model_path")
-        with st.expander(f"{project.get('name', '—')} \u2014 {governance}", expanded=False):
+        is_selected = bool(selected_pid and project.get("id") == selected_pid)
+        with st.expander(
+            f"{project.get('name', '—')} \u2014 {governance}",
+            expanded=is_selected,
+        ):
             st.markdown(f"**{t('id_label')}:** `{project.get('id', '—')}`")
             st.markdown(f"**{t('status_label')}:** `{project.get('status', '—')}`")
             st.markdown(f"**{t('decision_label')}:** {governance}")
