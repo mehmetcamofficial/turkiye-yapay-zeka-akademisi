@@ -282,3 +282,201 @@ AHA-002: Known industry principle (boost vs. create relevance)
 AHA-003: New to this project (tiered penalties — relevant source_code penalized MORE than catch-all because baseline scores differ)
 AHA-004: Known industry principle (garbage in, garbage out for metadata)
 AHA-005: Known industry principle (fail-fast, full-path testing)
+
+---
+
+## AHA-006 — Evaluation Framework Must Be Independent of Production Index State
+
+**Date:** 2026-07
+**Status:** Confirmed
+**Category:** Evaluation Architecture
+
+### Observation
+The golden query evaluation framework must produce deterministic results regardless
+of the production search index's build state, cache validity, or fingerprint status.
+If the evaluator depends on `get_search_index()` (which auto-builds on first access),
+an evaluation run could silently trigger an index rebuild and produce different metrics.
+
+### Mitigation
+- The evaluator accepts a `search_fn` callable — it doesn't call `get_search_index()` directly.
+- The caller (CLI or dashboard) is responsible for index readiness.
+- Baseline snapshots store the raw metrics JSON, not a reference to the index.
+- Quality gates compare against frozen metric values, not live index queries.
+
+### General Engineering Principle
+**Evaluation harnesses should be deterministic functions of (query, index) → metrics,**
+not stateful services that modify the system under test.
+
+---
+
+## AHA-007 — Graded Relevance Exposes Ranking Quality Gaps That Binary Relevance Misses
+
+**Date:** 2026-07
+**Status:** Experimental Hypothesis
+**Category:** Evaluation Metrics
+
+### Observation
+Binary relevance (relevant/not-relevant) collapses all relevant results into a single
+class. NDCG with graded relevance (0-3) captures ranking quality differences even
+when all relevant results are retrieved. For example, ranking a highly relevant
+result (grade 3) at position 1 vs position 5 produces different NDCG scores,
+while binary Precision@10 is identical.
+
+### Hypothesis
+Graded relevance judgments will surface ranking quality differences that binary
+metrics miss by at least 2× (measured by metric variance across similar queries).
+
+### Evaluation Method
+Compare NDCG@10 variance vs Precision@10 variance across the 37 golden queries.
+If NDCG variance > Precision variance by 2× or more, the hypothesis is confirmed.
+
+---
+
+## AHA-008 — Golden Queries Must Be Reviewed for Overlap Before Adding New Ones
+
+**Date:** 2026-07
+**Status:** Confirmed
+**Category:** Evaluation Dataset
+
+### Observation
+When adding new golden queries, it's easy to accidentally include near-duplicate
+queries (e.g., "churn" and "customer churn") that test the same capability with
+the same expected results. This skews aggregate metrics by overweighting specific
+capabilities.
+
+### Mitigation
+- Each golden query has a `query_intent` field for deduplication.
+- Intent distribution is tracked in the YAML meta block.
+- Adding a query with the same intent as 3+ existing queries requires a note explaining why.
+
+### General Engineering Principle
+**Evaluation datasets must be balanced across intents, languages, and resource types.**
+Over-representing any category makes aggregate metrics misleading.
+
+---
+
+## DISCOVER-001 — Screenshot-Based Acceptance Testing Requires Human Verification
+
+**Date:** 2026-07
+**Status:** Open
+**Category:** Acceptance Testing
+
+### Observation
+The Sprint 3.2 contradiction audit relied on 14 screenshots and text artifact files
+in `acceptance_sprint3_m3_2/`. Screenshot verification requires a human reviewer
+because automated image analysis tools cannot reliably cross-reference visual content
+against source-code claims. The 4 text artifacts (CLI help, CLI evaluation output,
+test output, eval summary) were successfully verified programmatically.
+
+### Recommendation
+For future sprints, augment screenshot acceptance with:
+- Structured text logs (CLI output, test output, metric dumps) that can be
+  verified programmatically.
+- A checklist of specific UI elements visible in each screenshot for manual review.
+- Avoid depending on screenshot analysis for contradiction audit automation.
+
+---
+
+## DISCOVER-002 — Intent Distribution Skew in Golden Queries
+
+**Date:** 2026-07
+**Status:** Open
+**Category:** Evaluation Dataset
+
+### Observation
+Intent distribution in the 45 golden queries is skewed:
+
+| Intent | Count | Percentage |
+|--------|-------|------------|
+| capability_lookup | 23 | 51% |
+| technical_reference | 11 | 24% |
+| resource_discovery | 8 | 18% |
+| project_overview | 2 | 4% |
+| code_search | 1 | 2% |
+
+capability_lookup dominates at 51%. This overweights single-intent metrics
+and may hide ranking regressions in resource_discovery and code_search.
+
+### Recommendation
+Add 3-4 resource_discovery queries and 2 code_search queries to rebalance.
+Target: no single intent > 35% of total.
+
+---
+
+## DISCOVER-003 — Quality Gate Thresholds Calibrated from Single Run
+
+**Date:** 2026-07
+**Status:** Open
+**Category:** Quality Assurance
+
+### Observation
+The 6 quality gate thresholds (`quality_gates.yaml v1.1`) were calibrated from
+one baseline evaluation run (45 queries, 285 resources, k=10). Thresholds like
+NDCG@10 ≥ 0.100 and MRR ≥ 0.150 may overfit to this single run.
+
+### Recommendation
+- Run the evaluation 3-5 times across different index build states.
+- Compute mean ± 1σ for each metric.
+- Set gate thresholds at mean - 1.5σ (or an equivalent safety margin).
+- Document the calibration procedure in quality_gates.yaml.
+
+---
+
+## DISCOVER-004 — MAP@K Is Computed Inside compute_all_metrics, Not Exported
+
+**Date:** 2026-07
+**Status:** Confirmed (By Design)
+**Category:** API Design
+
+### Observation
+`map_at_k` is not a standalone function in `metrics.py`. MAP is computed inside
+`compute_all_metrics()` using `average_precision()` per query and then averaging.
+The CLI and dashboard expose the metric as `map@k` in the results JSON, so users
+can consume it. The internal API inconsistency is cosmetic.
+
+### Recommendation
+Either export `map_at_k` as a public function for consistency, or keep it
+internal to `compute_all_metrics`. Neither approach causes bugs, but documenting
+the design choice prevents confusion.
+
+---
+
+## DISCOVER-005 — Baseline JSON Stores Per-Query Metrics But Not Result Lists
+
+**Date:** 2026-07
+**Status:** Confirmed (By Design)
+**Category:** Data Storage
+
+### Observation
+The baseline JSON stores per-query metric values (precision, recall, NDCG per query)
+but does not store the raw result lists (resource IDs, scores, ranks per query).
+This means a comparison run can compute Quality Delta per metric but cannot
+reconstruct which specific results changed between runs.
+
+### Recommendation
+If per-result change tracking is needed in the future, extend the baseline to
+store `result_ids` and `scores` per query alongside the metrics. Currently not
+needed because the comparison report focuses on aggregate metrics.
+
+---
+
+## DISCOVER-006 — No Cross-Validation Assertions on Metric Outputs
+
+**Date:** 2026-07
+**Status:** Open
+**Category:** Evaluation Metrics
+
+### Observation
+The 14 metrics are tested individually with hand-calculated values (40 tests),
+but there is no cross-validation that ensures metrics produce consistent outputs:
+- Precision@K should always be ≤ 1.0
+- Recall@K should always be ≤ 1.0
+- NDCG@K should always be ∈ [0.0, 1.0]
+- MRR should always be ∈ [0.0, 1.0]
+- Query Coverage should always be ∈ [0.0, 1.0]
+- Must-Include Success Rate should always be ∈ [0.0, 1.0]
+
+### Recommendation
+Add a `test_metric_bounds` test that runs `compute_all_metrics` on a synthetic
+dataset and asserts all metrics are in their valid ranges. This catches regressions
+where a code change produces NaN, negative, or >1.0 metric values.

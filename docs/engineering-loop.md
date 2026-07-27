@@ -66,7 +66,21 @@ complex features where correctness must be verifiable.
 - What local fix can become a general design rule?
 - What result would not have been discovered through tests alone?
 
-### 13. Stop Condition
+### 14. Search Evaluation Loop
+A bounded, reproducible evaluation loop for the product-resource BM25 search index:
+
+1. **Freeze Baseline** — Run `search-eval evaluate --freeze` after every intentional search formula change
+2. **Golden Query Validation** — 37 queries with graded relevance (0-3), covering TR/EN/ mixed
+3. **Quality Gates** — NDCG@10 >= 0.100, MRR >= 0.200, Query Coverage >= 0.500
+4. **Comparison** — `search-eval compare --baseline` against the frozen snapshot
+5. **Hypothesis Testing** — Each evaluation run generates hypothesis validation data
+6. **Regression Detection** — Any gate failure after a non-scoring change triggers investigation
+
+The evaluation framework lives in `01-machine-learning/evaluation/search/` and is
+independent of the production search index. It can be run via CLI or the
+Search Intelligence dashboard.
+
+### 15. Stop Condition
 - All gates pass with fresh evidence.
 - All claims are backed by evidence.
 - No contradictions exist.
