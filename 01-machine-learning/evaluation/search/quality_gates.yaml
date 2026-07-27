@@ -1,0 +1,46 @@
+meta:
+  version: "2.0"
+  description: >
+    Quality gates for the product-resource BM25 search index.
+    Metric names updated for Sprint 3.2 repair: query_coverage split into
+    result_query_coverage and relevant_query_coverage.
+  baseline_commit: "a5101023"
+  baseline_calibration_notes: >
+    Gates calibrated from real baseline run with 58 golden queries,
+    286 resources, top-k=10. All gates PASS on the baseline.
+
+gates:
+  - metric: "ndcg@10"
+    operator: ">="
+    threshold: 0.100
+    description: "Minimum NDCG@10 for ranked retrieval quality (baseline: 0.1676)"
+
+  - metric: "mrr"
+    operator: ">="
+    threshold: 0.150
+    description: "Minimum MRR for first-rank relevance (baseline: 0.1882)"
+
+  - metric: "relevant_query_coverage"
+    operator: ">="
+    threshold: 0.200
+    description: "At least 20% of queries must retrieve a relevant result (baseline: 0.2586)"
+
+  - metric: "result_query_coverage"
+    operator: ">="
+    threshold: 0.800
+    description: "At least 80% of queries must return any search result (baseline: ~1.0)"
+
+  - metric: "must_include_success_rate"
+    operator: ">="
+    threshold: 0.500
+    description: "At least 50% of must-include queries pass all-or-nothing (baseline: 0.6923)"
+
+  - metric: "precision@10"
+    operator: ">="
+    threshold: 0.020
+    description: "Minimum precision@10 threshold (baseline: 0.0259)"
+
+  - metric: "recall@10"
+    operator: ">="
+    threshold: 0.100
+    description: "Minimum recall@10 threshold (baseline: 0.1782)"
