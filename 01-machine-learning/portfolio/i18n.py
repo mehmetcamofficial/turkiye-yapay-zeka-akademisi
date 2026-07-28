@@ -52,6 +52,7 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
     "nav_pipeline_diagnostics": {"tr": "Trendyol Pipeline Teşhisi", "en": "Trendyol Pipeline Diagnostics"},
     "nav_data_science_midterm": {"tr": "Veri Setine Genel Bakış", "en": "Dataset Overview"},
     "nav_data_science_final": {"tr": "Arama Zekası Araştırma Kanıtları", "en": "Search Intelligence Research Evidence"},
+    "nav_copilot": {"tr": "AI Proje Asistanı", "en": "AI Project Copilot"},
     "section_overview": {"tr": "GENEL BAKIŞ", "en": "OVERVIEW"},
     "section_ml": {"tr": "MAKİNE ÖĞRENMESİ", "en": "MACHINE LEARNING"},
     "section_search": {"tr": "ARAMA ZEKÂSI", "en": "SEARCH INTELLIGENCE"},
