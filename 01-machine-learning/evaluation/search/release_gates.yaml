@@ -1,0 +1,42 @@
+meta:
+  version: "1.0"
+  description: >
+    Official release gates for AI Project Copilot V1.
+    All reports and tests MUST read from this single source.
+    No threshold drift permitted without a documented version bump.
+
+gates:
+  - metric: "retrieval_hit_rate@5"
+    operator: ">="
+    threshold: 0.85
+    description: "Retrieval Hit Rate@5 >= 0.85: at least one expected source file among top 5 distinct files"
+
+  - metric: "citation_validity"
+    operator: "=="
+    threshold: 1.00
+    description: "Citation Validity = 1.00: every citation must reference an existing source file"
+
+  - metric: "citation_precision"
+    operator: ">="
+    threshold: 0.90
+    description: "Citation Precision >= 0.90: claims with valid supporting citations / all claims requiring citations"
+
+  - metric: "required_concept_recall"
+    operator: ">="
+    threshold: 0.80
+    description: "Required Concept Recall >= 0.80: expected concepts present in answer / total required concepts"
+
+  - metric: "unsupported_claim_rate"
+    operator: "<="
+    threshold: 0.02
+    description: "Unsupported Claim Rate <= 0.02: claims without evidence / total claims"
+
+  - metric: "no_evidence_refusal_accuracy"
+    operator: ">="
+    threshold: 0.90
+    description: "No-Evidence Refusal Accuracy >= 0.90: correct refusal for unsupported questions"
+
+  - metric: "intent_classification_accuracy"
+    operator: ">="
+    threshold: 0.80
+    description: "Intent Classification Accuracy >= 0.80: correct predictions / applicable labeled questions"

@@ -1,0 +1,227 @@
+{
+  "golden_questions": [
+    [
+      "MRR nasıl hesaplanıyor?",
+      "explain_metric",
+      [
+        "evaluator.py",
+        "metrics.py"
+      ]
+    ],
+    [
+      "NDCG@10 nedir ve nerede hesaplanıyor?",
+      "explain_metric",
+      [
+        "metrics.py",
+        "evaluator.py"
+      ]
+    ],
+    [
+      "Random Forest modeli hangi projede kullanılıyor?",
+      "find_file",
+      [
+        "churn.py",
+        "regression.py"
+      ]
+    ],
+    [
+      "Housing değer tahmininde hangi model kullanılıyor?",
+      "find_file",
+      [
+        "regression.py"
+      ]
+    ],
+    [
+      "Churn projesi ile arama projesini karşılaştır.",
+      "compare_projects",
+      [
+        "churn_service.py",
+        "search_service.py",
+        "search_index.py"
+      ]
+    ],
+    [
+      "Bu repoda hangi ana projeler var?",
+      "runtime_metadata_question",
+      []
+    ],
+    [
+      "Search Health neden bazı gate’leri skip ediyor?",
+      "explain_metric",
+      [
+        "quality_gates.yaml",
+        "metrics.py"
+      ]
+    ],
+    [
+      "Canlı inference ekranı hangi dosyalardan besleniyor?",
+      "find_file",
+      [
+        "live_inference.py"
+      ]
+    ],
+    [
+      "Mimari nasıl tasarlanmış?",
+      "architecture_question",
+      [
+        "01-machine-learning/README.md"
+      ]
+    ],
+    [
+      "Test sayısı kaç ve hangi testler var?",
+      "test_question",
+      [
+        "test_portfolio_integrity.py",
+        "test_search_evaluation.py"
+      ]
+    ],
+    [
+      "Kalite geçitleri nasıl çalışıyor?",
+      "explain_metric",
+      [
+        "quality_gates.yaml",
+        "evaluator.py"
+      ]
+    ],
+    [
+      "Cross-Encoder reranking hangi dosyada implemente edildi?",
+      "find_file",
+      [
+        "trendyol_v5.py",
+        "search_index.py"
+      ]
+    ],
+    [
+      "Sistemde kaç dosya indexlenebilir?",
+      "runtime_metadata_question",
+      []
+    ],
+    [
+      "NLP projesinde hangi model kullanılıyor?",
+      "explain_code",
+      [
+        "01-machine-learning/nlp-project/train_model.py"
+      ]
+    ],
+    [
+      "Trendyol projesinin V5 pipeline özellikleri nelerdir?",
+      "summarize_project",
+      [
+        "trendyol_v5.py",
+        "trendyol_pipeline_service.py"
+      ]
+    ],
+    [
+      "Notebook durum sayfası hangi veriyi gösterir?",
+      "find_file",
+      [
+        "notebook_status.py"
+      ]
+    ],
+    [
+      "Model registry nasıl çalışır?",
+      "architecture_question",
+      [
+        "model_registry.py"
+      ]
+    ],
+    [
+      "Deployment hazırlığı için hangi geçitler var?",
+      "test_question",
+      [
+        "deployment.py",
+        "enterprise_readiness.py"
+      ]
+    ],
+    [
+      "Envanter (inventory) sayfaları hangi dosyalardan beslenir?",
+      "find_file",
+      [
+        "data_science_overview.py"
+      ]
+    ],
+    [
+      "Varyans değerlendirmesi nasıl yapılır?",
+      "explain_metric",
+      [
+        "01-machine-learning/evaluation/search/ranking_diff.py"
+      ]
+    ],
+    [
+      "i18n sistemi nasıl çalışır?",
+      "architecture_question",
+      [
+        "01-machine-learning/portfolio/i18n.py",
+        "01-machine-learning/portfolio/pages/*.py"
+      ]
+    ],
+    [
+      "Streamlit uygulaması nasıl başlatılır?",
+      "general_repository_question",
+      [
+        "README.md",
+        "requirements.txt"
+      ]
+    ],
+    [
+      "Cache how works in search index?",
+      "explain_code",
+      [
+        "search_index.py"
+      ]
+    ],
+    [
+      "Performance summary dosyası nerede?",
+      "runtime_metadata_question",
+      [
+        "01-machine-learning/portfolio/pages/performance.py",
+        "01-machine-learning/scripts/measure_performance.py"
+      ]
+    ],
+    [
+      "Bu repo hangi branch yapılarında çalışıyor?",
+      "runtime_metadata_question",
+      [
+        "README.md",
+        "CHANGELOG.md"
+      ]
+    ],
+    [
+      "Artifact health kontrolü hangi dosyada?",
+      "find_file",
+      [
+        "artifact_health.py"
+      ]
+    ],
+    [
+      "Datasets ve their formats nelerdir?",
+      "explain_code",
+      [
+        "01-machine-learning/regression-project/DATA_SOURCE.md",
+        "01-machine-learning/customer-churn-prediction/README.md"
+      ]
+    ],
+    [
+      "Quality gate threshold değerleri ne?",
+      "explain_metric",
+      [
+        "quality_gates.yaml"
+      ]
+    ],
+    [
+      "Pipeline stages nasıl sıralanır?",
+      "architecture_question",
+      [
+        "search_index.py"
+      ]
+    ],
+    [
+      "Unsupported bir soru sorulursa neler olur?",
+      "explain_code",
+      [
+        "01-machine-learning/portfolio/copilot/safety.py",
+        "01-machine-learning/portfolio/copilot/answer.py"
+      ]
+    ]
+  ]
+}

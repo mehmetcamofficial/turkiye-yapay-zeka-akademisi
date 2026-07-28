@@ -161,6 +161,30 @@ See [ROADMAP.md](ROADMAP.md) for the full development timeline. Key completed mi
 
 ---
 
+## 🤖 AI Project Copilot
+
+An AI assistant that answers repository questions using verified evidence with inline citations.
+**Read-only.** No code execution, no external API access, no persistent memory. Built on a structure-aware index and hybrid retrieval engine.
+
+Suggested questions:
+- Repodaki ana projeleri özetle
+- MRR nerede hesaplanıyor?
+- Random Forest kullanılan dosyaları göster
+- Search Workspace mimarisini açıkla
+- Churn ve Search projelerini karşılaştır
+- Kalite geçitleri nasıl çalışıyor?
+
+Open the Copilot page from the sidebar or run:
+
+```bash
+.venv/bin/python -m streamlit run 01-machine-learning/portfolio_app.py \
+  --server.fileWatcherType none
+```
+
+Then navigate to **AI Project Copilot**.
+
+---
+
 ## 📁 Project Structure
 
 ```

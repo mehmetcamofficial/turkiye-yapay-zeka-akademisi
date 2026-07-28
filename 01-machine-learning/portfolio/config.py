@@ -45,6 +45,7 @@ NAVIGATION_GROUPS = {
     ],
     "section_model_ops": ["nav_registry", "nav_artifact_health", "nav_deployment", "nav_enterprise_readiness"],
     "section_portfolio": ["nav_projects", "nav_docs", "nav_about", "nav_notebook_status"],
+    "section_copilot": ["nav_copilot"],
 }
 
 ALL_NAV_PAGES = [p for pages in NAVIGATION_GROUPS.values() for p in pages]

@@ -56,6 +56,7 @@ NAV_ROUTES: dict[str, str] = {
     "nav_about": "about",
     "nav_notebook_status": "notebook_status",
     "nav_projects": "projects",
+    "nav_copilot": "project_copilot",
 }
 
 # All required preserved pages

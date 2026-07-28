@@ -6,8 +6,11 @@ ENV/
 
 # Python cache
 __pycache__/
+**/__pycache__/
 *.py[cod]
+*.pyc
 *$py.class
+.cache/
 
 # Model and notebook cache
 .ipynb_checkpoints/
@@ -79,4 +82,19 @@ dist/
 !01-machine-learning/artifacts/experiments/.gitkeep
 
 # Evaluation runtime outputs
+artifacts/
 artifacts/search_evaluation/
+coverage/
+htmlcov/
+generated/
+tmp/
+
+# AI Project Copilot local indexes and generated evaluation outputs
+01-machine-learning/portfolio/copilot/index/
+01-machine-learning/evaluation/search/*_result.json
+01-machine-learning/evaluation/search/*_results.json
+
+# Acceptance and research evidence is generated locally and is not a release asset
+01-machine-learning/acceptance_project_copilot/
+01-machine-language/
+01-machine-learning/01-machine-learning/

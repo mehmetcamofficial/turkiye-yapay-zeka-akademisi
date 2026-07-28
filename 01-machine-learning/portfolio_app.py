@@ -49,6 +49,7 @@ PAGE_MODULE_MAP = {
     "nav_docs": "documentation",
     "nav_about": "about",
     "nav_notebook_status": "notebook_status",
+    "nav_copilot": "project_copilot",
 }
 
 
