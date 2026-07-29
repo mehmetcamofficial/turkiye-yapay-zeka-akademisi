@@ -98,6 +98,8 @@ INTENT_WEIGHTS = {
     "general_repository_question": {"path_boost": 0.5, "symbol_boost": 0.5, "heading_boost": 1.0, "lexical_weight": 1.0, "project_boost": 0.5},
 }
 
+EXACT_FILENAME_STEM_BONUS = 1.0
+
 
 def _tokenize(text: str) -> set[str]:
     return set(re.findall(r"[a-zA-Z0-9_]+", text.lower()))
@@ -241,6 +243,12 @@ def file_alias_score(query: str, query_tokens: set[str], chunk: CopilotChunk) ->
     return min(score, 0.8)
 
 
+def exact_filename_stem_score(query_tokens: set[str], chunk: CopilotChunk) -> float:
+    """Return a fixed bonus for complete token-to-filename-stem equality."""
+    file_stem = Path(chunk.file_path).stem.lower()
+    return EXACT_FILENAME_STEM_BONUS if file_stem in query_tokens else 0.0
+
+
 @dataclass
 class RetrievalConfig:
     query_intent: str = "general"
@@ -260,6 +268,7 @@ def retrieve(query: str, chunks: list[CopilotChunk], config: RetrievalConfig | N
     weights = INTENT_WEIGHTS.get(config.query_intent, INTENT_WEIGHTS["general_repository_question"])
 
     scored: list[tuple[CopilotChunk, float]] = []
+    best_exact_stem_match: dict[str, tuple[CopilotChunk, float]] = {}
     for chunk in chunks:
         if config.project_filter and chunk.project_area != config.project_filter:
             continue
@@ -277,6 +286,16 @@ def retrieve(query: str, chunks: list[CopilotChunk], config: RetrievalConfig | N
         )
         if combined > config.min_score:
             scored.append((chunk, combined))
+            if exact_filename_stem_score(query_tokens, chunk):
+                current = best_exact_stem_match.get(chunk.file_path)
+                if current is None or combined > current[1]:
+                    best_exact_stem_match[chunk.file_path] = (chunk, combined)
+
+    boosted_chunks = {id(chunk) for chunk, _ in best_exact_stem_match.values()}
+    scored = [
+        (chunk, score + EXACT_FILENAME_STEM_BONUS if id(chunk) in boosted_chunks else score)
+        for chunk, score in scored
+    ]
 
     scored.sort(key=lambda x: x[1], reverse=True)
     return [chunk for chunk, _ in scored[: config.max_results]]
