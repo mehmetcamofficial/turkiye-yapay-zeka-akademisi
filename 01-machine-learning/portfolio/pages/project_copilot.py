@@ -8,8 +8,6 @@ def render() -> None:
     import streamlit as st
     from portfolio.i18n import t
 
-    st.set_page_config(page_title="AI Project Copilot", page_icon="AI", layout="wide")
-
     st.markdown("# AI Project Copilot")
     st.markdown(
         "**Read-only repository assistant.** Answers questions using "

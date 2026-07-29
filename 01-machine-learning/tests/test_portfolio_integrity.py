@@ -192,6 +192,7 @@ def test_all_nav_keys_have_translations() -> None:
     for nav_key in list(NAV_ROUTES) + [
         "section_overview", "section_ml", "section_search",
         "section_data_science", "section_model_ops", "section_portfolio",
+        "section_copilot",
     ]:
         assert nav_key in TRANSLATIONS, (
             f"Navigation key '{nav_key}' has no translations"
@@ -199,6 +200,35 @@ def test_all_nav_keys_have_translations() -> None:
         trans = TRANSLATIONS[nav_key]
         assert "tr" in trans, f"'{nav_key}' missing Turkish translation"
         assert "en" in trans, f"'{nav_key}' missing English translation"
+
+
+def test_copilot_section_has_readable_bilingual_labels() -> None:
+    from portfolio.i18n import TRANSLATIONS
+
+    assert TRANSLATIONS["section_copilot"] == {
+        "tr": "AI PROJE ASİSTANI",
+        "en": "AI PROJECT COPILOT",
+    }
+
+
+def test_streamlit_page_configuration_is_centralized() -> None:
+    """Only the application entry point may configure the Streamlit page."""
+    import ast
+
+    def set_page_config_calls(path: Path) -> list[ast.Call]:
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        return [
+            node
+            for node in ast.walk(tree)
+            if isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Attribute)
+            and isinstance(node.func.value, ast.Name)
+            and node.func.value.id == "st"
+            and node.func.attr == "set_page_config"
+        ]
+
+    assert len(set_page_config_calls(SRC_DIR / "portfolio_app.py")) == 1
+    assert not set_page_config_calls(PAGES_DIR / "project_copilot.py")
 
 
 # ---- Test 9: Turkish mode has no English labels (where translated) ----

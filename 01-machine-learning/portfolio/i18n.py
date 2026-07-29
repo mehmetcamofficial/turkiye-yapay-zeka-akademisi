@@ -59,6 +59,7 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
     "section_data_science": {"tr": "VERİ BİLİMİ", "en": "DATA SCIENCE"},
     "section_model_ops": {"tr": "MODEL OPERASYONLARI", "en": "MODEL OPERATIONS"},
     "section_portfolio": {"tr": "ÜRÜN KAPSAMLI", "en": "PRODUCT SCOPE"},
+    "section_copilot": {"tr": "AI PROJE ASİSTANI", "en": "AI PROJECT COPILOT"},
     "section_enterprise": {"tr": "KURUMSAL HAZIRLIK", "en": "ENTERPRISE READINESS"},
 
     "sidebar_brand": {"tr": "AI Arama ve Zekâ Platformu", "en": "AI Search & Intelligence Platform"},
