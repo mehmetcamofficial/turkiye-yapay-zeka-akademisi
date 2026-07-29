@@ -93,6 +93,58 @@ def test_unsupported_alias_expands_to_existing_answer_behavior() -> None:
     assert {"unsupported", "answer", "no", "evidence", "limitations"} <= tokens
 
 
+def test_contiguous_multiword_alias_activates() -> None:
+    from portfolio.copilot.retriever import _normalize_query
+
+    _, tokens = _normalize_query("pipeline stages nasıl sıralanır")
+    assert {"search_index", "pipeline", "stage", "ordered"} <= tokens
+
+
+def test_noncontiguous_multiword_alias_does_not_activate() -> None:
+    from portfolio.copilot.retriever import _normalize_query
+
+    _, tokens = _normalize_query("pipeline ordered stages")
+    assert "search_index" not in tokens
+
+
+def test_reversed_multiword_alias_does_not_activate() -> None:
+    from portfolio.copilot.retriever import _normalize_query
+
+    _, tokens = _normalize_query("stages pipeline")
+    assert "search_index" not in tokens
+
+
+def test_partial_substring_does_not_activate_multiword_alias() -> None:
+    from portfolio.copilot.retriever import _normalize_query
+
+    _, tokens = _normalize_query("pipeline stagesuffix")
+    assert "search_index" not in tokens
+
+
+def test_repeated_multiword_alias_preserves_set_semantics() -> None:
+    from portfolio.copilot.retriever import _normalize_query
+
+    _, once = _normalize_query("pipeline stages")
+    _, repeated = _normalize_query("pipeline stages pipeline stages")
+    assert repeated == once
+
+
+def test_overlapping_multiword_alias_expansions_are_deduplicated() -> None:
+    from portfolio.copilot.retriever import _normalize_query
+
+    _, tokens = _normalize_query("quality gate threshold")
+    assert tokens == set(tokens)
+    assert {"quality_gates", "evaluator", "metrics", "validation", "rule"} <= tokens
+
+
+def test_turkish_morphology_does_not_trigger_partial_phrase_alias() -> None:
+    from portfolio.copilot.retriever import _normalize_query
+
+    _, tokens = _normalize_query("Kalite geçitleri nasıl çalışıyor?")
+    assert "quality_gates" not in tokens
+    assert "evaluator" not in tokens
+
+
 def test_no_evidence_answer_is_marked_unsupported() -> None:
     answer = generate_answer("unsupported question", [], intent="explain_code")
     assert answer.unsupported is True

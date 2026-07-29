@@ -115,12 +115,29 @@ def _split_snake_pascal(text: str) -> set[str]:
     return tokens
 
 
+def _multiword_alias_expansions(normalized_query: str) -> set[str]:
+    query_tokens = re.findall(r"\w+", normalized_query, flags=re.UNICODE)
+    expanded: set[str] = set()
+    for alias, expansion in ALIAS_MAP.items():
+        alias_tokens = re.findall(r"\w+", alias, flags=re.UNICODE)
+        if len(alias_tokens) < 2:
+            continue
+        phrase_length = len(alias_tokens)
+        if any(
+            query_tokens[index:index + phrase_length] == alias_tokens
+            for index in range(len(query_tokens) - phrase_length + 1)
+        ):
+            expanded.update(re.findall(r"[a-zA-Z0-9_]+", expansion))
+    return expanded
+
+
 def _normalize_query(query: str) -> tuple[str, set[str]]:
     q = query.lower().strip()
     q = q.replace("?", "").replace("!", "").replace(":", " ").replace(",", " ")
     q = re.sub(r"[\s]+", " ", q)
     parts = set(re.findall(r"[a-zA-Z0-9_]+", q))
     expanded: set[str] = set(parts)
+    expanded.update(_multiword_alias_expansions(q))
     for token in list(parts):
         if token in ALIAS_MAP:
             expanded.update(re.findall(r"[a-zA-Z0-9_]+", ALIAS_MAP[token]))
