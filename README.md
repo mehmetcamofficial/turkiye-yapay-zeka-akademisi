@@ -214,6 +214,14 @@ Improvements welcome for:
 
 Open an issue before substantial changes.
 
+### Branch and release workflow
+
+`main` is the stable integration branch. Development is performed on focused
+feature branches, including `feature/ai-project-copilot-v1` and
+`feature/ai-project-copilot-v2`, and merged into `main` through pull requests.
+Validated releases may be marked with annotated version tags; for example,
+AI Project Copilot V1 is tagged `ai-project-copilot-v1.0.0`.
+
 ---
 
 ## 📄 License

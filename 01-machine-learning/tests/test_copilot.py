@@ -14,6 +14,42 @@ from portfolio.copilot.safety import is_secret_file, is_sensitive_content, is_wi
 from portfolio.copilot.memory import ConversationMemory
 
 
+def test_turkish_search_alias_expands_arama() -> None:
+    from portfolio.copilot.retriever import _normalize_query
+
+    _, tokens = _normalize_query("arama projesi")
+    assert "arama" in tokens
+    assert "search" in tokens
+
+
+def test_existing_turkish_alias_still_expands_envanter() -> None:
+    from portfolio.copilot.retriever import _normalize_query
+
+    _, tokens = _normalize_query("envanter")
+    assert tokens == {"envanter", "inventory"}
+
+
+def test_unrelated_token_is_not_rewritten() -> None:
+    from portfolio.copilot.retriever import _normalize_query
+
+    _, tokens = _normalize_query("benzersizkelime")
+    assert tokens == {"benzersizkelime"}
+
+
+def test_unsupported_alias_expands_to_existing_answer_behavior() -> None:
+    from portfolio.copilot.retriever import _normalize_query
+
+    _, tokens = _normalize_query("unsupported")
+    assert {"unsupported", "answer", "no", "evidence", "limitations"} <= tokens
+
+
+def test_no_evidence_answer_is_marked_unsupported() -> None:
+    answer = generate_answer("unsupported question", [], intent="explain_code")
+    assert answer.unsupported is True
+    assert answer.confidence == "No evidence"
+    assert answer.limitations is not None
+
+
 def test_indexer_returns_chunks() -> None:
     chunks = index_repository(REPO_ROOT)
     assert len(chunks) > 0
