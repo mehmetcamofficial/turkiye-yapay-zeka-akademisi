@@ -166,6 +166,22 @@ See [ROADMAP.md](ROADMAP.md) for the full development timeline. Key completed mi
 An AI assistant that answers repository questions using verified evidence with inline citations.
 **Read-only.** No code execution, no external API access, no persistent memory. Built on a structure-aware index and hybrid retrieval engine.
 
+### Current status
+
+- Development line: **AI Project Copilot V2**
+- Latest stable release: **`ai-project-copilot-v1.0.0`**
+- Retrieval@5: **22/28**
+- Intent accuracy: **28/30**
+- Citation validity: **30/30**
+- Citation precision: **30/30**
+- Required concept recall: **36/48**
+- Unsupported claims: **0/30**
+- Public test suite: **286 passed**
+
+Milestones: V1.0.0 release → production hotfix → V2 Sprint 1A → V2 Sprint 1B.
+See the [Sprint 1B engineering report](docs/engineering/copilot/v2-sprint-1b.md)
+for design decisions, validation evidence, and known limitations.
+
 Suggested questions:
 - Repodaki ana projeleri özetle
 - MRR nerede hesaplanıyor?

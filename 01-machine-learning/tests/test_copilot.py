@@ -14,6 +14,56 @@ from portfolio.copilot.safety import is_secret_file, is_sensitive_content, is_wi
 from portfolio.copilot.memory import ConversationMemory
 
 
+def _chunk_for_path(file_path: str):
+    from portfolio.copilot.schema import CopilotChunk
+
+    return CopilotChunk(
+        chunk_id="test:1",
+        document_id="test",
+        file_path=file_path,
+        file_type="python",
+        project_area="portfolio",
+        text="test content",
+        start_line=1,
+        end_line=1,
+        cell_index=None,
+        cell_type=None,
+    )
+
+
+def test_exact_filename_stem_match_receives_fixed_bonus() -> None:
+    from portfolio.copilot.retriever import EXACT_FILENAME_STEM_BONUS, exact_filename_stem_score
+
+    assert exact_filename_stem_score({"regression"}, _chunk_for_path("portfolio/pages/regression.py")) == EXACT_FILENAME_STEM_BONUS
+
+
+def test_partial_filename_stem_does_not_receive_bonus() -> None:
+    from portfolio.copilot.retriever import exact_filename_stem_score
+
+    assert exact_filename_stem_score({"regress"}, _chunk_for_path("portfolio/pages/regression.py")) == 0.0
+
+
+def test_unrelated_filename_does_not_receive_stem_bonus() -> None:
+    from portfolio.copilot.retriever import exact_filename_stem_score
+
+    assert exact_filename_stem_score({"housing"}, _chunk_for_path("portfolio/pages/regression.py")) == 0.0
+
+
+def test_repeated_exact_token_does_not_multiply_stem_bonus() -> None:
+    from portfolio.copilot.retriever import EXACT_FILENAME_STEM_BONUS, _normalize_query, exact_filename_stem_score
+
+    _, tokens = _normalize_query("i18n i18n i18n")
+    assert exact_filename_stem_score(tokens, _chunk_for_path("portfolio/i18n.py")) == EXACT_FILENAME_STEM_BONUS
+
+
+def test_nonmatching_stem_leaves_existing_score_unchanged() -> None:
+    from portfolio.copilot.retriever import exact_filename_stem_score
+
+    base_score = 2.5
+    bonus = exact_filename_stem_score({"housing"}, _chunk_for_path("portfolio/pages/regression.py"))
+    assert base_score + bonus == base_score
+
+
 def test_turkish_search_alias_expands_arama() -> None:
     from portfolio.copilot.retriever import _normalize_query
 
