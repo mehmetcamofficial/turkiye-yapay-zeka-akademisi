@@ -110,8 +110,26 @@ INTENT_KEYWORDS = {
 }
 
 
+FILE_LOCATION_PATTERNS = (
+    "hangi dosyada",
+    "which file",
+    "in which file",
+    "where is the file",
+)
+
+DECLARATION_CUES = ("class", "def", "function", "method", "import")
+
+
 def classify_intent(query: str) -> str:
     q_lower = query.lower().strip()
+    has_file_location = any(pattern in q_lower for pattern in FILE_LOCATION_PATTERNS)
+    has_declaration_cue = any(
+        re.search(rf"\b{re.escape(cue)}\b", q_lower)
+        for cue in DECLARATION_CUES
+    )
+    if has_file_location:
+        return "locate_symbol" if has_declaration_cue else "find_file"
+
     scores: dict[str, int] = {}
 
     # GQ14: "NLP projesinde hangi model kullanılıyor" -> explain_code
@@ -133,10 +151,6 @@ def classify_intent(query: str) -> str:
     # GQ06: "Bu repoda hangi ana projeler var" -> runtime_metadata_question
     if "ana proje" in q_lower or "main project" in q_lower:
         scores["runtime_metadata_question"] = scores.get("runtime_metadata_question", 0) + 5
-
-    # GQ12: "hangi dosyada implemente" -> locate_symbol
-    if "hangi dosyada implemente" in q_lower or "implemented in which file" in q_lower:
-        scores["locate_symbol"] = scores.get("locate_symbol", 0) + 5
 
     # GQ16: "hangi veriyi göster" -> find_file
     if "hangi veriyi göster" in q_lower or "which data.*show" in q_lower:
@@ -179,10 +193,6 @@ def classify_intent(query: str) -> str:
     # GQ06: "ana proje" -> runtime_metadata_question
     if "ana proje" in q_lower or "main project" in q_lower:
         scores["runtime_metadata_question"] = scores.get("runtime_metadata_question", 0) + 5
-
-    # GQ12: "hangi dosyada implemente" -> locate_symbol
-    if "hangi dosyada implemente" in q_lower or "implemented in which file" in q_lower:
-        scores["locate_symbol"] = scores.get("locate_symbol", 0) + 5
 
     # GQ14: "NLP projesinde hangi model" -> explain_code
     if "nlp" in q_lower and "hangi model" in q_lower:
