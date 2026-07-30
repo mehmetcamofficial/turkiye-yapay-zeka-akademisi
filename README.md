@@ -1,5 +1,14 @@
 # Türkiye Yapay Zeka Akademisi — AI & Search Intelligence Engineering Portfolio
 
+> Engineering handbook: [docs/README.md](docs/README.md) · current snapshot:
+> [CURRENT_STATE.md](CURRENT_STATE.md) · living project book:
+> [PROJECT_BOOK.md](PROJECT_BOOK.md)
+
+Engineering views: [status](STATUS.md) · [timeline](TIMELINE.md) ·
+[lessons](LESSONS.md) · [decision tree](DECISION_TREE.md) ·
+[human–AI workflow](AI_COLLABORATION.md) ·
+[metrics dashboard](metrics/dashboard.md)
+
 > **End-to-end ML & IR systems** built with engineering rigor, reproducible evaluation, and production-grade governance.
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/downloads/release/python-3120/)

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "releases": [
+    {
+      "name": "AI Project Copilot V1.0.0",
+      "tag": "ai-project-copilot-v1.0.0",
+      "date": "2026-07-29",
+      "commit": "1064814eda569b10cd8d6c42242a980c841eb61b",
+      "source": "git tag --format",
+      "confidence": "confirmed"
+    }
+  ]
+}
+

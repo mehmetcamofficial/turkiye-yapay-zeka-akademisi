@@ -1,0 +1,23 @@
+version: 1
+hypotheses:
+  - id: HYP-0001
+    statement: Hybrid fusion can complement lexical product retrieval.
+    status: supported_with_limitations
+    experiment: EXP-0001
+    evidence: docs/engineering/experiments/EXP-0001-trendyol-retrieval.md
+  - id: HYP-0002
+    statement: Exact filename stems are strong repository-location evidence.
+    status: supported
+    experiment: EXP-0002
+    evidence: docs/engineering/experiments/EXP-0002-filename-stem.md
+  - id: HYP-0003
+    statement: Exact configured phrases can improve Copilot retrieval safely.
+    status: supported
+    experiment: EXP-0003
+    evidence: docs/engineering/copilot/v2-sprint-2-analysis.md
+  - id: HYP-0004
+    statement: Explicit file wording should precede generic symbol intent.
+    status: supported
+    experiment: EXP-0003
+    evidence: docs/engineering/copilot/v2-sprint-3-analysis.md
+

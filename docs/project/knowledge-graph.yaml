@@ -1,0 +1,137 @@
+version: 1
+repository: REPO-0001
+nodes:
+  - id: REPO-0001
+    type: repository
+    label: Türkiye Yapay Zekâ Akademisi
+    evidence: README.md
+  - id: PROJ-CHURN
+    type: project
+    label: Customer Churn Prediction
+    evidence: docs/projects/customer-churn.md
+  - id: PROJ-HOUSING
+    type: project
+    label: California Housing Regression
+    evidence: docs/projects/housing-regression.md
+  - id: PROJ-NLP
+    type: project
+    label: UCI Sentiment NLP
+    evidence: docs/projects/sentiment-nlp.md
+  - id: PROJ-TRENDYOL
+    type: project
+    label: Trendyol Search Relevance
+    evidence: docs/projects/trendyol-search-relevance.md
+  - id: SUBSYS-PORTFOLIO
+    type: subsystem
+    label: Streamlit Portfolio
+    evidence: docs/projects/portfolio-platform.md
+  - id: SUBSYS-COPILOT
+    type: subsystem
+    label: AI Project Copilot
+    evidence: docs/projects/ai-project-copilot.md
+  - id: MODEL-RRF
+    type: model
+    label: Hybrid RRF heuristic ranker
+    evidence: docs/models/model-inventory.yaml
+  - id: MODEL-CROSS-ENCODER
+    type: model
+    label: mMARCO MiniLM cross-encoder
+    evidence: docs/models/model-inventory.yaml
+  - id: TASK-0008
+    type: task
+    label: AI Project Copilot V1
+    evidence: docs/engineering/tasks/TASK-0008-copilot-v1.md
+  - id: EXP-0002
+    type: experiment
+    label: Exact filename-stem boost
+    evidence: docs/engineering/experiments/EXP-0002-filename-stem.md
+  - id: FAIL-0003
+    type: failure
+    label: Explicit file query misclassified
+    evidence: docs/engineering/failures/FAIL-0003-file-intent.md
+  - id: ADR-0002
+    type: ADR
+    label: Read-only repository-grounded Copilot
+    evidence: docs/engineering/decisions/ADR-0002-read-only-copilot.md
+  - id: RELEASE-COPILOT-V1
+    type: release
+    label: ai-project-copilot-v1.0.0
+    evidence: metrics/releases.json
+  - {id: TIMELINE-REPOSITORY, type: timeline, label: Canonical repository timeline, evidence: TIMELINE.md}
+  - {id: LESSON-0005, type: lesson, label: Intent errors can look like retrieval errors, evidence: LESSONS.md}
+  - {id: ARCH-STANDALONE-ML, type: architecture_stage, label: Standalone model workflows, evidence: docs/architecture/architecture-evolution.md}
+  - {id: ARCH-PORTFOLIO, type: architecture_stage, label: Unified multi-page portfolio, evidence: docs/architecture/architecture-evolution.md}
+  - {id: ARCH-SEARCH-EVAL, type: architecture_stage, label: Search and evaluation workspace, evidence: docs/architecture/architecture-evolution.md}
+  - {id: ARCH-COPILOT, type: architecture_stage, label: AI Project Copilot, evidence: docs/architecture/architecture-evolution.md}
+  - {id: DOCSYS-V1, type: documentation_system, label: Engineering Knowledge System V1, evidence: docs/README.md}
+  - {id: TASK-0013, type: task, label: Documentation Sprint D1 / Knowledge System V1.1, evidence: docs/engineering/tasks/TASK-0013-documentation-knowledge-system-v1-1.md}
+  - {id: METRIC-COPILOT-SPRINT3, type: metric_snapshot, label: Copilot V2 Sprint 3 metrics, evidence: metrics/history.json}
+  - {id: OPEN-GQ03, type: open_problem, label: Random Forest compound evidence miss, evidence: docs/engineering/copilot/v2-sprint-3-analysis.md}
+  - {id: OPEN-GQ11, type: open_problem, label: Turkish morphology quality-gate miss, evidence: docs/engineering/copilot/v2-sprint-3-analysis.md}
+  - {id: OPEN-GQ19, type: open_problem, label: Oversized inventory chunk evidence loss, evidence: docs/engineering/copilot/v2-sprint-3-analysis.md}
+  - {id: OPEN-GQ25, type: open_problem, label: Branch documentation ranking miss, evidence: docs/engineering/copilot/v2-sprint-3-analysis.md}
+relationships:
+  - from: REPO-0001
+    to: PROJ-CHURN
+    type: contains
+    confidence: confirmed
+  - from: REPO-0001
+    to: PROJ-HOUSING
+    type: contains
+    confidence: confirmed
+  - from: REPO-0001
+    to: PROJ-NLP
+    type: contains
+    confidence: confirmed
+  - from: REPO-0001
+    to: PROJ-TRENDYOL
+    type: contains
+    confidence: confirmed
+  - from: REPO-0001
+    to: SUBSYS-PORTFOLIO
+    type: contains
+    confidence: confirmed
+  - from: SUBSYS-PORTFOLIO
+    to: SUBSYS-COPILOT
+    type: contains
+    confidence: confirmed
+  - from: PROJ-TRENDYOL
+    to: MODEL-RRF
+    type: uses
+    confidence: confirmed
+  - from: PROJ-TRENDYOL
+    to: MODEL-CROSS-ENCODER
+    type: uses
+    confidence: confirmed
+  - from: TASK-0008
+    to: SUBSYS-COPILOT
+    type: introduced_by
+    confidence: confirmed
+  - from: EXP-0002
+    to: SUBSYS-COPILOT
+    type: improves
+    confidence: confirmed
+  - from: FAIL-0003
+    to: SUBSYS-COPILOT
+    type: addresses
+    confidence: confirmed
+  - from: SUBSYS-COPILOT
+    to: RELEASE-COPILOT-V1
+    type: released_as
+    confidence: confirmed
+  - {from: TIMELINE-REPOSITORY, to: REPO-0001, type: documented_by, confidence: confirmed}
+  - {from: LESSON-0005, to: FAIL-0003, type: related_to, confidence: confirmed}
+  - {from: ARCH-STANDALONE-ML, to: ARCH-PORTFOLIO, type: supersedes, confidence: strong}
+  - {from: ARCH-PORTFOLIO, to: ARCH-SEARCH-EVAL, type: supersedes, confidence: confirmed}
+  - {from: ARCH-SEARCH-EVAL, to: ARCH-COPILOT, type: supersedes, confidence: confirmed}
+  - {from: REPO-0001, to: DOCSYS-V1, type: documented_by, confidence: confirmed}
+  - {from: TASK-0013, to: DOCSYS-V1, type: changed_by, confidence: confirmed}
+  - {from: METRIC-COPILOT-SPRINT3, to: SUBSYS-COPILOT, type: validates, confidence: confirmed}
+  - {from: OPEN-GQ03, to: SUBSYS-COPILOT, type: related_to, confidence: confirmed}
+  - {from: OPEN-GQ11, to: SUBSYS-COPILOT, type: related_to, confidence: confirmed}
+  - {from: OPEN-GQ19, to: SUBSYS-COPILOT, type: related_to, confidence: confirmed}
+  - {from: OPEN-GQ25, to: SUBSYS-COPILOT, type: related_to, confidence: confirmed}
+  - {from: OPEN-GQ03, to: METRIC-COPILOT-SPRINT3, type: related_to, confidence: confirmed}
+  - {from: OPEN-GQ11, to: METRIC-COPILOT-SPRINT3, type: related_to, confidence: confirmed}
+  - {from: OPEN-GQ19, to: METRIC-COPILOT-SPRINT3, type: related_to, confidence: confirmed}
+  - {from: OPEN-GQ25, to: METRIC-COPILOT-SPRINT3, type: related_to, confidence: confirmed}

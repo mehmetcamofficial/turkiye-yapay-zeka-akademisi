@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "records": [
+    {"date":"2026-07-21","version":null,"phase":"customer-churn","task":"TASK-0002","commit":"bdbd1b2c","metric":"roc_auc","value":0.8440,"denominator":null,"source":"01-machine-learning/customer-churn-prediction/README.md","confidence":"confirmed"},
+    {"date":"2026-07-21","version":null,"phase":"housing-regression","task":"TASK-0003","commit":"5ed3f3a1","metric":"rmse","value":0.5121,"denominator":null,"source":"01-machine-learning/regression-project/README.md","confidence":"confirmed"},
+    {"date":"2026-07-21","version":null,"phase":"sentiment-nlp","task":"TASK-0003","commit":"5ed3f3a1","metric":"f1","value":0.8212,"denominator":null,"source":"01-machine-learning/nlp-project/README.md","confidence":"confirmed"},
+    {"date":"2026-07-25","version":"V5","phase":"trendyol-reranking","task":"TASK-0005","commit":"4db73a6b","metric":"ndcg_at_10","value":0.6785,"denominator":150,"source":"01-machine-learning/trendyol-search-relevance/reports/V5_EMPLOYER_REVIEW.md","confidence":"confirmed"},
+    {"date":"2026-07-25","version":"V5","phase":"trendyol-reranking","task":"TASK-0005","commit":"4db73a6b","metric":"mrr","value":0.7720,"denominator":150,"source":"01-machine-learning/trendyol-search-relevance/reports/V5_EMPLOYER_REVIEW.md","confidence":"confirmed"},
+    {"date":"2026-07-29","version":"V2 Sprint 1A","phase":"copilot","task":"TASK-0010","commit":"75929c01","metric":"retrieval_at_5","value":19,"denominator":28,"source":"docs/engineering/copilot/v2-sprint-1b.md","confidence":"confirmed"},
+    {"date":"2026-07-30","version":"V2 Sprint 1B","phase":"copilot","task":"TASK-0010","commit":"df3171ed","metric":"retrieval_at_5","value":22,"denominator":28,"source":"docs/engineering/copilot/v2-sprint-1b.md","confidence":"confirmed"},
+    {"date":"2026-07-30","version":"V2 Sprint 2","phase":"copilot","task":"TASK-0011","commit":"17b512fb","metric":"retrieval_at_5","value":23,"denominator":28,"source":"docs/engineering/copilot/v2-sprint-2-analysis.md","confidence":"confirmed"},
+    {"date":"2026-07-30","version":"V2 Sprint 3","phase":"copilot","task":"TASK-0012","commit":"e3bbaf43","metric":"retrieval_at_5","value":24,"denominator":28,"source":"docs/engineering/copilot/v2-sprint-3-analysis.md","confidence":"confirmed"},
+    {"date":"2026-07-30","version":"V2 Sprint 3","phase":"copilot","task":"TASK-0012","commit":"e3bbaf43","metric":"intent_accuracy","value":29,"denominator":30,"source":"docs/engineering/copilot/v2-sprint-3-analysis.md","confidence":"confirmed"},
+    {"date":"2026-07-30","version":"V2 Sprint 3","phase":"copilot","task":"TASK-0012","commit":"e3bbaf43","metric":"required_concept_recall","value":39,"denominator":48,"source":"docs/engineering/copilot/v2-sprint-3-analysis.md","confidence":"confirmed"}
+  ]
+}
+
