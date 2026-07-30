@@ -184,6 +184,42 @@ def test_intent_classification_file() -> None:
     assert classify_intent("dosya nerede") == "find_file"
 
 
+def test_explicit_turkish_file_location_prefers_find_file() -> None:
+    assert classify_intent("Cross-Encoder reranking hangi dosyada implemente edildi?") == "find_file"
+
+
+def test_explicit_english_file_location_prefers_find_file() -> None:
+    assert classify_intent("Which file implements reranking?") == "find_file"
+
+
+def test_class_declaration_query_remains_locate_symbol() -> None:
+    assert classify_intent("Which file contains class SearchIndex?") == "locate_symbol"
+
+
+def test_def_declaration_query_remains_locate_symbol() -> None:
+    assert classify_intent("Which file contains def build_index?") == "locate_symbol"
+
+
+def test_function_declaration_query_remains_locate_symbol() -> None:
+    assert classify_intent("Which file contains function build_index?") == "locate_symbol"
+
+
+def test_method_declaration_query_remains_locate_symbol() -> None:
+    assert classify_intent("Which file contains method search?") == "locate_symbol"
+
+
+def test_import_declaration_query_remains_locate_symbol() -> None:
+    assert classify_intent("Which file contains import pathlib?") == "locate_symbol"
+
+
+def test_gq05_compare_projects_behavior_is_unchanged() -> None:
+    assert classify_intent("Churn projesi ile arama projesini karşılaştır.") == "compare_projects"
+
+
+def test_unrelated_metric_intent_is_unchanged() -> None:
+    assert classify_intent("NDCG skoru nasıl hesaplanır?") == "explain_metric"
+
+
 def test_intent_classification_compare() -> None:
     assert classify_intent("karşılaştır") == "compare_projects"
 
