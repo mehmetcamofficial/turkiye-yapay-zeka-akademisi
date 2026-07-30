@@ -1,0 +1,212 @@
+version: 1
+models:
+  - id: MODEL-CHURN-LOGREG
+    name: Logistic Regression churn pipeline
+    family: predictive_model
+    status: implemented_selected
+    project: customer-churn
+    source_files: [01-machine-learning/customer-churn-prediction/train_model.py]
+    task: TASK-0002
+    role: binary classification
+    input: cleaned customer attributes
+    output: churn class and probability
+    training: train/validation/test with cross-validation and grid search
+    inference: persisted churn_model.pkl
+    preprocessing: imputation, encoding, feature engineering, L1 selection
+    metrics: {roc_auc: 0.8440}
+    dependencies: [scikit-learn, pandas, joblib]
+    dataset: Telco Customer Churn
+    limitations: educational data; external validity unknown
+    evidence: 01-machine-learning/customer-churn-prediction/README.md
+    confidence: confirmed
+  - id: MODEL-HOUSING-RF
+    name: Random Forest Regressor
+    family: predictive_model
+    status: implemented_selected
+    project: housing-regression
+    source_files: [01-machine-learning/regression-project/train_model.py]
+    task: TASK-0003
+    role: regression
+    input: California Housing numeric features
+    output: median house value estimate
+    training: model comparison and persisted final fit
+    inference: regression_model.pkl
+    preprocessing: numeric preparation
+    metrics: {mae: 0.3346, rmse: 0.5121, r2: 0.8087}
+    dependencies: [scikit-learn, pandas, joblib]
+    dataset: California Housing
+    limitations: geographic and temporal transfer unknown
+    evidence: 01-machine-learning/regression-project/README.md
+    confidence: confirmed
+  - id: MODEL-NLP-MNB
+    name: TF-IDF Multinomial Naive Bayes
+    family: predictive_model
+    status: implemented_selected
+    project: sentiment-nlp
+    source_files: [01-machine-learning/nlp-project/train_model.py]
+    task: TASK-0003
+    role: English sentiment classification
+    input: review sentence
+    output: positive or negative label
+    training: TF-IDF model comparison and tuning
+    inference: nlp_pipeline.pkl
+    preprocessing: word n-gram TF-IDF
+    metrics: {accuracy: 0.8191, f1: 0.8212}
+    dependencies: [scikit-learn, pandas, joblib]
+    dataset: UCI Sentiment Labelled Sentences
+    limitations: English-only and small benchmark
+    evidence: 01-machine-learning/nlp-project/README.md
+    confidence: confirmed
+  - id: MODEL-TRENDYOL-V1
+    name: TF-IDF Logistic Regression relevance classifier
+    family: predictive_model
+    status: implemented_verified_champion
+    project: trendyol-search-relevance
+    source_files: [01-machine-learning/trendyol-search-relevance/train.py]
+    task: TASK-0005
+    role: query-product relevance classification
+    input: query and product text/features
+    output: relevance probability/class
+    training: grouped split and model comparison
+    inference: trendyol_relevance_pipeline.pkl
+    preprocessing: word/character TF-IDF and pair features
+    metrics: {}
+    dependencies: [scikit-learn, pandas]
+    dataset: tracked Trendyol relevance samples
+    limitations: historical snapshot; scope documented in project reports
+    evidence: 01-machine-learning/trendyol-search-relevance/README.md
+    confidence: confirmed
+  - id: MODEL-TRENDYOL-V2-CHALLENGERS
+    name: Linear, tree, and XGBoost challengers
+    family: predictive_and_ranking_models
+    status: experimental_not_promoted
+    project: trendyol-search-relevance
+    source_files: [01-machine-learning/trendyol-search-relevance/v2_experiments.py, 01-machine-learning/trendyol-search-relevance/v21_evaluation.py]
+    task: TASK-0005
+    role: relevance classification and learning-to-rank comparison
+    input: engineered query-product features
+    output: class probabilities or ranking scores
+    training: multi-model, multi-seed evaluation
+    inference: selected candidate artifacts exist; not runtime promoted
+    preprocessing: TF-IDF, dense pair features, hard-negative variants
+    metrics: {}
+    dependencies: [scikit-learn, xgboost]
+    dataset: Trendyol evaluation dataset
+    limitations: candidate status differs by artifact
+    evidence: 01-machine-learning/trendyol-search-relevance/reports/EMPLOYER_REVIEW.md
+    confidence: confirmed
+  - id: MODEL-TRENDYOL-LEXICAL
+    name: TF-IDF and BM25 retrievers
+    family: retrieval_model
+    status: implemented
+    project: trendyol-search-relevance
+    source_files: [01-machine-learning/trendyol-search-relevance/retrieval/lexical.py]
+    task: TASK-0005
+    role: candidate generation
+    input: normalized query and product corpus
+    output: ranked candidates
+    training: sparse index fitting
+    inference: local lexical index
+    preprocessing: Turkish-aware normalization and n-grams
+    metrics: {tfidf_recall_at_50: 0.817239}
+    dependencies: [scikit-learn, numpy]
+    dataset: bounded product catalogue and judgments
+    limitations: lexical formulation sensitivity
+    evidence: 01-machine-learning/trendyol-search-relevance/reports/V3_STATISTICAL_COMPARISON.md
+    confidence: confirmed
+  - id: MODEL-TRENDYOL-E5
+    name: multilingual E5 semantic retriever
+    family: retrieval_model
+    status: experimental_local_asset_required
+    project: trendyol-search-relevance
+    source_files: [01-machine-learning/trendyol-search-relevance/retrieval/semantic.py]
+    task: TASK-0005
+    role: semantic candidate generation
+    input: prefixed query and product text
+    output: cosine-ranked candidates
+    training: pretrained model; no repository fine-tuning evidenced
+    inference: ignored pinned local snapshot
+    preprocessing: query/passage prefixes and normalized embeddings
+    metrics: {recall_at_50: 0.725147}
+    dependencies: [sentence-transformers, transformers, numpy]
+    dataset: Trendyol retrieval evaluation set
+    limitations: standalone underperformed TF-IDF; model cache required
+    evidence: 01-machine-learning/trendyol-search-relevance/reports/V3_1_STATISTICAL_COMPARISON.md
+    confidence: confirmed
+  - id: MODEL-TRENDYOL-RRF
+    name: Hybrid Reciprocal Rank Fusion
+    family: heuristic_ranker
+    status: selected_retrieval_only_research_policy
+    project: trendyol-search-relevance
+    source_files: [01-machine-learning/trendyol-search-relevance/retrieval/hybrid.py]
+    task: TASK-0005
+    role: fuse lexical and semantic rankings
+    input: ranked candidate lists
+    output: fused ranking
+    training: validation-only parameter selection
+    inference: V4 pipeline policy
+    preprocessing: ranked-list fusion
+    metrics: {recall_at_50: 0.831392, ndcg_at_10_delta: 0.014783, mrr_delta: 0.026666}
+    dependencies: [numpy]
+    dataset: Trendyol retrieval evaluation set
+    limitations: uncertainty intervals include small/zero effects for some metrics
+    evidence: 01-machine-learning/trendyol-search-relevance/reports/V3_1_STATISTICAL_COMPARISON.md
+    confidence: confirmed
+  - id: MODEL-TRENDYOL-CROSS-ENCODER
+    name: mMARCO MiniLM-L12 Cross-Encoder
+    family: ranking_model
+    status: best_research_candidate_not_promoted
+    project: trendyol-search-relevance
+    source_files: [01-machine-learning/trendyol-search-relevance/search_pipeline/cross_encoder_service.py]
+    task: TASK-0005
+    role: rerank a bounded Hybrid RRF candidate pool
+    input: query-document pairs
+    output: per-query ranking logits
+    training: pretrained; repository evaluates policy and document variants
+    inference: cached local CPU service with fallback
+    preprocessing: title and bounded metadata pair construction
+    metrics: {ndcg_at_10: 0.6785, mrr: 0.7720}
+    dependencies: [sentence-transformers, transformers, torch]
+    dataset: 150-query holdout documented by V5 reports
+    limitations: not production promoted; local model asset and CPU cost
+    evidence: 01-machine-learning/trendyol-search-relevance/reports/V5_EMPLOYER_REVIEW.md
+    confidence: confirmed
+  - id: MODEL-COPILOT-RETRIEVER
+    name: Copilot weighted lexical and structural retriever
+    family: heuristic_scorer
+    status: implemented
+    project: ai-project-copilot
+    source_files: [01-machine-learning/portfolio/copilot/retriever.py]
+    task: TASK-0012
+    role: rank repository chunks
+    input: query, intent, indexed chunks
+    output: top repository evidence chunks
+    training: none
+    inference: deterministic local scoring
+    preprocessing: strict aliases, tokenization, identifier splitting
+    metrics: {retrieval_at_5_numerator: 24, retrieval_at_5_denominator: 28}
+    dependencies: [python-standard-library]
+    dataset: copilot_golden.json for evaluation only
+    limitations: lexical, morphology, and chunk-evidence gaps remain
+    evidence: docs/engineering/copilot/v2-sprint-3-analysis.md
+    confidence: confirmed
+  - id: MODEL-EVALUATION-METRICS
+    name: Search and Copilot metric suite
+    family: evaluation_component
+    status: implemented_protected
+    project: repository-search-evaluation
+    source_files: [01-machine-learning/evaluation/search/metrics.py, 01-machine-learning/evaluation/search/official_evaluation.py]
+    task: TASK-0007
+    role: offline measurement and release gating
+    input: retrieved results, judgments, answers, citations
+    output: metrics and gate results
+    training: none
+    inference: offline evaluation
+    preprocessing: canonical accepted-target matching
+    metrics: {}
+    dependencies: [numpy, yaml]
+    dataset: golden_queries.yaml and copilot_golden.json
+    limitations: benchmark scope and denominator definitions must remain explicit
+    evidence: docs/architecture/evaluation-architecture.md
+    confidence: confirmed
+

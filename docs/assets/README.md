@@ -1,4 +1,9 @@
-# Screenshot Assets
+# Documentation Assets
+
+The canonical registry is [manifest.yaml](manifest.yaml), with policy in
+[screenshots](screenshots/README.md) and [figures](figures/README.md).
+
+## Legacy planned captures
 
 Intended future screenshots for the root README and portfolio documentation:
 
